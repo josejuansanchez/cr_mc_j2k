@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_in::kdu_image_in) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ge_in__kdu_image_in__1.html"> prev </A>||<A HREF="kdu$ge_in__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_in::kdu_image_in</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$ge_in__kdu_image_in__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"> kdu_image_in(
+<B>const char *</B>&nbsp;fname,
+<A HREF ="kdu$_dims.html">kdu_image_dims</A>&nbsp;&amp;&nbsp;dims,
+<B>int</B>&nbsp;&amp;&nbsp;next_comp_idx,
+<B>bool</B>&nbsp;&amp;&nbsp;vflip,
+<A HREF ="kdu$lette.html">kdu_rgb8_palette</A>&nbsp;*&nbsp;palette=NULL,
+<B>kdu_long</B>&nbsp;skip_bytes=0,
+<B>bool</B>&nbsp;quiet=false)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$ge_in.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Attempts to open a file with the indicated name, generating
+an error message (through 
+<A HREF="kdu_error.html">kdu_error</A>) if unsuccessful. It automatically creates and installs
+an appropriate internal file reading object, based
+on the file suffix or some other property (e.g., a
+magic number found at the start of the file). The method
+used to ascertain the file format and the set of file
+formats which are supported is entirely dependent on
+the implementation.
+</P><P>
+ Component indices for the image components represented
+by the file start from the value supplied via the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#next_comp_idx">next_comp_idx</A> argument. These component indices are used to access
+dimensional and other parameters for the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#dims">dims</A> object. Upon return, the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#next_comp_idx">next_comp_idx</A> is updated to include the image components contributed
+by this file.
+</P><P>
+ The 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#dims">dims</A> object provides the central mechanism for exchanging
+information about component dimensions. For raw files,
+the component dimension and precision information is
+recovered from this object in order to discover the
+structure of the file, using 
+<B>dims.append_components</B> as required to replicate the information available
+for previous components. If insufficient information
+can be retrieved in this fashion (i.e., this only happens
+if 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#dims">dims</A> was empty on entry), the function generates an appropriate
+error.
+</P><P>
+ For non-raw files, information in the image file header
+is used to configure the relevant component dimensions
+and precision information in the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#dims">dims</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="fname">fname</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Relative path name of the image file to be opened.
+</P>
+</DIV>
+<H4><A NAME="dims">dims</A> [<A HREF ="kdu$_dims.html">kdu_image_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Object through which image component dimensions, bit-depth
+and signed/unsigned characteristics are exchanged with
+the application, along with any display resolution
+information which might be available.
+</P>
+</DIV>
+<H4><A NAME="next_comp_idx">next_comp_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the component index assigned to the first
+image component (starting from 0) in the file. Upon
+return, the value of this argument is augmented by
+the number of image components available from the file.
+Once all image files have been opened, the value of
+<A HREF="kdu$ge_in__kdu_image_in__2.html#next_comp_idx">next_comp_idx</A> (assuming it was initially 0) will hold the total
+number of image components.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+This argument is provided to support bottom-up image
+file formats, such as the well-known BMP format. The
+value of 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#vflip">vflip</A> is set to true if the image lines are going to be
+supplied in bottom-up fashion, allowing the compressor
+to configure itself for processing the data in reverse
+order (see 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> for more on this).
+</P>
+</DIV>
+<H4><A NAME="palette">palette</A> [<A HREF ="kdu$lette.html">kdu_rgb8_palette</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+May be non-NULL if the JPEG2000 compressed file format
+supports signalling of colour palette information (JP2
+files provide such support). BMP and TIFF files, for
+example, may contain palettized data. In this case,
+the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#palette">palette</A> object's entries are filled out to reflect the index
+of the image component to which the palette is applied,
+along with the palette itself. Palettes which require
+more than 8-bit indices should be expanded directly
+by the file reader. If the 
+<A HREF="kdu$lette.html#input_bits">palette.input_bits</A> is set to a non-zero value already, the palette is
+in use and a new palette cannot be created for the
+present image file. In this case, or if the 
+<A HREF="kdu$ge_in__kdu_image_in__2.html#palette">palette</A> argument is NULL, the image sample values are to be
+depalettized by the image reader, which will normally
+provide a full set of colour channels.
+</P>
+</DIV>
+<H4><A NAME="skip_bytes">skip_bytes</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of initial bytes from the file to be ignored.
+</P>
+</DIV>
+<H4><A NAME="quiet">quiet</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Suppresses reporting of special image features which
+might be encountered.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ge_in__kdu_image_in__1.html"> prev </A>||<A HREF="kdu$ge_in__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

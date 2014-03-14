@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__operator!.html"> prev </A>||<A HREF="jp2$1t_box__open__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Open</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jp2$1t_box__open__2.html">2</A>,
+<A HREF="jp2$1t_box__open__3.html">3</A></B></P>
+<P CLASS="function-text">virtual <B>void</B> open(
+<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*&nbsp;tgt,
+<B>kdu_uint32</B>&nbsp;box_type,
+<B>bool</B>&nbsp;rubber_length=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open(
+Jp2_family_tgt&nbsp;tgt,
+long&nbsp;box_type,
+boolean&nbsp;rubber_length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Opens a new output box with the indicated box_type
+(usually a 4 character code). If the 
+<A HREF="jp2$1t_box__open__1.html#rubber_length">rubber_length</A> argument is false, the contents of the box will be
+buffered so that the final length of the box may be
+determined and written as the first field of the box.
+Otherwise, the box will pass its contents directly
+through to the 
+<A HREF="jp2$1t_box__open__1.html#tgt">tgt</A> object as they appear. Note that a box may be given
+a rubber length after it is opened using 
+<A HREF="jp2$1t_box__set$r_length.html">set_rubber_length</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tgt">tgt</A> [<A HREF ="jp2$y_tgt.html">jp2_family_tgt</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="rubber_length">rubber_length</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__operator!.html"> prev </A>||<A HREF="jp2$1t_box__open__2.html"> next </A>|</P>
+</BODY>
+</HTML>

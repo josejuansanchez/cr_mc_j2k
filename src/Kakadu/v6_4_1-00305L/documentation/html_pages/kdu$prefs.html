@@ -1,0 +1,544 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs [struct]</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_window_prefs</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure describes a complete collection of "Related
+Pref sets" as defined by the JPIP standard (IS15444-9).
+These are used to express client preferences to a server.
+Preferences might no be respected by a server, but
+a client can identify one or more preferences as mandatory,
+forcing the server to generate an error response if
+it cannot support the preference. The support offered
+by Kakadu's server components is likely to expand as
+time goes by, but the present object represents the
+complete set of preferences which a client can request.
+</P><P>
+ The object describes client preferences through a
+set of three flag words, 
+<A HREF="kdu$prefs.html#preferred">preferred</A>, 
+<A HREF="kdu$prefs.html#required">required</A> and 
+<A HREF="kdu$prefs.html#denied">denied</A>, together with auxiliary parameters which are needed
+to qualify some preferences.
+</P><P>
+ The idea is that a JPIP client will communicate preferred
+(i.e., non-mandatory) and/or required (i.e., mandatory)
+preferences to the server and keep track of any required
+preferences which the server denies, so that it does
+not ask again. Preferences are maintained within JPIP
+sessions, so there is no need to ask again within the
+same session, but a client may change its preferences
+from time to time. By comparing an existing and new
+<B>kdu_window_pref</B> object, it is possible for a client to figure out
+what new information needs to be included in a JPIP
+"pref" request and to update the existing 
+<B>kdu_window_pref</B> object based upon the replies received.
+</P><P>
+ The name 
+<B>kdu_window_pref</B> is used for this object, because the preferences which
+it represents affect the way in which a server responds
+to window-of-interest requests &mdash; this are encapsulated
+by 
+<A HREF="kdu_window.html">kdu_window</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$prefs__kdu$dow_prefs__1.html">kdu_window_prefs</A> <EM>(2 forms)</EM> {<U>Java:</U> Kdu_window_prefs}
+</P>
+<P><A HREF="kdu$prefs__~kd$dow_prefs.html">~kdu_window_prefs</A> {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$prefs__operator=.html">operator=</A></P>
+<P><A HREF="kdu$prefs__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="kdu$prefs__copy_from.html">copy_from</A> {<U>Java:</U> Copy_from}
+</P>
+<P><A HREF="kdu$prefs__update.html">update</A> {<U>Java:</U> Update}
+</P>
+<P><A HREF="kdu$prefs__parse_prefs.html">parse_prefs</A> {<U>Java:</U> Parse_prefs}
+</P>
+<P><A HREF="kdu$prefs__write_prefs.html">write_prefs</A></P>
+<P><A HREF="kdu$prefs__set_pref.html">set_pref</A> {<U>Java:</U> Set_pref}
+</P>
+<P><A HREF="kdu$prefs__set$bandwidth.html">set_max_bandwidth</A> {<U>Java:</U> Set_max_bandwidth}
+</P>
+<P><A HREF="kdu$prefs__set$dth_slice.html">set_bandwidth_slice</A> {<U>Java:</U> Set_bandwidth_slice}
+</P>
+<P><A HREF="kdu$prefs__get$_priority.html">get_colour_description_priority</A> {<U>Java:</U> Get_colour_description_priority}
+</P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="preferred">preferred</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This word contains a collection of flag bits, corresponding
+to each of the preference choices which can be specified
+by a client. Some of these preference choices require
+additional parameters, which are recorded in the object's
+other members, but the additional parameters are relevant
+only if the corresponding flag bit is found. There
+are three flag words maintained by this object: 
+<A HREF="kdu$prefs.html#preferred">preferred</A>, 
+<A HREF="kdu$prefs.html#required">required</A> and 
+<A HREF="kdu$prefs.html#denied">denied</A>. Any given flag bit should be set in at most one of
+these words.
+</P><UL><LI>
+If the flag bit is set in the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> word, the associated server behaviour is being requested
+by the client as a "non-required" preference.
+</LI><LI>
+If the flag bit is set in the 
+<A HREF="kdu$prefs.html#required">required</A> word, the associated server behaviour is being requested
+by the client as a "required" preference. This is a
+potential point of confusion with JPIP, which is cleared
+up in Draft Ammendment 4. Requiring a preference does
+not necessarily ask for it more strongly (that would
+probably have no meaning anyway). Instead, it provides
+a means for the client to discover whether the server
+supports a preferred behaviour. More specifically,
+if the server implements an algorithm to address the
+behaviour associated with a required preference, it
+can honour a required preference request; otherwise,
+it should issue an error in response to the preference
+request, along with a JPIP-pref response header. Clients
+should exercise caution in requiring preferences, because
+unsupported preferences must be met with an error response
+and errors may possibly cause a server or client to
+terminate any ongoing communication session, depending
+upon the implementation.
+</LI><LI>
+If the flag bit is set in the 
+<A HREF="kdu$prefs.html#denied">denied</A> word, the associated behaviour has been requested
+by the client, but denied by the server through the
+issuance of an error response with meaningful "JPIP-pref"
+response headers. Once a behaviour has been denied,
+it is unlikely that a future request for the same behaviour
+(as a required preference) will yield a better response,
+so clients should probably keep track of denied behaviours
+using the 
+<A HREF="kdu$prefs.html#denied">denied</A> word.
+</LI></UL><P>
+ The specific defined flag bits are explained below,
+in relation to the JPIP standard:
+</P><UL><LI>
+<A HREF="globals.html#KDU_WINDOW_PREF_PROGRESSIVE">KDU_WINDOW_PREF_PROGRESSIVE</A> is a default behaviour. It means that the server is
+free to reduce the requested window of interest, in
+size or resolution, as it sees fit, in order to avoid
+excessive resource consumption, while striving to deliver
+a quality progressive stream of data over the (possibly
+adjusted) window of interest. Any changes the server
+makes must be communicated explicitly to the client
+via JPIP response headers, and such changes must implement
+a consistent policy, meaning that if the client issues
+a subsequent request for the modified window of interest,
+the server should not make any further adjustments.
+If this preference is required by a client, the client
+wants to know whether the server provides an algorithm
+which attempts to sequence the requested contents across
+the entire serviced window of interest, such that the
+contents are served with some sort of uniform progression
+in quality &mdash; interpreted in whatever form is
+most natural or realizable.
+</LI><LI>
+<A HREF="globals.html#KDU_WINDOW_PREF_FULL">KDU_WINDOW_PREF_FULL</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_WINDOW_PREF_PROGRESSIVE">KDU_WINDOW_PREF_PROGRESSIVE</A>. It means that the client would prefer to receive
+requested windows of interest in full, even if this
+means that the server has to deliver the contents in
+a sequence which is not quality progressive in order
+to minimize the memory it must dedicate to serving
+the client &mdash; this may result in a poor experience
+for interactive users, but may benefit off-line agents
+which are only interested in downloading the content
+of interest, in full. It makes sense to require this
+preference if you need to know whether the server can
+give you everything.
+</LI><LI>
+<B>KDU_CONCISENESSS_PREF_CONCISE</B> is mutually exclusive with 
+<A HREF="globals.html#KDU_CONCISENESS_PREF_LOOSE">KDU_CONCISENESS_PREF_LOOSE</A>. It means that the client would like to receive data
+relating only to the requested window of interest,
+meaning in particular that it does not want the server
+to anticipate the client's need for additional data,
+not explicitly requested. It makes very little sense
+for a client to require this behaviour &mdash; remember
+that requiring a preference does not make a preference
+request any stronger; it only requires the server to
+generate an error if it does not provide an algorithm
+to implement the preference; and there is nothing specific
+to implement here.
+</LI><LI>
+<A HREF="globals.html#KDU_CONCISENESS_PREF_LOOSE">KDU_CONCISENESS_PREF_LOOSE</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_CONCISENESS_PREF_CONCISE">KDU_CONCISENESS_PREF_CONCISE</A>. It means that the client is happy to allow the server
+to provide additional data, deemed to be appropriate
+to the request, even if it is not specifically related
+to the request as stated &mdash; this is something
+that a smart server might be able to do, for example.
+It makes very little sense for a client to require
+this behaviour, because there is no well-defined algorithm
+whose support the client could expect to learn about
+by requiring the preference. In fact, the only reasonable
+way to use this preference is to reverse any effect
+associated with a previous request for the 
+<A HREF="globals.html#KDU_CONCISENESS_PREF_CONCISE">KDU_CONCISENESS_PREF_CONCISE</A> preference.
+</LI><LI>
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_INCR">KDU_PLACEHOLDER_PREF_INCR</A> is a default behaviour. It means that, in the event
+that a box has multiple representations induced by
+placeholders in the metadata, the client would prefer
+to receive incremental codestream data-bins, if available.
+Failing that, the client would prefer to receive a
+streaming equivalent box, if available. Otherwise,
+the server should send original contents. It is worth
+noting that which representations are actually available
+for any given box in the metadata depends upon the
+way placeholders are used, which may well be the server's
+decision. However, once a placeholder structure has
+been selected, the JPIP server is obliged to not alter
+it, when serving the same resource with the same unique
+JPIP target identifier. For this reason, you should
+not interpret this preference as a request for the
+server to create layouts which involve incremental
+codestreams. The interpretation is that whenever the
+layout involves multiple representations (the client
+will discover this sooner or later), the ones the client
+prefers are incremental codestreams. Requiring this
+preference is a bit strange, but it would mean that
+a client wants to know whether a server can deliver
+incremental codestreams whenever they are available
+&mdash; it has no implications for whether incremental
+codestreams should be available in the logical target,
+nor should the determination of whether the preference
+is supported be based on whether or not incremental
+codestreams appear within a specific logical target.
+</LI><LI>
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_EQUIV">KDU_PLACEHOLDER_PREF_EQUIV</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_INCR">KDU_PLACEHOLDER_PREF_INCR</A> and 
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_ORIG">KDU_PLACEHOLDER_PREF_ORIG</A>. It means that the client would prefer to receive
+a streaming equivalent box, if available. Failing that,
+the client would prefer to receive the original box,
+if available. If neither are available, the client
+must be content with incremental codestreams &mdash;
+these are one of the most interesting and useful features
+of JPIP anyway. Requiring this preference is not to
+be interpreted as requiring that the server deliver
+or dynamically consruct a logical target which contains
+streaming equivalent placeholders for boxes. If this
+preference is required, the server should declare that
+the preference is not supported, issuing an error,
+unless it provides a means to return streaming equivalent
+boxes wherever they happen to be present in any logical
+target.
+</LI><LI>
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_ORIG">KDU_PLACEHOLDER_PREF_ORIG</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_INCR">KDU_PLACEHOLDER_PREF_INCR</A> and 
+<A HREF="globals.html#KDU_PLACEHOLDER_PREF_EQUIV">KDU_PLACEHOLDER_PREF_EQUIV</A>. It means that the client would prefer to receive
+the original box, if available. Failing that, the client
+would prefer to receive a streaming equivalent box,
+if available. If this preference is required, the client
+wants to know that the server is capable of returning
+original box contents for all boxes in the file, regardless
+of whether they have other representations through
+placeholders.
+</LI><LI>
+<A HREF="globals.html#KDU_CODESEQ_PREF_FWD">KDU_CODESEQ_PREF_FWD</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_CODESEQ_PREF_BWD">KDU_CODESEQ_PREF_BWD</A> and 
+<A HREF="globals.html#KDU_CODESEQ_PREF_ILVD">KDU_CODESEQ_PREF_ILVD</A>. It means that the client would like to receive data
+from multiple requested codestreams sequentially, in
+increasing order of codestream index &mdash; this is
+probably the default when serving video. If this preference
+is required, the client wants to know whether the server
+implementation is capable of deliverying codestreams
+one by one for all logical targets, not just one associated
+with the request in which the preference is requested.
+</LI><LI>
+<A HREF="globals.html#KDU_CODESEQ_PREF_BWD">KDU_CODESEQ_PREF_BWD</A> is mutually exclusive with 
+<A HREF="globals.html#KDU_CODESEQ_PREF_FWD">KDU_CODESEQ_PREF_FWD</A> and 
+<A HREF="globals.html#KDU_CODESEQ_PREF_ILVD">KDU_CODESEQ_PREF_ILVD</A>. It means that the client would like to receive data
+from multiple requested codestreams sequentially, in
+decreasing order of codestream index. If this preference
+is required, the client wants to know whether the server
+implementation is capable of delivering codestreams
+one by one in reverse order, for all logical targets,
+not just the one associated with the request in which
+the preference is requested.
+</LI><LI>
+<A HREF="globals.html#KDU_CODESEQ_PREF_ILVD">KDU_CODESEQ_PREF_ILVD</A>is mutually exclusive with 
+<A HREF="globals.html#KDU_CODESEQ_PREF_FWD">KDU_CODESEQ_PREF_FWD</A> and 
+<A HREF="globals.html#KDU_CODESEQ_PREF_BWD">KDU_CODESEQ_PREF_BWD</A>. It means that the client would like to receive data
+from multiple requested codestreams in an interleaved
+fashion so that they all improve progressively in quality,
+in a sense determined by the server &mdash; this is
+probably the default when serving codestreams which
+contribute to a single composited JPX frame. If this
+preference is required, the client wanst to know whether
+the server is capable of delivering requests for multiple
+codestreams in such a way that their representation
+is progressively transmitted in an approximately uniform
+way.
+</LI><LI>
+<A HREF="globals.html#KDU_MAX_BANDWIDTH_PREF">KDU_MAX_BANDWIDTH_PREF</A> indicates that the client would like the server to
+limit the total bandwidth associated with its response
+data. Unlike all other preferences, this one applies
+to all JPIP channels which might be present in a JPIP
+session. Every other preference is stored (and potentially
+respected) separately for each JPIP channel, where
+the server is granting multiple channels. The actual
+bandwidth limit is provided by the 
+<A HREF="kdu$prefs.html#max_bandwidth">max_bandwidth</A> member. If this preference is required, the client
+wants to know if the server supports global bandwidth
+limiting.
+</LI><LI>
+<A HREF="globals.html#KDU_BANDWIDTH_SLICE_PREF">KDU_BANDWIDTH_SLICE_PREF</A> indicates that the client would like the server to
+partition the bandwidth it assigns to different JPIP
+channels within the same session in a manner which
+is proportional to each channel's slice value. Slice
+preferences may be sent to set each channel's slice,
+but if this is not done for one or more channels, the
+default slice is 1. The slice value associated with
+this flag is given by the 
+<A HREF="kdu$prefs.html#bandwidth_slice">bandwidth_slice</A> member. If this preference is required, the client
+wants to know whether the server supports relative
+distribution of available bandwidth across channels,
+regardless of whether multiple channels are currently
+open &mdash; if the server does not even support multiple
+channels, it does not support bandwidth slicing, by
+definition, so it should issue an error in response
+to a client requiring this preference.
+</LI><LI>
+<A HREF="globals.html#KDU_COLOUR_METH_PREF">KDU_COLOUR_METH_PREF</A> refers to colour space preferences which are qualified
+by the 
+<A HREF="kdu$prefs.html#colour_meth_pref_limits">colour_meth_pref_limits</A> array, described below. If this preference is required,
+it means that a client wants to know whether the server
+implements the algorithm for prioritizing the delivery
+of colour description boxes, regardless of whether
+the current logical target contains multiple alternate
+colour description boxes or not.
+</LI><LI>
+<A HREF="globals.html#KDU_CONTRAST_SENSITIVITY_PREF">KDU_CONTRAST_SENSITIVITY_PREF</A> indicates that the client would prefer the server
+to deliver data in a manner which is tuned to the contrast
+sensitivity function described by the 
+<A HREF="kdu$prefs.html#num_csf_angles">num_csf_angles</A>, 
+<A HREF="kdu$prefs.html#max_sensitivities_per_csf_angle">max_sensitivities_per_csf_angle</A> and 
+<A HREF="kdu$prefs.html#csf_sensitivities">csf_sensitivities</A> members. If this preference is required, it means
+that the client wants to know whether the server implements
+an algorithm that can utilize any supplied constrast
+sensitivity information, regardless of whether the
+delivery of the current view-window would be affected
+by such an algorithm.
+</LI></UL>
+</DIV>
+<H4><A NAME="required">required</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$prefs.html#preferred">preferred</A> for an explanation.
+</P>
+</DIV>
+<H4><A NAME="denied">denied</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$prefs.html#preferred">preferred</A> for an explanation.
+</P>
+</DIV>
+<H4><A NAME="max_bandwidth">max_bandwidth</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Should be non-negative. See the discussion of 
+<A HREF="globals.html#KDU_MAX_BANDWIDTH_PREF">KDU_MAX_BANDWIDTH_PREF</A> above under 
+<A HREF="kdu$prefs.html#preferred">preferred</A>. Bandwidth is expressed in Bits per Second. Values
+may be rounded to low precision multiples of 1kb/s,
+1Mb/s, 1Gb/s or 1Tb/s when actually delivering this
+preference in a request to the server.
+</P>
+</DIV>
+<H4><A NAME="bandwidth_slice">bandwidth_slice</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Should be non-negative. See the discussion of 
+<A HREF="globals.html#KDU_BANDWIDTH_SLICE_PREF">KDU_BANDWIDTH_SLICE_PREF</A> above under 
+<A HREF="kdu$prefs.html#preferred">preferred</A>.
+</P>
+</DIV>
+<H4><A NAME="colour_meth_pref_limits">colour_meth_pref_limits[]</A> [<B>kdu_byte</B>]</H4><DIV CLASS="indented-text">
+<P>
+Meaningful only if the 
+<A HREF="globals.html#KDU_COLOUR_METH_PREF">KDU_COLOUR_METH_PREF</A> flag occurs in 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A>.
+</P><P>
+ The four members of this array are used to identify
+colour method preferences, corresponding to "enumerated"
+colour spaces, "restricted ICC colour spaces", "unrestricted
+ICC colour spaces" and "vendor specific colour spaces",
+in that order. Each entry in the array holds a LIMIT
+value on the APPROX field for colour spaces encounered
+within the relevant class of colour spaces. Meaningful
+values for the LIMIT lie in the range 0 to 4 and 255.
+0 means that the corresponding class of colour spaces
+is omitted from the preferences request. 255 means
+that the corresponding class of Values was identified
+by a preference request with no explicit "limit" value
+&mdash; the interpretation is the same as 4 (or any
+larger number) in all other respects.
+</P><P>
+ The recommended algorithm for the server to follow
+in deciding which of multiple colour spaces to send
+for any compositing layer of interest is as follows
+&mdash; note, however that most servers will more than
+likely just send all colour spaces, regardless, and
+this is perfectly legal.
+</P><UL><LI>
+The server should generate a PRIORITY_i value for each
+available colour space box (indexed by i) that is available
+for the compositing layer in question, choosing the
+colour space with lowest PRIORITY_i value to send in
+preference to colour spaces with higher PRIORITY_i
+value, excepting those colour spaces which the server
+happens to know the client cannot support (presumably
+communicated via a JPIP capabilities request field,
+although capabilities requests are based on the JPX
+feature box, which has lost most of its teeth due to
+unworkable definitions in the original version of IS15444-2).
+</LI><LI>
+PRIORITY_i = APPROX_i - PREC_i if APPROX_i &gt; LIMIT
+(for the relevant type of colour space).
+</LI><LI>
+PRIORITY_i = 1 - PREC_i if APPROX_i &lt;= LIMIT (for
+the relevant type of colour spaces).
+</LI><LI>
+If APPROX_i is equal to 0, a large value (512) is added
+to the PRIORITY_i value calculated for the i'th colour
+description box so that no colour description box which
+does not offer approximation information will be selected
+in preference with one which is does, assuming its
+colour space class is mentioned in the preference request.
+</LI><LI>
+If LIMIT=0, a large value (1024) is added to the PRIORITY_i
+values of all colour space boxes belonging to the corresponding
+colour space class (one that is not mentioned in the
+preference request) so that no colour description box
+belonging to an unmentioned class will be selected
+in preference to one belonging to a mentioned class.
+</LI></UL><P>
+ Note that the above are signed quantities; the JPIP
+standard uses an offset of 256 to make them unsigned,
+but this only complicates the description. Note also
+that high values for PREC_i correspond to more desirable
+colour descriptions.
+</P><P>
+ Evidently, if LIMIT &lt;= 1, all colour space boxes
+of the relevant type are assigned PRIORITY_i = APPROX_i
+- PREC_i, since no colour space is supposed to have
+APPROX_i smaller than 1. Also, if LIMIT &gt;= 4, all
+priorities are obtained using the second expression
+above. In generaly, specifying a larger LIMIT value
+means that the client application is less concerned
+about the accuracy of the colour space representation,
+caring only about the PREC_i value (precedence).
+</P><P>
+ Now unfortunately, although IS15444-2 states that
+APPROX values in JPX files should never be 0, declaring
+that all JPX file writers should have better understanding
+of the approximation levels of their colour space than
+JP2 file writers, this does is not practically workable.
+A very common scenario is that a JPX file is written
+to encapsulate JP2 data, together with some important
+features of JPX, such as region-of-interest metadata,
+for example. In this case, it would be wrong for the
+creator of such content to modify the original APPROX
+value of the colour space from 0 to something else,
+since that would be sheer guesswork. In our opinion,
+therefore, any server which processes colour method
+preferences should be able to cope with the APPROX_i=0
+case. The most natural approach would be for the server
+to consider all colour space boxes with APPROX_i=0
+to have lower priority than any colour space box with
+a non-zero APPROX_i value.
+</P><P>
+ A client might choose to specify a larger LIMIT if
+it makes significant numerical approximations in its
+implementation of colour space transformations, so
+that it matters little how accurately the original
+colour space parameters were expressed. Rendering tools
+based upon Kakadu's 
+<A HREF="jp2$erter.html">jp2_colour_converter</A> class should probably specify 3 or 4 for the LIMIT,
+since this class makes a number of approximations in
+order to transform colour with reasonable throughput
+&mdash; in the future, it is possible that more accurate
+variants will be offered. However, in practice, we
+do not currently recommend that clients bother posting
+any colour method preferences, since the server is
+unlikely to pay any attention to them.
+</P>
+</DIV>
+<H4><A NAME="num_csf_angles">num_csf_angles</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Meaningful only if the 
+<A HREF="globals.html#KDU_CONTRAST_SENSITIVITY_PREF">KDU_CONTRAST_SENSITIVITY_PREF</A> flag occurs in 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A>. Indicates the number of angles for which sensitivity
+information is provided in the 
+<A HREF="kdu$prefs.html#csf_sensitivities">csf_sensitivities</A> array.
+</P>
+</DIV>
+<H4><A NAME="max_sensitivities_per_csf_angle">max_sensitivities_per_csf_angle</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Meaningful only if the 
+<A HREF="globals.html#KDU_CONTRAST_SENSITIVITY_PREF">KDU_CONTRAST_SENSITIVITY_PREF</A> flag occurs in 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A>. Indicates the maximum number of contrast sensitivity
+values recorded along any angle. If some angle has
+fewer sensitivities, the corresponding entries in the
+<A HREF="kdu$prefs.html#csf_sensitivities">csf_sensitivities</A> array should be -ve.
+</P>
+</DIV>
+<H4><A NAME="csf_sensitivities">csf_sensitivities</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Meaningful only if the 
+<A HREF="globals.html#KDU_CONTRAST_SENSITIVITY_PREF">KDU_CONTRAST_SENSITIVITY_PREF</A> flag occurs in 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A>. If non-NULL, this array is expected to hold 
+<A HREF="kdu$prefs.html#num_csf_angles">num_csf_angles</A> rows of (2+
+<A HREF="kdu$prefs.html#max_sensitivities_per_csf_angle">max_sensitivities_per_csf_angle</A>) entries, each, organized row by row. Each row corresponds
+to a particular angle. The first two entries in each
+row are the angle, expressed in degrees away from horizontal,
+and the sample density d, which should be a positive
+quantity smaller than 1. The n'th sensitivity, starting
+from n=0, represents the sensitivity at radial frequency
+pi * d^n, where pi is the Nyquist frequency. The first
+negative sensitivity value, if any, on any given row
+terminates the list of sensitivity values for that
+angle.
+</P><P>
+ The server is free to interpolate contrast sensitivity
+values you provide in any manner it desires, to arrive
+at an effective modulation transfer function MTF(omega1,omega2)
+for the assumed viewer, where omega1 and omega2 reach
+pi at the horizontal and vertical Nyquist frequencies
+associated with the requested frame size. What this
+means is that whatever resolution data the server chooses
+to send, the reconstructed image (unrestricted by any
+region of interest) is assumed to be scaled (up or
+down) so that it fits inside the requested frame size,
+and the MTF is expressed with respect to this (potentially)
+scaled image. Unlike the other preferences, this one
+might need to be altered regularly (if used at all),
+since an interactive user may frequently change the
+frame size (effectively to zoom in and out).
+</P><P>
+ It may be that a server ignores all but one angle,
+for simplicity especially if the angles are non-uniformly
+spaced or have different sampling densities.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

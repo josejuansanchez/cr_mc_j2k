@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_lifting_downshift) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$g_factors.html"> prev </A>||<A HREF="kdu$rnels__get$_response.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_lifting_downshift</A></H1>
+<P CLASS="function-text"><B>bool</B> get_lifting_downshift(
+<B>int</B>&nbsp;step_idx,
+<B>int</B>&nbsp;&amp;&nbsp;downshift)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Determines a downshift value for use with the lifting
+step coefficients in implementing reversible transforms.
+Returns false if the transform is irreversible. Otherwise
+returns true and sets the 
+<A HREF="kdu$rnels__get$downshift.html#downshift">downshift</A> argument.
+</P><P>
+ This function is provided only for backward compatibility
+with Kakadu versions 4.5 and earlier. Additional information
+is returned via the 
+<A HREF="kdu$rnels__get$step_info.html">get_step_info</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the transform is irreversible; otherwise,
+true.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="step_idx">step_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the specific lifting step (starting from
+0) for which the downshift is being requested.
+</P>
+</DIV>
+<H4><A NAME="downshift">downshift</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Unaffected unless the transform is reversible, in which
+case it is used to return the smallest non-negative
+integer such that the lifting factor for the indicated
+lifting step is an integer multiple of 2^{-
+<A HREF="kdu$rnels__get$downshift.html#downshift">downshift</A>}.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$g_factors.html"> prev </A>||<A HREF="kdu$rnels__get$_response.html"> next </A>|</P>
+</BODY>
+</HTML>

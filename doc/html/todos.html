@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="todos">TODOs</h1>
+<ul>
+<li>Mejorar la implementación del método <code>SetPacketList</code> del archivo <code>libcache.c</code>. Cuando se lee la lista de paquetes vamos comprobando que el <code>id</code> del paquete está dentro del rango establecido. Actualmente se realiza una comparación con una constante, pero este valor habría que calcularlo en tiempo de ejecución en función de los parámetros de la imagen con la que estamos trabajando.</li>
+</ul>
+<table class="sourceCode cpp numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="sourceCode"><pre><code class="sourceCode cpp"><span class="dt">int</span> SetPacketList(packet *packetList, <span class="dt">int</span> *npa, <span class="dt">char</span> filename[]) {
+    ...
+    <span class="kw">if</span> (packetId &gt; MAX_ID_PACKET) {
+        ...
+    } <span class="kw">else</span> {
+        ...
+    }
+    ... 
+}</code></pre></td></tr></table>
+<ul>
+<li>Buscar el tamaño mínimo de code-block y precinto para hacer un estudio del impacto de estos parámetros.</li>
+<li>Hacer experimentos <em>without motion compensation</em> y <em>with motion compensation</em>.</li>
+<li>El cliente decide qué precintos necesita y cuánto <em>bitrate</em> quiere recibir de cada uno.</li>
+<li>Study the <a href="http://www.hpca.ual.es/~jjsanchez/references/Generalized_Lagrange_multiplier_method_for_solving_problems_of_optimum_allocation_of_resources.pdf">Lagrange multiplier method</a>.</li>
+<li>Utilizar información de las predicciones (o información ya precalculada) como metadatos de las imágenes.</li>
+<li>Estudiar si es mejor enviar todos los metadatos de todas las imágenes de la secuencia antes de realizar el envío del <em>code-stream</em>, o enviar los metadatos de forma individual junto a cada imagen.</li>
+<li>Estudiar cómo varía el tamaño de los archivos según los parámetros de compresión utilizados y de qué manera esto nos puede afectar.</li>
+</ul>
+</body>
+</html>

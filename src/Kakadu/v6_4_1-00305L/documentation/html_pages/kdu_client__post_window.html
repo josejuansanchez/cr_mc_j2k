@@ -1,0 +1,201 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::post_window) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__close.html"> prev </A>||<A HREF="kdu_client__get$progress.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::post_window</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Post_window</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> post_window(
+const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*&nbsp;window,
+<B>int</B>&nbsp;queue_id=0,
+<B>bool</B>&nbsp;preemptive=true,
+const&nbsp;<A HREF ="kdu$prefs.html">kdu_window_prefs</A>&nbsp;*&nbsp;prefs=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Post_window(
+Kdu_window&nbsp;window,
+int&nbsp;queue_id,
+boolean&nbsp;preemptive,
+Kdu_window_prefs&nbsp;prefs)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Requests that a message be delivered to the server
+identifying a change in the user's window of interest
+into the compressed image and/or a change in the user's
+service preferences. The message may not be delivered
+immediately; it may not even be delivered at all, if
+the function is called again specifying a different
+access window for the same request queue, with 
+<A HREF="kdu_client__post_window.html#preemptive">preemptive</A>=true, before the function has a chance to deliver
+a request for the current window to the server.
+</P><P>
+ You should note that each request queue (as identified
+by the 
+<A HREF="kdu_client__post_window.html#queue_id">queue_id</A> argument) behaves independently, in the sense that
+newly posted window requests can only preempt exising
+ones within the same queue.
+</P><P>
+ It is important to note that the server may not be
+able to serve some windows in the exact form they are
+requested. When this happens, the server's response
+will indicate modified attributes of the window which
+it is able to service. The client may learn about the
+actual window for which data is being served by calling
+<A HREF="kdu_client__get$progress.html">get_window_in_progress</A>. The service preferences signalled by 
+<A HREF="kdu_client__post_window.html#prefs">prefs</A> may affect whether or not the server actually makes
+any modifications. In particular, the 
+<A HREF="globals.html#KDU_WINDOW_PREF_FULL">KDU_WINDOW_PREF_FULL</A> and 
+<A HREF="globals.html#KDU_WINDOW_PREF_PROGRESSIVE">KDU_WINDOW_PREF_PROGRESSIVE</A> options may be used to manipulate the way in which
+the server treats large request windows.
+</P><P>
+ This function may be called at any time after a request
+queue is instantiated by 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A>, without necessarily waiting for the connection to
+be established or for sufficient headers to arrive
+for a call to 
+<B>open</B> to succeed. This can be useful, since it allows an
+initial window to be requested, while the initial transfer
+of mandatory headers is in progress, or even before
+it starts, thereby avoiding the latency associated
+with extra round-trip-times.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if 
+<A HREF="kdu_client__post_window.html#queue_id">queue_id</A> does not refer to a request queue which is currently
+alive, or if the call otherwise has no effect. The
+call may have no effect because the request queue is
+in the process of being disconnected (see 
+<A HREF="kdu_client__disconnect.html">disconnect</A>). The call may also have no effect if the supplied
+<A HREF="kdu_client__post_window.html#window">window</A> is a subset of a recent window which is known to have
+been completed delivered by the server and the request
+queue is idle or the posting is non-preemptive, or
+if the window is identical in every respect to the
+last one posted (unless that one was not preemptive
+and the current one is).
+</P><P>
+ If the function returns true, the window is held in
+the queue until a suitable request message can be sent
+to the server. This message will eventually be sent,
+unless a new (pre-emptive) call to 
+<A HREF="kdu_client__post_window.html">post_window</A> arrives in the mean time.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="window">window</A> [const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="queue_id">queue_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of the request queue identifiers returned by the
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A> functions. If the queue identifier is invalid or the
+relevant queue is no longer alive, the function simply
+returns false.
+</P>
+</DIV>
+<H4><A NAME="preemptive">preemptive</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is false, a request will be queued
+for the relevant window of interest. It will not pre-empt
+the ongoing response to any previously posted window
+(even in the same queue). This means that previously
+posted windows of interest within this queue must be
+served in full before the current request is considered
+(although they can still be pre-empted by later calls
+to this function with 
+<A HREF="kdu_client__post_window.html#preemptive">preemptive</A>=true).
+</P><P>
+ If you call this function with 
+<A HREF="kdu_client__post_window.html#preemptive">preemptive</A>=true (this is best for interactive applications),
+the new window will pre-empt any undelivered requests
+and potentially pre-empt requests which have been sent
+to the server but for which the server has not yet
+generated the complete response. That is, requests
+may be pre-empted within the client's queue of undelivered
+requests, or within the server's queue of unprocessed
+requests pre-empted within the server's own processing
+queue). This provides a useful way of discarding a
+queue of waiting non-preemptive window requests.
+</P>
+</DIV>
+<H4><A NAME="prefs">prefs</A> [const&nbsp;<A HREF ="kdu$prefs.html">kdu_window_prefs</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the function updates its internal understanding
+of the application's service preferences to reflect
+any changes supplied via the 
+<A HREF="kdu_client__post_window.html#prefs">prefs</A> object. These changes will be passed to the server
+with the next actual request which is sent. Even if
+requests are not delivered immediately, preference
+changes are accumulated internally between successive
+calls to this function, until a request is actually
+sent to the server.
+</P><P>
+ It is important to note that the function does not
+replace existing preferences wholesale, based upon
+a 
+<A HREF="kdu_client__post_window.html#prefs">prefs</A> object supplied here. Instead, replacement proceeds
+within "related-pref-sets", based on whether or not
+any preference information is supplied within the "related-pref-set".
+This is accomplished using the 
+<A HREF="kdu$prefs__update.html">kdu_window_prefs::update</A> function, whose documentation you might like to peruse
+to understand "related-pref-sets" better.
+</P><P>
+ Kakadu's server currently supports quite a few of
+the preference options which are offered by JPIP. Amongst
+these, probably the most useful are those which affect
+whether or not the requested window can be limited
+by the server (
+<A HREF="globals.html#KDU_WINDOW_PREF_PROGRESSIVE">KDU_WINDOW_PREF_PROGRESSIVE</A>) for the most efficient quality progressive service,
+or whether the server should try to serve the whole
+thing even if spatially progressive delivery is required
+(
+<B>KDU_WINDOW_PREF_FULLWINDOW</B>), along with those which affect the order in which
+the relevant codestreams are delivered (
+<A HREF="globals.html#KDU_CODESEQ_PREF_FWD">KDU_CODESEQ_PREF_FWD</A>, 
+<A HREF="globals.html#KDU_CODESEQ_PREF_BWD">KDU_CODESEQ_PREF_BWD</A> or the default 
+<A HREF="globals.html#KDU_CODESEQ_PREF_ILVD">KDU_CODESEQ_PREF_ILVD</A>).
+</P><P>
+ Kakadu's demonstration viewers ("kdu_macshow" and
+"kdu_winshow") use the preferences mentioned above
+to facilitate the most effective interactive browsing
+experience based on the way the user manipulates a
+focus window.
+</P><P>
+ You are strongly advised NOT to supply any "required"
+preferences at the moment. Although required preferences
+are supported in the implementation of Kakadu's client
+and server, if a server does not support some preference
+option that you identify as "required" (as opposed
+to just "preferred"), the server is obliged to respond
+with an error message. Currently, the 
+<A HREF="kdu_client.html">kdu_client</A> implementation does not provide specific handling
+for preference-related error messages, so that they
+will be treated like any other server error, terminating
+ongoing communication. In the future, special processing
+should be introduced to catch these errors and re-issue
+requests without the required preference while remembering
+which types of preferences are not supported by the
+server.
+</P><P>
+ You should be aware that preferences are managed separately
+for each 
+<A HREF="kdu_client__post_window.html#queue_id">queue_id</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__close.html"> prev </A>||<A HREF="kdu_client__get$progress.html"> next </A>|</P>
+</BODY>
+</HTML>

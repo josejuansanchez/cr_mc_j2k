@@ -1,0 +1,292 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_params</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="ads_params.html">ads_params</A></LI>
+<LI><A HREF="atk_params.html">atk_params</A></LI>
+<LI><A HREF="cod_params.html">cod_params</A></LI>
+<LI><A HREF="crg_params.html">crg_params</A></LI>
+<LI><A HREF="dfs_params.html">dfs_params</A></LI>
+<LI><A HREF="mcc_params.html">mcc_params</A></LI>
+<LI><A HREF="mco_params.html">mco_params</A></LI>
+<LI><A HREF="mct_params.html">mct_params</A></LI>
+<LI><A HREF="org_params.html">org_params</A></LI>
+<LI><A HREF="poc_params.html">poc_params</A></LI>
+<LI><A HREF="qcd_params.html">qcd_params</A></LI>
+<LI><A HREF="rgn_params.html">rgn_params</A></LI>
+<LI><A HREF="siz_params.html">siz_params</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This abstract base class must be derived to form a
+complete parameter class, such as 
+<A HREF="siz_params.html">siz_params</A>, 
+<A HREF="cod_params.html">cod_params</A>, etc. Each complete parameter class is intended primarily
+to represent the parameters embodied by a single type
+of code-stream marker segment; however, parameter classes
+may represent additional parameters which are not recorded
+in code-stream marker segments. In fact, it is possible
+to create parameter classes which are not associated
+with marker segments at all, but it is not possible
+to have code-stream marker segments whose parameters
+are managed by more than one parameter object.
+</P><P>
+ We use the term 
+<B>attribute</B> here to refer to a group of related parameter values
+within any given 
+<A HREF="kdu_params.html">kdu_params</A>-derived object. An attribute may have one value, a
+fixed number of values, or a variable length array
+of values, which describe some aspect of the coding
+system. For example, the width and height of an image
+together form a single attribute, its dimensions. The
+collection of mode switches (or flags) which control
+the behaviour of the JPEG2000 embedded block coder
+constitute another attribute, and so on. Attributes
+have identifying names which are useful when processing
+or generating text descriptors and also help to annotate
+the use of the generic access functions provided by
+the 
+<A HREF="kdu_params.html">kdu_params</A> base class.
+</P><P>
+ The 
+<A HREF="kdu_params.html">kdu_params</A> base class provides several different mechanisms for
+importing and exporting parameter attribute values.
+Attributes may be recovered by parsing text strings
+(e.g., from a command-line or interactive prompt),
+by translating code-stream marker segments, or by explicit
+calls to a collection of overloaded 
+<A HREF="kdu_params__set__1.html">set</A> functions provided by the 
+<A HREF="kdu_params.html">kdu_params</A> base class. As an example, the following two mechanisms
+each set the number of DWT levels 7 in the main COD
+marker segment of an image whose coding parameters
+are headed by an object, root.
+</P><UL><LI>
+root&rarr;parse_string("Clevels={7}");
+</LI><LI>
+root&rarr;access_cluster(COD_params)&rarr;set(Clevels,0,0,7);
+</LI></UL><P>
+ As for internalization, parameter attributes may also
+be externalized in various ways: as human readable
+text (capable of being parsed back in); as valid JPEG2000
+code-stream marker segments; or by direct query through
+a collection of overloaded 
+<A HREF="kdu_params__get__1.html">get</A> functions provided by the 
+<A HREF="kdu_params.html">kdu_params</A> base class.
+</P><P>
+ Objects from each derived parameter class are collected
+into clusters, which manage related code-stream marker
+segments from different tiles and different image components.
+Specifically, the term 
+<B>cluster</B> refers to all instances of any particular class derived
+from 
+<A HREF="kdu_params.html">kdu_params</A> which are involved in the description of a single
+compressed image, or its coding configuration. Within
+each cluster, the various instances of the relevant
+parameter class are identified by 3 coordinates: a
+tile index; a component index; and an instance index.
+Tile indices start from the special value of -1 (see
+below); component indices also start from a special
+value of -1; and instance indices start from 0. For
+some parameter classes (i.e., some types of clusters),
+multiple components, multiple tiles or multiple instances
+may be disallowed.
+</P><P>
+ To understand the role played by elements with negative
+<B>tile_idx</B> or 
+<B>comp_idx</B> arguments, consider the 
+<A HREF="kdu_params.html">kdu_params</A> object associated with tile t, and image component
+c, within some cluster. This object represents coding
+parameters which are specific to that tile-component.
+If the object does not provide specific values for
+some parameter attribute, the values default to those
+specified in the corresponding tile head (i.e., the
+object with tile index t and a component index of -1).
+If this object also fails to provide specific values
+for the relevant attribute, they are inherited from
+the object with component index c and a tile index
+of -1. If this also fails to produce results, the attribute
+is inherited from the cluster head itself, having tile
+and component indices of -1.
+</P><P>
+ It is worth noting that specific parameter classes
+might not support tile-specific forms at all, so all
+elements in the cluster have 
+<B>tile_idx</B>=-1. Similarly, some parameter classes might not support
+component-specific forms, so all elements in the cluster
+have 
+<B>comp_idx</B>=-1.
+</P><P>
+ As suggested by the above discussion, inheritance
+applies to entire attributes rather than specific values.
+If any values are available for some attribute in a
+particular parameter object, the entire attribute is
+considered to be specified for the purpose of the default
+inheritance procedure described above.
+</P><P>
+ In most practical instances, most or all of the coding
+parameters will be identical in all tiles of all components
+(these are called 
+<B>tile-components</B> in JPEG2000), meaning that most or all of the attributes
+will be specified only by the cluster head. Nevertheless,
+JPEG2000 allows tile-specific, component-specific and
+tile-component-specific overrides for many coding parameters
+and the inheritance rules described above are designed
+to mimic the philosophy underlying the JPEG2000 standard.
+It is worth noting that some parameter classes configure
+themselves (through calls to the protected 
+<B>define_attribute</B> function) to explicitly disallow component-specific
+overrides of certain attributes, to reflect the capabilities
+offered by the JPEG2000 code-stream syntax.
+</P><P>
+ Although it is not necessary to know the details of
+the internal organization of parameter objects into
+clusters, it is helpful to understand some of its aspects.
+For the moment, we will consider only one instance
+(
+<B>inst_idx</B>=0) for each value of the 
+<B>tile_idx</B> and 
+<B>comp_idx</B> identifies within each cluster. Equivalently, we consider
+only instance heads. Some types of parameter classes
+can have multiple instances, in which case a linked
+list of instances is built from the instance head,
+but instance heads play a distinctive role. Moreover,
+many parameter classes cannot have any more than one
+instance.
+</P><P>
+ Associated with each cluster, is an array of references
+to all instance heads in the cluster. The array has
+<B>num_tiles</B>+1 rows and 
+<B>num_comps</B>+1 columns, where 
+<B>num_tiles</B> and 
+<B>num_cols</B> identify the number of tiles and components in the
+cluster, not including the special default elements
+which have 
+<B>tile_idx</B> or 
+<B>comp_idx</B> equal to -1. Each 
+<A HREF="kdu_params.html">kdu_params</A> object has a pointer to this shared array of references
+for its cluster, and this is how efficient navigation
+is achieved. The array is notionally owned (for the
+purpose of deletion) by the 
+<B>cluster head</B>, which is the element whose 
+<B>tile_idx</B> and 
+<B>comp_idx</B> indices are both equal to -1. The array is not created
+until the cluster head is linked, using the 
+<A HREF="kdu_params__link.html">link</A> function. That is also the point at which non-negative
+<B>tile_idx</B> and 
+<B>comp_idx</B> identifiers can be recorded with the object.
+</P><P>
+ To save space, where an image has a large number of
+tiles or components, entries in the references array
+for any given cluster need not be unique. In particular,
+the entry on row t and column c of the references array
+either points to a unique 
+<A HREF="kdu_params.html">kdu_params</A> object which corresponds to that tile-component, or
+else it points to one of the 
+<A HREF="kdu_params.html">kdu_params</A> objects whose tile and/or component index is equal
+to -1. In many cases, all entries will point to the
+cluster head, since it contains default coding parameters
+for all tile-components in the cluster. If the entry
+at (t,-1) and (-1,c) are unique, the entry at (t,c)
+must also be unique, rather than pointing to the tile
+head or component head. This allows the entry at (t,c)
+to borrow some attributes from its tile-head and some
+from its component-head.
+</P><P>
+ It is possible for the non-uniqueness of 
+<A HREF="kdu_params.html">kdu_params</A> objects to cause some confusion, since the 
+<A HREF="kdu_params__acc$relation.html">access_relation</A> member may return a pointer to a different 
+<A HREF="kdu_params.html">kdu_params</A> object to the one you expect. If you then modify any
+of the parameter values, you may end up modifying the
+wrong object. To avoid this difficulty, the 
+<A HREF="kdu_params__acc$relation.html">access_relation</A> function takes a special argument to identify whether
+you wish to modify any parameters or not. If you do,
+a new 
+<A HREF="kdu_params.html">kdu_params</A> object will be created, if necessary, so that the
+one you are accessing is unique to the indicated tile-component.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_params__kdu_params.html">kdu_params</A></P>
+<P><A HREF="kdu_params__new_object.html">new_object</A> [virtual] {<U>Java:</U> New_object}
+</P>
+<P><A HREF="kdu_params__~kdu_params.html">~kdu_params</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu_params__link.html">link</A> {<U>Java:</U> Link}
+</P>
+<P><A HREF="kdu_params__new$instance.html">new_instance</A> {<U>Java:</U> New_instance}
+</P>
+<P><A HREF="kdu_params__copy_from.html">copy_from</A> {<U>Java:</U> Copy_from}
+</P>
+<P><A HREF="kdu_params__copy_all.html">copy_all</A> {<U>Java:</U> Copy_all}
+</P>
+<P><A HREF="kdu_params__ide$_cluster.html">identify_cluster</A> {<U>Java:</U> Identify_cluster}
+</P>
+<P><A HREF="kdu_params__acc$_cluster__1.html">access_cluster</A> <EM>(2 forms)</EM> {<U>Java:</U> Access_cluster}
+</P>
+<P><A HREF="kdu_params__get$instance.html">get_instance</A> {<U>Java:</U> Get_instance}
+</P>
+<P><A HREF="kdu_params__get$um_comps.html">get_num_comps</A> {<U>Java:</U> Get_num_comps}
+</P>
+<P><A HREF="kdu_params__get$um_tiles.html">get_num_tiles</A> {<U>Java:</U> Get_num_tiles}
+</P>
+<P><A HREF="kdu_params__acc$relation.html">access_relation</A> {<U>Java:</U> Access_relation}
+</P>
+<P><A HREF="kdu_params__acc$s_unique.html">access_unique</A> {<U>Java:</U> Access_unique}
+</P>
+<P><A HREF="kdu_params__acc$ext_inst.html">access_next_inst</A> {<U>Java:</U> Access_next_inst}
+</P>
+<P><A HREF="kdu_params__clear_marks.html">clear_marks</A> {<U>Java:</U> Clear_marks}
+</P>
+<P><A HREF="kdu_params__any_changes.html">any_changes</A> {<U>Java:</U> Any_changes}
+</P>
+<P><A HREF="kdu_params__che$cal_tile.html">check_typical_tile</A> {<U>Java:</U> Check_typical_tile}
+</P>
+<P><A HREF="kdu_params__tra$_segment.html">translate_marker_segment</A> {<U>Java:</U> Translate_marker_segment}
+</P>
+<P><A HREF="kdu_params__gen$segments.html">generate_marker_segments</A> {<U>Java:</U> Generate_marker_segments}
+</P>
+<P><A HREF="kdu_params__get__1.html">get</A> <EM>(3 forms)</EM> {<U>Java:</U> Get}
+</P>
+<P><A HREF="kdu_params__compare__1.html">compare</A> <EM>(3 forms)</EM> {<U>Java:</U> Compare}
+</P>
+<P><A HREF="kdu_params__set__1.html">set</A> <EM>(3 forms)</EM> {<U>Java:</U> Set}
+</P>
+<P><A HREF="kdu_params__set_derived.html">set_derived</A> {<U>Java:</U> Set_derived}
+</P>
+<P><A HREF="kdu_params__par$e_string__1.html">parse_string</A> <EM>(2 forms)</EM> {<U>Java:</U> Parse_string}
+</P>
+<P><A HREF="kdu_params__tex$tributes__1.html">textualize_attributes</A> <EM>(2 forms)</EM> {<U>Java:</U> Textualize_attributes}
+</P>
+<P><A HREF="kdu_params__des$tributes.html">describe_attributes</A> {<U>Java:</U> Describe_attributes}
+</P>
+<P><A HREF="kdu_params__des$ttribute.html">describe_attribute</A> {<U>Java:</U> Describe_attribute}
+</P>
+<P><A HREF="kdu_params__find_string.html">find_string</A></P>
+<P><A HREF="kdu_params__del$ttribute.html">delete_unparsed_attribute</A> {<U>Java:</U> Delete_unparsed_attribute}
+</P>
+<P><A HREF="kdu_params__cus$se_field.html">custom_parse_field</A> [virtual] {<U>Java:</U> Custom_parse_field}
+</P>
+<P><A HREF="kdu_params__cus$ze_field.html">custom_textualize_field</A> [virtual] {<U>Java:</U> Custom_textualize_field}
+</P>
+<P><A HREF="kdu_params__finalize.html">finalize</A> [virtual] {<U>Java:</U> Finalize}
+</P>
+<P><A HREF="kdu_params__fin$lize_all__1.html">finalize_all</A> <EM>(2 forms)</EM> {<U>Java:</U> Finalize_all}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

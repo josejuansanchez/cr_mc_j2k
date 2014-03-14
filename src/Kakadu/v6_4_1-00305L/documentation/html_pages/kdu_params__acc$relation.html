@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::access_relation) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__get$um_tiles.html"> prev </A>||<A HREF="kdu_params__acc$s_unique.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::access_relation</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Access_relation</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_params.html">kdu_params</A>&nbsp;* access_relation(
+<B>int</B>&nbsp;tile_idx,
+<B>int</B>&nbsp;comp_idx,
+<B>int</B>&nbsp;inst_idx=0,
+<B>bool</B>&nbsp;read_only=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_params Access_relation(
+int&nbsp;tile_idx,
+int&nbsp;comp_idx,
+int&nbsp;inst_idx,
+boolean&nbsp;read_only)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Locates a particular object within the same cluster.
+You should be aware that there might not be a unique
+<A HREF="kdu_params.html">kdu_params</A> object for each valid tile and component index.
+</P><P>
+ If the parameters for that object are identical to
+those for a default object (one with a component and/or
+tile index of -1), one of the following occurs:
+</P><UL><LI>
+If 
+<A HREF="kdu_params__acc$relation.html#read_only">read_only</A> is true, the function returns the appropriate default
+object. This is fine if you are only interested in
+reading parameter values. However, if you are accessing
+the object with a view to changing its parameter values
+in any way, you should set 
+<A HREF="kdu_params__acc$relation.html#read_only">read_only</A> to false.
+</LI><LI>
+If 
+<A HREF="kdu_params__acc$relation.html#read_only">read_only</A> is false, the function creates a unique object for
+the indicated tile and component indices, if one does
+not already exist. If the newly created object has
+a negative tile or component index, the function also
+updates all relevant links, possibly creating unique
+objects for other tile-components. New instances will
+not be created on demand unless the oject was constructed
+with the special 
+<B>treat_instances_like_components</B> argument set to true.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if no object with the indicated tile, component
+and instance indices exists in the same cluster as
+the current object. Note that new instances will not
+be created on demand, even if 
+<A HREF="kdu_params__acc$relation.html#read_only">read_only</A> is set to false, unless the object was constructed
+with the 
+<B>treat_instances_like_components</B> argument equal to true.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tile_idx">tile_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Tile index, starting from -1.
+</P>
+</DIV>
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Component index, starting from -1.
+</P>
+</DIV>
+<H4><A NAME="inst_idx">inst_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Instance index, starting from 0.
+</P>
+</DIV>
+<H4><A NAME="read_only">read_only</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function may return a pointer to an appropriate
+default object (tile or component indices equal to
+-1) rather than the one requested, so long as the default
+object has exactly the same coding parameters. You
+should not modify the parameters of the returned object,
+though.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__get$um_tiles.html"> prev </A>||<A HREF="kdu_params__acc$s_unique.html"> next </A>|</P>
+</BODY>
+</HTML>

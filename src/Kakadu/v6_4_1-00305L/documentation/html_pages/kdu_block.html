@@ -1,0 +1,404 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_block) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_block [struct]</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_block</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure is used for intermediate storage of
+code-block information. Compressed code-blocks are
+stored in a much more efficient form, which is translated
+to and from the form in this structure by the 
+<A HREF="kdu$bband__open_block.html">kdu_subband::open_block</A>, 
+<A HREF="kdu$cinct__open_block.html">kdu_precinct::open_block</A>, 
+<A HREF="kdu$bband__close_block.html">kdu_subband::close_block</A> and 
+<A HREF="kdu$bband__close_block.html">kdu_subband::close_block</A> functions. The present form of the structure is designed
+to facilitate block coding activities.
+</P><P>
+ Unlike 
+<A HREF="kdu$tream.html">kdu_codestream</A>, 
+<A HREF="kdu_tile.html">kdu_tile</A>, 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A>, 
+<A HREF="kdu$ution.html">kdu_resolution</A>, 
+<A HREF="kdu$bband.html">kdu_subband</A> and 
+<A HREF="kdu$cinct.html">kdu_precinct</A>, this structure is not simply an interface to the
+internal machinery. It provides publically accessible
+member functions for efficient manipulation by block
+encoder and decoder implementations.
+</P><P>
+ To obtain a pointer to a 
+<A HREF="kdu_block.html">kdu_block</A> structure, you will need to use one of the functions,
+<A HREF="kdu$bband__open_block.html">kdu_subband::open_block</A> (most common) or 
+<A HREF="kdu$cinct__open_block.html">kdu_precinct::open_block</A> (usually for interactive servers). Do not construct
+your own instance of 
+<A HREF="kdu_block.html">kdu_block</A>!
+</P><P>
+ The 
+<A HREF="kdu_block.html">kdu_block</A> structure manages shared storage for encoders and
+decoders. Specifically, the 
+<A HREF="kdu_block.html#sample_buffer">sample_buffer</A> and 
+<A HREF="kdu_block.html#context_buffer">context_buffer</A> arrays are provided for the benefit of the block encoding
+and decoding implementations. Their size is not automatically
+determined by the code-block dimensions. Instead, it
+is the responsibility of the block coding implementation
+to check the size of these arrays and augment them,
+if necessary, using the 
+<A HREF="kdu_block__set$x_samples.html">set_max_samples</A> and 
+<A HREF="kdu_block__set$_contexts.html">set_max_contexts</A> functions.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_block__get$ax_passes.html">get_max_passes</A> {<U>Java:</U> Get_max_passes}
+</P>
+<P><A HREF="kdu_block__set$ax_passes.html">set_max_passes</A> {<U>Java:</U> Set_max_passes}
+</P>
+<P><A HREF="kdu_block__get$max_bytes.html">get_max_bytes</A> {<U>Java:</U> Get_max_bytes}
+</P>
+<P><A HREF="kdu_block__set$max_bytes.html">set_max_bytes</A> {<U>Java:</U> Set_max_bytes}
+</P>
+<P><A HREF="kdu_block__set$x_samples.html">set_max_samples</A> {<U>Java:</U> Set_max_samples}
+</P>
+<P><A HREF="kdu_block__set$_contexts.html">set_max_contexts</A> {<U>Java:</U> Set_max_contexts}
+</P>
+<P><A HREF="kdu_block__get_size.html">get_size</A> {<U>Java:</U> Get_size}
+</P>
+<P><A HREF="kdu_block__set_size.html">set_size</A> {<U>Java:</U> Set_size}
+</P>
+<P><A HREF="kdu_block__get_region.html">get_region</A> {<U>Java:</U> Get_region}
+</P>
+<P><A HREF="kdu_block__set_region.html">set_region</A> {<U>Java:</U> Set_region}
+</P>
+<P><A HREF="kdu_block__get$transpose.html">get_transpose</A> {<U>Java:</U> Get_transpose}
+</P>
+<P><A HREF="kdu_block__set$transpose.html">set_transpose</A> {<U>Java:</U> Set_transpose}
+</P>
+<P><A HREF="kdu_block__get_vflip.html">get_vflip</A> {<U>Java:</U> Get_vflip}
+</P>
+<P><A HREF="kdu_block__set_vflip.html">set_vflip</A> {<U>Java:</U> Set_vflip}
+</P>
+<P><A HREF="kdu_block__get_hflip.html">get_hflip</A> {<U>Java:</U> Get_hflip}
+</P>
+<P><A HREF="kdu_block__set_hflip.html">set_hflip</A> {<U>Java:</U> Set_hflip}
+</P>
+<P><A HREF="kdu_block__get_modes.html">get_modes</A> {<U>Java:</U> Get_modes}
+</P>
+<P><A HREF="kdu_block__set_modes.html">set_modes</A> {<U>Java:</U> Set_modes}
+</P>
+<P><A HREF="kdu_block__get$ientation.html">get_orientation</A> {<U>Java:</U> Get_orientation}
+</P>
+<P><A HREF="kdu_block__set$ientation.html">set_orientation</A> {<U>Java:</U> Set_orientation}
+</P>
+<P><A HREF="kdu_block__get$sing_msbs.html">get_missing_msbs</A> {<U>Java:</U> Get_missing_msbs}
+</P>
+<P><A HREF="kdu_block__set$sing_msbs.html">set_missing_msbs</A> {<U>Java:</U> Set_missing_msbs}
+</P>
+<P><A HREF="kdu_block__get$um_passes.html">get_num_passes</A> {<U>Java:</U> Get_num_passes}
+</P>
+<P><A HREF="kdu_block__set$um_passes.html">set_num_passes</A> {<U>Java:</U> Set_num_passes}
+</P>
+<P><A HREF="kdu_block__get$s_lengths.html">get_pass_lengths</A> {<U>Java:</U> Get_pass_lengths}
+</P>
+<P><A HREF="kdu_block__set$s_lengths.html">set_pass_lengths</A> {<U>Java:</U> Set_pass_lengths}
+</P>
+<P><A HREF="kdu_block__get$ss_slopes.html">get_pass_slopes</A> {<U>Java:</U> Get_pass_slopes}
+</P>
+<P><A HREF="kdu_block__set$ss_slopes.html">set_pass_slopes</A> {<U>Java:</U> Set_pass_slopes}
+</P>
+<P><A HREF="kdu_block__get$red_bytes.html">get_buffered_bytes</A> {<U>Java:</U> Get_buffered_bytes}
+</P>
+<P><A HREF="kdu_block__set$red_bytes.html">set_buffered_bytes</A> {<U>Java:</U> Set_buffered_bytes}
+</P>
+<P><A HREF="kdu_block__start_timing.html">start_timing</A> {<U>Java:</U> Start_timing}
+</P>
+<P><A HREF="kdu_block__fin$sh_timing.html">finish_timing</A> {<U>Java:</U> Finish_timing}
+</P>
+<P><A HREF="kdu_block__ini$ze_timing.html">initialize_timing</A> {<U>Java:</U> Initialize_timing}
+</P>
+<P><A HREF="kdu_block__get$ing_stats.html">get_timing_stats</A> {<U>Java:</U> Get_timing_stats}
+</P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="size">size</A> [<A HREF ="kdu_coords.html">kdu_coords</A>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get_size.html">get</A>; <A HREF="kdu_block__set_size.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Records the dimensions of the code-block. These are
+the true dimensions, used by the block encoder or decoder
+&mdash; they are unaffected by regions of interest
+or geometric transformations.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get_region.html">get</A>; <A HREF="kdu_block__set_region.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Identifies the region of interest inside the block.
+This region is not corrected for any prevailing geometric
+transformations, which may be in force. 
+<A HREF="kdu_dims.html#pos">region.pos</A> identifies the upper left hand corner of the region,
+relative to the upper left hand corner of the code-block.
+Thus, if the region of interest is the entire code-block,
+<A HREF="kdu_dims.html#pos">region.pos</A> will equal (0,0) and 
+<A HREF="kdu_dims.html#size">region.size</A> will equal 
+<A HREF="kdu_block.html#size">size</A>, regardless of the geometric transformation flags
+described.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get$transpose.html">get</A>; <A HREF="kdu_block__set$transpose.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Together, the 
+<A HREF="kdu_block.html#transpose">transpose</A>, 
+<A HREF="kdu_block.html#vflip">vflip</A> and 
+<A HREF="kdu_block.html#hflip">hflip</A> fields identify any geometric transformations which
+need to be applied to the code-block samples after
+they have been decoded, or before they are encoded.
+These quantities are to be interpreted as follows:
+</P><UL><LI>
+During decoding, the block is first decoded over its
+full size. If indicated 
+<A HREF="kdu_block.html#region">region</A> is then extracted from the block and transformed as
+follows. If 
+<A HREF="kdu_block.html#transpose">transpose</A> is true, the extracted region is first transposed.
+After any such transposition, the 
+<A HREF="kdu_block.html#vflip">vflip</A> and 
+<A HREF="kdu_block.html#hflip">hflip</A> flags are used to flip the region in the vertical
+and horizontal directions, respectively. Note that
+all of these operations can be collapsed into a function
+which copies data out of the 
+<A HREF="kdu_block.html#region">region</A> of the block into a buffer used for the inverse DWT.
+</LI><LI>
+During encoding, the region of interest must necessarily
+be the entire block. The 
+<A HREF="kdu_block.html#vflip">vflip</A> and 
+<A HREF="kdu_block.html#hflip">hflip</A> flags control whether or not the original sample data
+is flipped vertically and horizontally. Then, if 
+<A HREF="kdu_block.html#transpose">transpose</A> is true, the appropriately flipped sample block is
+transposed. Finally, the transposed block is encoded.
+</LI></UL>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get_vflip.html">get</A>; <A HREF="kdu_block__set_vflip.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+See description of 
+<A HREF="kdu_block.html#transpose">transpose</A>.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get_hflip.html">get</A>; <A HREF="kdu_block__set_hflip.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+See description of 
+<A HREF="kdu_block.html#transpose">transpose</A>.
+</P>
+</DIV>
+<H4><A NAME="modes">modes</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get_modes.html">get</A>; <A HREF="kdu_block__set_modes.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Holds the logical OR of the coding mode flags. These
+flags may be tested using the Cmodes_BYPASS, Cmodes_RESET,
+Cmodes_RESTART, Cmodes_CAUSAL, Cmodes_ERTERM and Cmodes_SEGMARK
+macros defined in "kdu_params.h". For more information
+on the coding modes, see the description of the 
+<A HREF="globals.html#Cmodes">Cmodes</A> attribute offered by the 
+<A HREF="cod_params.html">cod_params</A> parameter class.
+</P>
+</DIV>
+<H4><A NAME="orientation">orientation</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get$ientation.html">get</A>; <A HREF="kdu_block__set$ientation.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Holds one of LL_BAND, HL_BAND (horizontally high-pass),
+LH_BAND (vertically high-pass) or HH_BAND. The subband
+orientation affects context formation for block encoding
+and decoding. The value of this member is unaffected
+by the geometric transformation flags, since it has
+nothing to do with apparent dimensions.
+</P>
+</DIV>
+<H4><A NAME="resilient">resilient</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Encourages a block decoder to attempt to locate and
+conceal errors in the embedded bit-stream it is decoding.
+For a discussion of how this may be accomplished, the
+reader is referred to Section 12.4.3 in the book by
+Taubman and Marcellin.
+</P><P>
+ For more information regarding the interpretation
+of the resilient mode, consult the comments appearing
+with the declaration of 
+<A HREF="kdu$tream__set$resilient.html">kdu_codestream::set_resilient</A>.
+</P>
+</DIV>
+<H4><A NAME="fussy">fussy</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Encourages a block decoder to check for compliance,
+generating an error message through 
+<A HREF="kdu_error.html">kdu_error</A> if any problems are detected.
+</P><P>
+ For more information regarding the interpretation
+of the resilient mode, consult the comments appearing
+with the declaration of 
+<A HREF="kdu$tream__set_fussy.html">kdu_codestream::set_fussy</A>.
+</P>
+</DIV>
+<H4><A NAME="K_max_prime">K_max_prime</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Maximum number of magnitude bit-planes for the subband,
+including ROI adjustments. See 
+<A HREF="kdu$bband__get$max_prime.html">kdu_subband::get_K_max_prime</A> for further discussion of this quantity.
+</P>
+</DIV>
+<H4><A NAME="missing_msbs">missing_msbs</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get$sing_msbs.html">get</A>; <A HREF="kdu_block__set$sing_msbs.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Written by the encoder; read by the decoder. For an
+explanation of this quantity, refer to Section 8.4.2
+in the book by Taubman and Marcellin.
+</P>
+</DIV>
+<H4><A NAME="num_passes">num_passes</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__get$um_passes.html">get</A>; <A HREF="kdu_block__set$um_passes.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Written by the encoder; read by the decoder. Number
+of coding passes generated (encoder) or available (decoder),
+starting from the first bit-plane after the initial
+<A HREF="kdu_block.html#missing_msbs">missing_msbs</A> bit-planes.
+</P>
+</DIV>
+<H4><A NAME="pass_lengths">pass_lengths</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Entries are written by the encoder; read by the decoder.
+The first entry holds the total number of code bytes
+associated with the first coding pass of the first
+bit-plane following the initial 
+<A HREF="kdu_block.html#missing_msbs">missing_msbs</A> empty bit-planes. Subsequent entries identify lengths
+of the incremental contributions made by each consecutive
+coding pass to the total embedded bit-stream for the
+code-block.
+</P><P>
+ Use 
+<A HREF="kdu_block.html#max_passes">max_passes</A> and 
+<A HREF="kdu_block__set$ax_passes.html">set_max_passes</A> to make sure this array contains sufficient elements.
+</P>
+</DIV>
+<H4><A NAME="pass_slopes">pass_slopes</A> [<B>kdu_uint16</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+The entries in this array must be strictly decreasing,
+with the exception that 0's may be interspersed into
+the sequence.
+</P><UL><LI>
+When used for compression, the entries in this array
+usually hold a suitably normalized and shifted version
+of log(lambda(z)), where lambda(z) is the distortion-length
+slope value for any point on the convex HULL of the
+operational distortion-rate curve for the code-block
+(see Section 8.2 of the book by Taubman and Marcellin
+for more details). Zero values correspond to points
+not on the convex HULL. The final coding pass contributed
+by any given code-block to any quality layer can never
+have a zero-valued slope.
+</LI><LI>
+When used for transcoding, or with interchange codestreams
+(i.e., when the internal code-stream management machinery
+was created using the particular form of the overloaded
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> function which takes neither a compressed data source,
+nor a compressed data target), the entries of the 
+<A HREF="kdu_block.html#pass_slopes">pass_slopes</A> array should be set equal to 0xFFFF minus the index
+(starting from 0) of the quality layer to which the
+coding pass contributes, except where a later coding
+pass contributes to the same quality layer, in which
+case the 
+<A HREF="kdu_block.html#pass_slopes">pass_slopes</A> entry should be 0. For more details, consult the comments
+appearing with the definition of 
+<A HREF="kdu$tream__trans_out.html">kdu_codestream::trans_out</A> and 
+<A HREF="kdu$cinct__get_packets.html">kdu_precinct::get_packets</A>.
+</LI><LI>
+When used for input, the 
+<A HREF="kdu_block.html#pass_slopes">pass_slopes</A> array is filled out following exactly the rules described
+above for transcoding.
+</LI></UL><P>
+ Use 
+<A HREF="kdu_block.html#max_passes">max_passes</A> and 
+<A HREF="kdu_block__set$ax_passes.html">set_max_passes</A> to make sure this array contains sufficient elements.
+</P>
+</DIV>
+<H4><A NAME="byte_buffer">byte_buffer</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This array is allocated in such a way as to allow access
+to elements with indices in the range -1 through 
+<A HREF="kdu_block.html#max_bytes">max_bytes</A>-1. This can be useful when working with the MQ encoder.
+</P><P>
+ Use 
+<A HREF="kdu_block.html#max_bytes">max_bytes</A> and 
+<A HREF="kdu_block__set$max_bytes.html">set_max_bytes</A> to make sure this array contains sufficient elements.
+</P>
+</DIV>
+<H4><A NAME="max_passes">max_passes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Current size of the 
+<A HREF="kdu_block.html#pass_lengths">pass_lengths</A> and 
+<A HREF="kdu_block.html#pass_slopes">pass_slopes</A> arrays.
+</P>
+</DIV>
+<H4><A NAME="max_bytes">max_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Current size of the 
+<A HREF="kdu_block.html#byte_buffer">byte_buffer</A> array.
+</P>
+</DIV>
+<H4><A NAME="sample_buffer">sample_buffer</A> [<B>kdu_int32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Not used by the internal code-stream management machinery
+itself, this array provides a convenient shared resource
+for the benefit of block encoder and decoder implementations.
+Use 
+<A HREF="kdu_block.html#max_samples">max_samples</A> and 
+<A HREF="kdu_block__set$x_samples.html">set_max_samples</A> to make sure the array contains sufficient elements.
+</P><P>
+ From v5.0 onwards, this buffer is guaranteed to be
+aligned on a 16-byte boundary to facilitate efficient
+memory transfers.
+</P>
+</DIV>
+<H4><A NAME="context_buffer">context_buffer</A> [<B>kdu_int32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Not used by the internal code-stream management machinery
+itself, this array provides a convenient shared resource
+for the benefit of block encoder and decoder implementations.
+Use 
+<A HREF="kdu_block.html#max_contexts">max_contexts</A> and 
+<A HREF="kdu_block__set$_contexts.html">set_max_contexts</A> to make sure the array contains sufficient elements.
+</P>
+</DIV>
+<H4><A NAME="max_samples">max_samples</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__set$x_samples.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Current size of the 
+<A HREF="kdu_block.html#sample_buffer">sample_buffer</A> array.
+</P>
+</DIV>
+<H4><A NAME="max_contexts">max_contexts</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_block__set$_contexts.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Current size of the 
+<A HREF="kdu_block.html#context_buffer">context_buffer</A> array.
+</P>
+</DIV>
+<H4><A NAME="errors_detected">errors_detected</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+True if a warning message has already been issued by
+the block decoder when operating in resilient mode
+&mdash; saves a massive number of warnings from being
+delivered when a heavily corrupted code-stream is encountered.
+</P>
+</DIV>
+<H4><A NAME="insufficient_precision_detected">insufficient_precision_detected</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+True if a warning message has already been issued by
+the block encoder to indicate that the 32-bit implementation
+has insufficient precision to represent ROI foreground
+and background regions completely losslessly.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

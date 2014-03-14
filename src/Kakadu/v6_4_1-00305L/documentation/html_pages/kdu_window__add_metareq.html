@@ -1,0 +1,134 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window::add_metareq) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_window__ini$_metareq.html"> prev </A>||<A HREF="kdu_window__par$_metareq.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window::add_metareq</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window.Add_metareq</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> add_metareq(
+<B>kdu_uint32</B>&nbsp;box_type,
+<B>int</B>&nbsp;qualifier=KDU_MRQ_DEFAULT,
+<B>bool</B>&nbsp;priority=false,
+<B>int</B>&nbsp;byte_limit=INT_MAX,
+<B>bool</B>&nbsp;recurse=false,
+<B>kdu_long</B>&nbsp;root_bin_id=0,
+<B>int</B>&nbsp;max_depth=INT_MAX)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Add_metareq(
+long&nbsp;box_type,
+int&nbsp;qualifier,
+boolean&nbsp;priority,
+int&nbsp;byte_limit,
+boolean&nbsp;recurse,
+long&nbsp;root_bin_id,
+int&nbsp;max_depth)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu_window.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a new entry to the 
+<A HREF="kdu_window.html#metareq">metareq</A> list. The order of elements in the list is not important.
+Each element in the list describes a particular 
+<A HREF="kdu_window__add_metareq.html#box_type">box_type</A> of interest. This should either be a valid JP2-family
+box signature (4 character code) or 0; in the latter
+case, all box types are implied. The interpretations
+of the other arguments are described below.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+JP2-family box 4 character code, or else 0 (wildcard).
+</P>
+</DIV>
+<H4><A NAME="qualifier">qualifier</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be a union of one or more of the flags, 
+<A HREF="globals.html#KDU_MRQ_ALL">KDU_MRQ_ALL</A>, 
+<A HREF="globals.html#KDU_MRQ_GLOBAL">KDU_MRQ_GLOBAL</A>, 
+<A HREF="globals.html#KDU_MRQ_STREAM">KDU_MRQ_STREAM</A> and 
+<A HREF="globals.html#KDU_MRQ_WINDOW">KDU_MRQ_WINDOW</A>. At least one of these flags must be present. The
+default value, 
+<A HREF="globals.html#KDU_MRQ_DEFAULT">KDU_MRQ_DEFAULT</A> is equivalent to the union of 
+<A HREF="globals.html#KDU_MRQ_GLOBAL">KDU_MRQ_GLOBAL</A>, 
+<A HREF="globals.html#KDU_MRQ_STREAM">KDU_MRQ_STREAM</A> and 
+<A HREF="globals.html#KDU_MRQ_WINDOW">KDU_MRQ_WINDOW</A>. For a detailed explanation of the role played by
+these qualifiers, see the comments appearing with the
+<A HREF="kdu$tareq.html#qualifier">kdu_metareq::qualifier</A> member.
+</P>
+</DIV>
+<H4><A NAME="priority">priority</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+True if the boxes described by the new 
+<A HREF="kdu$tareq.html">kdu_metareq</A> structure are to be assigned higher priority than
+image data when the server determines the order in
+which to transmit information which is relevant to
+the window request. If false, these boxes will have
+lower priority than image data (unless the priority
+is boosted by another record in the 
+<A HREF="kdu_window.html#metareq">metareq</A> list). If no image data is to be returned (see 
+<A HREF="kdu_window.html#metadata_only">metadata_only</A>), the 
+<A HREF="kdu_window__add_metareq.html#priority">priority</A> value may still have the effect of causing some high
+priority metadata to be sent before low priority metadata.
+</P>
+</DIV>
+<H4><A NAME="byte_limit">byte_limit</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the maximum number of bytes from the contents
+of any JP2 box conforming to the new 
+<A HREF="kdu$tareq.html">kdu_metareq</A> record, which are of interest to the client. May not
+be negative. Note that this argument is ignored if
+<A HREF="kdu_window__add_metareq.html#recurse">recurse</A> is true.
+</P>
+</DIV>
+<H4><A NAME="recurse">recurse</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates that the client is also interested in all
+descendants (via sub-boxes) of any box which matches
+the 
+<A HREF="kdu_window__add_metareq.html#box_type">box_type</A> and other attributes specified by the various arguments.
+If true, the 
+<A HREF="kdu_window__add_metareq.html#byte_limit">byte_limit</A> argument will be ignored, but treated as 0, meaning
+that the client is assumed to be interested only in
+the header of boxes which match the 
+<A HREF="kdu_window__add_metareq.html#box_type">box_type</A> and the descendants of such boxes.
+</P>
+</DIV>
+<H4><A NAME="root_bin_id">root_bin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the metadata-bin identifier of the data-bin
+which is to be used as the root when processing the
+new 
+<A HREF="kdu$tareq.html">kdu_metareq</A> record. If non-zero, the scope of the record is reduced
+to the set of JP2 boxes which are found in the indicated
+data-bin or are linked from it via placeholders.
+</P>
+</DIV>
+<H4><A NAME="max_depth">max_depth</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provides a limit on the maximum depth to which the
+server is expected to descend within the metadata tree
+to find JP2 boxes conforming to the other attributes
+of this record. A value of 0 means that the client
+is interested only in boxes which are found at the
+top level of the data-bin identified by 
+<A HREF="kdu_window__add_metareq.html#root_bin_id">root_bin_id</A>. A value of 1 means that the client is additionally
+interested in sub-boxes of boxes which are found at
+the top level of the data-bin identified by 
+<A HREF="kdu_window__add_metareq.html#root_bin_id">root_bin_id</A>; and so forth.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_window__ini$_metareq.html"> prev </A>||<A HREF="kdu_window__par$_metareq.html"> next </A>|</P>
+</BODY>
+</HTML>

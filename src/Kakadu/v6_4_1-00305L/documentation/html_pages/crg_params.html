@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (crg_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">crg_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Crg_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 
+<B>CRG</B> (component registration) marker segment. Only one
+instance appears in a single code-stream; tile-specific
+and component-specific forms are not allowed.
+</P><P>
+ The cluster name is "CRG", but you are recommended
+to use the macro 
+<A HREF="globals.html#CRG_params">CRG_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#CRGoffset">CRGoffset</A>; Pattern = "FF", [MULTI_RECORD, CAN_EXTRAPOLATE] &mdash;
+Provides additional component registration offsets.
+The offsets add to those implied by the canvas coordinate
+system and should only be used when canvas coordinates
+(notably 
+<A HREF="globals.html#Ssize">Ssize</A>, 
+<B>Soffset</B> and 
+<A HREF="globals.html#Ssampling">Ssampling</A>) cannot be found, which adequately reflect the relative
+displacement of the components. Each record specifies
+offsets for one component, with the vertical "offset
+appearing first. Offsets must be in the range 0 (inclusive)
+to 1 (exclusive) and represent a fraction of the relevant
+component sub-sampling factor (see 
+<A HREF="globals.html#Ssampling">Ssampling</A>). The last supplied record is repeated as needed to
+recover offsets for all components.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="crg_params__crg_params.html">crg_params</A> {<U>Java:</U> Crg_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

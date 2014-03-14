@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_hex_hex_encode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_hex_decode.html"> prev </A>||<A HREF="globals__kdu$e_type_code.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_hex_hex_encode</A></H1>
+<P CLASS="function-text">static <B>int</B> kdu_hex_hex_encode(
+<B>const char *</B>&nbsp;src,
+<B>char</B>&nbsp;dst[],
+<B>const char *</B>&nbsp;src_lim=NULL,
+<B>const char *</B>&nbsp;special_chars=NULL)</P>
+<P>[Declared in <A HREF="++++coresy$on+kdu_utils+h.html">"../coresys/common/kdu_utils.h"</A>]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is, in some sense, the dual of 
+<A HREF="globals__kdu$_hex_decode.html">kdu_hex_hex_decode</A>. It is used by 
+<A HREF="jp2$ences.html">jp2_data_references</A> as well as various client-server components. Since
+hex-hex encoding generally increases the length of
+a string, it cannot be performed in place. The function
+can be invoked with a NULL 
+<A HREF="globals__kdu$_hex_encode.html#dst">dst</A> argument to determine the number of characters in
+the hex-hex encoded result, allowing you to allocate
+a buffer large enough to supply in a second call to
+the function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Number of characters which are (or would be) written
+to the 
+<A HREF="globals__kdu$_hex_encode.html#dst">dst</A> buffer, not including the terminating null character.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="dst">dst[]</A> [<B>char</B>]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the function returns only the number of bytes
+that it would write to a non-NULL 
+<A HREF="globals__kdu$_hex_encode.html#dst">dst</A> buffer, not counting the null terminator.
+</P>
+</DIV>
+<H4><A NAME="src_lim">src_lim</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="globals__kdu$_hex_encode.html#src">src</A> string will be read up to but not including any address
+passed by this argument. This allows you to hex-hex
+encode an initial prefix of the string, if desired.
+</P>
+</DIV>
+<H4><A NAME="special_chars">special_chars</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+By default, the function hex-hex encodes all characters
+outside the range 0x21 to 0x7E (note that 0x20 is the
+ASCII space character), in addition to the non-URI-legal
+characters defined in RFC2396. In some cases, ambiguity
+may remain unless additional reserved characters are
+hex-hex encoded. In particular, for JPIP communications,
+the "?" and "&" characters have special meaning in
+URL's and within POST'ed queries, so ambiguity could
+occur if these characters are found within a target
+filename or a JP2 box type code. Special characters
+like this may be supplied by a non-NULL 
+<A HREF="globals__kdu$_hex_encode.html#special_chars">special_chars</A> argument.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_hex_decode.html"> prev </A>||<A HREF="globals__kdu$e_type_code.html"> next </A>|</P>
+</BODY>
+</HTML>

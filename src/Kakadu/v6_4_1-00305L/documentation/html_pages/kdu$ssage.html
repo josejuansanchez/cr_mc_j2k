@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_message) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_message</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_message</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu_error.html">kdu_error</A></LI>
+<LI><A HREF="kdu$atter.html">kdu_message_formatter</A></LI>
+<LI><A HREF="kdu$1ssage.html">kdu_thread_safe_message</A></LI>
+<LI><A HREF="kdu$rning.html">kdu_warning</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class form a generic platform on which
+text messaging services are built in Kakadu. These
+services allow the Kakadu core system to avoid any
+dependence on C++ I/O streams, which are not always
+available on some platforms (e.g., WinCE). For meaningful
+messaging, this object must be derived. The architecture
+is carefully devised to allow advanced messaging extensions
+to be implemented in other language bindings (e.g.,
+Java), and to then be available for rendering all Kakadu
+core system messages, along with other application-specific
+messages.
+</P><P>
+ If you need to ensure that a single message service
+will behave correctly when used from multiple threads,
+consider the 
+<A HREF="kdu$1ssage.html">kdu_thread_safe_message</A> object as a base for your derived message classes.
+</P><P>
+ For applications involving multiple threads and interactive
+display of messages (e.g., with pop up windows), you
+should almost certainly base your message handling
+services on 
+<A HREF="kdu$queue.html">kdu_message_queue</A>, which derives from 
+<A HREF="kdu$1ssage.html">kdu_thread_safe_message</A> and allows messages to be generated in multiple threads
+but displayed from a single master thread (many GUI
+environments ultimately rely upon a window message
+handler which runs in a single thread).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ssage__kdu_message.html">kdu_message</A> {<U>Java:</U> Kdu_message}
+</P>
+<P><A HREF="kdu$ssage__~kdu_message.html">~kdu_message</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$ssage__put_text__1.html">put_text</A> [CALLBACK, virtual] <EM>(2 forms)</EM> {<U>Java:</U> Put_text}
+</P>
+<P><A HREF="kdu$ssage__flush.html">flush</A> [CALLBACK, virtual] {<U>Java:</U> Flush}
+</P>
+<P><A HREF="kdu$ssage__sta$t_message.html">start_message</A> [CALLBACK, virtual] {<U>Java:</U> Start_message}
+</P>
+<P><A HREF="kdu$ssage__set_hex_mode.html">set_hex_mode</A> {<U>Java:</U> Set_hex_mode}
+</P>
+<P><A HREF="kdu$ssage__ope$rAlt;Alt;__1.html">operator&lt;&lt;</A> <EM>(9 forms)</EM></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

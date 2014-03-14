@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (poc_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">poc_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Poc_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 
+<B>POC</B> marker segment. Tile-specific are allowed, but not
+component-specific forms.
+</P><P>
+ The cluster name is "POC", but you are recommended
+to use the macro 
+<A HREF="globals.html#POC_params">POC_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Porder">Porder</A>; Pattern = "IIIII(LRCP=0,RLCP=1,RPCL=2,PCRL=3,CPRL=4)",
+[MULTI_RECORD] &mdash; Progression order change information.
+There may be multiple instances of this attribute,
+in which case each instance corresponds to a tile-part
+boundary. Each instance may contain one or more progression
+records, each of which defines the order for a collection
+of packets. Each record contains 6 fields. The first
+two fields identify inclusive lower bounds for the
+resolution level and image component indices, respectively.
+The next three fields identify exclusive upper bounds
+for the quality layer, resolution level and image component
+indices, respectively. All indices are zero-based,
+with resolution level 0 corresponding to the LL_D subband.
+The final field in each record identifies the progression
+order to be applied within the indicated bounds. This
+order is applied only to those packets which have not
+already been sequenced by previous records or instances.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="poc_params__poc_params.html">poc_params</A> {<U>Java:</U> Poc_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

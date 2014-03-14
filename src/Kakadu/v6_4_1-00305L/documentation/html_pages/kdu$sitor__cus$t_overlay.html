@@ -1,0 +1,319 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::custom_paint_overlay) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$rlay_info.html"> prev </A>||<A HREF="kdu$sitor__all$te_buffer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::custom_paint_overlay</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Custom_paint_overlay</EM></H3></DIR></DIR>
+<DIR><DIR><DIR><H3><U>CALLBACK:</U> Your implementation of this function in Java, C# or another foreign language will be called from the internal implementation of this object.  See "java-and_managed-interfaces.pdf" for more on CALLBACK functions.</H3>
+<P CLASS="function-text">virtual <B>bool</B> custom_paint_overlay(
+<A HREF ="kdu$r_buf.html">kdu_compositor_buf</A>&nbsp;*&nbsp;buffer,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;buffer_region,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;bounding_region,
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;node,
+<A HREF ="kdu$arams.html">kdu_overlay_params</A>&nbsp;*&nbsp;painting_params,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;image_offset,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;subsampling,
+<B>bool</B>&nbsp;transpose,
+<B>bool</B>&nbsp;vflip,
+<B>bool</B>&nbsp;hflip,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expansion_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expansion_denominator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;compositing_offset)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Custom_paint_overlay(
+Kdu_compositor_buf&nbsp;buffer,
+Kdu_dims&nbsp;buffer_region,
+Kdu_dims&nbsp;bounding_region,
+Jpx_metanode&nbsp;node,
+Kdu_overlay_params&nbsp;painting_params,
+Kdu_coords&nbsp;image_offset,
+Kdu_coords&nbsp;subsampling,
+boolean&nbsp;transpose,
+boolean&nbsp;vflip,
+boolean&nbsp;hflip,
+Kdu_coords&nbsp;expansion_numerator,
+Kdu_coords&nbsp;expansion_denominator,
+Kdu_coords&nbsp;compositing_offset)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is called from the internal machinery
+whenever the overlay for some spatially sensitive metadata
+needs to be painted. The default implementation returns
+false, meaning that overlays should be painted using
+the regular 
+<B>paint_overlay</B> function. To implement a custom overlay painter, you
+should override this present function in a derived
+class and return true. In that case, 
+<B>paint_overlay</B> will not be called. It is also possible to directly
+override the 
+<B>paint_overlay</B> function, but this does not provide a solution for
+alternate language bindings and is thus not recommended.
+The present function can be implemented in any Java,
+C#, Visual Basic or other managed class derived from
+the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object's language binding.
+</P><P>
+ Overlays are available only when working with JPX
+data sources. The function is called separately for
+each 
+<A HREF="jpx$anode.html">jpx_metanode</A> which corresponds to a JPX region of interest which
+is relevant to the underlying imagery &mdash; in practice,
+the function may be called multiple times for any given
+compositing layer and region of interest which intersects
+with that compositing layer, because overlay information
+is painted separately over tiles, whose dimensions
+and boundaries are determined internally so as to maximize
+efficiency for various processes.
+</P><P>
+ The remainder of the description below applies if
+you intend to implement an appropriate painting process
+yourself, from scratch. However, you can also directly
+invoke 
+<B>paint_overlay</B> to do the painting. This could be interesting if you
+want to apply some specific filtering procedure based
+on the metadata, to determine how or if an overlay
+should be painted. You could also augment the information
+painted by 
+<B>paint_overlay</B> with additional textual or other semantic decorations.
+One particularly simple, yet interesting possibility
+is to dynamically reconfigure the behaviour of 
+<B>paint_overlay</B> based on the underlying metadata descended from 
+<A HREF="kdu$sitor__cus$t_overlay.html#node">node</A> by temporarily modifying the auxiliary painting parameters
+using 
+<A HREF="kdu$arams__pus$ux_params.html">kdu_overlay_params::push_aux_params</A>.
+</P><P>
+ The 
+<A HREF="kdu$sitor__cus$t_overlay.html#buffer">buffer</A> argument provides a raster scan overlay buffer, which
+covers the current rendering region within a particular
+compositing layer. 
+<A HREF="kdu$sitor__cus$t_overlay.html#buffer_region">buffer_region</A> identifies the region occupied by this buffer, relative
+to the compositing reference grid. However, you should
+confine your painting activities to the intersection
+between this 
+<A HREF="kdu$sitor__cus$t_overlay.html#buffer_region">buffer_region</A> and the 
+<A HREF="kdu$sitor__cus$t_overlay.html#bounding_region">bounding_region</A>.
+</P><P>
+ While detailed descriptions of the various arguments
+appear below, it is worth describing the geometric
+mapping process up front. Region sensitive metadata
+is always associated with specific codestreams, via
+an ROI description box. The ROI description box describes
+the regions on the codestream's high resolution canvas,
+with locations offset relative to the upper left hand
+corner of the image region on this canvas (the image
+region might not necessarily start at the canvas origin).
+By contrast, the overlay buffer's coordinate system
+is referred to a compositing reference grid, which
+depends upon compositing instructions in the JPX data
+source, as well as the current scale and orientation
+of the rendering surface. To map from an ROI description
+region, 
+<B>R</B>, to the compositing reference grid, the following
+steps are required:
+</P><UL><LI>
+Add 
+<A HREF="kdu$sitor__cus$t_overlay.html#image_offset">image_offset</A> to all locations in 
+<B>R</B>. This translates the region to one which is correctly
+registered against the codestream's high resolution
+canvas.
+</LI><LI>
+Invoke 
+<A HREF="kdu_coords__to_apparent.html">kdu_coords::to_apparent</A> on each location in 
+<B>R</B> (offset as above), passing in the 
+<A HREF="kdu$sitor__cus$t_overlay.html#transpose">transpose</A>, 
+<A HREF="kdu$sitor__cus$t_overlay.html#vflip">vflip</A> and 
+<A HREF="kdu$sitor__cus$t_overlay.html#hflip">hflip</A> arguments.
+</LI><LI>
+Convert the points generated as above using the static
+<A HREF="kdu$essor__fin$der_point.html">kdu_region_decompressor::find_render_point</A> function, passing in the 
+<B>expand_numerator</B> and 
+<B>expand_denominator</B> arguments, along with the 
+<A HREF="kdu$sitor__cus$t_overlay.html#subsampling">subsampling</A> argument, after first invoking 
+<B>subsampling.transpose()</B> if 
+<A HREF="kdu$sitor__cus$t_overlay.html#transpose">transpose</A> is true &mdash; this is necessary because the 
+<A HREF="kdu$sitor__cus$t_overlay.html#subsampling">subsampling</A> argument passed to the present function is expressed
+with respect to the original codestream geometry (not
+the apparent codestream geometry).
+</LI><LI>
+Subtract 
+<A HREF="kdu$sitor__cus$t_overlay.html#compositing_offset">compositing_offset</A> from the locations produced, as above.
+</LI></UL><P>
+ Note that the 
+<A HREF="kdu$arams__map$x_regions.html">kdu_overlay_params::map_jpx_regions</A> function can be used to perform the above transformations
+on all regions of interest described by a JPX ROI box
+&mdash; this is almost certainly what you will want
+to do.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the overlay painting process for 
+<A HREF="kdu$sitor__cus$t_overlay.html#node">node</A> has been handled by this function (even if nothing
+was actually painted) so that the default 
+<B>paint_overlay</B> function need not be called.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buffer">buffer</A> [<A HREF ="kdu$r_buf.html">kdu_compositor_buf</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Pointer to the relevant overlay buffer. The size and
+location of this buffer, as it appears on the compositing
+surface, are described by the 
+<A HREF="kdu$sitor__cus$t_overlay.html#buffer_region">buffer_region</A> argument. The overlay buffer has Alpha, R, G and B
+components and is alpha blended with the image component
+associated with this overlay. When painting the buffer,
+it is your responsibility to write Alpha, R, G and
+B values at each desired location. You are not responsible
+for performing the alpha blending itself &mdash; indeed
+alpha can be additionally scaled during the overlay
+blending process to implement simple effects.
+</P><P>
+ If the buffer has a 32-bit pixel organization, 
+<A HREF="kdu$r_buf__get_buf.html">buffer&rarr;get_buf</A> returns a non-NULL pointer, and the organization of
+the four channels within each 32-bit word is as follows:
+</P><UL><LI>
+the most significant byte of the word holds the alpha
+value;
+</LI><LI>
+the second most significant byte holds the red channel
+value;
+</LI><LI>
+the next byte holds the green channel value; and
+</LI><LI>
+the least significant byte holds the blue channel value.
+</LI></UL><P>
+ If the buffer has a floating-point organization, 
+<A HREF="kdu$r_buf__get$float_buf.html">buffer&rarr;get_float_buf</A> returns a non-NULL pointer, and each pixel consists
+of four successive floating point quantities, in the
+order Alpha, red, green and then blue. In this case,
+all quantities have a range of 0.0 to 1.0; in particular,
+opaque overlay content should have an alpha value of
+0.0.
+</P>
+</DIV>
+<H4><A NAME="buffer_region">buffer_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Region occupied by the overlay buffer, expressed on
+the compositing reference grid &mdash; this is generally
+a subset of the region occupied by the associated compositing
+layer, since each compositing layer can have its own
+overlay buffer.
+</P>
+</DIV>
+<H4><A NAME="bounding_region">bounding_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Bounding rectangle, within which overlay data should
+be correctly painted. For consistent appearance, you
+should paint overlay data only within the intersection
+between 
+<A HREF="kdu$sitor__cus$t_overlay.html#buffer_region">buffer_region</A> and 
+<A HREF="kdu$sitor__cus$t_overlay.html#bounding_region">bounding_region</A>. This allows the internal implementation to split
+metadata into smaller segments, where some regions
+of interest may span multiple segments. Segmentation
+allows metadata lists to be ordered based on region
+size, without excessive sorting cost, and ordering
+ensures more consistent appearance. Segmentation also
+allows more efficient re-use of rendered metadata as
+a compositing viewport is panned around. If you paint
+outside the 
+<A HREF="kdu$sitor__cus$t_overlay.html#bounding_region">bounding_region</A>, there is a chance that you overwrite some metadata
+overlay content which was supposed to be painted on
+top of the current content.
+</P>
+</DIV>
+<H4><A NAME="node">node</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+<P>
+This is guaranteed to represent an ROI description
+box. Use the 
+<A HREF="jpx$anode__get_regions.html">jpx_metanode::get_regions</A> member (for example) to recover the geometrical properties
+of the region. Use other 
+<A HREF="jpx$anode.html">jpx_metanode</A> members to examine any descendant nodes, describing
+metadata which is associated with this spatial region.
+The implementation might potentially look for label
+boxes, XML boxes or UUID boxes (with associated URL's)
+in the descendants of 
+<A HREF="kdu$sitor__cus$t_overlay.html#node">node</A>.
+</P>
+</DIV>
+<H4><A NAME="painting_params">painting_params</A> [<A HREF ="kdu$arams.html">kdu_overlay_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument always points to a valid object, whose
+member functions return additional (optional) information
+to the overlay painting procedure. The object also
+provides useful services to greatly facilitate the
+painting of complex regions of interest, including
+general those composed of general quadrilaterals. See
+the definition of 
+<A HREF="kdu$arams.html">kdu_overlay_params</A> for more on the exact nature of this additional information.
+You should pay particular attention to the maximum
+border size returned by 
+<A HREF="kdu$arams__get$ng_border.html">painting_params&rarr;get_max_painting_border</A> if you intend to paint outside the region of interest
+defined by 
+<A HREF="kdu$sitor__cus$t_overlay.html#node">node</A>.
+</P>
+</DIV>
+<H4><A NAME="image_offset">image_offset</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="subsampling">subsampling</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="expansion_numerator">expansion_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="expansion_denominator">expansion_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+<H4><A NAME="compositing_offset">compositing_offset</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+See the coordinate transformation steps described in
+the introduction to this function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$rlay_info.html"> prev </A>||<A HREF="kdu$sitor__all$te_buffer.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_impulse_response) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$downshift.html"> prev </A>||<A HREF="kdu$rnels__get$ergy_gain__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_impulse_response</A></H1>
+<P CLASS="function-text"><B>float</B>&nbsp;* get_impulse_response(
+<B>kdu_kernel_type</B>&nbsp;which,
+<B>int</B>&nbsp;&amp;&nbsp;half_length,
+<B>int</B>&nbsp;*&nbsp;support_min=NULL,
+<B>int</B>&nbsp;*&nbsp;support_max=NULL)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the equivalent linearized impulse responses
+of the DWT kernels. The returned array may be addressed
+with indices running from -H to +H where H is the value
+returned by 
+<A HREF="kdu$rnels__get$_response.html#half_length">half_length</A>.
+</P><P>
+ If 
+<A HREF="kdu$rnels__is_symmetric.html">is_symmetric</A> returns true, the filter impulse response returned
+here is guaranteed to have odd length and be symmetric
+about the origin. Otherwise, the returned array is
+not guaranteed to exhibit any particular symmetry properties.
+</P><P>
+ For non-symmetric filters, [-H,H] is only an upper
+bound to the support of the wavelet kernel, since some
+of the extreme locations on the left or right might
+be 0. If so, they will be exactly equal to 0.0F. The
+exact region of support may be discovered by supplying
+non-NULL 
+<A HREF="kdu$rnels__get$_response.html#support_min">support_min</A> and 
+<A HREF="kdu$rnels__get$_response.html#support_max">support_max</A> arguments (see below).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An array whose entries run from n=-H to n=+H, where
+H is the value returned via 
+<A HREF="kdu$rnels__get$_response.html#half_length">half_length</A>. Index n=0 corresponds to the "central" tap of the
+filter's impulse response. Note carefully, that the
+impulse responses are defined with respect to a slightly
+different downsampling/upsampling convention than the
+one you might be used to. Specifically, the downsampling
+operation associated with the high-pass subband retains
+the odd-indexed samples, while the downsampling operation
+associated with the low-pass subband retains the even-indexed
+subbands. Similarly, the upsampling operation associated
+with the high-pass subband places the subband samples
+at location m into the odd location, 2*m+1, while the
+upsampling operation associated with the high-pass
+subband places the subband samples at location m into
+the even location, 2*m.
+</P><P>
+ The returned array contains a true impulse response.
+If analysis is to be implemented as a weighted moving
+average (i.e., as an inner product), you will need
+to reverse the corresponding impulse responses to recover
+the weights. Of course, this is only important if the
+filters do not have the odd-length symmetric property
+(i.e., if 
+<A HREF="kdu$rnels__is_symmetric.html">is_symmetric</A> returns false).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>kdu_kernel_type</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates which impulse response is required (analysis
+or synthesis, low- or high- pass). Valid values are
+<A HREF="globals.html#KDU_ANALYSIS_LOW">KDU_ANALYSIS_LOW</A>, 
+<A HREF="globals.html#KDU_ANALYSIS_HIGH">KDU_ANALYSIS_HIGH</A>, 
+<A HREF="globals.html#KDU_SYNTHESIS_LOW">KDU_SYNTHESIS_LOW</A> and 
+<A HREF="globals.html#KDU_SYNTHESIS_HIGH">KDU_SYNTHESIS_HIGH</A>.
+</P>
+</DIV>
+<H4><A NAME="half_length">half_length</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the value of the parameter H, such that
+the relevant impulse response runs from -H to +H. If
+the impulse response does not have odd length, at least
+one trailing coefficient must be 0. The exact region
+of support may be learned by supplying non-NULL 
+<A HREF="kdu$rnels__get$_response.html#support_min">support_min</A> and 
+<A HREF="kdu$rnels__get$_response.html#support_max">support_max</A> arguments.
+</P>
+</DIV>
+<H4><A NAME="support_min">support_min</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the actual
+lower bound of the filter impulse response's region
+of support. Specifically, it is used to return the
+value I (typically, but not necessarily less than 0)
+such that the support is [I,J]. Note that this region
+is contained within [-H,H] where H is the value returned
+via 
+<A HREF="kdu$rnels__get$_response.html#half_length">half_length</A>.
+</P>
+</DIV>
+<H4><A NAME="support_max">support_max</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the actual
+upper bound of the filter impulse response's region
+of support. Specifically, it is used to return the
+value J (typically, but not necessarily greater than
+0) such that the support is [I,J].
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$downshift.html"> prev </A>||<A HREF="kdu$rnels__get$ergy_gain__1.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_level) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_roi_level</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$i_processing+h.html">"../coresys/common/kdu_roi_processing.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object propagates ROI information from one node
+in the DWT decomposition tree to its immediate children.
+In JPEG2000 Part-1, these nodes are inevitably connected
+with resolution levels, but for the more general case
+of Part-2 decomposition structures, we identify the
+node via a 
+<A HREF="kdu_node.html">kdu_node</A> interface rather than 
+<A HREF="kdu$ution.html">kdu_resolution</A>.
+</P><P>
+ The 
+<B>source</B> object supplied to the 
+<A HREF="kdu$level__create__1.html">create</A> function provides ROI information for the intermediate
+image at the input to the relevant DWT stage, while
+<B>acquire_band</B> provides 
+<A HREF="kdu$_node.html">kdu_roi_node</A> interfaces to ROI information for the subbands derived
+from that DWT stage.
+</P><P>
+ The object is actually only an interface to an internal
+object whose implementation is not in public view.
+Interfaces may be copied at will, without impacting
+this internal object. For this reason, there is no
+meaningful destructor, since we do not want the internal
+object to be destroyed when any of its interfaces goes
+out of scope. You must use the explicit 
+<A HREF="kdu$level__destroy.html">destroy</A> function to destroy the internal object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$level__kdu$roi_level.html">kdu_roi_level</A></P>
+<P><A HREF="kdu$level__exists.html">exists</A></P>
+<P><A HREF="kdu$level__operator!.html">operator!</A></P>
+<P><A HREF="kdu$level__create__1.html">create</A> <EM>(2 forms)</EM></P>
+<P><A HREF="kdu$level__destroy.html">destroy</A></P>
+<P><A HREF="kdu$level__acquire_node.html">acquire_node</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

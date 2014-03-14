@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::write_tag) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__write_tag__1.html"> prev </A>||<A HREF="kdu$ffdir__write_tag__3.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::write_tag</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Write_tag</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$ffdir__write_tag__1.html">1</A>,
+2,
+<A HREF="kdu$ffdir__write_tag__3.html">3</A>,
+<A HREF="kdu$ffdir__write_tag__4.html">4</A>,
+<A HREF="kdu$ffdir__write_tag__5.html">5</A>,
+<A HREF="kdu$ffdir__write_tag__6.html">6</A>,
+<A HREF="kdu$ffdir__write_tag__7.html">7</A>,
+<A HREF="kdu$ffdir__write_tag__8.html">8</A>,
+<A HREF="kdu$ffdir__write_tag__9.html">9</A></B></P>
+<P CLASS="function-text"><B>void</B> write_tag(
+<B>kdu_uint32</B>&nbsp;tag_type,
+<B>int</B>&nbsp;length,
+<B>kdu_uint16</B>&nbsp;data[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Write_tag(
+long&nbsp;tag_type,
+int&nbsp;length,
+int[]&nbsp;data)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the first form of 
+<A HREF="kdu$ffdir__write_tag__1.html">write_tag</A>, except that this function may only be used with tags
+whose data type (least significant two bytes of the
+<A HREF="kdu$ffdir__write_tag__2.html#tag_type">tag_type</A>) is one of 3 or 8. These are the data types for which
+each entry is 2 bytes long. Attempts to write anything
+else will generate an error through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ Note that this function adjusts the byte order of
+each field written in accordance with the native machine
+byte order, so that the returned 16-bit integers will
+be correctly interpreted.
+</P><P>
+ To pass signed 2's complement quantities (data type
+8) using this function, it is sufficient to cast the
+<A HREF="kdu$ffdir__write_tag__2.html#data">data</A> array to one of type 
+<B>kdu_int16</B>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tag_type">tag_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="length">length</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of 16-bit words to write.
+</P>
+</DIV>
+<H4><A NAME="data">data[]</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array containing at least 
+<A HREF="kdu$ffdir__write_tag__2.html#length">length</A> entries, from which the data is written.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__write_tag__1.html"> prev </A>||<A HREF="kdu$ffdir__write_tag__3.html"> next </A>|</P>
+</BODY>
+</HTML>

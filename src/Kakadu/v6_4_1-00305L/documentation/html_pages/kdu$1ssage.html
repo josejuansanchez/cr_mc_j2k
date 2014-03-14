@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_safe_message) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_thread_safe_message</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_thread_safe_message</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$ssage.html">kdu_message</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu$queue.html">kdu_message_queue</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides thread-safe handling of messages, for applications
+in which multiple threads may need to write messages
+to the same object. This is done by locking a mutex
+inside the 
+<A HREF="kdu$1ssage__sta$_message.html">start_message</A> member function and unlocking it again in the 
+<A HREF="kdu$1ssage__flush.html">flush</A> function (when called with 
+<B>end_of_message</B>=true). Between these two calls, you may be sure that
+only one thread is writing text to the object.
+</P><P>
+ If your platform does not support multi-threading,
+this object will have identical behaviour to 
+<A HREF="kdu$ssage.html">kdu_message</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$1ssage__kdu$_message.html">kdu_thread_safe_message</A> {<U>Java:</U> Kdu_thread_safe_message}
+</P>
+<P><A HREF="kdu$1ssage__~kd$_message.html">~kdu_thread_safe_message</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$1ssage__flush.html">flush</A> [CALLBACK, virtual] {<U>Java:</U> Flush}
+</P>
+<P><A HREF="kdu$1ssage__sta$_message.html">start_message</A> [CALLBACK, virtual] {<U>Java:</U> Start_message}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs::write_prefs) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__parse_prefs.html"> prev </A>||<A HREF="kdu$prefs__set_pref.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs::write_prefs</A></H1>
+<P CLASS="function-text"><B>int</B> write_prefs(
+<B>char</B>&nbsp;buf[],
+<B>int</B>&nbsp;related_pref_sets=-1)</P>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$prefs.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Writes the body of a JPIP "pref=" request to the supplied
+buffer (unless it 
+<A HREF="kdu$prefs__write_prefs.html#buf">buf</A> is NULL), returning the number of characters which
+were written (or would be written if 
+<A HREF="kdu$prefs__write_prefs.html#buf">buf</A> were non-NULL), not including the null-terminator.
+Note, it is possible that the written text may contain
+URI-non-legal characters (depending on how the "pref"
+field may or may not be extended in the future). As
+a result, you are advised to hex-hex encode the text
+produced by this function when writing HTTP GET statements
+&mdash; the 
+<A HREF="globals__kdu$_hex_encode.html">kdu_hex_hex_encode</A> function is well suited to this purpose.
+</P><P>
+ You can also use this function to write the body of
+a "JPIP-pref:" return header, by erasing 
+<A HREF="kdu$prefs.html#preferred">preferred</A> and moving 
+<A HREF="kdu$prefs.html#denied">denied</A> to 
+<A HREF="kdu$prefs.html#required">required</A> before invoking the function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buf">buf[]</A> [<B>char</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="related_pref_sets">related_pref_sets</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument has the same interpretation as the return
+value from the 
+<A HREF="kdu$prefs__update.html">update</A> function. Indeed, the primary intent is that that
+function's return value be passed in here, so that
+a client need only express preferences which have been
+changed. This is because JPIP preferences are considered
+to be persistent within sessions. The argument consists
+of a collection of flag bits. If the flag associated
+with any option in a "related-pref-set" is set, the
+preference information for all options in that "related-pref-set"
+are written to 
+<A HREF="kdu$prefs__write_prefs.html#buf">buf</A> (unless it is NULL of course). Setting this argument
+to -1 (the default) ensures that all preference information
+is written without exception.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__parse_prefs.html"> prev </A>||<A HREF="kdu$prefs__set_pref.html"> next </A>|</P>
+</BODY>
+</HTML>

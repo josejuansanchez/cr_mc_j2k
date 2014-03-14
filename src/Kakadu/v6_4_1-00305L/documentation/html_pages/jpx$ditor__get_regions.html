@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::get_regions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__init.html"> prev </A>||<A HREF="jpx$ditor__mod$fy_region.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::get_regions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Get_regions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;* get_regions(
+<B>int</B>&nbsp;&amp;&nbsp;num_regions)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_roi Get_regions(
+int[]&nbsp;num_regions)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Retrieves the current state of the region being edited,
+excluding the effects of incomplete drags which may
+be in progress. An incomplete drag is associated with
+a call to 
+<A HREF="jpx$ditor__dra$ed_anchor.html">drag_selected_anchor</A> which is more recent than any call to 
+<A HREF="jpx$ditor__cancel_drag.html">cancel_drag</A> or 
+<A HREF="jpx$ditor__mov$ed_anchor.html">move_selected_anchor</A>.
+</P><P>
+ You would typically call this function in order to
+obtain a list of regions that can be passed to 
+<A HREF="jpx$anode__add_regions.html">jpx_metanode::add_regions</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_regions">num_regions</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__init.html"> prev </A>||<A HREF="jpx$ditor__mod$fy_region.html"> next </A>|</P>
+</BODY>
+</HTML>

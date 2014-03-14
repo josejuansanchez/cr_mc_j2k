@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_max_tile_layers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__get$tile_dims.html"> prev </A>||<A HREF="kdu$tream__get$wt_levels.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_max_tile_layers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_max_tile_layers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_max_tile_layers(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_max_tile_layers(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the maximum number of quality layers seen in
+any tile opened or created so far. The function returns
+1 (smallest number of allowable layers) if the no tiles
+have yet been opened.
+</P><P>
+ If you need reliable information concerning the maximum
+number of quality layers across all tiles in the codestream,
+but do not necessarily wish to incur the overhead of
+opening and closing each tile, consider using the 
+<A HREF="kdu$tream__create_tile.html">create_tile</A> function instead.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__get$tile_dims.html"> prev </A>||<A HREF="kdu$tream__get$wt_levels.html"> next </A>|</P>
+</BODY>
+</HTML>

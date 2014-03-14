@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::get_target_name) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__con$y_window.html"> prev </A>||<A HREF="kdu_client__che$nnection.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::get_target_name</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Get_target_name</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>const char *</B> get_target_name(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_target_name(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns a pointer to an internally managed
+string, which will remain valid at least until 
+<A HREF="kdu_client__close.html">close</A> is called. If the 
+<A HREF="kdu_client__connect.html">connect</A> function has not been called since the last call to
+<A HREF="kdu_client__close.html">close</A> (i.e., if 
+<A HREF="kdu_client__is_active.html">is_active</A> returns false), this function returns the constant
+string "&lt;no target&gt;". Otherwise the returned
+string was formed from the parameters passed to 
+<A HREF="kdu_client__connect.html">connect</A>. If the 
+<A HREF="kdu_client__connect.html">connect</A> request string contained a 
+<B>target</B> query parameter, that string is used; otherwise, the
+&lt;resource&gt; component of the request string is
+used.
+</P><P>
+ If the requested resource has a sub-target (i.e.,
+a byte range is identified within the primary target),
+the string returned by this function includes the sub-target
+information immediately before any file extension.
+</P><P>
+ The function also decodes any hex-hex encoding which
+may have been used to ensure URI-legal names in the
+original call to 
+<A HREF="kdu_client__connect.html">connect</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__con$y_window.html"> prev </A>||<A HREF="kdu_client__che$nnection.html"> next </A>|</P>
+</BODY>
+</HTML>

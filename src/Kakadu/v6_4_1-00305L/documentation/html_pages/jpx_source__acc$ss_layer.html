@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::access_layer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$destream.html"> prev </A>||<A HREF="jpx_source__get$estreams.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::access_layer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Access_layer</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$1ource.html">jpx_layer_source</A> access_layer(
+<B>int</B>&nbsp;which,
+<B>bool</B>&nbsp;need_stream_headers=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_layer_source Access_layer(
+int&nbsp;which,
+boolean&nbsp;need_stream_headers)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx_source__acc$destream.html">access_codestream</A> but accesses the information associated with the compositing
+layer identified by 
+<A HREF="jpx_source__acc$ss_layer.html#which">which</A>. If 
+<A HREF="jpx_source__acc$ss_layer.html#which">which</A> is 0, this is the first compositing layer in the data
+source; if 
+<A HREF="jpx_source__acc$ss_layer.html#which">which</A> is 1, the second compositing layer is being requested,
+and so forth. All data sources managed by this object
+are deemed to have at least one compositing layer,
+even if they do not contain explicit compositing layer
+header boxes. Even a basic JP2 file always has one
+compositing layer and one codestream. If the data source
+contains compositing layer header boxes, there is one
+compositing layer for each such header box. Otherwise
+(and this can only be determined by parsing to the
+end of the file first), each codestream corresponds
+to a separate compositing layer.
+</P><P>
+ If the function is unable to access the requested
+layer at present, it returns an empty interface (one
+whose 
+<A HREF="jpx$1ource__exists.html">jpx_layer_source::exists</A> function returns false). This may happen either because
+the total number of compositing layers in the data
+source is less than or equal to 
+<A HREF="jpx_source__acc$ss_layer.html#which">which</A>, or because the function is not yet able to parse
+far enough into the data source to recover the relevant
+boxes. The latter generally occurs only if the underlying
+<A HREF="jp2$y_src.html">jp2_family_src</A> object is fueled by a dynamic cache (i.e., a 
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P><P>
+ Before the function will return a non-empty interface,
+it must have found and parsed the compositing layer
+header (jplh) box, if any, in addition to any JP2 header
+(jp2h) box which is required for recovering default
+parameters, and any codestream header box whose component
+mapping box might be required to interpret channel
+mapping rules. Alternatively, we must have reached
+the end of the data source or have other means of knowing
+that there will be no compositing layer header box
+for this layer. These complexities arise because JPX
+was created to allow quite a bit of flexibility for
+writers, but this has obvious adverse implications
+for readers, leaving them unable to make solid incremental
+decisions often until all boxes have been seen. The
+Kakadu implementation does its best to hide all such
+irregularities from the application.
+</P><P>
+ For each required codestream, the embedded codestream
+box must also be available before a non-empty interface
+will be returned. Moreover, if 
+<A HREF="jpx_source__acc$ss_layer.html#need_stream_headers">need_stream_headers</A> is true, all code-stream main headers associated with
+the required codestreams must also be available.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="need_stream_headers">need_stream_headers</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, each codestream associated with a returned
+non-empty interface can be successfully accessed by
+calling 
+<A HREF="jpx_source__acc$destream.html">access_codestream</A> will a 
+<B>need_main_header</B> argument of true. Otherwise, successful access of
+each required codestream is only guaranteed with a
+false value for the 
+<B>need_main_header</B> argument to 
+<A HREF="jpx_source__acc$destream.html">access_codestream</A></P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$destream.html"> prev </A>||<A HREF="jpx_source__get$estreams.html"> next </A>|</P>
+</BODY>
+</HTML>

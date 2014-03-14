@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::get_path_segment) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get_curve.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::get_path_segment</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Get_path_segment</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_path_segment(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;from,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;to,
+<B>int</B>&nbsp;which)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_path_segment(
+Kdu_coords&nbsp;from,
+Kdu_coords&nbsp;to,
+int&nbsp;which)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx$ditor__get_edge.html">get_edge</A>, except that this function is used to walk through
+path segments, as opposed to region edges. Path segments
+are defined in connection with the 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A> function. The 
+<A HREF="jpx$ditor__get$h_segment.html#which">which</A> argument has no specific meaning of its own, except
+that all path segments can be recovered by issuing
+calls to this function with consecutive integers for
+<A HREF="jpx$ditor__get$h_segment.html#which">which</A> starting from 0, until the function returns 0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if there is no path segment with index 
+<A HREF="jpx$ditor__get$h_segment.html#which">which</A>. Otherwise, a non-zero value is returned, which is
+guaranteed to include the 
+<A HREF="globals.html#JPX_EDITOR_FLAG_NZ">JPX_EDITOR_FLAG_NZ</A> flag. Other aspects of the return value are not currently
+defined (or needed).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="from">from</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="to">to</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get_curve.html"> prev </A>|</P>
+</BODY>
+</HTML>

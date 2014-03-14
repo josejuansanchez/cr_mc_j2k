@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::access_meta_manager) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_source__acc$position.html"> prev </A>||<A HREF="jpx_source__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::access_meta_manager</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Access_meta_manager</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$nager.html">jpx_meta_manager</A> access_meta_manager(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_meta_manager Access_meta_manager(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function any time after a successful call
+to 
+<A HREF="jpx_source__open.html">open</A> to gain access to the infrastructure used to manage
+metadata which is not directly related to image interpretation.
+See the description of 
+<A HREF="jpx$nager.html">jpx_meta_manager</A> and (first) 
+<A HREF="jpx$anode.html">jpx_metanode</A> to learn more about the management structure, and
+what metadata is actually managed.
+</P><P>
+ Note that you are allowed to edit the metadata associated
+with an open JPX data source, although the edits will
+not automatically be reflected in the original source.
+Nevertheless, you can use 
+<A HREF="jpx$nager__copy.html">jpx_meta_manager::copy</A> to copy an edited collection of metadata to a new
+file managed by 
+<A HREF="jpx_target.html">jpx_target</A>.
+</P><P>
+ Note also that the interface returned via the present
+function ceases to be valid once 
+<A HREF="jpx_source__close.html">close</A> is called.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_source__acc$position.html"> prev </A>||<A HREF="jpx_source__close.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::get_mct_dwt_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$dency_info.html"> prev </A>||<A HREF="kdu_tile__get$components.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::get_mct_dwt_info</A></H1>
+<P CLASS="function-text">const&nbsp;<A HREF ="kdu$_info.html">kdu_kernel_step_info</A>&nbsp;* get_mct_dwt_info(
+<B>int</B>&nbsp;stage_idx,
+<B>int</B>&nbsp;block_idx,
+<B>bool</B>&nbsp;&amp;&nbsp;is_reversible,
+<B>int</B>&nbsp;&amp;&nbsp;num_levels,
+<B>int</B>&nbsp;&amp;&nbsp;canvas_min,
+<B>int</B>&nbsp;&amp;&nbsp;canvas_lim,
+<B>int</B>&nbsp;&amp;&nbsp;num_steps,
+<B>bool</B>&nbsp;&amp;&nbsp;symmetric,
+<B>bool</B>&nbsp;&amp;&nbsp;symmetric_extension,
+const&nbsp;<B>float</B>&nbsp;*&nbsp;&amp;&nbsp;coefficients,
+<B>int</B>&nbsp;*&nbsp;active_inputs=NULL,
+<B>int</B>&nbsp;*&nbsp;active_outputs=NULL)</P>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function, after first discovering the structure
+of a multi-component transform block, using 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>, to determine whether the transform block is implemented
+using a discrete wavelet transform (DWT). If the function
+returns NULL, you should try 
+<A HREF="kdu_tile__get$atrix_info.html">get_mct_matrix_info</A>, 
+<B>get_mct_rxforms_info</B> and 
+<A HREF="kdu_tile__get$dency_info.html">get_mct_dependency_info</A> to determine if the block is implemented using a decorrelation
+transform or a dependency transform. If all four functions
+return zero (false or NULL), the block is implemented
+using a "null transform" &mdash; see 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> for a discussion of null transforms.
+</P><P>
+ The returned 
+<A HREF="kdu$_info.html">kdu_kernel_step_info</A> array, together with the information returned via
+the 
+<A HREF="kdu_tile__get$t_dwt_info.html#is_reversible">is_reversible</A>, 
+<A HREF="kdu_tile__get$t_dwt_info.html#num_steps">num_steps</A>, 
+<A HREF="kdu_tile__get$t_dwt_info.html#symmetric">symmetric</A>, 
+<A HREF="kdu_tile__get$t_dwt_info.html#symmetric_extension">symmetric_extension</A> and 
+<A HREF="kdu_tile__get$t_dwt_info.html#coefficients">coefficients</A> arguments, completely defines an arbitrary wavelet
+kernel. This information may be passed to 
+<A HREF="kdu$rnels__init__1.html">kdu_kernels::init</A>, if desired. The transform block's input components
+are considered as the subbands produced by application
+of a forward DWT to the output components &mdash; DWT
+synthesis is thus required to reconstruct the output
+components from the input components.
+</P><P>
+ More specifically, the original set of output components
+(not just those which are of interest to the application)
+is understood to form a 1D sequence, taking indices
+in the half-open interval [E,F), where E and F are
+the values returned via the 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_min">canvas_min</A> and 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_lim">canvas_lim</A> arguments. The input components are understood to
+have been formed by applying an N level DWT to this
+1D sequence, where N is the value returned via the
+<A HREF="kdu_tile__get$t_dwt_info.html#num_levels">num_levels</A> argument. The low-pass subband produced by this DWT
+contains ceil(F/2^N) - ceil(E/2^N) samples. These correspond
+to the initial ceil(F/2^N) - ceil(E/2^N) original block
+input components. These are followed by the components
+from the lowest level's high-pass subband and so-on,
+finishing with the components which belong to the highest
+frequency subband.
+</P><P>
+ It is important to remember that 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_min">canvas_min</A> and 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_lim">canvas_lim</A> determine the length of the original 1D sequence to
+which the DWT was applied. In practice, the application
+may be interested only in a subset of the output image
+components, and it may be possible to reconstruct these
+using only a subset of the original input components.
+For this reason, the values of 
+<B>num_block_inputs</B> and 
+<B>num_block_outputs</B> returned via 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> may both be smaller than F-E (i.e., 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_lim">canvas_lim</A> - 
+<A HREF="kdu_tile__get$t_dwt_info.html#canvas_min">canvas_min</A>) and you will need to supply 
+<A HREF="kdu_tile__get$t_dwt_info.html#active_inputs">active_inputs</A> and 
+<A HREF="kdu_tile__get$t_dwt_info.html#active_outputs">active_outputs</A> arrays in order to discover which of the original
+component actually requires an input and which of the
+original components is being pushed through to the
+block output.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Array of 
+<A HREF="kdu_tile__get$t_dwt_info.html#num_steps">num_steps</A> lifting step descriptors, in analysis order, starting
+from the analysis lifting step which updates the odd
+(high-pass) sub-sequence based on the even (low-pass)
+sub-sequence.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stage_idx">stage_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="block_idx">block_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="is_reversible">is_reversible</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return whether or not the transform is to be
+implemented reversibly. If true, the 
+<B>rev_block_offsets</B> argument must be used instead of the 
+<B>irrev_block_offsets</B> argument when retrieving offsets from the 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> function.
+</P>
+</DIV>
+<H4><A NAME="num_levels">num_levels</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of levels of DWT which need
+to be synthesized in order to recover the output image
+components from the input components.
+</P>
+</DIV>
+<H4><A NAME="canvas_min">canvas_min</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the inclusive lower bound E, of the
+interval [E,F), over which the DWT is defined.
+</P>
+</DIV>
+<H4><A NAME="canvas_lim">canvas_lim</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the exclusive upper bound F, of the
+interval [E,F), over which the DWT is defined.
+</P>
+</DIV>
+<H4><A NAME="num_steps">num_steps</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of lifting steps.
+</P>
+</DIV>
+<H4><A NAME="symmetric">symmetric</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Set to true if the transform kernel belongs to the
+whole-sample symmetric class defined by Part-2 of the
+JPEG2000 standard, with symmetric boundary extension.
+For a definition of this class, see 
+<A HREF="kdu$rnels__is_symmetric.html">kdu_kernels::is_symmetric</A>.
+</P>
+</DIV>
+<H4><A NAME="symmetric_extension">symmetric_extension</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Returns true if each lifting step uses symmetric extension,
+rather than zero-order hold extension at the boundaries.
+For a definition of this extension policy, see 
+<A HREF="kdu$rnels__get$extension.html">kdu_kernels::get_symmetric_extension</A>.
+</P>
+</DIV>
+<H4><A NAME="coefficients">coefficients</A> [const&nbsp;<B>float</B>&nbsp;*&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return a pointer to an internal array of lifting
+step coefficients. This array may be passed to 
+<A HREF="kdu$rnels__init__1.html">kdu_kernels::init</A> along with the other information returned by this
+function, to deduce other properties of the DWT kernel.
+</P>
+</DIV>
+<H4><A NAME="active_inputs">active_inputs</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You would typically call the function first with this
+argument set to NULL. Then, once you know that a DWT
+is being used, you would allocate an array with 
+<B>num_block_inputs</B> entries (the number of block inputs is returned by
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>) and pass it to the function in a second call, so
+as to determine the locations of each input component
+which is actually involved in the synthesis of the
+output components of interest. Specifically, block
+input component n is used to initialize the original
+block input component with indices 
+<A HREF="kdu_tile__get$t_dwt_info.html#active_inputs">active_inputs</A>[n]. Original block input component indices are defined
+above, but essentially they are arranged in the following
+order: all original low-pass subband locations appear
+first, followed by all original high-pass subband locations
+at the lowest level in the DWT, and so on, finishing
+with all original high-pass subband locations at the
+top level in the DWT.
+</P>
+</DIV>
+<H4><A NAME="active_outputs">active_outputs</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You would typically call the function first with this
+argument set to NULL. Then, once you know that a DWT
+is being used, you would allocate an array with 
+<B>num_block_outputs</B> entries (the number of block outputs is returned by
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>) and pass it to the function in a second call, so
+as to determine the locations to which each output
+component is to be associated. Specifically, block
+output component n is to be associated with location
+E+
+<A HREF="kdu_tile__get$t_dwt_info.html#active_outputs">active_outputs</A>[n] in the interval [E,F), over which DWT synthesis
+is notionally performed.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$dency_info.html"> prev </A>||<A HREF="kdu_tile__get$components.html"> next </A>|</P>
+</BODY>
+</HTML>

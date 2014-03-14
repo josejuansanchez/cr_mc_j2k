@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_video_source::get_cardinal_geometry) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__get_geometry.html"> prev </A>||<A HREF="mj2$ource__acc$imensions.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_video_source::get_cardinal_geometry</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_video_source.Get_cardinal_geometry</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> get_cardinal_geometry(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;pre_dims,
+<B>bool</B>&nbsp;&amp;&nbsp;transpose,
+<B>bool</B>&nbsp;&amp;&nbsp;vflip,
+<B>bool</B>&nbsp;&amp;&nbsp;hflip,
+<B>bool</B>&nbsp;for_movie=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Get_cardinal_geometry(
+Kdu_dims&nbsp;pre_dims,
+boolean[]&nbsp;transpose,
+boolean[]&nbsp;vflip,
+boolean[]&nbsp;hflip,
+boolean&nbsp;for_movie)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function plays a similar role to 
+<A HREF="mj2$ource__get_geometry.html">get_geometry</A>, except that the geometric transforms are approximated,
+if necessary, by ones which produce an image aligned
+with the cardinal (horizontal and vertical) axes. In
+practice, there should be few if any movies for which
+this requires any kind of approximation.
+</P><P>
+ To achieve the (approximated) geometric transformation,
+each original video frame should be scaled and offset,
+as required, to fit within the region represented by
+<A HREF="mj2$ource__get$_geometry.html#pre_dims">pre_dims</A>. The resulting frame, having these dimensions, should
+then be flipped and/or transposed according to the
+flags returned via 
+<A HREF="mj2$ource__get$_geometry.html#hflip">hflip</A>, 
+<A HREF="mj2$ource__get$_geometry.html#vflip">vflip</A> and 
+<A HREF="mj2$ource__get$_geometry.html#transpose">transpose</A>. Applying these flags to 
+<A HREF="kdu_dims__to_apparent.html">pre_dims.to_apparent</A> will yield the dimensions and location of the frame,
+as it is to be presented on the rendered track or the
+complete rendered movie, depending on whether 
+<A HREF="mj2$ource__get$_geometry.html#for_movie">for_movie</A> is false or true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pre_dims">pre_dims</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the location and dimensions of each
+frame after scaling and offsetting, prior to the application
+of the geometric transformation flags returned via
+<A HREF="mj2$ource__get$_geometry.html#transpose">transpose</A>, 
+<A HREF="mj2$ource__get$_geometry.html#vflip">vflip</A> and 
+<A HREF="mj2$ource__get$_geometry.html#hflip">hflip</A>.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the transpose flag. If true, vertical
+coordinates should be exchanged with horizontal during
+rendering of the frame.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the vflip flag. If true, the image should
+be vertically flipped during rendering. If 
+<A HREF="mj2$ource__get$_geometry.html#transpose">transpose</A> and 
+<A HREF="mj2$ource__get$_geometry.html#vflip">vflip</A> are both true, the transpose operation should be applied
+first.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the hflip flag. If true, the image should
+be horizontally flipped during rendering. If 
+<A HREF="mj2$ource__get$_geometry.html#transpose">transpose</A> and 
+<A HREF="mj2$ource__get$_geometry.html#hflip">hflip</A> are both true, the transpose operation should be applied
+first.
+</P>
+</DIV>
+<H4><A NAME="for_movie">for_movie</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, the geomtric transformations described by
+this function are resticted to those identified in
+the track header. Otherwise, the geometric transformations
+include any additional matrix transformation described
+in the global movie header.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__get_geometry.html"> prev </A>||<A HREF="mj2$ource__acc$imensions.html"> next </A>|</P>
+</BODY>
+</HTML>

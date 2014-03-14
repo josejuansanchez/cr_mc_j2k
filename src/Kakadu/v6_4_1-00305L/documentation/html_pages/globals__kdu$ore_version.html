@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_get_core_version) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="globals__kdu$_processors.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_get_core_version</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> static Kdu_global.Kdu_get_core_version</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> kdu_get_core_version(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native static String Kdu_get_core_version(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns a string such as "v3.2.1", indicating
+the version number of the Kakadu core system. In many
+cases, the Kakadu core system may be compiled as a
+DLL or shared library, in which case this function
+will return the version which was current when the
+DLL or shared library was compiled.
+</P><P>
+ The macro, KDU_CORE_VERSION, may also be included
+in compiled applications. It will evaluate to the core
+version string at the time when the application was
+compiled. You may use this to check for differences
+between the version of a core system DLL or shared
+library which is being linked in at run time, and the
+the version against which the application was originally
+compiled.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="globals__kdu$_processors.html"> next </A>|</P>
+</BODY>
+</HTML>

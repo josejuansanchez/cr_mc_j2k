@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve::initialize) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__~kdu_serve.html"> prev </A>||<A HREF="kdu_serve__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_serve::initialize</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve.Initialize</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> initialize(
+<A HREF ="kdu$2arget.html">kdu_serve_target</A>&nbsp;*&nbsp;target,
+<B>int</B>&nbsp;max_chunk_size,
+<B>int</B>&nbsp;chunk_prefix_bytes,
+<B>bool</B>&nbsp;ignore_relevance_info=false,
+<A HREF ="kds$coder.html">kds_id_encoder</A>&nbsp;*&nbsp;custom_id_encoder=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Initialize(
+Kdu_serve_target&nbsp;target,
+int&nbsp;max_chunk_size,
+int&nbsp;chunk_prefix_bytes,
+boolean&nbsp;ignore_relevance_info)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu_serve.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The real construction takes place here &mdash; somewhat
+safer, since we prefer to avoid having exceptions thrown
+from within the constructor itself. The function configures
+the server to work with the existing 
+<A HREF="kdu$2arget.html">kdu_serve_target</A> object, which should have already been created and
+configured as necessary.
+</P><P>
+ A single 
+<A HREF="kdu_serve__initialize.html#target">target</A> may be shared between multiple 'kdu_serve' objects,
+although 
+<A HREF="kdu$2arget__loc$estreams.html">kdu_serve_target::lock_codestreams</A> and 
+<A HREF="kdu$2arget__rel$estreams.html">kdu_serve_target::release_codestreams</A> may need to implement appropriate synchronization
+mechanisms if the 
+<A HREF="kdu_serve.html">kdu_serve</A> objects are to operate in different threads of execution.
+In general, it is important that all other users of
+the 
+<A HREF="kdu_serve__initialize.html#target">target</A> object close their open tiles while calls to the present
+function (
+<A HREF="kdu_serve__initialize.html">initialize</A>) and the 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> function are in progress.
+</P><P>
+ Once the 
+<A HREF="kdu_serve.html">kdu_serve</A> object has been initialized, the application should
+call the 
+<A HREF="kdu_serve__set_window.html">set_window</A> function to identify the image code-streams, image
+components, resolution, spatial region, etc., which
+are of interest. The application then issues one or
+more calls to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>, letting 
+<A HREF="kdu_serve.html">kdu_serve</A> itself decide what compressed data and metadata increments
+should be assembled (usually, on behalf of an interactive
+client). In interactive client-server applications,
+the serving application will also listen for changes
+in the client's window of interest, issuing new calls
+to 
+<A HREF="kdu_serve__set_window.html">set_window</A>, as appropriate. This affects the present object's
+decisions as to what compressed data should actually
+be packaged up in response to subsequent calls to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="target">target</A> [<A HREF ="kdu$2arget.html">kdu_serve_target</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_chunk_size">max_chunk_size</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument determines the maximum size of the data
+chunks into which the 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> function packs compressed data. This size includes
+any prefix which the application reserves in its calls
+to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>.
+</P>
+</DIV>
+<H4><A NAME="chunk_prefix_bytes">chunk_prefix_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the number of bytes which should be reserved
+at the beginning of each data chunk, for application
+use. This value will be written into the 
+<A HREF="kds_chunk.html#prefix_bytes">kds_chunk::prefix_bytes</A> member of each chunk in the list returned by 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>.
+</P>
+</DIV>
+<H4><A NAME="ignore_relevance_info">ignore_relevance_info</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is true, the object will serve all
+relevant precinct data layer by layer, with the lowest
+resolution subbands appearing before the higher resolution
+subbands, within each layer. This is the behaviour
+offered by previous implementations of the object.
+On the other hand, if this argument is false, the function
+will process the precincts in order of their relevance
+(percentage overlap with the region of interest). Moreover,
+if information is available concerning the rate-distortion
+slope thresholds associated with the code-stream quality
+layers, this information is used in conjunction with
+the relevance factors to re-sequence the original code-stream
+packets, in a manner which is expected to reduce the
+distortion within the window of interest as quickly
+as possible. This often means that lower resolution
+precincts and precincts with relatively little overlap
+with the window tend to get sequenced later (sometimes
+several layers later) than they otherwise would.
+</P>
+</DIV>
+<H4><A NAME="custom_id_encoder">custom_id_encoder</A> [<A HREF ="kds$coder.html">kds_id_encoder</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument allows you specify a custom instance
+of the 
+<A HREF="kds$coder.html">kds_id_encoder</A> class (or a derived version of that class) to implement
+your own message header encoding rules. In most cases,
+you will leave this argument NULL, so that the default
+JPIP-compliant header encoding is used. If you do supply
+your own 
+<A HREF="kdu_serve__initialize.html#custom_id_encoder">custom_id_encoder</A>, it is your responsibility to explicitly destroy it
+(if required), but not until you have completely finished
+using the present object. You may not change ID encoding
+objects within a single instantiation of 
+<A HREF="kdu_serve.html">kdu_serve</A>. This is deliberate, because some bounds on message
+header lengths need to be computed and cached internally
+for efficiency reasons.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__~kdu_serve.html"> prev </A>||<A HREF="kdu_serve__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

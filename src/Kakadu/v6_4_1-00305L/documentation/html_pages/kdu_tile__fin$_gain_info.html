@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::find_component_gain_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__acc$_component.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_tile::find_component_gain_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Find_component_gain_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>float</B> find_component_gain_info(
+<B>int</B>&nbsp;comp_idx,
+<B>bool</B>&nbsp;restrict_to_interest)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native float Find_component_gain_info(
+int&nbsp;comp_idx,
+boolean&nbsp;restrict_to_interest)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is particularly useful for interactive
+server applications, since it allows them to determine
+the relative significance of a codestream component,
+given the collection of output components which are
+of interest. The 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> function may be used only to determine the collection
+of components which are of interest, not the degree
+to which each of these contributes.
+</P><P>
+ More specifically, the function efficiently explores
+the impact of a single impulsive distortion sample
+(of magnitude equal to the nominal range &mdash; 2^precision)
+in the codestream component identified by 
+<A HREF="kdu_tile__fin$_gain_info.html#comp_idx">comp_idx</A>, on the output components produced after applying
+any multi-component transform (Part-2 MCT) or Part-1
+decorrelating transform (RCT or ICT). These output
+contributions are expressed relative to the nominal
+ranges of the respective output image components and
+then the sum of the squared normalized output distortion
+contributions is formed and returned by the function.
+This is what we mean by the transform's energy gain.
+</P><P>
+ If 
+<A HREF="kdu_tile__fin$_gain_info.html#restrict_to_interest">restrict_to_interest</A> is false, all output contributions are considered
+when computing the gain, regardless of which output
+components are currently visible (see 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>) and which of these output components are currently
+of interest (see 
+<A HREF="kdu_tile__set$f_interest.html">set_components_of_interest</A>). The energy gain returned in this case is the one
+which is used during compression to balance the bit
+allocation associated with different codestream components.
+</P><P>
+ If 
+<A HREF="kdu_tile__fin$_gain_info.html#restrict_to_interest">restrict_to_interest</A> is true, however, only those output component contributions
+which are currently visible and of interest are considered.
+This generally results in a smaller energy gain term
+(it cannot result in a larger one) than that obtained
+when 
+<A HREF="kdu_tile__fin$_gain_info.html#restrict_to_interest">restrict_to_interest</A> is false.
+</P><P>
+ The ratio between the energy gains returned when 
+<A HREF="kdu_tile__fin$_gain_info.html#restrict_to_interest">restrict_to_interest</A> is false and when it is true, is a good indicator
+of the relative significance of a codestream component
+during decompression, compared to the significance
+it was assigned during compression. Kakadu's JPIP server
+uses this information to adjust the relative transmission
+rates allocated to relevant component precincts (JPIP
+data-bins).
+</P><P>
+ It is worth noting that if the current component access
+mode is 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A>, this function invariably returns a value of 1.0,
+since the application is presumably not interested
+in multi-component or RCT/ICT transforms.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="restrict_to_interest">restrict_to_interest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__acc$_component.html"> prev </A>|</P>
+</BODY>
+</HTML>

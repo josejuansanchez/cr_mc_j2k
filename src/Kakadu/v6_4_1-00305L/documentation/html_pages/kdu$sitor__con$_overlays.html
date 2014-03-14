@@ -1,0 +1,354 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::configure_overlays) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__fin$ip_window.html"> prev </A>||<A HREF="kdu$sitor__upd$_overlays.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::configure_overlays</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Configure_overlays</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> configure_overlays(
+<B>bool</B>&nbsp;enable,
+<B>int</B>&nbsp;min_display_size=8,
+<B>float</B>&nbsp;blending_factor=1.0F,
+<B>int</B>&nbsp;max_painting_border=5,
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;dependency=jpx_metanode(),
+<B>int</B>&nbsp;dependency_effect=0,
+const&nbsp;<B>kdu_uint32</B>&nbsp;*&nbsp;aux_params=NULL,
+<B>int</B>&nbsp;num_aux_params=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Configure_overlays(
+boolean&nbsp;enable,
+int&nbsp;min_display_size,
+float&nbsp;blending_factor,
+int&nbsp;max_painting_border,
+Jpx_metanode&nbsp;dependency,
+int&nbsp;dependency_effect,
+long[]&nbsp;aux_params,
+int&nbsp;num_aux_params)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to enable or disable the rendering
+of spatially sensitive metadata as overlay information
+on the compositing surface. When enabled, overlay information
+is generated as required during calls to 
+<A HREF="kdu$sitor__process.html">process</A> and folded into the composited result. If overlay
+surfaces were previously active, disabling the overlay
+functionality may cause the next call to 
+<A HREF="kdu$sitor__process.html">process</A> to return a 
+<B>new_region</B> which is the size of the entire composited image,
+so that your application will know that it needs to
+repaint the whole thing.
+</P><P>
+ Overlays are available only when working with JPX
+data sources.
+</P><P>
+ The 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> and 
+<A HREF="kdu$sitor__con$_overlays.html#dependency_effect">dependency_effect</A> arguments allow you to restrict overlay information
+to just those regions of interest which are related
+(or not related) to one or more specific entities in
+the metadata hierarchy. See below for a detailed description
+of how such relationships are evaluated and how 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> metanodes supplied to this function is used to build
+up internal dependency expressions.
+</P><P>
+ The 
+<A HREF="kdu$sitor__con$_overlays.html#blending_factor">blending_factor</A> argument allows you to control the visibility of overlays
+in a manner which does not require the overlay content
+to be regenerated, facilitating the efficient implementation
+of some very useful visual effects.
+</P><P>
+ Most of the parameters passed in here are passed along
+to the 
+<A HREF="kdu$sitor__cus$t_overlay.html">custom_paint_overlay</A> function, which may be overridden to provide custom
+painting of overlays. By default, however, that function
+does nothing and the internal 
+<B>paint_overlay</B> function is invoked, receiving the same parameters.
+Their interpretation is discussed below.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="enable">enable</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, overlays are enabled (or remain enabled).
+If false, overlays are disabled and the remaining arguments
+are ignored.
+</P>
+</DIV>
+<H4><A NAME="min_display_size">min_display_size</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Specifies the minimum size occupied by the overlay's
+bounding box on the composited surface, at the prevailing
+scale. If an overlay has a bounding box which will
+be rendered with both dimensions smaller than 
+<A HREF="kdu$sitor__con$_overlays.html#min_display_size">min_display_size</A>, it will not be rendered at all. Setting a modest
+value for this parameter, say in the range 4 to 8,
+helps reduce clutter when viewing an image with a lot
+of metadata. On the other hand, this can make it hard
+to locate tiny regions of significance when zoomed
+out to a small scale. This parameter is handled outside
+of 
+<B>paint_overlay</B> and 
+<A HREF="kdu$sitor__cus$t_overlay.html">custom_paint_overlay</A> &mdash; if you change it, the internal machinery may
+determine that some regions of the composited image
+surface need to be regenerated.
+</P>
+</DIV>
+<H4><A NAME="blending_factor">blending_factor</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is used to scale the alpha channel of
+any overlay buffer before blending the overlay with
+the underlying imagery. Any blending factor may be
+used, including factors which are much larger than
+1, since the alpha values are clipped after scaling.
+One implication of this is that large blending factors
+can render barely visible portions of a painted overlay
+in stark relief. The multiplication itself is performed
+on-the-fly during composition, without actually affecting
+the overlay buffer contents. This means that you can
+modulate the 
+<A HREF="kdu$sitor__con$_overlays.html#blending_factor">blending_factor</A> without having to regenerate any metadata overlay
+content. After changing this parameter, subsequent
+calls to 
+<A HREF="kdu$sitor__process.html">process</A> will generally recompose all regions in which metadata
+overlay content exists.
+</P><P>
+ Negative blending factors are also permitted and can
+prove very useful. If the blending factor is negative,
+alpha values are multiplied by the absolute value of
+the blending factor and clipped (as above), but the
+colour channels of the overlay pixels are inverted.
+For 32-bit/pixel buffer representations, this means
+that red R becomes 255-R, green G becomes 255-G and
+blue B becomes 255-B. For higher precision buffer organizations,
+the principle is applied in the most natural way (so,
+for floating point colour channels in the range 0 to
+1, red R becomes 1-R, green G becomes 1-G and blue
+B becomes 1-B, etc.). All of this is done on-the-fly
+during rendering.
+</P><P>
+ By supplying 0 for this parameter, you can temporarily
+turn off overlays, while retaining the overlay buffers
+and metadata content. This ensures that overlays can
+be quickly and efficiently retrieved in the future,
+while also ensuring that the 
+<A HREF="kdu$sitor__sea$_overlays.html">search_overlays</A> function returns the same results that it would if
+overlay information were being painted.
+</P><P>
+ Note that this parameter is not actually passed along
+to the 
+<B>paint_overlay</B> and 
+<B>custom_paint_overlays</B> function, since its effect is handled through the
+way in which painted overlay content is blended onto
+the composited image surface.
+</P>
+</DIV>
+<H4><A NAME="max_painting_border">max_painting_border</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This parameter determines the maximum extent by which
+overlay information may be painted beyond the region
+occupied by a JPX region of interest node. The painting
+border is measured in pixels on the compositing reference
+grid and extends in all directions away from the ROI
+node to be painted. The parameter is passed to 
+<B>paint_overlay</B> and 
+<A HREF="kdu$sitor__cus$t_overlay.html">custom_paint_overlay</A> via a 
+<A HREF="kdu$arams.html">kdu_overlay_params</A> object, but there is no obligation for the overlay
+painting implementation to actually use a border of
+this size &mdash; so long as this border size is not
+exceeded. The 
+<A HREF="kdu$sitor__con$_overlays.html#max_painting_border">max_painting_border</A> is actually used to determine the region which may
+be affected by the painting of overlay information
+for a region of interest, so that the painting procedure
+can be invoked correctly.
+</P><P>
+ Each time you call this function with a different
+value for the 
+<A HREF="kdu$sitor__con$_overlays.html#max_painting_border">max_painting_border</A> argument, all active metadata is discarded and must
+be rediscovered (and repainted) from scratch. This
+can potentially be a costly exercise, so if you want
+to implement a scheme which modulates the border size
+associated with overlay content, it would be more efficient
+to leave the value of 
+<A HREF="kdu$sitor__con$_overlays.html#max_painting_border">max_painting_border</A> fixed and instead use the 
+<A HREF="kdu$sitor__con$_overlays.html#aux_params">aux_params</A> to modulate the actual border size, within the bounds
+established by 
+<A HREF="kdu$sitor__con$_overlays.html#max_painting_border">max_painting_border</A>.
+</P>
+</DIV>
+<H4><A NAME="dependency">dependency</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is used in conjunction with 
+<A HREF="kdu$sitor__con$_overlays.html#dependency_effect">dependency_effect</A> to build up a sum-of-products expression which is
+tested to determine which regions of interest should
+be revealed within the metadata overlay. Each term
+in the sum-of-products expression involves a test between
+the region of interest (ROI) in question and a single
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> metanode. The test is performed by invoking the powerful
+<A HREF="jpx$anode__find_path_to.html">jpx_metanode::find_path_to</A> function to see if a path can be found from the ROI
+description metanode to the 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> metanode. The 
+<A HREF="jpx$anode__find_path_to.html">jpx_metanode::find_path_to</A> function is configured to examine paths whose initial
+descending component includes descendants and "reverse
+alternate parent links", whose final ascending component
+includes parents and "reverse alternate child links",
+and whose path nodes may not belong to any other region
+of interest. In this way, the paths which are examined
+are those which can make the ROI visible to the 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> metanode by following descendants and alternate child
+links downwards and parent or alternate parent links
+upwards. This is a semantically meaningful way to identify
+an ROI as being of interest to the 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> node, while excluding paths which pass through other
+(inherently more relevant) regions of interest.
+</P>
+</DIV>
+<H4><A NAME="dependency_effect">dependency_effect</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is used to cancel and/or build up a sum-of-products
+expression which is evaluated for each candidate region
+of interest to determine whether or not it should be
+rendered to the overlay plane. The possible values
+are as follows:
+</P><UL><LI>
+0 erases the internal sum-of-products expression if
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> is an empty interface; otherwise creates a new sum-of-products
+expression consisting of the single condition "Is Related
+to 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A>".
+</LI><LI>
+1 adds a new "OR" term to the sum-of-products expression
+being constructed internally, with the condition "Is
+Related to 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A>". Does nothing if 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> is an empty interface.
+</LI><LI>
+-1 adds a new "OR" term to the sum-of-products expression
+being constructed internally, with the condition "Is
+Not Related to 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A>". Does nothing if 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> is an empty interface.
+</LI><LI>
+2 adds the condition "And Is Related to 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A>" to the most recent term in the sum-of-products expression
+being constructed internally. Does nothing if 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> is an empty interface.
+</LI><LI>
+-2 adds the condition "And Is Not Related to 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A>" to the most recent term in the sum-of-products expression
+being constructed internally. Does nothing if 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> is an empty interface.
+</LI><LI>
+All other values cause the internal sum-of-products
+expression to be left unchanged.
+</LI></UL><P>
+ For example, the expression "(Is related to A and
+B) or (is not related to C)" can be formed by calling
+this function three times, with 
+<A HREF="kdu$sitor__con$_overlays.html#dependency">dependency</A> and 
+<A HREF="kdu$sitor__con$_overlays.html#dependency_effect">dependency_effect</A> equal to (A,0), (B,2) and (C,-1), respectively.
+</P>
+</DIV>
+<H4><A NAME="aux_params">aux_params</A> [const&nbsp;<B>kdu_uint32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="kdu$sitor__con$_overlays.html#num_aux_params">num_aux_params</A> integer parameters which are passed along to the 
+<B>paint_overlay</B> and 
+<A HREF="kdu$sitor__cus$t_overlay.html">custom_paint_overlay</A> functions via an 
+<A HREF="kdu$arams.html">kdu_overlay_params</A> object.
+</P><P>
+ The internal implementation of the 
+<B>paint_overlay</B> function interprets any supplied auxiliary parameters
+as follows (note that this interpretation extends but
+remains backward compatible with earlier interpretations):
+</P><UL><LI>
+The parameters are organized into M segments (or "rows"),
+denoted m=1,2,...,M.
+</LI><LI>
+Each row m specifies a border size Bm, a sequence of
+colours denoted ARGB_m0, ARGB_m1, ..., ARGB_mBm, and
+a threshold Tm.
+</LI><LI>
+If the collection of regions defined by the ROI description
+box which is being painted have an average "width"
+which is greater than or equal to T1, the border size
+and colours associated with row 1 are used to paint
+the entire ROI. Otherwise, if the average ROI "width"
+is greater than or equal to T2, the border size and
+colours associated with row 2 are used; and so forth.
+</LI><LI>
+The average ROI "width" is assessed by applying the
+<A HREF="jpx_roi__measure_span.html">jpx_roi::measure_span</A> function to each region provided by the ROI description
+box and forming a weighted average of the returned
+widths, weighted according to the corresponding lengths
+&mdash; note that 
+<A HREF="jpx_roi__measure_span.html">jpx_roi::measure_span</A> returns results which are completely invariant to
+arbitrary orientations. Note also that the widths and
+lengths are assessed after transforming the region
+coordinates according to the current rendering scale
+and geometry.
+</LI><LI>
+ARGB colour values have their alpha (blending) value
+in the most significant byte, followed by red, green
+and then blue in the least significant byte. When painting
+overlays for higher precision renditions (e.g., with
+floating-point buffers) the relevant colour and alpha
+components are scaled in the most natural manner.
+</LI><LI>
+If any row m specifies a border size of Bm=0, no further
+rows are considered and there is no threshold value
+Tm, so the only parameter following Bm is the interior
+colour ARGB_0.
+</LI><LI>
+For all other rows m, ARGB_m0 denotes the colour to
+be used for painting the interior of the region of
+interest; ARGB_m1 denotes the colour used for painting
+the inner-most border pixels; and so forth out to ARGB_mBm
+which is used for painting the outer-most border pixels.
+</LI><LI>
+If any 
+<A HREF="kdu$sitor__con$_overlays.html#num_aux_params">num_aux_params</A> is such that the available set of parameters terminates
+part way through row m, the following policy is applied
+to automatically complete the row. If the border size
+is missing, it defaults to Bm=1 (for m&gt;1) or Bm=
+<B>get_max_painting_border</B> (for m=1). If the interior colour is missing, it defaults
+to ARGB_m0=0 (totally transparent). If the interior
+border colour is missing, it default to ARGB_m1=0xFF0000FF
+(solid blue). If any subsequent border colours ARGB_mb
+are missing (1 &lt; b &lt;= Bm), the default border
+colour is obtained by replicating the last available
+border colour but decreasing the alpha component linearly
+towards 0 with b. If the threshold Tm is missing, it
+is taken to be 0 (this threshold is satisfied by all
+possible values of ROI "width").
+</LI></UL><P>
+ Each time you call this function with a different
+set of auxiliary overlay parameters, all active metadata
+is scheduled for repainting with the new parameters.
+The actual painting occurs during calls to 
+<A HREF="kdu$sitor__process.html">process</A>.
+</P>
+</DIV>
+<H4><A NAME="num_aux_params">num_aux_params</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of elements in the 
+<A HREF="kdu$sitor__con$_overlays.html#aux_params">aux_params</A> array. Both arguments are ignored unless 
+<A HREF="kdu$sitor__con$_overlays.html#aux_params">aux_params</A> is non-NULL and 
+<A HREF="kdu$sitor__con$_overlays.html#num_aux_params">num_aux_params</A> is positive.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__fin$ip_window.html"> prev </A>||<A HREF="kdu$sitor__upd$_overlays.html"> next </A>|</P>
+</BODY>
+</HTML>

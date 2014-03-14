@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::set_persistent) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__ena$e_restart.html"> prev </A>||<A HREF="kdu$tream__aug$threshold.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::set_persistent</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Set_persistent</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_persistent(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_persistent(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The persistent mode is important for interactive applications.
+By default, tiles, precincts and code-blocks will be
+discarded as soon as it can be determined that the
+user will no longer be accessing them. Moreover, after
+each code-block has been opened and closed, it will
+automatically be discarded. This behaviour minimizes
+memory consumption when the image (or some region of
+interest) is to be decompressed only once. For interactive
+applications, however, it is often desirable to leave
+the code-stream intact and permit multiple accesses
+to the same information so that a new region or resolution
+of interest can be defined and decompressed at will.
+For these applications, you must invoke this member
+function before any attempt to access (i.e., open)
+an image tile.
+</P><P>
+ Evidently, persistence is irrelevant for 
+<B>output codestreams</B>. For 
+<B>interchange codestreams</B>, this function also has no effect. Interchange codestreams
+have some persistent properties in that any tile may
+be opened and closed as often as desired. They also
+have some of the properties of the non-persistent mode,
+in that compressed data is discarded as soon as the
+relevant precinct is closed (but not when the containing
+tile is closed!). For more on these issues, see the
+description of 
+<A HREF="kdu$ution__ope$_precinct.html">kdu_resolution::open_precinct</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__ena$e_restart.html"> prev </A>||<A HREF="kdu$tream__aug$threshold.html"> next </A>|</P>
+</BODY>
+</HTML>

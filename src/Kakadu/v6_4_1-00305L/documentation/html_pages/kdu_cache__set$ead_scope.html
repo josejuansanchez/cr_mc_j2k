@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::set_read_scope) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$in_prefix.html"> prev </A>||<A HREF="kdu_cache__set$der_scope.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::set_read_scope</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Set_read_scope</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> set_read_scope(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_read_scope(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function must be called at least once after the
+object is created or closed, before calling 
+<A HREF="kdu_cache__read.html">read</A>. It identifies the particular data-bin from which
+reading will proceed. Reading always starts from the
+beginning of the relevant data-bin. Note, however,
+that the 
+<A HREF="kdu_cache__set$der_scope.html">set_tileheader_scope</A> and 
+<A HREF="kdu_cache__set$nct_scope.html">set_precinct_scope</A> functions may both alter the read scope (they actually
+do so by calling this function). See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes.
+</P><P>
+ It is not safe to call this function while any calls
+to the codestream management machinery accessed via
+<A HREF="kdu$tream.html">kdu_codestream</A> are in progress, since they may try to read from the
+caching data source themselves. For this reason, you
+will usually want to invoke this function from the
+same thread of execution as that used to access the
+code-stream and perform decompression tasks. Use of
+this function from within a 
+<A HREF="jp2$t_box.html">jp2_input_box</A> or 
+<A HREF="jp2_source.html">jp2_source</A> object is safe, even in multi-threaded applications
+(so long as the synchronization members of 
+<B>kdu_family_src</B> are implemented by the application).
+</P><P>
+ Before passing a 
+<A HREF="kdu_cache.html">kdu_cache</A> object directly to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>, you should first use the present function to set
+the read-scope to 
+<A HREF="kdu_cache__set$ead_scope.html#databin_class">databin_class</A>=
+<B>KDU_MAIN_HEADER_DATABIN</B> and 
+<A HREF="kdu_cache__set$ead_scope.html#databin_id">databin_id</A>=0.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$in_prefix.html"> prev </A>||<A HREF="kdu_cache__set$der_scope.html"> next </A>|</P>
+</BODY>
+</HTML>

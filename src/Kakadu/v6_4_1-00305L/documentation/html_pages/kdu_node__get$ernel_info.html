@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_node::get_kernel_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__get_kernel_id.html"> prev </A>||<A HREF="kdu_node__get$efficients.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_node::get_kernel_info</A></H1>
+<P CLASS="function-text">const&nbsp;<A HREF ="kdu$_info.html">kdu_kernel_step_info</A>&nbsp;* get_kernel_info(
+<B>int</B>&nbsp;&amp;&nbsp;num_steps,
+<B>float</B>&nbsp;&amp;&nbsp;dc_scale,
+<B>float</B>&nbsp;&amp;&nbsp;nyq_scale,
+<B>bool</B>&nbsp;&amp;&nbsp;symmetric,
+<B>bool</B>&nbsp;&amp;&nbsp;symmetric_extension,
+<B>int</B>&nbsp;&amp;&nbsp;low_support_min,
+<B>int</B>&nbsp;&amp;&nbsp;low_support_max,
+<B>int</B>&nbsp;&amp;&nbsp;high_support_min,
+<B>int</B>&nbsp;&amp;&nbsp;high_support_max,
+<B>bool</B>&nbsp;vertical)</P>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_node.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns most summary information of interest
+concerning the transform kernel used in the vertical
+or horizontal direction within this node, depending
+on the 
+<A HREF="kdu_node__get$ernel_info.html#vertical">vertical</A> argument. Both kernels may be queried even if horizontal
+and/or vertical decomposition is not actually involved
+in this node, since the kernels are actually the same.
+The only potential difference between the vertical
+and horizontal kernel information returned by this
+function may arise due to flipping specifications supplied
+to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>. In particular, if the view is flipped horizontally,
+but not vertically (or vice-versa), the horizontal
+and vertical kernels will differ if the underlying
+single kernel is not symmetric.
+</P><P>
+ To complete the information returned by this function,
+use the 
+<A HREF="kdu_node__get$efficients.html">get_kernel_coefficients</A> function to obtain the actual lifting step coefficients.
+Together, these two functions provide sufficient information
+to initialize a 
+<A HREF="kdu$rnels.html">kdu_kernels</A> object, if desired. However, this will not normally
+be necessary, since quite a bit of the information
+which can be produced by 
+<A HREF="kdu$rnels.html">kdu_kernels</A> is also provided here and by the 
+<A HREF="kdu_node__get$bibo_gains.html">get_bibo_gains</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Array of 
+<A HREF="kdu_node__get$ernel_info.html#num_steps">num_steps</A> lifting step descriptors, in analysis order, starting
+from the analysis lifting step which updates the odd
+(high-pass) sub-sequence based on even (low-pass) sub-sequence
+inputs.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_steps">num_steps</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of lifting steps.
+</P>
+</DIV>
+<H4><A NAME="dc_scale">dc_scale</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return a scale factor by which the low-pass
+subband samples must be multiplied after all lifting
+steps are complete, during subband analysis. For reversible
+transforms, this factor is guaranteed to be equal to
+1.0. For irreversible transforms, the scale factor
+is computed so as to ensure that the DC gain of the
+low-pass analysis kernel is equal to 1.0.
+</P>
+</DIV>
+<H4><A NAME="nyq_scale">nyq_scale</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu_node__get$ernel_info.html#dc_scale">dc_scale</A>, but applied to the high-pass subband. For reversible
+transforms the factor is guaranteed to be 1.0, while
+for irreversible transforms, it is computed so as to
+ensure that the gain of the high-pass analysis kernel
+at the Nyquist frequency is equal to 1.0.
+</P>
+</DIV>
+<H4><A NAME="symmetric">symmetric</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Set to true if the transform kernel belongs to the
+whole-sample symmetric class defined by Part-2 of the
+JPEG2000 standard, with symmetric boundary extension.
+For a definition of this class, see 
+<A HREF="kdu$rnels__is_symmetric.html">kdu_kernels::is_symmetric</A>.
+</P>
+</DIV>
+<H4><A NAME="symmetric_extension">symmetric_extension</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Returns true if each lifting step uses symmetric extension,
+rather than zero-order hold extension at the boundaries.
+For a definition of this extension policy, see 
+<A HREF="kdu$rnels__get$extension.html">kdu_kernels::get_symmetric_extension</A>.
+</P>
+</DIV>
+<H4><A NAME="low_support_min">low_support_min</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Lower bound of the low-pass synthesis impulse response's
+region of support.
+</P>
+</DIV>
+<H4><A NAME="low_support_max">low_support_max</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Upper bound of the low-pass synthesis impulse response's
+region of support.
+</P>
+</DIV>
+<H4><A NAME="high_support_min">high_support_min</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Lower bound of the high-pass synthesis impulse response's
+region of support.
+</P>
+</DIV>
+<H4><A NAME="high_support_max">high_support_max</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Upper bound of the high-pass synthesis impulse response's
+region of support.
+</P>
+</DIV>
+<H4><A NAME="vertical">vertical</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, information returned by this function relates
+to the vertical decomposition process. Otherwise, it
+relates to horizontal decomposition. This argument
+makes a difference only if the horizontal and vertical
+flipping values supplied to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> are different, and the kernel is not symmetric.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__get_kernel_id.html"> prev </A>||<A HREF="kdu_node__get$efficients.html"> next </A>|</P>
+</BODY>
+</HTML>

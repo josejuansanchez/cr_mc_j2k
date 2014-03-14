@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_video_source::get_frame_period) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$1ource__get$_instant.html"> prev </A>||<A HREF="kdu$1ource__open_image.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_video_source::get_frame_period</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_video_source.Get_frame_period</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_frame_period(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_frame_period(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$kdu_video_io+h.html">"../apps/compressed_io/kdu_video_io.h"</A>]</P><P><A HREF="kdu$1ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If the compressed video source provides no timing information,
+this function returns 0. Otherwise, it returns the
+number of ticks associated with the frame to which
+the currently open image belongs. If no image is currently
+open, the function returns the frame period associated
+with the frame to which the next open image would belong
+if 
+<A HREF="kdu$1ource__open_image.html">open_image</A> were called. The number of ticks per second is identified
+by the 
+<A HREF="kdu$1ource__get$imescale.html">get_timescale</A> function. If the video is interlaced, there are two
+images (fields) in each frame period.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$1ource__get$_instant.html"> prev </A>||<A HREF="kdu$1ource__open_image.html"> next </A>|</P>
+</BODY>
+</HTML>

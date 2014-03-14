@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::measure_area) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__measure_span.html"> prev </A>||<A HREF="jpx_roi__contains.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi::measure_area</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Measure_area</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>double</B> measure_area(
+<B>double</B>&nbsp;&amp;&nbsp;centroid_x,
+<B>double</B>&nbsp;&amp;&nbsp;centroid_y)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native double Measure_area(
+double[]&nbsp;centroid_x,
+double[]&nbsp;centroid_y)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Measures the area of the region, along with the location
+of its centroid. This information can be combined to
+determine area and centroid values for any larger collection
+of ROI regions.
+</P><P>
+ As with 
+<A HREF="jpx_roi__measure_span.html">measure_span</A>, this function considers that every grid point within
+the region spans +/-0.5 from its centre, so that a
+rectangular region which contains exactly one grid
+point has an area of 1.0, as opposed to 0.0. Similar
+considerations are applied in measure the area of all
+region shapes.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="centroid_x">centroid_x</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="centroid_y">centroid_y</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__measure_span.html"> prev </A>||<A HREF="jpx_roi__contains.html"> next </A>|</P>
+</BODY>
+</HTML>

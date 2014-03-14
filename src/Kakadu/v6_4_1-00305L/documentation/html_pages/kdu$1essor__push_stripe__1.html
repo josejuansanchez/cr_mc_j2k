@@ -1,0 +1,266 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::push_stripe) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$_heights.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::push_stripe</A></H1>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$1essor__push_stripe__2.html">2</A>,
+<A HREF="kdu$1essor__push_stripe__3.html">3</A>,
+<A HREF="kdu$1essor__push_stripe__4.html">4</A>,
+<A HREF="kdu$1essor__push_stripe__5.html">5</A>,
+<A HREF="kdu$1essor__push_stripe__6.html">6</A>,
+<A HREF="kdu$1essor__push_stripe__7.html">7</A>,
+<A HREF="kdu$1essor__push_stripe__8.html">8</A></B></P>
+<P CLASS="function-text"><B>bool</B> push_stripe(
+<B>kdu_byte</B>&nbsp;*&nbsp;stripe_bufs[],
+<B>int</B>&nbsp;stripe_heights[],
+<B>int</B>&nbsp;*&nbsp;sample_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;row_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;precisions=NULL,
+<B>int</B>&nbsp;flush_period=0)</P>
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Supplies vertical stripes of samples for each image
+component. The number of entries in each of the arrays
+here is equal to the number of image components, as
+returned by 
+<A HREF="kdu$tream__get$omponents.html">kdu_codestream::get_num_components</A> with its optional 
+<B>want_output_comps</B> argument set to true. Each stripe spans the entire
+width of its image component, which must be no larger
+than the ratio between the corresponding entries in
+the 
+<A HREF="kdu$1essor__push_stripe__1.html#row_gaps">row_gaps</A> and 
+<A HREF="kdu$1essor__push_stripe__1.html#sample_gaps">sample_gaps</A> arrays.
+</P><P>
+ Each successive call to this function advances the
+vertical position within each image component by the
+number of lines identified within the 
+<A HREF="kdu$1essor__push_stripe__1.html#stripe_heights">stripe_heights</A> array. To properly compress the image, you must eventually
+advance all components to the bottom. At this point,
+the present function returns false (no more lines needed
+in any component) and a subsequent call to 
+<A HREF="kdu$1essor__finish.html">finish</A> will return true.
+</P><P>
+ Note that although components nominally advance from
+the top to the bottom, if 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> was used to flip the appearance of the vertical dimension,
+the supplied data actually advances the true underlying
+image components from the bottom up to the top. This
+is exactly what one should expect from the description
+of 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> and requires no special processing in the implemenation
+of the present object.
+</P><P>
+ Although considerable flexibility is offered with
+regard to stripe heights, there are a number of constraints.
+As a general rule, you should attempt to advance the
+various image components in a proportional way, when
+processing incrementally (as opposed to supplying the
+entire image in a single call to this function). What
+this means is that the stripe height for each component
+should, ideally, be inversely proportional to its vertical
+sub-sampling factor. If you do not intend to do this
+for any reason, the following notes should be taken
+into account:
+</P><UL><LI>
+If the image happens to be tiled, then you must follow
+the proportional processing guideline at least to the
+extent that no component should fall sufficiently far
+behind the rest that the object would need to maintain
+multiple open tile rows simultaneously.
+</LI><LI>
+If a code-stream colour transform (ICT or RCT) is being
+used, you must follow the proportional processing guideline
+at least to the extent that the same stripe height
+must be used for the first three components (otherwise,
+internal application of the colour transform would
+not be possible).
+</LI><LI>
+Similar to colour transforms, if a Part-2 multi-component
+transform is being used, you must follow the proportional
+processing guidelines at least to the extent that the
+same stripe height must be used for components which
+are combined by the multi-component transform.
+</LI><LI>
+Regardless of the above constraints, the selection
+of proportional stripe heights improves the reliability
+of the block truncation prediction algorithm associated
+with calls to 
+<A HREF="kdu$tream__set$max_bytes.html">kdu_codestream::set_max_bytes</A>. To understand the conditions under which that function
+will be called, consult the comments appearing with
+the 
+<B>min_slope_threshold</B> argument in the 
+<A HREF="kdu$1essor__start.html">start</A> function. If prediction is disabled or 
+<A HREF="kdu$tream__set$1threshold.html">kdu_codestream::set_min_slope_threshold</A> was called from within 
+<A HREF="kdu$1essor__start.html">start</A> (e.g., because you supplied a non-zero 
+<B>min_slope_threshold</B> argument), there is no need to worry about pushing
+stripe heights which are proportional to the corresponding
+image component heights.
+</LI></UL><P>
+ In addition to the constraints and guidelines mentioned
+above regarding the selection of suitable stripe heights,
+it is worth noting that the efficiency (computational
+and memory efficiency) with which image data is compressed
+depends upon how your stripe heights interact with
+image tiling. If the image is untiled, you are generally
+best off passing small stripes, unless your application
+naturally provides larger stripe buffers. If, however,
+the image is tiled, then the implementation is most
+efficient if your stripes happen to be aligned on vertical
+tile boundaries. To simplify the determination of suitable
+stripe heights (all other things being equal), the
+present object provides a convenient utility, 
+<A HREF="kdu$1essor__get$_heights.html">get_recommended_stripe_heights</A>, which you can call at any time. Alternatively, just
+push in whatever stripes your application produces
+naturally.
+</P><P>
+ To understand the interpretation of the sample bytes
+passed to this function, consult the comments appearing
+with the 
+<A HREF="kdu$1essor__push_stripe__1.html#precisions">precisions</A> argument below. Other forms of the overloaded 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function are provided to allow for compression of
+higher precision image samples.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True until all samples for all image components have
+been pushed in, at which point the function returns
+false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stripe_bufs">stripe_bufs[]</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with one entry for each image component, containing
+a pointer to a buffer which holds the stripe samples
+for that component. The pointers may all point into
+a single common buffer managed by the application,
+or they might point to separate buffers. This, together
+with the information contained in the 
+<A HREF="kdu$1essor__push_stripe__1.html#sample_gaps">sample_gaps</A> and 
+<A HREF="kdu$1essor__push_stripe__1.html#row_gaps">row_gaps</A> arrays allows the application to implement a wide
+variety of different stripe buffering strategies. The
+entries (pointers) in the 
+<A HREF="kdu$1essor__push_stripe__1.html#stripe_bufs">stripe_bufs</A> array are not modified by this function.
+</P>
+</DIV>
+<H4><A NAME="stripe_heights">stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with one entry for each image component, identifying
+the number of lines being supplied for that component
+in the present call. All entries must be non-negative.
+See the extensive discussion above, on the various
+constraints and guidelines which may exist regarding
+stripe heights and their interaction with tiling and
+sub-sampling.
+</P>
+</DIV>
+<H4><A NAME="sample_gaps">sample_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array containing one entry for each image component,
+identifying the separation between horizontally adjacent
+samples within the corresponding stripe buffer found
+in the 
+<A HREF="kdu$1essor__push_stripe__1.html#stripe_bufs">stripe_bufs</A> array. If this argument is NULL, all component stripe
+buffers are assumed to have a sample gap of 1.
+</P>
+</DIV>
+<H4><A NAME="row_gaps">row_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array containing one entry for each image component,
+identifying the separation between vertically adjacent
+samples within the corresponding stripe buffer found
+in the 
+<A HREF="kdu$1essor__push_stripe__1.html#stripe_bufs">stripe_bufs</A> array. If this argument is NULL, all component stripe
+buffers are assumed to hold contiguous lines from their
+respective components.
+</P>
+</DIV>
+<H4><A NAME="precisions">precisions</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, all component precisions are deemed to be
+8; otherwise, the argument points to an array with
+a single precision value for each component. The precision
+identifies the number of least significant bits which
+are actually used in each sample. If this value is
+less than 8, one or more most significant bits of each
+byte will be ignored.
+</P><P>
+ There is no implied connection between the precision
+values, P, and the bit-depth of each image component,
+as provided by the 
+<A HREF="globals.html#Sprecision">Sprecision</A> attribute managed by the 
+<A HREF="siz_params.html">siz_params</A> object passed to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>. The original image sample bit-depth may be larger
+or smaller than the value of P, supplied via the 
+<A HREF="kdu$1essor__push_stripe__1.html#precisions">precisions</A> argument. In any event, the most significant bit of
+the P-bit integer represented by each sample byte is
+aligned with the most significant bit of image sample
+words which we actually compress internally. Zero padding
+and discarding of excess least significant bits is
+applied as required.
+</P><P>
+ These conventions, provide the application with tremendous
+flexibility in how it chooses to represent image sample
+values. Suppose, for example, that the original image
+sample precision for some component is only 1 bit,
+as represented by the 
+<A HREF="globals.html#Sprecision">Sprecision</A> attribute managed by the 
+<A HREF="siz_params.html">siz_params</A> object (this is the bit-depth value actually recorded
+in the code-stream). If the value of P provided by
+the 
+<A HREF="kdu$1essor__push_stripe__1.html#precisions">precisions</A> array is set to 1, the bi-level image information
+is embedded in the least significant bit of each byte
+supplied to this function. On the other hand, if the
+value of P is 8, the bi-level image information is
+embedded in the most significant bit of each byte.
+</P><P>
+ The sample values supplied to this function are always
+unsigned, regardless of whether or not the 
+<A HREF="globals.html#Ssigned">Ssigned</A> attribute managed by 
+<A HREF="siz_params.html">siz_params</A> identifies an image component as having an originally
+signed representation. In this, relatively unlikely,
+event, the application is responsible for level adjusting
+the original sample values, by adding 2^{P-1} to each
+originally signed value.
+</P>
+</DIV>
+<H4><A NAME="flush_period">flush_period</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument may be used to control Kakadu's incremental
+code-stream flushing machinery, where applicable. If
+0, no incremental flushing will be attempted. Otherwise,
+the function checks to see if at least this number
+of lines have been pushed in for the first image component,
+since the last successful call to 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> (or since the call to 
+<A HREF="kdu$1essor__start.html">start</A>). If so, an attempt is made to flush the code-stream
+again, after first calling 
+<A HREF="kdu$tream__rea$for_flush.html">kdu_codestream::ready_for_flush</A> to see whether a new call to 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> will succeed. Incremental flushing is possible only
+under a very narrow set of conditions on the packet
+progression order and precinct dimensions. For a detailed
+discussion of these conditions, you should carefully
+review the comments provided with 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> before trying to use this feature.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__get$_heights.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__2.html"> next </A>|</P>
+</BODY>
+</HTML>

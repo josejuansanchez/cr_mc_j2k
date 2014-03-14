@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::delete_node) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__add_copy.html"> prev </A>||<A HREF="jpx$anode__is_changed.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::delete_node</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Delete_node</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> delete_node(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Delete_node(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You may use this function during editing operations
+to delete an existing node and all of its descendants
+from the metadata tree.
+</P><P>
+ Note that deletion only moves the node onto an internal
+"deleted list" and unlinks it from parent and descendants.
+You can regain access to the node (e.g., via 
+<A HREF="jpx$nager__locate_node.html">jpx_meta_manager::locate_node</A>) even after it has been deleted. Amongst other things,
+this allows you to test that it has been deleted by
+calling the 
+<A HREF="jpx$anode__is_deleted.html">is_deleted</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__add_copy.html"> prev </A>||<A HREF="jpx$anode__is_changed.html"> next </A>|</P>
+</BODY>
+</HTML>

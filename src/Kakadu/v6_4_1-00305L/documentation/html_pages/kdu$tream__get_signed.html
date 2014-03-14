@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_signed) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$bit_depth.html"> prev </A>||<A HREF="kdu$tream__get$bsampling.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_signed</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_signed</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_signed(
+<B>int</B>&nbsp;comp_idx,
+<B>bool</B>&nbsp;want_output_comps=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_signed(
+int&nbsp;comp_idx,
+boolean&nbsp;want_output_comps)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the image component originally had
+a signed representation; false if it was unsigned.
+The interpretation of the component index is affected
+by calls to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> as well as the 
+<A HREF="kdu$tream__get_signed.html#want_output_comps">want_output_comps</A> argument. This is explained in connection with the
+<A HREF="kdu$tream__get$bit_depth.html">get_bit_depth</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="want_output_comps">want_output_comps</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Affects the interpretation of 
+<A HREF="kdu$tream__get_signed.html#comp_idx">comp_idx</A>, as explained in connection with 
+<A HREF="kdu$tream__get$bit_depth.html">get_bit_depth</A>. Note that this argument is relevant only if if there
+have been no calls to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> or the most recent call specified 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$bit_depth.html"> prev </A>||<A HREF="kdu$tream__get$bsampling.html"> next </A>|</P>
+</BODY>
+</HTML>

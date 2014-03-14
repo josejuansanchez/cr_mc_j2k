@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_event) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_event</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="kdu_event.html">kdu_event</A> object provides similar functionality to the Windows
+Event object, except that you must supply a locked
+mutex to the 
+<A HREF="kdu_event__wait.html">wait</A> function. In most cases, this actually simplifies
+synchronization with Windows Event objects. Perhaps
+more importantly, though, it enables the behaviour
+to be correctly implemented also with pthreads condition
+objects in Unix.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_event__kdu_event.html">kdu_event</A></P>
+<P><A HREF="kdu_event__exists.html">exists</A></P>
+<P><A HREF="kdu_event__operator!.html">operator!</A></P>
+<P><A HREF="kdu_event__create.html">create</A></P>
+<P><A HREF="kdu_event__destroy.html">destroy</A></P>
+<P><A HREF="kdu_event__set.html">set</A></P>
+<P><A HREF="kdu_event__reset.html">reset</A></P>
+<P><A HREF="kdu_event__wait.html">wait</A></P>
+<P><A HREF="kdu_event__timed_wait.html">timed_wait</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

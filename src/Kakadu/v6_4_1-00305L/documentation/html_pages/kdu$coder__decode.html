@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_block_decoder::decode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$coder__~kd$k_decoder.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_block_decoder::decode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_block_decoder.Decode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> decode(
+<A HREF ="kdu_block.html">kdu_block</A>&nbsp;*&nbsp;block)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Decode(
+Kdu_block&nbsp;block)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$block_coding+h.html">"../coresys/common/kdu_block_coding.h"</A>]</P><P><A HREF="kdu$coder.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Decodes a single block of samples. The dimensions of
+the block are in 
+<A HREF="kdu_block.html#size">block&rarr;size</A> &mdash; none of the geometric transformation flags
+in 
+<A HREF="kdu_block.html#size">block&rarr;size</A> have any meaning here.
+</P><P>
+ On entry, 
+<A HREF="kdu_block.html#num_passes">block&rarr;num_passes</A> indicates the number of coding passes which are to
+be decoded and 
+<A HREF="kdu_block.html#missing_msbs">block&rarr;missing_msbs</A> the number of most significant bit-planes which are
+to be skipped. The function processes all coding passes,
+unless unable to do so for reasons of available implementation
+precision limitations, or an error was detected by
+error resilience mechanisms and corrected by discarding
+passes believed to be erroneous.
+</P><P>
+ On exit, the decoded samples are in the 
+<A HREF="kdu_block.html#sample_buffer">block&rarr;sample_buffer</A> array, organized in scan-line order. The sample values
+themselves have a sign-magnitude representation, with
+the most significant magnitude bit-plane appearing
+in bit position 30 and the sign (1 for -ve) in bit
+position 31. At each sample location, if p is the index
+of the least significant decoded magnitude bit and
+the sample is non-zero, the function sets bit p-1.
+This has the effect of both signalling the location
+of the least significant decoded magnitude bit-plane
+and also implementing the default mid-point rounding
+rule for dequantization.
+</P><P>
+ The value of 
+<A HREF="kdu_block.html#K_max_prime">block&rarr;K_max_prime</A> identifies the maximum number of magnitude bit-planes
+(including missing MSB's) which could have been coded.
+Knowledge of this value allows the function to determine
+whether or not all coding passes have been decoded,
+without truncation &mdash; this in turn, affects the
+behaviour of the error resilience mechanisms.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="block">block</A> [<A HREF ="kdu_block.html">kdu_block</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$coder__~kd$k_decoder.html"> prev </A>|</P>
+</BODY>
+</HTML>

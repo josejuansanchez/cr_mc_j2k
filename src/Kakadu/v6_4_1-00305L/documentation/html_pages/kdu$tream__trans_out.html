@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::trans_out) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__flush.html"> prev </A>||<A HREF="kdu$tream__rea$for_flush.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::trans_out</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Trans_out</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> trans_out(
+<B>kdu_long</B>&nbsp;max_bytes=KDU_LONG_MAX,
+<B>kdu_long</B>&nbsp;*&nbsp;layer_bytes=NULL,
+<B>int</B>&nbsp;layer_bytes_entries=0,
+<B>bool</B>&nbsp;record_in_comseg=false,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Trans_out(
+long&nbsp;max_bytes,
+long[]&nbsp;layer_bytes,
+int&nbsp;layer_bytes_entries,
+boolean&nbsp;record_in_comseg,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this output function instead of 
+<A HREF="kdu$tream__flush.html">flush</A> when the code-stream has been created by a transcoding
+operation which has no real distortion information.
+In this case, the individual code-block 
+<B>pass_slopes</B> values are expected to hold 0xFFFF-layer_idx, where
+layer_idx is the zero-based index of the quality layer
+to which the code-block contributes (the pass slope
+value is 0 if a later pass contributes to the same
+layer). This policy is described in the comments appearing
+with the definition of 
+<A HREF="kdu_block.html#pass_slopes">kdu_block::pass_slopes</A>.
+</P><P>
+ A modified form of the rate allocation algorithm is
+used to write output quality layers with the same code-block
+contributions as the quality layers in the input codestream
+which is being transcoded.
+</P><P>
+ If the existing layers exceed the 
+<A HREF="kdu$tream__trans_out.html#max_bytes">max_bytes</A> limit, empty packets are written for any complete
+quality layers which are to be discarded and partial
+layers are formed by discarding code-blocks starting
+from the highest frequency subbands and the bottom
+of the image.
+</P><P>
+ Like the 
+<A HREF="kdu$tream__flush.html">flush</A> function, 
+<A HREF="kdu$tream__trans_out.html">trans_out</A> may be invoked multiple times to incrementally flush
+the code-stream contents, based on availability. Each
+time the function is called, the function writes as
+much of the code-stream as it can, given the availability
+of compressed data, and the current packet progression
+sequence. The same restrictions and recommendations
+supplied with the description of the 
+<A HREF="kdu$tream__flush.html">flush</A> function in regard to incremental flushing apply here
+also. In particular, you should remember that each
+call generates new tile-parts, that the maximum number
+of tile-parts for any tile is 255, and that the rate
+control associated with a supplied 
+<A HREF="kdu$tream__trans_out.html#max_bytes">max_bytes</A> limit is most effective if the function is called
+as infrequently as possible. The value of the 
+<A HREF="kdu$tream__trans_out.html#max_bytes">max_bytes</A> argument is ignored for all but the first call to
+this function, at which point it is recorded internally
+for use in incrementally sizing the incrementally generated
+code-stream data in a uniform and consistent manner.
+</P><P>
+ If the 
+<A HREF="kdu$tream__trans_out.html#layer_bytes">layer_bytes</A> argument is non-NULL, it points to an array with 
+<A HREF="kdu$tream__trans_out.html#layer_bytes_entries">layer_bytes_entries</A> entries. Upon return, the entries in this array are
+set to the cumulative number of bytes written to each
+successive quality layer so far. If the array contains
+insufficient entries to cover all available quality
+layers, the total code-stream length will generally
+be larger than the last entry in the array, upon return.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The number of non-empty quality layers which were generated.
+This may be less than the number of layers in the input
+codestream being transcoded if 
+<A HREF="kdu$tream__trans_out.html#max_bytes">max_bytes</A> presents an effective restriction.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="max_bytes">max_bytes</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Maximum number of compressed data bytes to write out.
+If necessary, one or more quality layers will be discarded,
+and then, within the last quality layer, code-blocks
+will be discarded in order, starting from the highest
+frequency subbands and working toward the lowest frequency
+subbands, in order to satisfy this limit.
+</P>
+</DIV>
+<H4><A NAME="layer_bytes">layer_bytes</A> [<B>kdu_long</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the supplied array has 
+<A HREF="kdu$tream__trans_out.html#layer_bytes_entries">layer_bytes_entries</A> entries and is used to return the number of bytes
+written so far into each quality layer.
+</P>
+</DIV>
+<H4><A NAME="layer_bytes_entries">layer_bytes_entries</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of entries in the 
+<A HREF="kdu$tream__trans_out.html#layer_bytes">layer_bytes</A> array. Ignored if 
+<A HREF="kdu$tream__trans_out.html#layer_bytes">layer_bytes</A> is NULL.
+</P>
+</DIV>
+<H4><A NAME="record_in_comseg">record_in_comseg</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the size and "rate-distortion" slope information
+will be recorded in a main header COM (comment) marker
+segment, for each quality layer. While this may seem
+appropriate, it often is not, since fake R-D slope
+information is synthesized from the quality layer indices.
+As a general rule, you should copy any COM marker segments
+from the original code-stream into the new one when
+transcoding.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is provided to allow safe incremental
+flushing of codestream data while processing continues
+on other threads.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__flush.html"> prev </A>||<A HREF="kdu$tream__rea$for_flush.html"> next </A>|</P>
+</BODY>
+</HTML>

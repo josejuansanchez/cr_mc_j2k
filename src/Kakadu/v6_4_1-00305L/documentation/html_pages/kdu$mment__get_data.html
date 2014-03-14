@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream_comment::get_data) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$mment__get_text.html"> prev </A>||<A HREF="kdu$mment__che$_readonly.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream_comment::get_data</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream_comment.Get_data</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_data(
+<B>kdu_byte</B>&nbsp;buf[],
+<B>int</B>&nbsp;offset,
+<B>int</B>&nbsp;length)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_data(
+byte[]&nbsp;buf,
+int&nbsp;offset,
+int&nbsp;length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$mment.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You can use this function to read a range of bytes
+from the object, regardless of whether it represents
+text or binary data. If the object represents text,
+the range of bytes which is available for reading includes
+the null terminator of the string returned by 
+<A HREF="kdu$mment__get_text.html">get_text</A>. If the object represents binary data, 
+<A HREF="kdu$mment__get_text.html">get_text</A> will retrn an empty string (not NULL).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The number of bytes actually written to 
+<A HREF="kdu$mment__get_data.html#buf">buf</A> (or which would be written to 
+<A HREF="kdu$mment__get_data.html#buf">buf</A> if it were non-NULL). May be zero if 
+<A HREF="kdu$mment__get_data.html#offset">offset</A> is greater than or equal to the number of bytes available
+for writing.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buf">buf[]</A> [<B>kdu_byte</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be large enough to hold 
+<A HREF="kdu$mment__get_data.html#length">length</A> bytes, or else NULL. If NULL, the function is being
+used only to determine the size of a buffer to allocate.
+</P>
+</DIV>
+<H4><A NAME="offset">offset</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Initial position, within the range of bytes represented
+by the comment, from which to start copying data to
+<A HREF="kdu$mment__get_data.html#buf">buf</A>.
+</P>
+</DIV>
+<H4><A NAME="length">length</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of bytes to copy from the internal buffer to
+<A HREF="kdu$mment__get_data.html#buf">buf</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$mment__get_text.html"> prev </A>||<A HREF="kdu$mment__che$_readonly.html"> next </A>|</P>
+</BODY>
+</HTML>

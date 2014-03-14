@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_message_formatter::start_message) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$atter__flush.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_message_formatter::start_message</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_message_formatter.Start_message</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> start_message(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Start_message(
+)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ssage__sta$t_message.html">kdu_message::start_message</A></H3></DIV>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P><A HREF="kdu$atter.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Passes the 
+<A HREF="kdu$atter__sta$t_message.html">start_message</A> call along to the output object, which may wish to
+lock a mutex to guard multi-threaded access to the
+text formatting facilities provided here. The 
+<A HREF="kdu$atter__flush.html">flush</A> function is then called to flush any outstanding text
+from previous formatting operations.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$atter__flush.html"> prev </A>|</P>
+</BODY>
+</HTML>

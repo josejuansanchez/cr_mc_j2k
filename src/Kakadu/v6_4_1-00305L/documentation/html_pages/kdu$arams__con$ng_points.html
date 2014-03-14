@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_overlay_params::configure_ring_points) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__res$ux_params.html"> prev </A>||<A HREF="kdu$arams__get$ng_points.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_overlay_params::configure_ring_points</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_overlay_params.Configure_ring_points</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> configure_ring_points(
+<B>int</B>&nbsp;stride,
+<B>int</B>&nbsp;radius)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Configure_ring_points(
+int&nbsp;stride,
+int&nbsp;radius)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$arams.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If you intend to use 
+<A HREF="kdu$arams__get$ng_points.html">get_ring_points</A>, call this function first with the 
+<A HREF="kdu$arams__con$ng_points.html#stride">stride</A> associated with the buffer you intend to paint via
+your overlay painting routine and the 
+<A HREF="kdu$arams__con$ng_points.html#radius">radius</A> with which you intend to draw rings. The function
+configures internal lookup tables so as to minimize
+computation in the painting of border rings &mdash;
+see 
+<A HREF="kdu$arams__get$ng_points.html">get_ring_points</A> for more info. Calls to this function need not necessarily
+do anything, since the object caches the ring lookup
+tables it generated in the past.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stride">stride</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="radius">radius</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This value should not exceed the value returned by
+<A HREF="kdu$arams__get$ng_border.html">get_max_painting_border</A>, as ring lookup tables are generated only for radii
+in the range 0 to the maximum painting border.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__res$ux_params.html"> prev </A>||<A HREF="kdu$arams__get$ng_points.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::write_header_last) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__set$get_size.html"> prev </A>||<A HREF="jp2$1t_box__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::write_header_last</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Write_header_last</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> write_header_last(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Write_header_last(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to facilitate the generation
+of very long boxes, where the box length cannot be
+determined in advance, and we do not wish to buffer
+the box's contents. Currently, an error will be generated
+unless the underlying 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> object supports repositioning. For this, it must either
+have been opened with a file as the target, or it must
+have been opened with a 
+<A HREF="kdu$arget.html">kdu_compressed_target</A> object which itself supports repositioning via 
+<A HREF="kdu$arget__sta$t_rewrite.html">kdu_compressed_target::start_rewrite</A> and 
+<A HREF="kdu$arget__end_rewrite.html">kdu_compressed_target::end_rewrite</A>.
+</P><P>
+ Since the function might not succeed if the above
+conditions are not met, you should try not to use it
+unless absolutely necessary. The 
+<A HREF="mj2_target.html">mj2_target</A> object uses it to write movies, since the entire movie
+must be written first, before the length can be determined
+to write the box header. Contiguous codestream boxes
+embedded in a JPX file may need to be written using
+this function, since the length of the codestream cannot
+generally be known ahead of time, and the JPX file
+may embody multiple codestreams.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__set$get_size.html"> prev </A>||<A HREF="jp2$1t_box__close.html"> next </A>|</P>
+</BODY>
+</HTML>

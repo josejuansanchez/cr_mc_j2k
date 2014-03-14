@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_num_components) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__access_siz.html"> prev </A>||<A HREF="kdu$tream__get$bit_depth.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_num_components</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_num_components</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_components(
+<B>bool</B>&nbsp;want_output_comps=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_components(
+boolean&nbsp;want_output_comps)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the apparent number of image components. Note
+that the return value is affected by calls to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> as well as the 
+<A HREF="kdu$tream__get$omponents.html#want_output_comps">want_output_comps</A> argument.
+</P><P>
+ If 
+<A HREF="kdu$tream__get$omponents.html#want_output_comps">want_output_comps</A> is false, the function returns the number of visible
+codestream image components &mdash; a value which may
+have been restricted by previous calls to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A>.
+</P><P>
+ If 
+<A HREF="kdu$tream__get$omponents.html#want_output_comps">want_output_comps</A> is true AND the last call to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> specified 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>, or if there has been no call to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A>, the function returns the number of output image components.
+The distinction between codestream and output image
+components is particularly important where a Part-2
+multi-component transform may be involved. In this
+case, the number of output image components may differ
+from the number of codestream image components, even
+where no restrictions have been applied. The distinction
+is explained more thoroughly in connection with the
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="want_output_comps">want_output_comps</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Affects the interpretation of returned value, as explained
+above, but only if there have been no calls to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> or the most recent call specified 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__access_siz.html"> prev </A>||<A HREF="kdu$tream__get$bit_depth.html"> next </A>|</P>
+</BODY>
+</HTML>

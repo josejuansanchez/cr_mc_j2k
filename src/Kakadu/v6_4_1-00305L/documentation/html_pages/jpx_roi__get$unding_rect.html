@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::get_bounding_rect) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__is_simple.html"> prev </A>||<A HREF="jpx_roi__get_rectangle.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi::get_bounding_rect</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Get_bounding_rect</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> get_bounding_rect(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;rect)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Get_bounding_rect(
+Kdu_dims&nbsp;rect)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the bounding rectangle which contains this
+region. This function may be used with any type of
+region. As with all bounding boxes in Kakadu, the locations
+that are included within the bounding box run from
+the top left hand corner at 
+<A HREF="kdu_dims.html#pos">rect.pos</A> through to the bottom right hand corner which is one
+row above and one column to the left or 
+<A HREF="kdu_dims.html#pos">rect.pos</A>+
+<A HREF="kdu_dims.html#size">rect.size</A>.
+</P><P>
+ Note that for elliptical regions, the returned bounding
+rectangle necessarily has an odd width and an odd height,
+since ellipses must be centred at integer-valued sample
+locations. The dimensions are 1+2Wo and 1+2Ho, where
+Wo and Ho are the outer half-widths discussed with
+the first form of the 
+<A HREF="jpx_roi__init_ellipse__1.html">init_ellipse</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="rect">rect</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__is_simple.html"> prev </A>||<A HREF="jpx_roi__get_rectangle.html"> next </A>|</P>
+</BODY>
+</HTML>

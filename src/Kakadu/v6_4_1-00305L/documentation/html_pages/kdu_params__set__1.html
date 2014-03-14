@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::set) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__compare__3.html"> prev </A>||<A HREF="kdu_params__set__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::set</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Set</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="kdu_params__set__2.html">2</A>,
+<A HREF="kdu_params__set__3.html">3</A></B></P>
+<P CLASS="function-text"><B>void</B> set(
+<B>const char *</B>&nbsp;name,
+<B>int</B>&nbsp;record_idx,
+<B>int</B>&nbsp;field_idx,
+<B>int</B>&nbsp;value)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set(
+String&nbsp;name,
+int&nbsp;record_idx,
+int&nbsp;field_idx,
+int&nbsp;value)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Sets the value of a single parameter (field) in the
+named attribute, having the I (integer) type (or an
+integer-compatible) type. It is legal to overwrite
+existing values.
+</P><P>
+ The parameter values managed by any given attribute
+are organized as an array of records, each of which
+has an identical structure, defined by fields. Fields
+are typed and each field in the record may have a different
+type; however, the type of each field is immutable
+after configuration by the relevant parameter class's
+constructor. Simple field types are as follows: I (integer);
+B (boolean); and F (float). The attribute definition
+language used by parameter class constructors also
+supports enumerated and flag field types, both of which
+have integer values for the purpose of direct function
+queries. The enumerated type can take on only one of
+a number of pre-defined values, each of which has a
+textual identifier for use in parsing and textualization.
+The flag type represents a logical OR of any or all
+of a set of bit flags, each of which has a pre-defined
+value and associated textual identifier.
+</P><P>
+ The present function may be used to set any field
+value which may be represented as an integer. This
+includes the I (integer) type, as well as the enumerated
+and flag types. In the latter cases, however, a check
+is made to verify that the supplied integer is compatible
+with legal enumerated values or flag bits. The function
+may also be used to set B (boolean) field types, although
+this is not recommended (you should really use the
+boolean form of the overloaded 
+<A HREF="kdu_params__set__1.html">set</A> function). If the function is used to set booleans,
+a check will be made to verify that the integer is
+either 0 (false) or 1 (true).
+</P><P>
+ The function generates an error (through 
+<A HREF="kdu_error.html">kdu_error</A>) if the request is incompatible with the record structure
+defined for this attribute. For example, the attribute
+might not support multiple records, it might not define
+sufficient fields, or the identified field might not
+be compatible with the supplied integer value, as described
+above.
+</P><P>
+ It is not strictly necessary to set all fields in
+a record before moving on to another record; nor is
+it strictly necessary to set records in sequence. However,
+most reasonable applications will expect to see a consecutive
+set of completed records eventually and other methods
+for internalizing attribute values such as string parsing
+and marker segment translation will also fill out completed
+records in sequence.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="name">name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Name of the attribute, in which the identified field
+is to be set. Attribute names are unique across all
+clusters. If necessary, a full string match is performed
+on the attribute name, but you would do well to use
+one of the pre-defined macros for the relevant derived
+parameter class. These are documented with the derived
+classes themselves.
+</P>
+</DIV>
+<H4><A NAME="record_idx">record_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+0 for the first record.
+</P>
+</DIV>
+<H4><A NAME="field_idx">field_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+0 for the first field in the record.
+</P>
+</DIV>
+<H4><A NAME="value">value</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The integer value to which the field should be set.
+Note that some types of fields have limited legal numeric
+ranges, in which case the function will check them,
+generating any appropriate error messages through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__compare__3.html"> prev </A>||<A HREF="kdu_params__set__2.html"> next </A>|</P>
+</BODY>
+</HTML>

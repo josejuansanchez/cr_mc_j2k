@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::add_thread) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$m_threads.html"> prev </A>||<A HREF="kdu$ntity__add_queue.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::add_thread</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Add_thread</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> add_thread(
+<B>int</B>&nbsp;thread_concurrency=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Add_thread(
+int&nbsp;thread_concurrency)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to add worker threads to the
+group owned by the current thread. The caller must,
+therefore, be the group owner. The new theads are automatically
+launched with their own 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> objects. They will not terminate until 
+<A HREF="kdu$ntity__destroy.html">destroy</A> is called.
+</P><P>
+ A reasonable policy is to add a total of P-1 workers,
+where P is the number of physical processors (CPU's)
+on the platform. The value of P can be difficult to
+recover consistently across different platforms, since
+POSIX deliberately (for some good reasons) refrains
+from providing a standard mechanism for discovering
+the number of processors across UNIX platforms. However,
+the 
+<A HREF="globals__kdu$_processors.html">kdu_get_num_processors</A> function makes an attempt to discover the value, returning
+0 if it cannot.
+</P><P>
+ The role of the 
+<A HREF="kdu$ntity__add_thread.html#thread_concurrency">thread_concurrency</A> argument may seem a little more mysterious. This argument
+is provided to deal with operating systems (notably
+Solaris), which do not automatically create at least
+as many kernel threads as there are processors, thereby
+preventing the process from exploiting the availability
+of multiple physical CPU's through multiple threads.
+This problem can be resolved by using 
+<B>pthread_setconcurrency</B> to set the number of kernel threads (threads associated
+with distinct processors). However, it is unlikely
+that application level programmers will remember to
+do this or know what value to set. For this reason,
+the default behaviour of the present function, when
+operating in a PTHREADS environment, is to adjust the
+thread concurrency to match the number of threads which
+are added into the 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object. This is a fine solution when there is only
+one 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object, which is certainly the most common scenario.
+When there are multiple objects, however, they may
+compete with each other to set the thread concurrency
+level for the process. You may avoid this problem by
+supplying a non-zero 
+<A HREF="kdu$ntity__add_thread.html#thread_concurrency">thread_concurrency</A> argument, in which case that value will be passed
+to 
+<B>pthread_setconcurrency</B> each time. For operating systems which do not pay
+any attention to 
+<B>pthread_concurrency</B>, it does not matter what value you supply for this
+argument. For consistency, however, the best approach
+is either to set the argument either to 0, -1 or a
+value equal to the number of processors you hope to
+be able to utilize concurrently. The special value
+-1 means that the existing thread concurrency level
+should not be changed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if insufficient resources are available to offer
+a new thread of execution, or if a multi-threading
+implementation for the present architecture does not
+exist in the definitions provided in "kdu_elementary.h".
+You may wish to check them for your platform.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="thread_concurrency">thread_concurrency</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+As explained at length above, this argument is best
+set to 0, -1 or the number of physical processors you
+would like to be able to use concurrently in your application
+(not just in this instance of the 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object, if there are multiple instances of it). Since
+it is common to call the 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A> function P-1 times, where P is the number of processors,
+a reasonable policy would be to supply P for the value
+of 
+<A HREF="kdu$ntity__add_thread.html#thread_concurrency">thread_concurrency</A>, each time the function is called. If you leave the
+<A HREF="kdu$ntity__add_thread.html#thread_concurrency">thread_concurrency</A> argument at its default value of 0, the actual thread
+concurrency will be set equal to the number of threads
+associated with this object, including the owner thread.
+If you pass -1 to this function, the thread concurrency
+will be left unchanged, which can be useful if you
+don't want to alter a configuration optimized elsewhere.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$m_threads.html"> prev </A>||<A HREF="kdu$ntity__add_queue.html"> next </A>|</P>
+</BODY>
+</HTML>

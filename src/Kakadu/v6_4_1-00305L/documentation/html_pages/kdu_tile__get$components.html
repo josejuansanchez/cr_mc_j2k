@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::get_num_components) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_tile__get$t_dwt_info.html"> prev </A>||<A HREF="kdu_tile__get$num_layers.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::get_num_components</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Get_num_components</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_components(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_components(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of visible codestream image components,
+which is also the number of visible tile-components
+in the current tile. Note firstly that this value may
+be affected by previous calls to 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>, but only if such calls modify the visibility of codestream
+image components.
+</P><P>
+ Calls to the 2'nd form of 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> which specify 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A> do not restrict codestream component visibility in
+any way. They may, however, affect the visibility of
+MCT output image components.
+</P><P>
+ It may happen that some tile-components are not actually
+involved in the reconstruction of visible (or indeed
+any) output image components. One reason for this is
+that a Part-2 multi-component transform does not use
+all codestream components in defining the full set
+of output components. It can also happen that calls
+to the 2'nd form of 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> have restricted the set of visible output components,
+in which case some of the codestream components may
+not be required.
+</P><P>
+ In any case, unused codestream image components are
+treated differently to invisible codestream image components.
+Invisible components can arise only if the component
+<B>access_mode</B> supplied to the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> function is 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A>. Of course, this cannot happen with 
+<B>output codestreams</B> (i.e., if 
+<A HREF="kdu$tream.html">kdu_codestream</A> was created for writing to a compressed data target).
+</P><P>
+ Where a codestream component is visible but not used,
+it is still included in the count returned by the present
+function. However, attempting to access an unused component
+via the 
+<A HREF="kdu_tile__acc$_component.html">access_component</A> function will result in an empty 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A> interface being returned. Note, however, that this
+does not happen with 
+<B>output codestreams</B> (i.e., if 
+<A HREF="kdu$tream.html">kdu_codestream</A> was created for writing to a compressed data target).
+For output codestreams, all tile-components are both
+visible and accessible.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_tile__get$t_dwt_info.html"> prev </A>||<A HREF="kdu_tile__get$num_layers.html"> next </A>|</P>
+</BODY>
+</HTML>

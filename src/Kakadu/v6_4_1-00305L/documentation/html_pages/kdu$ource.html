@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_compressed_source</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="jp2$t_box.html">jp2_input_box</A></LI>
+<LI><A HREF="kdu_cache.html">kdu_cache</A></LI>
+<LI><A HREF="kdu$ative.html">kdu_compressed_source_nonnative</A></LI>
+<LI><A HREF="kdu$1ource.html">kdu_compressed_video_source</A></LI>
+<LI><A HREF="kdu$2ource.html">kdu_simple_file_source</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Abstract base class must be derived to create a real
+compressed data source with which to construct an input
+<A HREF="kdu$tream.html">kdu_codestream</A> object.
+</P><P>
+ Supports everything from simple file reading sources
+to caching sources for use in sophisticated client-server
+applications.
+</P><P>
+ For Java, C# or other foreign languages, the "kdu_hyperdoc"
+utility does not create language bindings which allow
+you to directly inherit this class. To implement the
+<A HREF="kdu$ource__read.html">read</A> and other member functions in a foreign language,
+you should derive from 
+<A HREF="kdu$ative.html">kdu_compressed_source_nonnative</A> instead.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ource__~kd$ed_source.html">~kdu_compressed_source</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$ource__close.html">close</A> [virtual] {<U>Java:</U> Close}
+</P>
+<P><A HREF="kdu$ource__get$abilities.html">get_capabilities</A> [virtual] {<U>Java:</U> Get_capabilities}
+</P>
+<P><A HREF="kdu$ource__read.html">read</A> [virtual] {<U>Java:</U> Read}
+</P>
+<P><A HREF="kdu$ource__seek.html">seek</A> [virtual] {<U>Java:</U> Seek}
+</P>
+<P><A HREF="kdu$ource__get_pos.html">get_pos</A> [virtual] {<U>Java:</U> Get_pos}
+</P>
+<P><A HREF="kdu$ource__acc$ss_memory.html">access_memory</A> [virtual]</P>
+<P><A HREF="kdu$ource__set$der_scope.html">set_tileheader_scope</A> [virtual] {<U>Java:</U> Set_tileheader_scope}
+</P>
+<P><A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> [virtual] {<U>Java:</U> Set_precinct_scope}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

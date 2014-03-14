@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::count_compositing_layers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__cou$estreams.html"> prev </A>||<A HREF="jpx_source__acc$destream.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::count_compositing_layers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Count_compositing_layers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> count_compositing_layers(
+<B>int</B>&nbsp;&amp;&nbsp;count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Count_compositing_layers(
+int[]&nbsp;count)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function plays a similar role to 
+<A HREF="jpx_source__cou$estreams.html">count_codestreams</A> but counts the number of compositing layers instead.
+If the data source contains compositing layer header
+(jplh) boxes, the function counts the number of such
+boxes. If it contains no compositing layer header boxes,
+the function returns 1, treating the first codestream
+as a compositing layer and using the JP2 header to
+derive colour space and other information which would
+normally appear within a compositing layer header box.
+</P><P>
+ In either case, the function returns true, unless
+it cannot be sure what the count is, because insufficient
+elements from the data source are currently available.
+This generally means that the underlying 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object is fueled by a dynamic cache (i.e., a 
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P><P>
+ When the number of compositing layers cannot yet be
+determined, the function writes the number of compositing
+layer header boxes found so far into the 
+<A HREF="jpx_source__cou$g_layers.html#count">count</A> argument. This may be 0 if the data source contains
+no compositing layer header boxes and the end of the
+source has not yet been encountered.
+</P><P>
+ JPX data sources need not necessarily contain compositing
+layer header boxes; in this case, each codestream represents
+a separate compositing layer. However, the reader cannot
+make this judgement until the end of the file has been
+encountered. If the data source is ultimately fueled
+by a dynamic cache whose top-level databin is incomplete,
+the function may thus have to return with 
+<A HREF="jpx_source__cou$g_layers.html#count">count</A> equal to 0, even if a large number of codestreams
+have been encountered already. For these reasons, JPX
+writers are strongly encouraged to include compositing
+layer header boxes, even if they are not strictly required.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the number of compositing layers cannot yet
+be determined, because the function is unable to parse
+any further into the source at this point. This generally
+means that the underlying 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object is fueled by a dynamic cache (i.e., a 
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="count">count</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__cou$estreams.html"> prev </A>||<A HREF="jpx_source__acc$destream.html"> next </A>|</P>
+</BODY>
+</HTML>

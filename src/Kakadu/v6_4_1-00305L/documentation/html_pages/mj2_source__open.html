@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_source::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2_source__operator!.html"> prev </A>||<A HREF="mj2_source__close.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_source::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_source.Open</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> open(
+<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*&nbsp;src,
+<B>bool</B>&nbsp;return_if_incompatible=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Open(
+Jp2_family_src&nbsp;src,
+boolean&nbsp;return_if_incompatible)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function opens an MJ2 compatible data source.
+If the data source does not advertise compatibility
+with the Motion JPEG2000 standard, an error will be
+generated through 
+<A HREF="kdu_error.html">kdu_error</A>, unless 
+<A HREF="mj2_source__open.html#return_if_incompatible">return_if_incompatible</A> is true.
+</P><P>
+ It is illegal to invoke this function on an object
+which has previously been opened, but has not yet been
+closed.
+</P><P>
+ It is important to realize that reading from a Motion
+JPEG2000 source generally requires seeking, so non-seekable
+<A HREF="jp2$y_src.html">jp2_family_src</A> objects should not be used.
+</P><P>
+ The current implementation of this object does not
+support dynamic caching data sources (those whose 
+<A HREF="jp2$y_src__uses_cache.html">jp2_family_src::uses_cache</A> function returns true). However, all of the interface
+functions are designed to support sources for which
+the data in a cache might not yet be available. This
+allows us to upgrade the internal implementation later
+without affecting the design of applications which
+use it.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Three possible values, as follows:
+</P><UL><LI>
+0 if insufficient information is available from the
+<A HREF="mj2_source__open.html#src">src</A> object to complete the opening operation. In practice,
+this can occur only if the 
+<A HREF="mj2_source__open.html#src">src</A> object is fueled by a dynamic cache (a 
+<A HREF="kdu_cache.html">kdu_cache</A> object).
+</LI><LI>
+1 if successful.
+</LI><LI>
+-1 if the data source does not advertise compatibility
+with the Motion JPEG2000 standard. This value will
+not be returned unless 
+<A HREF="mj2_source__open.html#return_if_incompatible">return_if_incompatible</A> is true. If it is returned, the object will be left
+in the closed state.
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+A previously opened 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object. Note that you must explicitly close or destroy
+that object, once you are done using it. The present
+object's 
+<A HREF="mj2_source__close.html">close</A> function will not do this for you.
+</P>
+</DIV>
+<H4><A NAME="return_if_incompatible">return_if_incompatible</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, an error will be generated through 
+<A HREF="kdu_error.html">kdu_error</A> if the data source does not advertise compatibility
+with the Motion JPEG2000 specification. If true, incompatibility
+will not generate an error, but the function will return
+-1, leaving the application free to pass the 
+<A HREF="mj2_source__open.html#src">src</A> object to another file format reader.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2_source__operator!.html"> prev </A>||<A HREF="mj2_source__close.html"> next </A>|</P>
+</BODY>
+</HTML>

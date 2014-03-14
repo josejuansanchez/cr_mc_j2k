@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::handle_exception) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__process_jobs.html"> prev </A>||<A HREF="kdu$ntity__acquire_lock.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::handle_exception</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Handle_exception</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> handle_exception(
+<B>kdu_exception</B>&nbsp;exc_code)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Handle_exception(
+int&nbsp;exc_code)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+As explained in the introductory comments, this function
+is required to handle errors generated through 
+<A HREF="kdu_error.html">kdu_error</A>. These errors either terminate the entire process,
+or else they throw an exception of type 
+<B>kdu_exception</B>. In the former case, no cleanup is required. When
+an exception is caught, however, two housekeeping operations
+are required: 1) any locks currently held by the thread
+must be released so as to avoid deadlocking other threads;
+2) the thread group must be marked as having failed
+so that the exception can be replicated in other threads
+within the group when they next call 
+<A HREF="kdu$ntity__acquire_lock.html">acquire_lock</A> or 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A>. The 
+<A HREF="kdu$ntity__han$exception.html#exc_code">exc_code</A> supplied here will be used when replicating the exception
+in other threads.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="exc_code">exc_code</A> [<B>kdu_exception</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__process_jobs.html"> prev </A>||<A HREF="kdu$ntity__acquire_lock.html"> next </A>|</P>
+</BODY>
+</HTML>

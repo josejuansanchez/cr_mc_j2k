@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::mark_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$1u_databin.html"> prev </A>||<A HREF="kdu_cache__cle$all_marks.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::mark_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Mark_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> mark_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id,
+<B>bool</B>&nbsp;mark_state)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Mark_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id,
+boolean&nbsp;mark_state)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides a convenient service which may
+be used by client applications or derived objects for
+marking data-bins. The interpretation of a mark is
+not defined here, but the service is expected to be
+used to record whether or not the server has already
+been informed regarding the existing contents of the
+data-bin. Note carefully that data-bins which do not
+already exist will NOT be created in order to be marked.
+</P><P>
+ See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes and identifiers.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the data-bin was already marked; false otherwise.
+Data-bins which are not present in the cache are considered
+unmarked.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="mark_state">mark_state</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function causes the data-bin to be marked;
+otherwise, the function causes the data-bin to become
+unmarked.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$1u_databin.html"> prev </A>||<A HREF="kdu_cache__cle$all_marks.html"> next </A>|</P>
+</BODY>
+</HTML>

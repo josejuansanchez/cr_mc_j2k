@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::add_primitive_ilayer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__cha$yer_frame.html"> prev </A>||<A HREF="kdu$sitor__rem$ve_ilayer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::add_primitive_ilayer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Add_primitive_ilayer</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A> add_primitive_ilayer(
+<B>int</B>&nbsp;stream_src,
+<B>int</B>&nbsp;&amp;&nbsp;single_component_idx,
+<B>kdu_component_access_mode</B>&nbsp;single_access_mode,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;full_source_dims,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;full_target_dims,
+<B>bool</B>&nbsp;transpose=false,
+<B>bool</B>&nbsp;vflip=false,
+<B>bool</B>&nbsp;hflip=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_ilayer_ref Add_primitive_ilayer(
+int&nbsp;stream_src,
+int[]&nbsp;single_component_idx,
+int&nbsp;single_access_mode,
+Kdu_dims&nbsp;full_source_dims,
+Kdu_dims&nbsp;full_target_dims,
+boolean&nbsp;transpose,
+boolean&nbsp;vflip,
+boolean&nbsp;hflip)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The present function is virtually identical to 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A>, except that it adds an imagery layer which renders
+its content directly from a codestream, without any
+file-format provided rendering information. The function
+can be used to render a single image component, or
+(if possible) an RGB image from the first three image
+components. In the specific case where the present
+object's data source is a raw codestream (as opposed
+to an MJ2, JP2 or JPX file) and a -ve 
+<A HREF="kdu$sitor__add$ve_ilayer.html#single_component_idx">single_component_idx</A> value is supplied, this function does the same thing
+as 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A>.
+</P><P>
+ The 
+<A HREF="kdu$sitor__add$ve_ilayer.html#stream_src">stream_src</A> argument identifies the codestream in question using
+the conventions outlined below. This argument must
+be 0 if the data source is a raw codestream or simple
+JP2 file, but may take on other values for MJ2 and
+JPX data sources, which can contain many codestreams.
+</P><P>
+ The optional 
+<A HREF="kdu$sitor__add$ve_ilayer.html#single_access_mode">single_access_mode</A> argument determines whether a requested single image
+component index should be considered as referring to
+a final output component (after applying any colour
+transforms or Part 2 multi-component transforms defined
+at the codestream level) or a raw codestream component
+(obtained after decoding and inverse spatial wavelet
+transformation). In the former case (
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>), additional components may need to be decompressed
+internally, so that the requested component can be
+reconstructed.
+</P><P>
+ As with any of the functions which change the composition,
+you should be sure at least to call 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> after invoking this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A null 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> instance (one whose 
+<B>kdu_ilayer_ref:is_null</B> function returns true) if the code-stream cannot yet
+be opened. This happens only when a JPX/JP2/MJ2 data
+source is served by a dynamic cache which does not
+yet have enough information to actually open the code-stream,
+or to verify whether or not it exists. If the requested
+code-stream is known not to exist, the function generates
+an appropriate error through 
+<A HREF="kdu_error.html">kdu_error</A>, rather than returning.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stream_src">stream_src</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If the data source is a raw codestream, 
+<A HREF="kdu$sitor__add$ve_ilayer.html#stream_src">stream_src</A> must be 0. If the data source is JP2/JPX, 
+<A HREF="kdu$sitor__add$ve_ilayer.html#stream_src">stream_src</A> is the positional index of the codestream (starting
+from 0) within the source. If the data source is MJ2,
+<A HREF="kdu$sitor__add$ve_ilayer.html#stream_src">stream_src</A> is the unique codestream index whose interpretation
+is described in connection with 
+<A HREF="mj2$ource__get$tream_idx.html">mj2_video_source::get_stream_idx</A>.
+</P>
+</DIV>
+<H4><A NAME="single_component_idx">single_component_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+If you want the function to try to create an RGB imagery
+layer formed from the first 3 image components of the
+codestream if reasonable (i.e., if there are at least
+3 components and they all have the same dimensions),
+pass a value of -1 in for this argument &mdash; the
+function will not alter the supplied value in this
+case.
+</P><P>
+ Otherwise, pass the zero-based index of a single image
+component which is to be rendered all by itself as
+a monochrome imagery layer. Upon successful return,
+this argument holds the index of the image component
+which is actually used; this may be different to the
+supplied value if that value was outside the range
+of available components for the code-stream.
+</P>
+</DIV>
+<H4><A NAME="single_access_mode">single_access_mode</A> [<B>kdu_component_access_mode</B>]</H4><DIV CLASS="indented-text">
+<P>
+Allows you to specify whether the single image component
+identified by a non-negative 
+<A HREF="kdu$sitor__add$ve_ilayer.html#single_component_idx">single_component_idx</A> argument is to be considered a codestream image component
+(i.e., prior to application of any inverse multi-component
+transform) or an output image component (i.e., at the
+output of any inverse multi-component transform).
+</P>
+</DIV>
+<H4><A NAME="full_source_dims">full_source_dims</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Same as in 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A>, but note that the dimensions of the original imagery
+for a single image component are those of the image
+component itself, as returned by 
+<A HREF="kdu$tream__get_dims.html">kdu_codestream::get_dims</A>, not the image dimensions expressed on high resolution
+codestream canvas.
+</P>
+</DIV>
+<H4><A NAME="full_target_dims">full_target_dims</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+As in 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A>.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+As in 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A>.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$sitor__add$ve_ilayer.html#transpose">transpose</A>.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$sitor__add$ve_ilayer.html#transpose">transpose</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__cha$yer_frame.html"> prev </A>||<A HREF="kdu$sitor__rem$ve_ilayer.html"> next </A>|</P>
+</BODY>
+</HTML>

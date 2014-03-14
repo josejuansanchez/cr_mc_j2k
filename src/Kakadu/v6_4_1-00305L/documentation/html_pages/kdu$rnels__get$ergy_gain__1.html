@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_energy_gain) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$_response.html"> prev </A>||<A HREF="kdu$rnels__get$bibo_gain.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_energy_gain</A></H1>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$rnels__get$ergy_gain__2.html">2</A></B></P>
+<P CLASS="function-text"><B>double</B> get_energy_gain(
+<B>int</B>&nbsp;initial_lowpass_stages,
+<B>int</B>&nbsp;num_extra_stages,
+<B>bool</B>&nbsp;extra_stage_high[])</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Computes the energy gain factor associated with the
+one dimensional synthesis basis vectors (sequences)
+for samples in a general packet wavelet transform.
+The corresponding 1D DWT analysis operation can be
+understood in terms of an initial 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#initial_lowpass_stages">initial_lowpass_stages</A> low-pass filtering and downsampling operations, followed
+by an additional 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#num_extra_stages">num_extra_stages</A> decomposition steps, in which we take the low-pass
+subband if the corresponding entry in the 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#extra_stage_high">extra_stage_high</A> array is false, or the high-pass subband if the corresponding
+entry in the 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#extra_stage_high">extra_stage_high</A> array is true.
+</P><P>
+ The function does not explicitly compute the analysis
+or synthesis vectors for more than a certain number
+of DWT levels, beyond which point it relies upon the
+fact that the vectors converge to samplings of underlying
+continuous wavelet and scaling functions. This allows
+a large number of DWT levels to be specified without
+consuming inordinate amounts of memory calculating
+the kernels. For an explanation of these convergence
+properties, see Section 17.3 of the book by Taubman
+and Marcellin.
+</P><P>
+ To determine the energy gain for 2D subbands, the
+relevant 1D energy gains for each direction have simply
+to be multiplied.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The energy gain factor.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="initial_lowpass_stages">initial_lowpass_stages</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be &gt;= 0. This should typically be a small value
+(at most 3 should be sufficient to accommodate all
+the custom decomposition styles supported by Part-2
+of the JPEG2000 standard).
+</P>
+</DIV>
+<H4><A NAME="num_extra_stages">num_extra_stages</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be in the range 0 to 3.
+</P>
+</DIV>
+<H4><A NAME="extra_stage_high">extra_stage_high[]</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#num_extra_stages">num_extra_stages</A> entries. May be NULL only if 
+<A HREF="kdu$rnels__get$ergy_gain__1.html#num_extra_stages">num_extra_stages</A> is 0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$_response.html"> prev </A>||<A HREF="kdu$rnels__get$bibo_gain.html"> next </A>|</P>
+</BODY>
+</HTML>

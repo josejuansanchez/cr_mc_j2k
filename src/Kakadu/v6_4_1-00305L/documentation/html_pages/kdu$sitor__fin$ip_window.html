@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::find_compatible_jpip_window) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__fin$am_region.html"> prev </A>||<A HREF="kdu$sitor__con$_overlays.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::find_compatible_jpip_window</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Find_compatible_jpip_window</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> find_compatible_jpip_window(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;fsiz,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;roi_dims,
+<B>int</B>&nbsp;&amp;&nbsp;round_direction,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Find_compatible_jpip_window(
+Kdu_coords&nbsp;fsiz,
+Kdu_dims&nbsp;roi_dims,
+int[]&nbsp;round_direction,
+Kdu_dims&nbsp;region)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to simplify the construction
+of JPIP window-of-interest requests which are compatible
+with the the current composition configuration.
+</P><P>
+ If there is insufficient information available to
+determine the composited frame dimensions &mdash; i.e.,
+if 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> would fail &mdash; the function returns false and
+does nothing.
+</P><P>
+ Otherwise, the function attempts to determine the
+most appropriate JPIP window-of-interest request to
+reflect the current scale and the supplied 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A>. The window of interest is returned via the first
+3 arguments. If 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> argument is used to return the size of the full image
+which should be used in a JPIP request. This, together
+with 
+<A HREF="kdu$sitor__fin$ip_window.html#round_direction">round_direction</A>, affect the image resolution that a JPIP server deems
+to be contained within the request. In the simplest
+case, 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> can be equal to the dimensions returned by 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and 
+<A HREF="kdu$sitor__fin$ip_window.html#round_direction">round_direction</A> can be 0, meaning "round-to-nearest". However, one
+or more codestreams are being sub-sampled as part of
+the rendering process, the 
+<A HREF="kdu$sitor__fin$ip_window.html#round_direction">round_direction</A> may be set to 1, meaning "round-up", and the 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> dimensions are adjusted so that the round-up policy
+does not cause redundant information to be included
+in the JPIP server's response. The function's behaviour
+is most interesting when a composited frame is being
+formed from multiple codestreams, some of which may
+be undergoing sub-sampling (or even up-sampling) by
+various amounts in each direction. For such cases,
+the 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> and 
+<A HREF="kdu$sitor__fin$ip_window.html#round_direction">round_direction</A> values need to be selected with some care so as to
+allow a JPIP server to respond to the relevant codestream-context
+request with all relevant data and as little redundant
+data as possible.
+</P><P>
+ If 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> is empty, 
+<A HREF="kdu$sitor__fin$ip_window.html#roi_dims">roi_dims</A> will be set to refer to the entire image region whose
+dimensions are returned via 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A>. Otherwise, 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> is interpreted with respect to the composited image
+coordinate system (as used by 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>) and converted into a corresponding region, expressed
+with respect to 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A>.
+</P><P>
+ Note that the region supplied in any recent call to
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A> is irrelevant to the behaviour of this function. However,
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> may well be a region of interest that we have passed
+to (or intend to pass to) 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P><P>
+ It is worth noting that when this function is used
+to construct JPIP requests, the 
+<A HREF="kdu$sitor__get$m_packets.html">get_codestream_packets</A> function returns statistics for the same content that
+is being requested of a JPIP server. This means that
+the completion of the server's response should coincide
+with the event that the 
+<B>visible_packet_samples</B> and 
+<B>max_visible_packet_samples</B> values returned by the 
+<A HREF="kdu$sitor__get$m_packets.html">get_codestream_packets</A> function are identical for all visible codestreams
+&mdash; assuming the same 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> is supplied to that function.
+</P><P>
+ You should also note that the information returned
+by this function may not be stable until the 
+<A HREF="kdu$sitor__wai$m_headers.html">waiting_for_stream_headers</A> function returns false. You should generally issue
+a call to 
+<A HREF="kdu$sitor__refresh.html">refresh</A> after each receipt of new information from a JPIP
+server, until that function returns false, updating
+your JPIP requests based upon potentially new information
+returned by this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if sufficient information has been configured
+for a meaningful window of interest to be returned
+via 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A>, 
+<A HREF="kdu$sitor__fin$ip_window.html#roi_dims">roi_dims</A> and 
+<A HREF="kdu$sitor__fin$ip_window.html#round_direction">round_direction</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="fsiz">fsiz</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the full size of the requested resolution,
+to be supplied as the "fsiz" JPIP request field. This
+may or may not be the same as the full composited image
+dimensions, as returned by 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A>. It is also expressed using the original image geometry,
+which may be different from that associated with the
+composited image coordinate system, if 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> was asked to transpose the image.
+</P>
+</DIV>
+<H4><A NAME="roi_dims">roi_dims</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the origin and size of a region of interest
+within the image, to be supplied via the "roff" and
+"rsiz" JPIP request fields. This is derived from 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> (unless 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> is empty, in which case 
+<A HREF="kdu$sitor__fin$ip_window.html#roi_dims">roi_dims</A> is set to refer to the entire image). Note, however,
+that 
+<A HREF="kdu$sitor__fin$ip_window.html#region">region</A> is expressed using a potentially different geometry
+(as supplied to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>) and a potentially different scale (if 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> does not have the same dimensions as the composited
+image).
+</P>
+</DIV>
+<H4><A NAME="round_direction">round_direction</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the rounding direction, to be supplied
+along with 
+<A HREF="kdu$sitor__fin$ip_window.html#fsiz">fsiz</A> in the "fsiz" JPIP request field. A value of 0 means
+"round-to-nearest", while 1 means "round-up". No other
+values will be used.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Either an empty region (see above) or else a region
+of interest, expressed on the composited image coordinate
+system. This may or may not be the region supplied
+in a current or future call to 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__fin$am_region.html"> prev </A>||<A HREF="kdu$sitor__con$_overlays.html"> next </A>|</P>
+</BODY>
+</HTML>

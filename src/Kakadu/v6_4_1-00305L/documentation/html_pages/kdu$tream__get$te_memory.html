@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_compressed_state_memory) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$ta_memory.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_compressed_state_memory</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_compressed_state_memory</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_compressed_state_memory(
+<B>bool</B>&nbsp;get_peak_allocation=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_compressed_state_memory(
+boolean&nbsp;get_peak_allocation)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the total amount of heap memory allocated to
+storing the structures which are used to manage compressed
+data. This includes tile, tile-component, resolution,
+subband and precinct data structures, along with arrays
+used to store the addresses of precincts which might
+not actually be loaded into memory &mdash; for massive
+images, even a single pointer per precinct can represent
+a significant amount of memory. The memory requirements
+may go up and down while the codestream management
+machinery is in use, since elements are created on-demand
+as late as possible, and destroyed as early as possible.
+Also, both precincts and tiles can be dynamically unloaded
+and reloaded on-demand when reading suitably structured
+code-streams. For more on this, see the 
+<A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A> function.
+</P><P>
+ In the event that the 
+<A HREF="kdu$tream__sha$buffering.html">share_buffering</A> member function has been used to associate a single
+compressed data buffering service with multiple codestream
+objects, the value reported here represents the amount
+of structural memory consumed by all such codestream
+objects together.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="get_peak_allocation">get_peak_allocation</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true (default), the value returned represents the
+maximum amount of structural memory ever allocated.
+Otherwise, the value represents the current amount
+of storage actually being used. This value could be
+used by an application which wants to manage its own
+memory resources more tightly than can be achieved
+by the automatic cache management mechanism manipulated
+by the 
+<A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A> function. In particular, an application could monitor
+the current memory allocation obtained by summing the
+return values from this function and the 
+<A HREF="kdu$tream__get$ta_memory.html">get_compressed_data_memory</A> function, using this value to determine whether it
+should close some open tiles &mdash; open tiles cannot
+be dynamically unloaded by the automatic cache management
+mechanism.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__get$ta_memory.html"> prev </A>|</P>
+</BODY>
+</HTML>

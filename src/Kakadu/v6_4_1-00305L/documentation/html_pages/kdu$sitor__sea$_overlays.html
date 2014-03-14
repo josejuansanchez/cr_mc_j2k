@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::search_overlays) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__upd$_overlays.html"> prev </A>||<A HREF="kdu$sitor__get$rlay_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::search_overlays</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Search_overlays</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> search_overlays(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;point,
+<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;&amp;&nbsp;istream_ref,
+<B>float</B>&nbsp;visibility_threshold)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Search_overlays(
+Kdu_coords&nbsp;point,
+Kdu_istream_ref&nbsp;istream_ref,
+float&nbsp;visibility_threshold)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function searches through all overlay metadata,
+returning a non-empty interface only if a node is found
+whose region (or regions) of interest include the supplied
+point. The function returns an empty interface if overlays
+are not currently enabled, or if the relevant metanode
+is not currently visible, as determined by the opacity
+of imagery layers which may lie on top of an imagery
+layer whose codestream actually contains the metadata.
+</P><P>
+ The 
+<A HREF="kdu$sitor__sea$_overlays.html#visibility_threshold">visibility_threshold</A> has a similar interpretation to that adopted for the
+<A HREF="kdu$sitor__find_point.html">find_point</A> function, except that the opacity of the ilayer in
+which an overlay is actually found is irrelevant &mdash;
+all that matters is whether overlaying ilayers render
+an overlay invisible at 
+<A HREF="kdu$sitor__sea$_overlays.html#point">point</A>, with respect to the 
+<A HREF="kdu$sitor__sea$_overlays.html#visibility_threshold">visibility_threshold</A>.
+</P><P>
+ Note carefully that this function does not distinguish
+between metadata which is visible within the overlay
+or hidden, due to dependency information which may
+have been passed to the most recent call to 
+<A HREF="kdu$sitor__con$_overlays.html">configure_overlays</A>. Hidden metadata corresponds to regions of interest
+which would be displayed were not for the fact that
+they do not pass the dependency tests described in
+connection with 
+<A HREF="kdu$sitor__con$_overlays.html">configure_overlays</A>. The fact that hidden metadata is searched by this
+function can be very helpful to an interactive user.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An empty interface unless a match is found, in which
+case the returned object is represented by an ROI description
+box &mdash; i.e., 
+<A HREF="jpx$anode__get$m_regions.html">jpx_metanode::get_num_regions</A> is guaranteed to return a value greater than 0.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="point">point</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Location of a point on the compositing grid, expressed
+using the same coordinate system as that associated
+with 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P>
+</DIV>
+<H4><A NAME="istream_ref">istream_ref</A> [<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an instance of the 
+<A HREF="kdu$m_ref.html">kdu_istream_ref</A> class which uniquely identifies the istream of the
+top-most imagery layer in which region-of-interest
+metadata is found, which contains 
+<A HREF="kdu$sitor__sea$_overlays.html#point">point</A> and for which the 
+<A HREF="kdu$sitor__sea$_overlays.html#visibility_threshold">visibility_threshold</A> is satisfied. The imagery layer itself, along with
+the codestream index against which the metadata's region
+of interest is registed, can be found by passing 
+<B>ilayer_ref</B> to 
+<A HREF="kdu$sitor__get$ream_info.html">get_istream_info</A>.
+</P>
+</DIV>
+<H4><A NAME="visibility_threshold">visibility_threshold</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+Metadata overlays in a ilayer L are assigned a visibility
+V_L at location 
+<A HREF="kdu$sitor__sea$_overlays.html#point">point</A>, where V_L = Prod_{l &lt; L} (1 - O_l). Here, O_l
+is the opacity associated with an overlaying ilayer,
+l, normalized to the range 0 to 1. Overlay metadata
+is considered visible in ilayer L if V_L &gt; 
+<A HREF="kdu$sitor__sea$_overlays.html#visibility_threshold">visibility_threshold</A>. If an ilayer has not yet been completely rendered,
+so that the opacity at 
+<A HREF="kdu$sitor__sea$_overlays.html#point">point</A> is unknown, the opacity will usually be taken to be
+1.0 &mdash; there may be exceptions if you are rendering
+without buffer initialization (i.e., if 
+<B>set_buffer_surface_initialization_mode</B> has been called with false as the argument).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__upd$_overlays.html"> prev </A>||<A HREF="kdu$sitor__get$rlay_info.html"> next </A>|</P>
+</BODY>
+</HTML>

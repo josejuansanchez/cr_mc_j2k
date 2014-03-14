@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compositor_buf::is_read_access_allowed) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$r_buf__init_float.html"> prev </A>||<A HREF="kdu$r_buf__set$ssibility.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compositor_buf::is_read_access_allowed</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compositor_buf.Is_read_access_allowed</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> is_read_access_allowed(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_read_access_allowed(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$r_buf.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used internally by 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> in places where reading from a buffer is optional
+&mdash; e.g., to copy overlapping data from one region
+to another when the buffer surface is shifted. If the
+function returns false, read-access is not available
+and so the optional activity will not be performed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$r_buf__init_float.html"> prev </A>||<A HREF="kdu$r_buf__set$ssibility.html"> next </A>|</P>
+</BODY>
+</HTML>

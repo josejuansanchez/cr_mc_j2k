@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile_comp::access_resolution) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_comp__acc$esolution__1.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_tile_comp::access_resolution</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile_comp.Access_resolution</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$_comp__acc$esolution__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><A HREF ="kdu$ution.html">kdu_resolution</A> access_resolution(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_resolution Access_resolution(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$_comp.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns an interface to the highest resolution level
+of the tile-component, within the internal code-stream
+management machinery. It is equivalent to calling the
+first form of the overloaded 
+<A HREF="kdu$_comp__acc$esolution__1.html">access_resolution</A> function, supplying a 
+<B>res_level</B> index equal to the value returned by 
+<A HREF="kdu$_comp__get$solutions.html">get_num_resolutions</A>.
+</P><P>
+ You can then use 
+<A HREF="kdu$ution__access_next.html">kdu_resolution::access_next</A> to access successively lower resolution levels within
+the same tile-component.
+</P><P>
+ For a discussion of the two error conditions which
+could occur when invoking this function, see the first
+form of the 
+<A HREF="kdu$_comp__acc$esolution__1.html">access_resolution</A> function. You can avoid these error conditions by
+checking the values returned by 
+<A HREF="kdu$tream__get$wt_levels.html">kdu_codestream::get_min_dwt_levels</A> and 
+<A HREF="kdu$tream__can_flip.html">kdu_codestream::can_flip</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$_comp__acc$esolution__1.html"> prev </A>|</P>
+</BODY>
+</HTML>

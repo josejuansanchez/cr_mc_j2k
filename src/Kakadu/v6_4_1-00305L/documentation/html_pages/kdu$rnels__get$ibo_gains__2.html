@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_bibo_gains) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$ergy_gain__2.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_bibo_gains</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$rnels__get$ibo_gains__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>double</B>&nbsp;* get_bibo_gains(
+<B>int</B>&nbsp;level_idx,
+<B>double</B>&nbsp;&amp;&nbsp;low_gain,
+<B>double</B>&nbsp;&amp;&nbsp;high_gain)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is the old BIBO gain calculation function interface,
+dating from the era when Kakadu supported only JPEG2000
+Part-1 decomposition structures. It simply invokes
+the new more general version of the function which
+supports wavelet packet transforms.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Pointer to an array with one entry per lifting step,
+whose entries hold the BIBO gain from the input sequence
+through to the output of that lifting step in the indicated
+DWT level. If 
+<A HREF="kdu$rnels__get$ibo_gains__2.html#level_idx">level_idx</A> is 0, the function returns NULL.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="level_idx">level_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The particular level in the DWT pyramid at which the
+BIBO gain is being calculated. A value of 0 refers
+to no transform at all.
+</P>
+</DIV>
+<H4><A NAME="low_gain">low_gain</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the BIBO gain from the input sequence
+to the low-pass subbands at DWT level 
+<A HREF="kdu$rnels__get$ibo_gains__2.html#level_idx">level_idx</A>. If 
+<A HREF="kdu$rnels__get$ibo_gains__2.html#level_idx">level_idx</A> is 0, the function returns 1.0.
+</P>
+</DIV>
+<H4><A NAME="high_gain">high_gain</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the BIBO gain from the input sequence
+to the high-pass subband at DWT level 
+<A HREF="kdu$rnels__get$ibo_gains__2.html#level_idx">level_idx</A>. If 
+<A HREF="kdu$rnels__get$ibo_gains__2.html#level_idx">level_idx</A> is 0, the function returns 0.0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$ergy_gain__2.html"> prev </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_ilayer_ref) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_ilayer_ref</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_ilayer_ref</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Instances of this class are used to robustly pass references
+to imagery layers within the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A>. Only null instances of this class can be created
+by an application &mdash; these are instances for which
+<A HREF="kdu$r_ref__is_null.html">is_null</A> returns true. All non-trivial instances are created
+exclusively by the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object.
+</P><P>
+ The term "imagery layer" (abbreviated "ilayer") refers
+roughly to a layer in the composited image managed
+by 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A>. Successive layers are painted on top of each other
+(often with alpha blending). We no longer use the term
+"compositing layer" to refer to these layers because
+that term has a special meaning within the JPX file
+format, yet the same compositing layer can actually
+be used to construct multiple imagery layers within
+the same composition (composited, for example at different
+locations, or with different scaling factors or orientations).
+</P><P>
+ In practice, the current implementation uses an integer
+of type 
+<B>kdu_long</B> assigning these integers in a manner which ensures
+uniqueness amongst all istreams managed by the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> and minimizes the likelihood that an istream which
+has been destroyed will have the same reference value
+as another istream which has since been created.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$r_ref__kdu$layer_ref.html">kdu_ilayer_ref</A> {<U>Java:</U> Kdu_ilayer_ref}
+</P>
+<P><A HREF="kdu$r_ref__is_null.html">is_null</A> {<U>Java:</U> Is_null}
+</P>
+<P><A HREF="kdu$r_ref__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$r_ref__operator!.html">operator!</A></P>
+<P><A HREF="kdu$r_ref__operator==.html">operator==</A></P>
+<P><A HREF="kdu$r_ref__operator!=.html">operator!=</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

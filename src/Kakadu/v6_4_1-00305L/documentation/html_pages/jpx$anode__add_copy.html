@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::add_copy) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$e_to_link.html"> prev </A>||<A HREF="jpx$anode__delete_node.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::add_copy</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Add_copy</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> add_copy(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;src,
+<B>bool</B>&nbsp;recursive,
+<B>bool</B>&nbsp;link_to_internal_copies=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Add_copy(
+Jpx_metanode&nbsp;src,
+boolean&nbsp;recursive,
+boolean&nbsp;link_to_internal_copies)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a descendant to the present
+node, assigning the descendant to represent a box whose
+type and contents are obtained by copying those of
+the 
+<A HREF="jpx$anode__add_copy.html#src">src</A> object.
+</P><P>
+ Note carefully that 
+<A HREF="jpx$anode__add_copy.html#src">src</A> may be an interface to a different metadata tree.
+Its contents might not be explicitly copied here; we
+might only preserve references. As a result, you must
+make sure that the underlying 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object, from which the contents of 
+<A HREF="jpx$anode__add_copy.html#src">src</A> might have been read, remains open until after the
+present box has been written using 
+<A HREF="jpx_target__wri$metadata.html">jpx_target::write_metadata</A>. However, it is safe to invoke 
+<B>jpx_metanode::delete</B> on the 
+<A HREF="jpx$anode__add_copy.html#src">src</A> object after it has been copied. This operation can
+be useful during editing operations.
+</P><P>
+ If the 
+<A HREF="jpx$anode__add_copy.html#src">src</A> represents a link to some other object in its metadata
+tree (see 
+<A HREF="jpx$anode__get_link.html">get_link</A>) or is linked by some other object in its metadata
+tree, the behaviour depends on whether or not the current
+node belongs to the same metadata manager:
+</P><UL><LI>
+If 
+<A HREF="jpx$anode__add_copy.html#src">src</A> belongs to a different metadata manager and contains
+links or is linked from elsewhere, the copying process
+attempts to reproduce these links. Specifically, a
+copied link attempts to resolve itself with a copy
+of the object that 
+<A HREF="jpx$anode__add_copy.html#src">src</A> was linked to. If it cannot do so immediately, internal
+machinery is set up to make sure that the copied link
+will resolve itself to a copy of the object to which
+<A HREF="jpx$anode__add_copy.html#src">src</A> was linked if and when such a copy becomes available
+in the future. Until such resolution takes place, the
+copied object's 
+<A HREF="jpx$anode__get_link.html">jpx_metanode::get_link</A> function will returns an empty interface, although
+<A HREF="jpx$anode__get_box_type.html">jpx_metanode::get_box_type</A> will identify the copied object as a cross-reference
+box (
+<A HREF="globals.html#jp2_cross_reference_4cc">jp2_cross_reference_4cc</A>).
+</LI><LI>
+If 
+<A HREF="jpx$anode__add_copy.html#src">src</A> is a link and it belongs to the same metadata manager
+as the link being copied, the copied object will be
+a link to the same 
+<A HREF="jpx$anode.html">jpx_metanode</A> as 
+<A HREF="jpx$anode__add_copy.html#src">src</A>. However, if the 
+<A HREF="jpx$anode__add_copy.html#link_to_internal_copies">link_to_internal_copies</A> argument is true, the behaviour described above, for
+different metadata managers, is reproduced.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+This function may possibly return an empty interface,
+if no copy of the node was actually added. This happens
+if you attempt to copy a cross-reference node (see
+<A HREF="jpx$anode__get$reference.html">get_cross_reference</A>) which does not link to another known node (see 
+<A HREF="jpx$anode__get_link.html">get_link</A>). It also happens if you attempt to copy a link node
+(in the sense of 
+<A HREF="jpx$anode__get_link.html">get_link</A>) whose link target has been deleted.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="recursive">recursive</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the 
+<A HREF="jpx$anode__add_copy.html#src">src</A> node's descendants will be copied recursively. While
+doing so, the function will attempt to parse as many
+of the descendant boxes as possible &mdash; if the
+source is fuelled ultimately by a dynamic cache, the
+descendants of an available node may grow, as more
+data arrives from a remote server.
+</P>
+</DIV>
+<H4><A NAME="link_to_internal_copies">link_to_internal_copies</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument affects the behaviour only when 
+<A HREF="jpx$anode__add_copy.html#src">src</A> has the same metadata manager as the current object
+and 
+<A HREF="jpx$anode__add_copy.html#src">src</A> is a link (i.e., 
+<A HREF="jpx$anode__get_link.html">src.get_link</A> returns a non-empty interface). In this case, the
+default policy is to create a new link which points
+back to the same metanode as 
+<A HREF="jpx$anode__add_copy.html#src">src</A>. However, if this argument is true, the behaviour
+is to link the new metanode to the most recent copy
+of the link target, or to leave the link unresolved
+until such a copy becomes available.
+</P><P>
+ This creates a powerful mechanism for duplicating
+complex metadata graphs during editing operations.
+However, if a given collection of metadata is copied
+multiple times, links may accidentally be formed to
+unintended copies; this can happen if a previously
+copied metanode has not yet had an opportunity to be
+recopied by the time a link to the copy needs to be
+resolved.
+</P><P>
+ To avoid the potential pitfalls described above, you
+are strongly advised to invoke the 
+<A HREF="jpx$nager__res$_locators.html">jpx_meta_manager::reset_copy_locators</A> function before copying metadata wtihin the same metadata
+manager with the 
+<A HREF="jpx$anode__add_copy.html#link_to_internal_copies">link_to_internal_copies</A> argument set to true.
+</P><P>
+ After copying a partial collection of metanodes from
+the metadata hierarchy with 
+<A HREF="jpx$anode__add_copy.html#link_to_internal_copies">link_to_internal_copies</A> set to true, it is possible that some link metanodes
+remain unresolved &mdash; because their targets were
+never copied. The caller may wish to make a subsequent
+sweep through the copied metadata setting any such
+unresolved links to point back to their original source
+&mdash; usually the best practice during editing operations.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$e_to_link.html"> prev </A>||<A HREF="jpx$anode__delete_node.html"> next </A>|</P>
+</BODY>
+</HTML>

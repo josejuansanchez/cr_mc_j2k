@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_locator::set_file_pos) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$cator__get_file_pos.html"> prev </A>||<A HREF="jp2$cator__get$atabin_id.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_locator::set_file_pos</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_locator.Set_file_pos</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_file_pos(
+<B>kdu_long</B>&nbsp;pos)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_file_pos(
+long&nbsp;pos)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$cator.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You may use this function to configure the locator
+to point to a particular location within the original
+file. This location must correspond to the first byte
+of some box header. You may then open the box by invoking
+<A HREF="jp2$t_box__open__1.html">jp2_input_box::open</A>, using the locator. In some cases, the data source
+is not a file, but a dynamic cache (if 
+<B>kd_data_src</B> was opened using a 
+<A HREF="kdu_cache.html">kdu_cache</A> object). In this case, the 
+<A HREF="jp2$t_box__open__1.html">jp2_input_box::open</A> call will attempt to resolve the data-bin associated
+with the indicated file position, augmenting the information
+in the present object to reflect the data-bin identifier
+and the location of the box within its data-bin. If
+insufficient information is currently available in
+the cache to perform such resolution, the attempt to
+open the JP2 box may fail, but may later succeed once
+the cache contents have been augmented.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pos">pos</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$cator__get_file_pos.html"> prev </A>||<A HREF="jp2$cator__get$atabin_id.html"> next </A>|</P>
+</BODY>
+</HTML>

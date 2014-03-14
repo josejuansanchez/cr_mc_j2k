@@ -1,0 +1,11 @@
+#set terminal fig textspecial color
+set terminal png
+set output "ssim.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'SSIM'
+set key bottom
+
+plot "paste.txt" using 1:5 with lines title 'me + cr' axes x1y1,\
+	 "paste.txt" using 1:6 with lines title 'trunc' axes x1y1

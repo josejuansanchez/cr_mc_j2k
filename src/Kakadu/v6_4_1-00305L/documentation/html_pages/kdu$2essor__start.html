@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_decompressor::start) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2essor__~kd$mpressor.html"> prev </A>||<A HREF="kdu$2essor__finish.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_decompressor::start</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_decompressor.Start</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> start(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<B>bool</B>&nbsp;force_precise=false,
+<B>bool</B>&nbsp;want_fastest=false,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;env_queue=NULL,
+<B>int</B>&nbsp;env_dbuf_height=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Start(
+Kdu_codestream&nbsp;codestream,
+boolean&nbsp;force_precise,
+boolean&nbsp;want_fastest,
+Kdu_thread_env&nbsp;env,
+long&nbsp;env_queue,
+int&nbsp;env_dbuf_height)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_stripe_decompressor.h"</A>]</P><P><A HREF="kdu$2essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function to initialize the object for decompression.
+Each call to 
+<A HREF="kdu$2essor__start.html">start</A> must be matched by a call to 
+<A HREF="kdu$2essor__finish.html">finish</A>, but you may re-use the object to process subsequent
+images, if you like.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+<P>
+Interface to a 
+<A HREF="kdu$tream.html">kdu_codestream</A> object whose 
+<B>create</B> function has already been called. Before passing the
+code-stream to this function, you might like to alter
+the geometry by calling 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>, or you might like to restrict the spatial region,
+image components or number of layers which will appear
+to be present during decompression, by calling one
+of the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> functions.
+</P>
+</DIV>
+<H4><A NAME="force_precise">force_precise</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, 32-bit internal representations are used by
+the decompression engines created by this object, regardless
+of the precision of the image samples reported by 
+<A HREF="kdu$tream__get$bit_depth.html">kdu_codestream::get_bit_depth</A>.
+</P>
+</DIV>
+<H4><A NAME="want_fastest">want_fastest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is true and 
+<A HREF="kdu$2essor__start.html#force_precise">force_precise</A> is false, the function selects a 16-bit internal representation
+(usually leads to the fastest processing) even if this
+will result in reduced image quality, at least for
+irreversible processing. For image components which
+require reversible compression, the 32-bit representation
+must be selected if the image sample precision is too
+high, or else numerical overflow might occur.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is used to establish multi-threaded processing.
+For a discussion of the multi-threaded processing features
+offered by the present object, see the introductory
+comments to 
+<A HREF="kdu$2essor.html">kdu_stripe_decompressor</A>. We remind you here, however, that all calls to 
+<A HREF="kdu$2essor__start.html">start</A>, 
+<B>process</B> and 
+<A HREF="kdu$2essor__finish.html">finish</A> must be executed from the same thread, which is identified
+only in this function. If you re-use the object to
+process a subsequent image, you may change threads
+between the two uses, passing the appropriate appropriate
+<A HREF="kdu$d_env.html">kdu_thread_env</A> reference in each call to 
+<A HREF="kdu$2essor__start.html">start</A>. For the single-threaded processing model used prior
+to Kakadu version 5.1, set this argument to NULL.
+</P>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu$2essor__start.html#env">env</A> is non-NULL, in which case a non-NULL 
+<A HREF="kdu$2essor__start.html#env_queue">env_queue</A> means that all multi-threaded processing queues created
+inside the present object, by calls to 
+<B>process</B>, should be created as sub-queues of the identified
+<A HREF="kdu$2essor__start.html#env_queue">env_queue</A>.
+</P><P>
+ One application for a non-NULL 
+<A HREF="kdu$2essor__start.html#env_queue">env_queue</A> might be one which processes two frames of a video
+sequence in parallel. There can be some benefit to
+doing this, since it can avoid the small amount of
+thread idle time which often appears at the end of
+the last call to the 
+<B>process</B> function prior to 
+<A HREF="kdu$2essor__finish.html">finish</A>. In this case, each concurrent frame would have its
+own 
+<A HREF="kdu$2essor__start.html#env_queue">env_queue</A>, and its own 
+<A HREF="kdu$2essor.html">kdu_stripe_decompressor</A> object. Moreover, the 
+<A HREF="kdu$2essor__start.html#env_queue">env_queue</A> associated with a given 
+<A HREF="kdu$2essor.html">kdu_stripe_decompressor</A> object can be used to run a job which invokes the
+<A HREF="kdu$2essor__start.html">start</A>, 
+<B>process</B> and 
+<A HREF="kdu$2essor__finish.html">finish</A> member functions. In this case, however, it is particularly
+important that the 
+<A HREF="kdu$2essor__start.html">start</A>, 
+<B>process</B> and 
+<A HREF="kdu$2essor__finish.html">finish</A> functions all be called from within the execution
+of a single job, since otherwise there is no guarantee
+that they would all be executed from the same thread,
+whose importance has already been stated above.
+</P>
+</DIV>
+<H4><A NAME="env_dbuf_height">env_dbuf_height</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument may be used to introduce and control
+parallelism in the DWT processing steps, allowing you
+to distribute the load associated with multiple tile-components
+across multiple threads. In the simplest case, this
+argument is 0, and parallel processing applies only
+to the block decoding processes. For a small number
+of processors, this is usually sufficient to keep all
+CPU's active. If this argument is non-zero, however,
+the 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> objects on which all processing is based, are created
+with 
+<B>double_buffering</B> equal to true and a 
+<B>processing_stripe_height</B> equal to the value supplied for this argument. See
+<A HREF="kdu$hesis__create.html">kdu_multi_synthesis::create</A> for a more comprehensive discussion of double buffering
+principles and guidelines.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2essor__~kd$mpressor.html"> prev </A>||<A HREF="kdu$2essor__finish.html"> next </A>|</P>
+</BODY>
+</HTML>

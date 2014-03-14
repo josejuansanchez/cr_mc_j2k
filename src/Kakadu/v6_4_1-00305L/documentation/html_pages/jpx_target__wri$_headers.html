@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_target::write_headers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_target__acc$_manager.html"> prev </A>||<A HREF="jpx_target__wri$metadata.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_target::write_headers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_target.Write_headers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jp2$1t_box.html">jp2_output_box</A>&nbsp;* write_headers(
+<B>int</B>&nbsp;*&nbsp;i_param=NULL,
+<B>void</B>&nbsp;**&nbsp;addr_param=NULL,
+<B>int</B>&nbsp;codestream_threshold=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jp2_output_box Write_headers(
+int[]&nbsp;i_param)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function once all codestreams, compositing
+layers and composition instructions have been added,
+and sufficiently initialized. The function scans the
+various parameters to be written into JPX boxes, reorganizing
+the information if possible, so as to try to ensure
+that the generated file is JPX compatible and maximize
+the likelihood that it can also be JP2 compatible.
+</P><P>
+ All of the fixed-position headers are then written,
+including the JP2 signature box, the file-type box,
+the reader requirements box and the JP2 header box.
+</P><P>
+ If 
+<A HREF="jpx_target__wri$_headers.html#codestream_threshold">codestream_threshold</A> &lt; 0, all codestream header boxes and compositing
+layer header boxes will also be written at this point.
+Otherwise, the function writes all codestream header
+boxes, up to and including the one corresponding to
+the codestream whose index is 
+<A HREF="jpx_target__wri$_headers.html#codestream_threshold">codestream_threshold</A> (indices run from 0), and all compositing layer header
+boxes, up to and including the first one whose compositing
+layer uses the codestream whose index is 
+<A HREF="jpx_target__wri$_headers.html#codestream_threshold">codestream_threshold</A>.
+</P><P>
+ When used in this way, the function returns with a
+NULL pointer, once it has written this limited set
+of headers, leaving the application to call the function
+again, with a larger value of 
+<A HREF="jpx_target__wri$_headers.html#codestream_threshold">codestream_threshold</A>, once it is prepared to write later codestreams. In
+this way, compositing layer and codestream header boxes
+may be interleaved with the contiguous codestream or
+fragment table codestream boxes.
+</P><P>
+ If you have installed a breakpoint using one of the
+functions 
+<A HREF="jpx$arget__set$reakpoint.html">jpx_codestream_target::set_breakpoint</A> or 
+<A HREF="jpx$1arget__set$eakpoint.html">jpx_layer_target::set_breakpoint</A>, the present function will return prematurely, with
+a pointer to the open super-box (either a Codestream
+Header (chdr) box, or a Compositing Layer Header (jplh)
+box) associated with the context in which the breakpoint
+was installed. In this case, the function must be called
+again, until all breakpoints have been passed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if the requested headers have been completely
+written. This does not necessarily mean that the function
+need not be called again. Indeed, it may need to be
+called again if the number of codestreams to be written
+is greater than 
+<A HREF="jpx_target__wri$_headers.html#codestream_threshold">codestream_threshold</A>+1. As explained above, this allows codestream header
+boxes and compositing layer header boxes to be interleaved
+with the codestream data itself, or with fragment tables
+pointing to that data.
+</P><P>
+ A non-NULL return means that a breakpoint has been
+encountered, which usually means that the application
+should write some custom box as a sub-box of the open
+returned super-box, before invoking 
+<A HREF="jpx_target__wri$_headers.html">write_headers</A> again.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="i_param">i_param</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the integer parameter passed as an argument
+to the relevant 
+<A HREF="jpx$arget__set$reakpoint.html">jpx_codestream_target::set_breakpoint</A> or 
+<A HREF="jpx$1arget__set$eakpoint.html">jpx_layer_target::set_breakpoint</A> function is returned in *
+<A HREF="jpx_target__wri$_headers.html#i_param">i_param</A>.
+</P>
+</DIV>
+<H4><A NAME="addr_param">addr_param</A> [<B>void</B>&nbsp;**]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the address parameter passed as an argument
+to the relevant 
+<A HREF="jpx$arget__set$reakpoint.html">jpx_codestream_target::set_breakpoint</A> or 
+<A HREF="jpx$1arget__set$eakpoint.html">jpx_layer_target::set_breakpoint</A> function is returned in *
+<A HREF="jpx_target__wri$_headers.html#addr_param">addr_param</A>.
+</P>
+</DIV>
+<H4><A NAME="codestream_threshold">codestream_threshold</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_target__acc$_manager.html"> prev </A>||<A HREF="jpx_target__wri$metadata.html"> next </A>|</P>
+</BODY>
+</HTML>

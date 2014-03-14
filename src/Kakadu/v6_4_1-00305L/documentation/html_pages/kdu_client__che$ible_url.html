@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::check_compatible_url) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__~kdu_client.html"> prev </A>||<A HREF="kdu_client__ins$anslator.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::check_compatible_url</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Check_compatible_url</EM></H3></DIR></DIR>
+<P CLASS="function-text">static <B>const char *</B> check_compatible_url(
+<B>const char *</B>&nbsp;url,
+<B>bool</B>&nbsp;resource_component_must_exist,
+<B>const char *</B>&nbsp;*&nbsp;port_start=NULL,
+<B>const char *</B>&nbsp;*&nbsp;resource_start=NULL,
+<B>const char *</B>&nbsp;*&nbsp;query_start=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Check_compatible_url(
+String&nbsp;url,
+boolean&nbsp;resource_component_must_exist)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This static function provides a useful service to applications
+prior to calling 
+<A HREF="kdu_client__connect.html">connect</A>. It identifies whether or not the supplied 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string might represent a JPIP URL and returns information
+concerning its major components. To be a compatible
+URL, the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string must be of the general form:
+</P><UL><LI>
+"&lt;prot&gt;://&lt;HOST&gt;[:&lt;port&gt;]/&lt;resource&gt;[?&lt;query&gt;]",
+where
+</LI><LI>
+&lt;HOST&gt; is a &lt;hostname&gt;, &lt;IPv4 literal&gt;
+or '['&lt;IP literal&gt;']'
+</LI><LI>
+Notice that the &lt;HOST&gt; and &lt;port&gt; components
+follow the conventions outlined in RFC 3986. Specifically,
+the optional &lt;port&gt; suffix is separated by a
+colon and IPv6 literal addresses should be enclosed
+in square brackets. IPv4 literal addresses may appear
+in bare form or enclosed within square brackets.
+</LI><LI>
+The &lt;prot&gt; prefix must be one of "jpip" or "http"
+&mdash; case insensitive. The port number, if present,
+should be a decimal integer in the range 0 to (2^16)-1,
+although the port suffix is not specifically examined
+by this function.
+</LI><LI>
+It is expected that &lt;hostname&gt;, &lt;resource&gt;
+and &lt;query&gt; components have been hex-hex encoded,
+if necessary, so that they do not contain non-URI-legal
+characters or any characters which could cause ambiguity
+in the interpretation of the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A>. In particular, while "&" and "?" are URI-legal, they
+should be hex-hex encoded where found within the hostname
+or resource components of the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A>.
+</LI></UL><P>
+ If the string appears to have the above form, the
+function returns a pointer to the start of the &lt;HOST&gt;
+component. Additionally: if 
+<A HREF="kdu_client__che$ible_url.html#port_start">port_start</A> is non-NULL, it is used to return the start of any
+&lt;port&gt; component (NULL if there is none); if
+<A HREF="kdu_client__che$ible_url.html#resource_start">resource_start</A> is non-NULL, it is used to return the start of the
+&lt;resource&gt; component; and if 
+<A HREF="kdu_client__che$ible_url.html#query_start">query_start</A> is non-NULL it is used to return the start of any
+&lt;query&gt; component (NULL if there is none).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string does not appear to be a compatible JPIP URL,
+else the start of the &lt;hostname&gt; component of
+the URL within the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> sltring.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="url">url</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="resource_component_must_exist">resource_component_must_exist</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, the function does not actually require the
+"&lt;resource&gt;" component to be present within the
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string. In this case, it returns non-NULL so long
+as a compatible "&lt;prot&gt;://" prefix is detected;
+the 
+<A HREF="kdu_client__che$ible_url.html#resource_start">resource_start</A> argument may be used to return information about the
+presence or absence of the otherwise mandatory &lt;resource&gt;
+component.
+</P>
+</DIV>
+<H4><A NAME="port_start">port_start</A> [<B>const char *</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return a pointer
+to the start of any &lt;port&gt; sub-string within
+the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string; if there is none, *
+<A HREF="kdu_client__che$ible_url.html#port_start">port_start</A> is set to NULL.
+</P>
+</DIV>
+<H4><A NAME="resource_start">resource_start</A> [<B>const char *</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return a pointer
+to the start of the &lt;resource&gt; sub-string within
+the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string. If 
+<A HREF="kdu_client__che$ible_url.html#resource_component_must_exist">resource_component_must_exist</A> is true, a &lt;resource&gt; sub-string must be present
+for 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> to be a compatible URL. However, if 
+<A HREF="kdu_client__che$ible_url.html#resource_component_must_exist">resource_component_must_exist</A> is false and the "/" separator is not found within
+the text which follows the "&lt;prot&gt;://" prefix,
+the function will set *
+<A HREF="kdu_client__che$ible_url.html#resource_start">resource_start</A> to NULL.
+</P>
+</DIV>
+<H4><A NAME="query_start">query_start</A> [<B>const char *</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return a pointer
+to the start of any &lt;query&gt; sub-string within
+the 
+<A HREF="kdu_client__che$ible_url.html#url">url</A> string; if there is none, *
+<A HREF="kdu_client__che$ible_url.html#query_start">query_start</A> is set to NULL.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__~kdu_client.html"> prev </A>||<A HREF="kdu_client__ins$anslator.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compositor_buf) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_compositor_buf</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_compositor_buf</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object is used to allocate and manage image buffers
+within 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A>. The purpose of managing buffers through a dynamic
+object is to allow advanced types of buffering in which
+the address of the buffer may change each time it is
+used. This can happen, for example, if buffers are
+allocated so as to represent resources on a display
+frame buffer.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$r_buf__kdu$sitor_buf.html">kdu_compositor_buf</A> {<U>Java:</U> Kdu_compositor_buf}
+</P>
+<P><A HREF="kdu$r_buf__~kd$sitor_buf.html">~kdu_compositor_buf</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$r_buf__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="kdu$r_buf__init_float.html">init_float</A> {<U>Java:</U> Init_float}
+</P>
+<P><A HREF="kdu$r_buf__is_$s_allowed.html">is_read_access_allowed</A> {<U>Java:</U> Is_read_access_allowed}
+</P>
+<P><A HREF="kdu$r_buf__set$ssibility.html">set_read_accessibility</A> [virtual] {<U>Java:</U> Set_read_accessibility}
+</P>
+<P><A HREF="kdu$r_buf__get_buf.html">get_buf</A> {<U>Java:</U> Get_buf}
+</P>
+<P><A HREF="kdu$r_buf__get$float_buf.html">get_float_buf</A> {<U>Java:</U> Get_float_buf}
+</P>
+<P><A HREF="kdu$r_buf__get_region.html">get_region</A> {<U>Java:</U> Get_region}
+</P>
+<P><A HREF="kdu$r_buf__get$at_region.html">get_float_region</A> {<U>Java:</U> Get_float_region}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

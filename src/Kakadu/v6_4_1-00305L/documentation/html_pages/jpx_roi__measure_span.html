@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::measure_span) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__che$ntersection.html"> prev </A>||<A HREF="jpx_roi__measure_area.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi::measure_span</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Measure_span</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> measure_span(
+<B>double</B>&nbsp;&amp;&nbsp;width,
+<B>double</B>&nbsp;&amp;&nbsp;length)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Measure_span(
+double[]&nbsp;width,
+double[]&nbsp;length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The goal of this function is to find the dimensions
+of the tightest (potentially oriented) bounding rectangle
+which encloses the region of interest, returning the
+smaller of its dimensions as 
+<A HREF="jpx_roi__measure_span.html#width">width</A> and the larger of its dimensions as 
+<A HREF="jpx_roi__measure_span.html#length">length</A>. Note carefully, that the "span" measured here recognizes
+a single sample as having a span of 1 unit. This means
+that a rectangle which contains exactly one grid point
+has measured width and length values of 1.0, not 0.0.
+Similar considerations apply to all shapes.
+</P><P>
+ For elliptical regions, 
+<A HREF="jpx_roi__measure_span.html#width">width</A> is 1 more than twice the smaller of the two axis half-lengths
+returned via the second form of the 
+<A HREF="jpx_roi__get_ellipse__1.html">get_ellipse</A> function, while 
+<A HREF="jpx_roi__measure_span.html#length">length</A> is 1 more than twice the larger of the two axis half-lengths.
+In this case, the function's return value is equal
+to 0 if the longer dimension is the one closer to horizontal
+and 1 if the longer dimension is the one closer to
+vertical.
+</P><P>
+ For simple rectangular regions, as returned by 
+<A HREF="jpx_roi__get_rectangle.html">get_rectangle</A>, the function returns the smaller of 
+<B>region.size.x</B> and 
+<B>region.size.y</B> via 
+<A HREF="jpx_roi__measure_span.html#width">width</A> and the larger of these two dimensions via 
+<A HREF="jpx_roi__measure_span.html#length">length</A>. In this case, the return value is equal to 0 if the
+longer dimension is horizontal and 1 if the longer
+dimension is vertical.
+</P><P>
+ For general quadrilateral regions, four bounding rectangles
+are considered, corresponding to the orientations of
+each of the quadrilateral edges. In this case, the
+function's return value is an integer n in the range
+0 to 3, such that the discovered tightest bounding
+rectangle has its longer dimension aligned parallel
+with the edge running from 
+<A HREF="jpx_roi.html#vertices">vertices</A>[n] to 
+<A HREF="jpx_roi.html#vertices">vertices</A>[(n+1) mod 4].
+</P><P>
+ This function plays an important role in determining
+a good border size with which to paint regions of interest
+in 
+<B>kdu_region_compositor::paint_overlay</B> &mdash; in particular, the 
+<A HREF="kdu$sitor__con$_overlays.html">kdu_region_compositor::configure_overlays</A> function specifies that an average width for the collection
+of regions specified by an ROI description box should
+be measured using this function. This is done by taking
+a weighted average of the 
+<A HREF="jpx_roi__measure_span.html#width">width</A> values, weighted according to the 
+<A HREF="jpx_roi__measure_span.html#length">length</A> values, over all 
+<A HREF="jpx_roi.html">jpx_roi</A> regions within a single ROI description box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="width">width</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="length">length</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__che$ntersection.html"> prev </A>||<A HREF="jpx_roi__measure_area.html"> next </A>|</P>
+</BODY>
+</HTML>

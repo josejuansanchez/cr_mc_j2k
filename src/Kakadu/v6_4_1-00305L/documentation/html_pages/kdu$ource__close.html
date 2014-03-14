@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source::close) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ource__~kd$ed_source.html"> prev </A>||<A HREF="kdu$ource__get$abilities.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source::close</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_source.Close</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> close(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Close(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This particular function does nothing, but its presence
+as a virtual function ensures that a more derived object's
+<A HREF="kdu$ource__close.html">close</A> function can be invoked from the abstract base object.
+Closure might not have meaning for some types of sources,
+in which case there is no need to override this function
+in the relevant derived class.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The return value has no meaning to Kakadu's code-stream
+management machinery, but derived objects may choose
+to return false if not all of the available data was
+consumed. See 
+<A HREF="jp2$t_box__close.html">jp2_input_box::close</A> for an example of this.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ource__~kd$ed_source.html"> prev </A>||<A HREF="kdu$ource__get$abilities.html"> next </A>|</P>
+</BODY>
+</HTML>

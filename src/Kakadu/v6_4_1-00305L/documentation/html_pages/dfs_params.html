@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (dfs_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">dfs_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Dfs_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 Part-2
+<B>DFS</B> marker segments. Component-specific forms are allowed,
+but not tile-specific forms.
+</P><P>
+ The cluster name is "DFS", but you are recommended
+to use the macro 
+<A HREF="globals.html#DFS_params">DFS_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ NOTE: It is important that you link 
+<A HREF="cod_params.html">cod_params</A> into the cluster list ahead of 
+<A HREF="dfs_params.html">dfs_params</A>. For an explanation of this, see the introductory
+comments appearing with the definition of 
+<A HREF="ads_params.html">ads_params</A>.
+</P><P>
+ The following attribute is defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#DSdfs">DSdfs</A>; Pattern = "(X=0,H=1,V=2,B=3)" &mdash; Describes the
+primary subband decomposition type associated with
+each DWT level, starting from the highest resolution
+(1'st level). The value may be one of 
+<B>B</B> (split in both directions), 
+<B>H</B> (split horizontally), 
+<B>V</B> (split vertically) or 
+<B>X</B> (don't split at all). The last case is degenerate,
+since it means that the DWT level in question produces
+no detail subbands whatsoever, simply passing its input
+image through to the next DWT level. However, this
+can be useful in some circumstances. The primary subband
+decomposition determines the downsampling factors between
+each successive resolution level. If there are more
+DWT levels than 
+<A HREF="globals.html#DSdfs">DSdfs</A> values, the last available value is replicated, as
+required.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="dfs_params__dfs_params.html">dfs_params</A> {<U>Java:</U> Dfs_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

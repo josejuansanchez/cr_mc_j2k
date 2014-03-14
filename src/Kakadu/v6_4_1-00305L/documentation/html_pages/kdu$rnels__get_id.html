@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_id) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$rnels__is_symmetric.html"> prev </A>||<A HREF="kdu$rnels__get$step_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_id</A></H1>
+<P CLASS="function-text"><B>int</B> get_id(
+)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Identifies the particular set of wavelet kernels which
+are being used, returning -1 if the wavelet kernel
+does not have its own unique identifier &mdash; in
+that case, the second form of the constructor was used
+to install the kernels.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+One of 
+<A HREF="globals.html#Ckernels_W5X3">Ckernels_W5X3</A> or 
+<A HREF="globals.html#Ckernels_W9X7">Ckernels_W9X7</A>, unless the first form of the 
+<A HREF="kdu$rnels__init__1.html">init</A> function was not used, in which case the function
+returns 
+<A HREF="globals.html#Ckernels_ATK">Ckernels_ATK</A> (i.e., -1).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$rnels__is_symmetric.html"> prev </A>||<A HREF="kdu$rnels__get$step_info.html"> next </A>|</P>
+</BODY>
+</HTML>

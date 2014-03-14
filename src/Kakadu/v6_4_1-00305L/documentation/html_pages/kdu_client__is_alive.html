@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::is_alive) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__is_active.html"> prev </A>||<A HREF="kdu_client__is_idle.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::is_alive</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Is_alive</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> is_alive(
+<B>int</B>&nbsp;queue_id=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_alive(
+int&nbsp;queue_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true so long as a request queue (or all request
+queues) is alive. A request queue is considered alive
+from the point at which it is created by 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A> (even though it may take a while for actual communication
+to be established) until the point at which all associated
+communication is permanently stopped. This may happen
+due to loss of the communication channel (e.g., the
+server may shut it down) or as a result of a call to
+<A HREF="kdu_client__disconnect.html">disconnect</A> or 
+<A HREF="kdu_client__close.html">close</A>.
+</P><P>
+ Note that the 
+<A HREF="kdu_client__disconnect.html">disconnect</A> function may supply a time limit for closure to complete,
+in which case the request queue may remain alive for
+a period of time after the call to 
+<A HREF="kdu_client__disconnect.html">disconnect</A> returns. See that function for more information.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the the supplied 
+<A HREF="kdu_client__is_alive.html#queue_id">queue_id</A> identifies any request queue which is associated with
+a connected communication channel or one which is still
+being established.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="queue_id">queue_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of the identifiers returned by 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A>, or else a negative integer. If negative, the function
+checks whether there are any communication channels
+which are alive. If the argument is non-negative, but
+does not refer to any request queue identifier ever
+returned by 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A>, the function behaves as if supplied with the identifier
+of a request queue which has disconnected.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__is_active.html"> prev </A>||<A HREF="kdu_client__is_idle.html"> next </A>|</P>
+</BODY>
+</HTML>

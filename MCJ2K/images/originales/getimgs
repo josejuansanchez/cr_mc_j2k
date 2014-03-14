@@ -1,0 +1,16 @@
+#!/bin/bash
+
+URL=http://helioviewer.nascom.nasa.gov/jp2/v0.8/AIA/304/2011/10/01/
+
+lns=$(curl -s ${URL} | sed 's/.*href="\([^"]*\)".*/\1/' | grep ".jp2" | tail -n +4)
+num=$(echo ${lns} | wc -w)
+n=1
+
+for ln in ${lns}; do
+  echo Downloading ${n}/${num}...
+  wget ${URL}${ln}
+  num=`printf "%03d" $n`
+  mv ${ln} sun${num}.jp2
+  n=$((n+1))
+done
+

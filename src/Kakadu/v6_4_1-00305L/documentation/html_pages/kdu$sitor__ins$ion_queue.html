@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::inspect_composition_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__pop$on_buffer.html"> prev </A>||<A HREF="kdu$sitor__flu$ion_queue.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::inspect_composition_queue</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Inspect_composition_queue</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> inspect_composition_queue(
+<B>int</B>&nbsp;elt,
+<B>kdu_long</B>&nbsp;*&nbsp;stamp=NULL,
+<B>int</B>&nbsp;*&nbsp;id=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Inspect_composition_queue(
+int&nbsp;elt,
+long[]&nbsp;stamp,
+int[]&nbsp;id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to inspect specific elements on the
+processed composition buffer queue. For a discussion
+of this queue, see the discussion accompanying the
+<A HREF="kdu$sitor__pus$on_buffer.html">push_composition_buffer</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the element identified by 
+<A HREF="kdu$sitor__ins$ion_queue.html#elt">elt</A> does not exist. If 
+<A HREF="kdu$sitor__ins$ion_queue.html#elt">elt</A>=0 and the function returns false, the composition
+buffer queue is empty.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="elt">elt</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the particular queue element to be inspected.
+A value of 0 corresponds to the head of the queue.
+A value of N-1 corresponds to the tail of the queue,
+where the queue holds N elements.
+</P>
+</DIV>
+<H4><A NAME="stamp">stamp</A> [<B>kdu_long</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL and the function returns true, this argument
+is used to return the stamp value which was supplied
+in the corresponding call to 
+<A HREF="kdu$sitor__pus$on_buffer.html">push_composition_buffer</A>.
+</P>
+</DIV>
+<H4><A NAME="id">id</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL and the function returns true, this argument
+is used to return the identifier which was supplied
+in the corresponding call to 
+<A HREF="kdu$sitor__pus$on_buffer.html">push_composition_buffer</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__pop$on_buffer.html"> prev </A>||<A HREF="kdu$sitor__flu$ion_queue.html"> next </A>|</P>
+</BODY>
+</HTML>

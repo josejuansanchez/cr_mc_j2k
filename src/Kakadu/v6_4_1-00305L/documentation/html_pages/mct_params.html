@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mct_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">mct_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Mct_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with a JPEG2000
+<B>MCT</B> (Multi-Component Transform) marker segment. Tile-specific
+forms are allowed and multiple instances are treated
+like components for the purpose of inheritance (see
+the 
+<B>treat_instances_like_components</B> argument to the 
+<A HREF="kdu_params.html">kdu_params</A> constructor).
+</P><P>
+ The purpose of this parameter class is to provide
+the coefficients associated with decorrelation matrices,
+offset vectors and dependency transformations, any
+or all of which may be involved in the description
+of the complete multi-component transformation.
+</P><P>
+ The instance number of the 
+<A HREF="mct_params.html">mct_params</A> object is referenced by the 
+<A HREF="globals.html#Mstage_xforms">Mstage_xforms</A> attribute, which is managed by the 
+<A HREF="mcc_params.html">mcc_params</A> object. These instance numbers must be in the range
+1 through 255.
+</P><P>
+ The cluster name is "MCT", but you are recommended
+to use the macro 
+<A HREF="globals.html#MCT_params">MCT_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Mmatrix_size">Mmatrix_size</A>; Pattern = "I" &mdash; Identifies the number of matrix
+elements, if any, represented by this object. The actual
+matrix coefficients are represented by the 
+<A HREF="globals.html#Mmatrix_coeffs">Mmatrix_coeffs</A> attribute. Matrices are used to describe reversible
+and irreversible inverse component decorrelation transforms.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mmatrix_coeffs">Mmatrix_coeffs</A>; Pattern = "F", [MULTI_RECORD] &mdash; Coefficients
+of the matrix, if there is one, whose number of elements
+is given by 
+<A HREF="globals.html#Mmatrix_size">Mmatrix_size</A>. The coefficients appear in row-major order (first
+row, then second row, etc.). The height and width of
+the matrix are not recorded here, but matrices are
+not required to be square. For reversible transforms
+the coefficients must all be integers.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mvector_size">Mvector_size</A>; Pattern = "I" &mdash; Identifies the number of vector
+elements, if any, represented by this object. The actual
+vector coefficients are represented by the 
+<A HREF="globals.html#Mvector_coeffs">Mvector_coeffs</A> attribute. Vectors are used to describe offsets to
+be applied to the component sample values after inverse
+transformation.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mvector_coeffs">Mvector_coeffs</A>; Pattern = "F", [MULTI_RECORD, CAN_EXTRAPOLATE] &mdash;
+Coefficients of the vector, if there is one, whose
+number of elements is given by 
+<A HREF="globals.html#Mvector_size">Mvector_size</A>. Unlike 
+<A HREF="globals.html#Mmatrix_coeffs">Mmatrix_coeffs</A> and 
+<A HREF="globals.html#Mtriang_coeffs">Mtriang_coeffs</A>, this attribute contains the 
+<B>CAN_EXTRAPOLATE</B> property, meaning that the last provided entry will
+be replicated as required in order to provide the 
+<A HREF="globals.html#Mvector_size">Mvector_size</A> vector elements.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mtriang_size">Mtriang_size</A>; Pattern = "I" &mdash; Identifies the total number
+of sub-triangular matrix elements, if any, represented
+by this object. A sub-triangular matrix is square,
+with no coefficients above the diagonal and at least
+one coefficient missing from the diagonal. A strictly
+sub-triangular M x M matrix will have M*(M-1)/2 coefficients,
+all below the diagonal. Matrices of this form are used
+to describe irreversible multi-component dependency
+transforms. Reversible dependency transforms, however,
+include all but the upper left diagonal entry, for
+a total of M*(M+1)/2-1 coefficients.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mtriang_coeffs">Mtriang_coeffs</A>; Pattern = "F", [MULTI_RECORD] &mdash; Coefficients
+of the sub-triangular matrix, if any, whose number
+of elements is represented by the 
+<A HREF="globals.html#Mtriang_size">Mtriang_size</A> attribute. The coefficients are arranged in row-major
+order. Thus, for a dependency transform with M inputs
+and outputs, the first coefficient (first two for reversible
+transforms) comes from the second row of the matrix,
+the next two (three for reversible transforms) comes
+from the third row of the matrix, and so forth. For
+reversible transforms, the coefficients must all have
+integer values.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="mct_params__mct_params.html">mct_params</A> {<U>Java:</U> Mct_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

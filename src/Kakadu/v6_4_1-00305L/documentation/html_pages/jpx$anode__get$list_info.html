@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_numlist_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__operator!=.html"> prev </A>||<A HREF="jpx$anode__get$destreams.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_numlist_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_numlist_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_numlist_info(
+<B>int</B>&nbsp;&amp;&nbsp;num_codestreams,
+<B>int</B>&nbsp;&amp;&nbsp;num_layers,
+<B>bool</B>&nbsp;&amp;&nbsp;applies_to_rendered_result)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_numlist_info(
+int[]&nbsp;num_codestreams,
+int[]&nbsp;num_layers,
+boolean[]&nbsp;applies_to_rendered_result)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to determine whether or not the node
+is represented by a number list. A number list is a
+list of image entities: codestreams; compositing layers;
+or the complete "rendered result". In many cases, the
+number list information is derived from a JPX number
+list (
+<B>nlst</B>) box. However, it can also be derived by the containment
+of metadata within a JPX codestream header box or compositing
+layer header box. The ensuing discussion assumes that
+the function returns true, meaning that the node is
+represented by a number list.
+</P><P>
+ If this is an intermediate node, the number list is
+at least notionally the first sub-box of an association
+box, and all of the node's descendants (both immediate
+and indirect descendants) are deemed to be associated
+with each and every one of the image entities in the
+number list.
+</P><P>
+ As mentioned above, it is also possible that an intermediate
+node is represented by a number list, without the appearance
+of an actual number list box within the JPX data source.
+This happens if relevant metadata is encountered while
+parsing a JPX codestream header box or a JPX compositing
+layer header box. In this case, a "virtual" number
+list is created, to refer to exactly one image entity
+&mdash; the codestream or compositing layer, whose
+header generated the node. The node's descendants then
+represent the metadata sub-boxes found within the relevant
+header. It is important to realize that this kind of
+"virtual" number list can always be written into a
+JPX file as a real number list box within an association
+box, and indeed the JPX file writer always writes metadata
+in this way, rather than encapsulating it within header
+boxes.
+</P><P>
+ If this node is a leaf, the number list corresponds
+to an isolated number list (
+<B>nlst</B>) box, all by itself. This is semantically less useful,
+of course, but still legal.
+</P><P>
+ In addition to identifying whether or not the node
+is represented by a number list, this function also
+provides information concerning the number of codestreams
+and compositing layers which are referenced by the
+number list, and whether or not the number list references
+the complete "rendered result".
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True only if the box is represented by a number list.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_codestreams">num_codestreams</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of image entities in the
+number list which are codestreams.
+</P>
+</DIV>
+<H4><A NAME="num_layers">num_layers</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of image entities in the
+number list which are compositing layers.
+</P>
+</DIV>
+<H4><A NAME="applies_to_rendered_result">applies_to_rendered_result</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return a boolean variable, which evaluates
+to true if the number list includes a reference to
+the complete "rendered result" of the JPX data source.
+The variable is set to false if the number list contains
+references only to codestreams and/or compositing layers.
+The actual meaning of the "rendered result" is unclear
+from the JPX specification, but it may refer to any
+of the results produced by applying the compositing
+instructions in a composition (
+<B>comp</B>) box, if one is present. Access to these compositing
+instructions is provided via the 
+<A HREF="jpx$ition.html">jpx_composition</A> interface.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__operator!=.html"> prev </A>||<A HREF="jpx$anode__get$destreams.html"> next </A>|</P>
+</BODY>
+</HTML>

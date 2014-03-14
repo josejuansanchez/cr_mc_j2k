@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="knapsack-algorithm">Knapsack Algorithm</h1>
+<h3 id="example">Example</h3>
+<p>An image with <strong>8 precincts</strong> with <strong>5 quality layers</strong> at a specific resolution level.<br />We know the size (in bytes) of each precinct.</p>
+<pre><code>weights (precincts sizes in bytes): 
+      q0   q1    q2    q3    q4
+      --   ---   ---   ---   ---
+p0:   26   114   212   367   456 
+p1:   72   195   296   333   491 
+p2:   77   139   229   393   428 
+p3:   10   140   218   361   431 
+p4:   57   115   218   385   418 
+p5:   70   176   228   328   411 
+p6:   89   120   292   300   487 
+p7:   47   173   247   342   472 </code></pre>
+<p>We know the profit that contribute each precinct in PSNR or SSIM values.</p>
+<pre><code>profit (psnr or ssim values): 
+    q0    q1     q2     q3     q4
+    ----  ----   -----  -----  -----
+p0: 7.44  13.96  26.13  36.35  45.68 
+p1: 9.01  17.77  22.35  35.04  43.49 
+p2: 1.19  19.09  20.16  32.42  47.00 
+p3: 5.97  11.84  29.77  39.39  48.80 
+p4: 0.96  11.11  22.86  31.18  43.81 
+p5: 7.78  13.47  20.06  39.14  40.62 
+p6: 6.16  16.58  24.58  32.29  42.93 
+p7: 0.25  11.30  20.70  32.60  46.34 </code></pre>
+<p>We know the order in which we have to send the precincts:</p>
+<pre><code>precincts_index_ordered_list: 
+    3     6     2     5     0     1     4     7 </code></pre>
+<p>We know the maximum bitrate that the client can receive (in bytes).</p>
+<pre><code>max_bitrate: 370</code></pre>
+<p>Now, the problem is to obtain the best profit using the maximum bitrate allowed, considering that the order in which we have to send the precincts is given as a restriction.<br />We can use the <strong>Knapsack Algorithm</strong> to find the best solution for this problem.</p>
+<pre><code>          weight / profit             weight / profit             weight / profit             weight / profit             weight / profit
+          -------------               ---------------             ---------------             ---------------             ---------------
+w[3][0] = 10 / 5.969457     w[3][1] = 140 / 11.841409   w[3][2] = 218 / 29.769550   w[3][3] = 361 / 39.391537   w[3][4] = 431 / 48.800591   
+w[6][0] = 89 / 6.161998     w[6][1] = 120 / 16.577244   w[6][2] = 292 / 24.576733   w[6][3] = 300 / 32.291481   w[6][4] = 487 / 42.925354   
+w[2][0] = 77 / 1.193519     w[2][1] = 139 / 19.087582   w[2][2] = 229 / 20.161655   w[2][3] = 393 / 32.422470   w[2][4] = 428 / 47.000374   
+w[5][0] = 70 / 7.780912     w[5][1] = 176 / 13.465715   w[5][2] = 228 / 20.058510   w[5][3] = 328 / 39.137154   w[5][4] = 411 / 40.621147   
+w[0][0] = 26 / 7.440090     w[0][1] = 114 / 13.955587   w[0][2] = 212 / 26.129482   w[0][3] = 367 / 36.348106   w[0][4] = 456 / 45.677402   
+w[1][0] = 72 / 9.008389     w[1][1] = 195 / 17.771700   w[1][2] = 296 / 22.345627   w[1][3] = 333 / 35.042130   w[1][4] = 491 / 43.488808   
+w[4][0] = 57 / 0.955061     w[4][1] = 115 / 11.114552   w[4][2] = 218 / 22.859634   w[4][3] = 385 / 31.177324   w[4][4] = 418 / 43.811447   
+w[7][0] = 47 / 0.254135     w[7][1] = 173 / 11.299870   w[7][2] = 247 / 20.697052   w[7][3] = 342 / 32.599762   w[7][4] = 472 / 46.341999  </code></pre>
+<p>Possible solutions:</p>
+<ol style="list-style-type: decimal">
+<li><p>368 bytes / profit: 29.769550</p>
+<pre><code>w[3][0] = 10 / 5.969457     w[3][1] = 140 / 11.841409   w[3][2] = 218 / 29.769550</code></pre></li>
+<li><p>359 bytes / profit: 28.418653</p>
+<pre><code>w[3][0] = 10 / 5.969457     w[3][1] = 140 / 11.841409
+w[6][0] = 89 / 6.161998     w[6][1] = 120 / 16.577244</code></pre></li>
+<li><p>316 bytes / profit: 19,196926</p>
+<pre><code>w[3][0] = 10 / 5.969457     w[3][1] = 140 / 11.841409
+w[6][0] = 89 / 6.161998     
+w[2][0] = 77 / 1.193519</code></pre></li>
+<li><p>344 bytes / profit: 37,554365</p>
+<pre><code>w[3][0] = 10 / 5.969457
+w[6][0] = 89 / 6.161998     
+w[2][0] = 77 / 1.193519
+w[5][0] = 70 / 7.780912
+w[0][0] = 26 / 7.440090
+w[1][0] = 72 / 9.008389</code></pre></li>
+</ol>
+<p>For this example the solution 4 seems to be the best option.</p>
+<p><em>Note:</em> All the values used in this example are random values.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="http://www.or.deis.unibo.it/knapsack.html">Book: Knapsack Problems - Algorithms and Computer Implementations »</a> Silvano Martello.</li>
+<li><a href="http://www.diku.dk/~pisinger/95-1.pdf">Algorithms for Knapsack Problems »</a> Phd. Thesis, 1995. David Pisenger.</li>
+<li><a href="http://www.es.ele.tue.nl/education/5MC10/Solutions/knapsack.pdf">Lecture: The Knapsack Problem »</a></li>
+<li><a href="http://pdf.aminer.org/000/226/090/the_quadratic_multiple_knapsack_problem_and_three_heuristic_approaches_to.pdf">A survey of effective heuristics and their application to a variety of knapsack problems »</a></li>
+</ul>
+</body>
+</html>

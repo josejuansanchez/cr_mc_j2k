@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_codestream_source::stream_ready) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ource__get$tream_loc.html"> prev </A>||<A HREF="jpx$ource__acc$ment_list.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_codestream_source::stream_ready</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_codestream_source.Stream_ready</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> stream_ready(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Stream_ready(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the reference returned by 
+<A HREF="jpx$ource__get$tream_loc.html">get_stream_loc</A> refers to a contiguous codestream whose main header
+is available, or if it refers to a fragment table box
+whose fragment list is completely available. In the
+latter case, it is not generally possible to assess
+whether the main header is available. The return value
+can be false only if the source is ultimately fueled
+by a dynamic cache (i.e., a 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object whose 
+<A HREF="jp2$y_src__open__1.html">jp2_family_src::open</A> function was passed a 
+<A HREF="kdu_cache.html">kdu_cache</A> data source), and then only if the present interface
+was acquired by supplying a 
+<B>false</B> value for the 
+<B>need_main_header</B> argument to 
+<A HREF="jpx_source__acc$destream.html">jpx_source::access_codestream</A>. Fragment tables should not generally be served directly
+by interactive servers so the fact that we cannot detect
+main headers for fragment tables should be of no concern.
+If the function returns false, you should not pass
+the box returned by 
+<A HREF="jpx$ource__open_stream.html">open_stream</A> or any box opened using the 
+<A HREF="jpx$ource__get$tream_loc.html">get_stream_loc</A> reference into 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>. Calling the function again, once more data has been
+added to the dynamic cache, may result in a return
+value which is true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ource__get$tream_loc.html"> prev </A>||<A HREF="jpx$ource__acc$ment_list.html"> next </A>|</P>
+</BODY>
+</HTML>

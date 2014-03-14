@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::demote_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__pro$e_databin.html"> prev </A>||<A HREF="kdu_cache__get$odestream.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::demote_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Demote_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> demote_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Demote_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If the indicated data-bin does not have a representation
+in the cache, this function does nothing. Otherwise,
+it demotes the data-bin to the tail of the most recently
+used list (head of the least recently used list). See
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes and identifiers.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__pro$e_databin.html"> prev </A>||<A HREF="kdu_cache__get$odestream.html"> next </A>|</P>
+</BODY>
+</HTML>

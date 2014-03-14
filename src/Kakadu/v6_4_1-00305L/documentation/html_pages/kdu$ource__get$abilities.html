@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source::get_capabilities) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ource__close.html"> prev </A>||<A HREF="kdu$ource__read.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source::get_capabilities</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_source.Get_capabilities</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> get_capabilities(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_capabilities(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the logical OR of one or more capability flags,
+whose values are identified by the macros, 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEQUENTIAL">KDU_SOURCE_CAP_SEQUENTIAL</A>, 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A> 
+<A HREF="globals.html#KDU_SOURCE_CAP_IN_MEMORY">KDU_SOURCE_CAP_IN_MEMORY</A> and 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A>. These flags have the following interpretation:
+</P><UL><LI>
+KDU_SOURCE_CAP_SEQUENTIAL: If this flag is set, the
+source supports sequential reading of data in the order
+expected of a valid JPEG2000 code-stream. If this flag
+is not set, the KDU_SOURCE_CAP_CACHED flag must be
+set.
+</LI><LI>
+KDU_SOURCE_CAP_SEEKABLE: If this flag is set, the source
+supports random access using the 
+<A HREF="kdu$ource__seek.html">seek</A> function. Most file or memory based sources should
+support seeking, although disabling the seeking capability
+can have useful effects on the sequencing of code-stream
+parsing operations. In particular, if the source advertises
+seekability, Kakadu will attempt to use optional pointer
+marker segments to minimize code-stream buffering.
+In some cases, however, this may result in undesirable
+disk access patterns. Error resilience is also weakened
+or destroyed when seeking is employed.
+</LI><LI>
+KDU_SOURCE_CAP_IN_MEMORY: If this flag is set, the
+source is stored in a contiguous block of memory. You
+can use the 
+<A HREF="kdu$ource__seek.html">seek</A> and 
+<A HREF="kdu$ource__read.html">read</A> functions to read from arbitrary locations in this
+memory block, but you can also do this if the source
+exists in a seekable file. The additional advantage
+of "in memory" sources is that the memory block can
+be accessed directly using the 
+<A HREF="kdu$ource__acc$ss_memory.html">access_memory</A> function. This generally increases the efficiency
+of high performance applications. If this flag is set,
+<A HREF="globals.html#KDU_SOURCE_CAP_SEQUENTIAL">KDU_SOURCE_CAP_SEQUENTIAL</A> and 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A> must also be set.
+</LI><LI>
+KDU_SOURCE_CAP_CACHED: If this flag is set, the source
+is a client cache, which does not guarantee to support
+regular sequential reading of the code-stream beyond
+the end of the main header. To access individual tile
+headers, the 
+<A HREF="kdu$ource__set$der_scope.html">set_tileheader_scope</A> function must be invoked. To access packet data for
+individual precincts, the 
+<A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> function must be used.
+</LI></UL><P>
+ Cached sources might conceivably support sequential
+reading as well, meaning that it is possible to read
+the code-stream linearly as if it were organized in
+a file. However, in most cases only one of the KDU_SOURCE_CAP_SEQUENTIAL
+and KDU_SOURCE_CAP_CACHED flags will be set.
+</P><P>
+ Both cached and sequential sources may support seekability.
+If a cached source is seekable, seeking is performed
+with respect to the current scope. Specifically, this
+is the scope of the precinct associated with the most
+recent call to 
+<A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> or the tile header associated with the most recent
+<B>set_tile_header_scope</B>, whichever call was invoked most recently, or the
+scope of the main code-stream header, if neither 
+<A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> nor 
+<B>set_tile_header_scope</B> has yet been called.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ource__close.html"> prev </A>||<A HREF="kdu$ource__read.html"> next </A>|</P>
+</BODY>
+</HTML>

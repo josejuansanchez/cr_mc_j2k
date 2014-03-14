@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_resolution::set_resolution) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$ution__set$ect_ratio.html"> prev </A>||<A HREF="jp2$ution__get$ect_ratio.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_resolution::set_resolution</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_resolution.Set_resolution</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_resolution(
+<B>float</B>&nbsp;resolution,
+<B>bool</B>&nbsp;for_display=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_resolution(
+float&nbsp;resolution,
+boolean&nbsp;for_display)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Sets the vertical resolution in high resolution canvas
+grid points per metre. If 
+<A HREF="jp2$ution__set$esolution.html#for_display">for_display</A> is true, this is the default display resolution; oherwise,
+it is the capture resolution. There is no need to explicitly
+specify either of these resolutions. If no resolution
+is specified the relevant box will not be written in
+the JP2/JPX file, except when a non-unity aspect ratio
+is selected. In the latter case, a default display
+resolution box will be created having a default vertical
+display resolution of 1 grid point per metre.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="resolution">resolution</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="for_display">for_display</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$ution__set$ect_ratio.html"> prev </A>||<A HREF="jp2$ution__get$ect_ratio.html"> next </A>|</P>
+</BODY>
+</HTML>

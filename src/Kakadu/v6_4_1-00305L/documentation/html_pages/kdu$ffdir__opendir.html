@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::opendir) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__init.html"> prev </A>||<A HREF="kdu$ffdir__write_header.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::opendir</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Opendir</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> opendir(
+<A HREF ="kdu$ource.html">kdu_compressed_source</A>&nbsp;*&nbsp;src)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Opendir(
+Kdu_compressed_source&nbsp;src)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to open an existing TIFF file, reading
+its directory contents. The function records only the
+directory entries permanently in memory. To access
+TIFF tags from this directory, use the 
+<A HREF="kdu$ffdir__open_tag.html">open_tag</A> or one of the 
+<A HREF="kdu$ffdir__read_tag__1.html">read_tag</A> functions. You may edit the open directory by using
+the 
+<A HREF="kdu$ffdir__delete_tag.html">delete_tag</A>, 
+<A HREF="kdu$ffdir__create_tag.html">create_tag</A> or 
+<A HREF="kdu$ffdir__write_tag__1.html">write_tag</A> functions.
+</P><P>
+ The function implicitly invokes 
+<A HREF="kdu$ffdir__close.html">close</A> first, so as to discard the contents of any tags you
+may previously have written.
+</P><P>
+ The supplied 
+<A HREF="kdu$ffdir__opendir.html#src">src</A> object need not necessarily be positioned at the start
+of its underlying stream, but it must be positioned
+at the start of the TIFF header within the stream.
+The internal implementation first recovers the current
+source position by invoking 
+<A HREF="kdu$ource__get_pos.html">src&rarr;get_pos</A> &mdash; this is addded as an offset to all offsets
+specified in the TIFF structure.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if a valid TIFF header could not be found, or
+if 
+<A HREF="kdu$ffdir__opendir.html#src">src</A> does not support seeking, in which case the object
+remains in the closed state (
+<A HREF="kdu$ffdir__exists.html">exists</A> returns false).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="kdu$ource.html">kdu_compressed_source</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__init.html"> prev </A>||<A HREF="kdu$ffdir__write_header.html"> next </A>|</P>
+</BODY>
+</HTML>

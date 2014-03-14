@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_codestream_source::access_dimensions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ource__get$eader_loc.html"> prev </A>||<A HREF="jpx$ource__acc$s_palette.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_codestream_source::access_dimensions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_codestream_source.Access_dimensions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jp2$sions.html">jp2_dimensions</A> access_dimensions(
+<B>bool</B>&nbsp;finalize_compatibility=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jp2_dimensions Access_dimensions(
+boolean&nbsp;finalize_compatibility)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns an interface which may be used to access the
+information recorded in the Image Header (ihdr) and
+Bits Per Component (bpcc) boxes of either the relevant
+codestream header (chdr) box or the default JP2 header
+box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="finalize_compatibility">finalize_compatibility</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is important only if you wish to use
+the returned interface with 
+<A HREF="jp2$sions__copy.html">jp2_dimensions::copy</A> to copy the information to another 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object, associated with a JP2/JPX/MJ2 file you are
+writing. In this case, setting this argument to true
+will save you all the hassle of opening the codestream,
+reading its main header and calling the 
+<A HREF="jp2$sions__fin$atibility__1.html">jp2_dimensions::finalize_compatibility</A> function yourself. The only thing you need to take
+care of before calling the function with this argument
+set to true is that the box provided by 
+<A HREF="jpx$ource__open_stream.html">open_stream</A> is not currently being used. The function only goes
+to the trouble of opening the stream and accessing
+its header information if this has not been done previously.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ource__get$eader_loc.html"> prev </A>||<A HREF="jpx$ource__acc$s_palette.html"> next </A>|</P>
+</BODY>
+</HTML>

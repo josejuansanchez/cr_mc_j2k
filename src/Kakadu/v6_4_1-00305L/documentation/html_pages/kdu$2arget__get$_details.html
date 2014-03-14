@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve_target::get_roi_details) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__find_roi.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_serve_target::get_roi_details</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve_target.Get_roi_details</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>const char *</B> get_roi_details(
+<B>int</B>&nbsp;index,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;resolution,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;region)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_roi_details(
+int&nbsp;index,
+Kdu_coords&nbsp;resolution,
+Kdu_dims&nbsp;region)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu$2arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Supply an index previously recovered via 
+<A HREF="kdu$2arget__find_roi.html">find_roi</A> to retrieve details about that ROI. The supplied 
+<A HREF="kdu$2arget__get$_details.html#index">index</A> must be non-negative.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The name of the ROI. This is identical to the name
+which was matched by 
+<A HREF="kdu$2arget__find_roi.html">find_roi</A>. If the supplied 
+<A HREF="kdu$2arget__get$_details.html#index">index</A> is not valid, the function returns NULL.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="index">index</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="resolution">resolution</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the resolution (full image size) associated
+with the ROI. Has the same interpretation as 
+<A HREF="kdu_window.html#resolution">kdu_window::resolution</A>.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the image region associated with the
+ROI. Has the same interpretation as 
+<A HREF="kdu_window.html#region">kdu_window::region</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__find_roi.html"> prev </A>|</P>
+</BODY>
+</HTML>

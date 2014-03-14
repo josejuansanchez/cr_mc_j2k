@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve_target::detach_from_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__att$destream.html"> prev </A>||<A HREF="kdu$2arget__loc$estreams.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_serve_target::detach_from_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve_target.Detach_from_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> detach_from_codestream(
+<B>int</B>&nbsp;codestream_id,
+<B>kd_serve</B>&nbsp;*&nbsp;thread_handle)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Detach_from_codestream(
+int&nbsp;codestream_id,
+long&nbsp;thread_handle)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu$2arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function once you have no further use for
+the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface returned via 
+<A HREF="kdu$2arget__att$destream.html">attach_to_codestream</A>. The internal machinery may destroy the code-stream
+interface, so be sure not to call this function unless
+you have completely ceased using the code-stream machinery.
+</P><P>
+ It is only necessary to call this function if a previous
+call to 
+<A HREF="kdu$2arget__att$destream.html">attach_to_codestream</A> with this 
+<A HREF="kdu$2arget__det$destream.html#codestream_id">codestream_id</A> value returned a non-empty interface. However, it
+is safe to call the function even if the call to 
+<A HREF="kdu$2arget__att$destream.html">attach_to_codestream</A> did return an empty interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream_id">codestream_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="thread_handle">thread_handle</A> [<B>kd_serve</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Must be the same address which was passed into the
+<A HREF="kdu$2arget__att$destream.html">attach_to_codestream</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__att$destream.html"> prev </A>||<A HREF="kdu$2arget__loc$estreams.html"> next </A>|</P>
+</BODY>
+</HTML>

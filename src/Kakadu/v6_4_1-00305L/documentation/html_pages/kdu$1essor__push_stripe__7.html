@@ -1,0 +1,166 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::push_stripe) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__6.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__8.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::push_stripe</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$1essor__push_stripe__1.html">1</A>,
+<A HREF="kdu$1essor__push_stripe__2.html">2</A>,
+<A HREF="kdu$1essor__push_stripe__3.html">3</A>,
+<A HREF="kdu$1essor__push_stripe__4.html">4</A>,
+<A HREF="kdu$1essor__push_stripe__5.html">5</A>,
+<A HREF="kdu$1essor__push_stripe__6.html">6</A>,
+7,
+<A HREF="kdu$1essor__push_stripe__8.html">8</A></B></P>
+<P CLASS="function-text"><B>bool</B> push_stripe(
+<B>float</B>&nbsp;*&nbsp;stripe_bufs[],
+<B>int</B>&nbsp;stripe_heights[],
+<B>int</B>&nbsp;*&nbsp;sample_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;row_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;precisions=NULL,
+<B>bool</B>&nbsp;*&nbsp;is_signed=NULL,
+<B>int</B>&nbsp;flush_period=0)</P>
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the third form of the overloaded 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function, except that stripe samples for each image
+component are provided with a floating point representation.
+In this case, the interpretation of the 
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A> member is slightly different, as explained below.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True until all samples for all image components have
+been pushed in, at which point the function returns
+false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stripe_bufs">stripe_bufs[]</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="stripe_heights">stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="sample_gaps">sample_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="row_gaps">row_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="precisions">precisions</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, all component samples are deemed to have a
+nominal range of 1.0; that is, signed values lie in
+the range -0.5 to +0.5, while unsigned values lie in
+the range 0.0 to 1.0; equivalently, the precision is
+taken to be P=0. Otherwise, the argument points to
+an array with one precision value for each component.
+The precision value, P, identifies the nominal range
+of the input samples, such that signed values range
+from -2^{P-1} to +2^{P-1}, while unsigned values range
+from 0 to 2^P.
+</P><P>
+ The value of P, provided by the 
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A> argument may be the same, larger or smaller than the
+actual bit-depth, B, of the corresponding image component,
+as provided by the 
+<A HREF="globals.html#Sprecision">Sprecision</A> attribute (or the 
+<A HREF="globals.html#Mprecision">Mprecision</A> attribute) managed by the 
+<A HREF="siz_params.html">siz_params</A> object passed to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>. The relationship between samples represented at bit-depth
+B and the floating point quantities supplied to this
+function is that the latter are understood to have
+been scaled by the value 2^{P-B}.
+</P><P>
+ While this scaling factor seems quite natural, you
+should pay particular attention to its implications
+for small values of B. For example, when P=1 and B=1,
+the nominal range of unsigned floating point quantities
+is from 0 to 2, while the actual range of 1-bit sample
+values is obviously from 0 to 1. Thus, the maximum
+"white" value actually occurs when the floating point
+quantity equals 1.0 (half its nominal maximum value).
+For signed floating point representations, the implications
+are even less intuitive, with the maximum integer value
+achieved when the floating point sample value is 0.0.
+More generally, although the nominal range of the floating
+point component sample values is of size 2^P, a small
+upper fraction &mdash; 2^{-B} &mdash; of this nominal
+range lies beyond the range which can be represented
+by B-bit samples. You can use this "invalid" portion
+of the nominal range if you like, but values may be
+clipped during decompression. To minimize the impact
+of this small "invalid" fraction of the nominal range,
+you might choose to set the image bit-depth, B, to
+a large value when compressing data which you really
+think of as floating point data. This will also help
+to minimize the effective quantization error introduced
+by reversible compression, if used, although irreversible
+compression makes a lot more sense if you are working
+with floating point samples.
+</P><P>
+ It is worth noting that this function, unlike its
+predecessors, allows P to take both negative and positive
+values. For implementation reasons, though, we restrict
+precisions to take values in the range -64 to +64.
+Also unlike its predecessors, this function does not
+limit the range of input samples. To a certain extent,
+therefore, you can get away with exceeding the nominal
+dynamic range, without causing overflow. This extent
+is determined by the number of guard bits. However,
+overflow problems might be encountered in some decompressor
+implementations if you take too many liberties here.
+</P>
+</DIV>
+<H4><A NAME="is_signed">is_signed</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the supplied samples for each component, c,
+are assumed to have a signed representation, with a
+nominal range from -2^{
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A>[c]-1} to +2^{
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A>[c]-1}. Otherwise, this argument points to an array
+with one element for each component. If 
+<A HREF="kdu$1essor__push_stripe__7.html#is_signed">is_signed</A>[c] is true, the default signed representation is assumed
+for that component; if false, the component samples
+are assumed to have an unsigned representation, with
+a nominal range from 0.0 to 2^{
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A>[c]}. What this means is that the function subtracts
+2^{
+<B>precisions[c]</B>-1} from the samples of any component for which 
+<A HREF="kdu$1essor__push_stripe__7.html#is_signed">is_signed</A>[c] is false &mdash; if 
+<A HREF="kdu$1essor__push_stripe__7.html#precisions">precisions</A> is NULL, 0.5 is subtracted.
+</P>
+</DIV>
+<H4><A NAME="flush_period">flush_period</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__6.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__8.html"> next </A>|</P>
+</BODY>
+</HTML>

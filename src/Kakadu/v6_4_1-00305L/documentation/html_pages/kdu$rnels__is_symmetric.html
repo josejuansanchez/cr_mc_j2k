@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::is_symmetric) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rnels__get$extension.html"> prev </A>||<A HREF="kdu$rnels__get_id.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::is_symmetric</A></H1>
+<P CLASS="function-text"><B>bool</B> is_symmetric(
+)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if and only if 
+<A HREF="kdu$rnels__get$extension.html">get_symmetric_extension</A> returns true and all lifting step filters are symmetric,
+with even length, satisfying
+</P><UL><LI>
+Ns = -floor((Ls+p-1)/2) and Ps = floor((Ls-p)/2); and
+</LI><LI>
+Cs[-Ns+n] = Cs[Ps-n] for 0 &lt;= n &lt; Ls.
+</LI></UL><P>
+ where Ns and Ps are the lower and upper bounds of
+the lifting step coefficient arrays, Cs, as described
+in the comments accompanying 
+<A HREF="kdu$rnels__get$step_info.html">get_step_info</A>.
+</P><P>
+ The wavelet kernels allowed by Part-1 of the JPEG2000
+standard both have 
+<A HREF="kdu$rnels__is_symmetric.html">is_symmetric</A> true and 
+<B>max_length</B>=2. More generally, the 
+<A HREF="kdu$rnels__is_symmetric.html">is_symmetric</A> flag is true for all wavelet kernels with whole-sample-symmetric
+filters; these are treated as a special class in Part-2
+of the JPEG2000 standard. This class tends to have
+particularly efficient implementation properties for
+a given filter length.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rnels__get$extension.html"> prev </A>||<A HREF="kdu$rnels__get_id.html"> next </A>|</P>
+</BODY>
+</HTML>

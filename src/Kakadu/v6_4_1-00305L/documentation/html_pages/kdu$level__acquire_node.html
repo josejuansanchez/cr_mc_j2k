@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_level::acquire_node) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$level__destroy.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_roi_level::acquire_node</A></H1>
+<P CLASS="function-text"><A HREF ="kdu$_node.html">kdu_roi_node</A>&nbsp;* acquire_node(
+<B>int</B>&nbsp;child_idx)</P>
+<P>[Declared in <A HREF="++++coresy$i_processing+h.html">"../coresys/common/kdu_roi_processing.h"</A>]</P><P><A HREF="kdu$level.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides an interface through which a particular subband's
+ROI information may be accessed. Note carefully that
+the returned node must be released PRIOR TO DESTROYING
+the current object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="child_idx">child_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be one of 
+<A HREF="globals.html#LL_BAND">LL_BAND</A>, 
+<A HREF="globals.html#LH_BAND">LH_BAND</A>, 
+<A HREF="globals.html#HL_BAND">HL_BAND</A> or 
+<A HREF="globals.html#HH_BAND">HH_BAND</A>. This argument plays the same role as the 
+<A HREF="kdu$level__acquire_node.html#child_idx">child_idx</A> argument in 
+<A HREF="kdu_node__access_child.html">kdu_node::access_child</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$level__destroy.html"> prev </A>|</P>
+</BODY>
+</HTML>

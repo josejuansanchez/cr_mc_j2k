@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::find_optimal_scale) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set_scale.html"> prev </A>||<A HREF="kdu$sitor__set$r_surface.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::find_optimal_scale</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Find_optimal_scale</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>float</B> find_optimal_scale(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region,
+<B>float</B>&nbsp;scale_anchor,
+<B>float</B>&nbsp;min_scale,
+<B>float</B>&nbsp;max_scale,
+<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;*&nbsp;istream_ref=NULL,
+<B>int</B>&nbsp;*&nbsp;component_idx=NULL,
+<B>bool</B>&nbsp;avoid_subsampling=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native float Find_optimal_scale(
+Kdu_dims&nbsp;region,
+float&nbsp;scale_anchor,
+float&nbsp;min_scale,
+float&nbsp;max_scale,
+Kdu_istream_ref&nbsp;istream_ref,
+int[]&nbsp;component_idx,
+boolean&nbsp;avoid_subsampling)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The principle purpose of this function is to find good
+scale factors to supply to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> so as to maximize rendering efficiency by selecting
+a scale which corresponds to a native resolution from
+the codestream.
+</P><P>
+ A second purpose of this function is to discover whether
+or not an intended scaling factor is acceptable to
+the internal machinery. The 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object is able to scale imagery up and down by massive
+amounts, but there are limits. If such a limit is encountered,
+the 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and/or 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> functions will fail, leaving information about the
+nature of the failure behind to be recovered by a call
+to 
+<A HREF="kdu$sitor__che$cale_code.html">check_invalid_scale_code</A>. The caller can then invoke the present function to
+discover the closest acceptable scaling factor to that
+which caused the problem.
+</P><P>
+ Optimal scaling factors are those which scale the
+principle codestream image component within a region
+by either a positive integer or a reciprocal power
+of 2 (out to the number of available DWT levels for
+the relevant codestream). The principle codestream
+image component is generally the first component involved
+in colour intensity reproduction for the imagery layer
+which contributes the largest visible area to the supplied
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A>. The following special cases apply:
+</P><UL><LI>
+If a valid scale has not yet been set (i.e. if 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> returns false), the 
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A> argument cannot be used, since the region must be
+assessed relative to an existing scale/geometry configuration
+created by the last call to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>. In this case, the principle codestream is derived
+from the top-most imagery layer, regardless of its
+size.
+</LI><LI>
+If no imagery layer contributes to the supplied 
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A>, even though a valid scale has already been installed,
+we say that there are no optimal scaling factors. Then,
+in accordance with the rules outlined below, the function
+returns the nearest value to 
+<A HREF="kdu$sitor__fin$mal_scale.html#scale_anchor">scale_anchor</A> which lies in the range from 
+<A HREF="kdu$sitor__fin$mal_scale.html#min_scale">min_scale</A> to 
+<A HREF="kdu$sitor__fin$mal_scale.html#max_scale">max_scale</A>.
+</LI></UL><P>
+ If no optimal scaling factors lie in the range from
+<A HREF="kdu$sitor__fin$mal_scale.html#min_scale">min_scale</A> to 
+<A HREF="kdu$sitor__fin$mal_scale.html#max_scale">max_scale</A>, the function returns the nearest acceptable scaling
+factor to 
+<A HREF="kdu$sitor__fin$mal_scale.html#scale_anchor">scale_anchor</A>. If multiple optimal scaling factors lie in the range,
+the function returns the one which is closest to 
+<A HREF="kdu$sitor__fin$mal_scale.html#scale_anchor">scale_anchor</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+The function looks for the imagery layer which has
+the largest visible area in this region, on which to
+base its scaling recommendations. If the supplied 
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A> is empty, or if a valid scale has not previously been
+installed (i.e., if 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> returns false), the top-most compositing layer (or
+raw codestream) is used to compute the sizing information.
+</P>
+</DIV>
+<H4><A NAME="scale_anchor">scale_anchor</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="min_scale">min_scale</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_scale">max_scale</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="istream_ref">istream_ref</A> [<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return an instance
+of the 
+<A HREF="kdu$m_ref.html">kdu_istream_ref</A> class which uniquely identifies the codestream and
+imagery layer which have been used to compute the optimal
+scale. The associated ilayer is the one which was found
+to occupy the largest visible area within 
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A>. If 
+<A HREF="kdu$sitor__fin$mal_scale.html#region">region</A> is empty or a valid scale has not previously been
+installed (i.e., if 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> returns false), the istream reference returned via
+this argument identifies the primary codestream of
+the top-most imagery layer, regardless of its area.
+If the function was unable to find any relevant imagery
+layer, the function sets *
+<A HREF="kdu$sitor__fin$mal_scale.html#istream_ref">istream_ref</A> to a null istream reference &mdash; i.e., one whose
+<A HREF="kdu$m_ref__is_null.html">kdu_istream_ref::is_null</A> member returns true.
+</P>
+</DIV>
+<H4><A NAME="component_idx">component_idx</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the index
+of the particular image component within the selected
+codestream, on which all scaling recommendations and
+other information is based. As mentioned above, this
+"principle" image component is generally the one responsible
+for producing the first input channel to the colour
+rendering process. If the function was unable to find
+any relevant imagery layer, this value will be set
+to -1.
+</P><P>
+ The component index returned here represents an output
+image component (see 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>) except in the case where the relevant imagery layer
+was constructed using 
+<A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A>, with an 
+<B>access_mode</B> argument of 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A>.
+</P>
+</DIV>
+<H4><A NAME="avoid_subsampling">avoid_subsampling</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, the function considers all scaling factors
+to be legal unless they would break some part of the
+internal implementation (values which are vastly too
+small or vastly too large). If this argument is true,
+however, the function limits the set of legal return
+values to those scaling factors which can be implemented
+without resorting to sub-sampling decompressed imagery,
+or at least not doing this with the principle image
+component of the principle codestream.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set_scale.html"> prev </A>||<A HREF="kdu$sitor__set$r_surface.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_colour::get_icc_profile) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__get$on_level.html"> prev </A>||<A HREF="jp2_colour__get$b_params.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_colour::get_icc_profile</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_colour.Get_icc_profile</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_byte</B>&nbsp;* get_icc_profile(
+<B>int</B>&nbsp;*&nbsp;num_bytes=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_icc_profile(
+int[]&nbsp;num_bytes)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2_colour.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a pointer to a block of memory which holds
+the embedded ICC profile. Returns NULL if the colour
+specification does not involve an embedded ICC profile
+(as indicated by 
+<A HREF="jp2_colour__get_space.html">get_space</A>).
+</P><P>
+ The returned block of memory, if any, belongs to the
+internal object; no attempt should be made to delete
+it or to use it beyond the lifetime of the object which
+originally supplied this interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_bytes">num_bytes</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If not NULL, this argument is used to return the length
+of the profile &mdash; written to *
+<A HREF="jp2_colour__get$_profile.html#num_bytes">num_bytes</A>. It is also possible to determine the length of an
+ICC profile from its own header, although this might
+not be convenient for some applications.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__get$on_level.html"> prev </A>||<A HREF="jp2_colour__get$b_params.html"> next </A>|</P>
+</BODY>
+</HTML>

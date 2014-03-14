@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::get_source_metadata) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__add$_metadata.html"> prev </A>||<A HREF="kdu$_dims__set$a_manager.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::get_source_metadata</A></H1>
+<P CLASS="function-text"><A HREF ="jp2$1t_box.html">jp2_output_box</A>&nbsp;* get_source_metadata(
+<B>int</B>&nbsp;idx)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to retrieve any extra meta-data boxes
+which have been added by the file format reader. These
+boxes may be copied into a JP2/JPX file which is under
+construction, to record the original file's meta-data.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if the number of boxes added via 
+<A HREF="kdu$_dims__add$_metadata.html">add_source_metadata</A> is less than or equal to 
+<A HREF="kdu$_dims__get$_metadata.html#idx">idx</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="idx">idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__add$_metadata.html"> prev </A>||<A HREF="kdu$_dims__set$a_manager.html"> next </A>|</P>
+</BODY>
+</HTML>

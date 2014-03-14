@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs::update) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__copy_from.html"> prev </A>||<A HREF="kdu$prefs__parse_prefs.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs::update</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_prefs.Update</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> update(
+const&nbsp;<A HREF ="kdu$prefs.html">kdu_window_prefs</A>&nbsp;&amp;&nbsp;src)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Update(
+Kdu_window_prefs&nbsp;src)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$prefs.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function replaces the entire contents of a "related-pref-set"
+with any information supplied for that same "related-pref-set"
+in 
+<A HREF="kdu$prefs__update.html#src">src</A>. If 
+<A HREF="kdu$prefs__update.html#src">src</A> has nothing to say about some "related-pref-set",
+the corresponding information in the current object
+is left untouched.
+</P><P>
+ The 
+<A HREF="kdu$prefs.html#denied">denied</A> member is updated a little differently. All flags
+in the current object's 
+<A HREF="kdu$prefs.html#denied">denied</A> member are simply OR'd together with those in 
+<A HREF="kdu$prefs.html#denied">src.denied</A> &mdash; the idea is that if something has been denied
+once, it always will be.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The return value is a collection of flag bits which
+together identify the "related-pref-set"s which were
+updated by this function. Specifically, if there is
+any change in the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A> preference flags, all flag bits for preference options
+which belong to the same "related-pref-set" are set
+within the returned integer. You can use this information
+to determine whether any update occurred and, if so,
+what preferences might need to be communicated between
+a client and a server.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [const&nbsp;<A HREF ="kdu$prefs.html">kdu_window_prefs</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__copy_from.html"> prev </A>||<A HREF="kdu$prefs__parse_prefs.html"> next </A>|</P>
+</BODY>
+</HTML>

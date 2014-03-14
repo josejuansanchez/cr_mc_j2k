@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::set_mode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__reset.html"> prev </A>||<A HREF="jpx$ditor__init.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::set_mode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Set_mode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> set_mode(
+<B>jpx_roi_editor_mode</B>&nbsp;mode)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Set_mode(
+int&nbsp;mode)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The editing mode affects the set of definition of anchor
+points, and hence the interpretation of the functions
+<A HREF="jpx$ditor__get_anchor.html">get_anchor</A>, 
+<A HREF="jpx$ditor__fin$st_anchor.html">find_nearest_anchor</A>, 
+<A HREF="jpx$ditor__sel$ct_anchor.html">select_anchor</A>, 
+<A HREF="jpx$ditor__dra$ed_anchor.html">drag_selected_anchor</A>, 
+<A HREF="jpx$ditor__mov$ed_anchor.html">move_selected_anchor</A> and 
+<A HREF="jpx$ditor__can$ed_anchor.html">can_move_selected_anchor</A>. The editing mode also affects other aspects of the
+behaviour. Notably, the way new regions are added is
+affected by the mode. The following modes are defined:
+</P><UL><LI>
+<A HREF="globals.html#JPX_EDITOR_VERTEX_MODE">JPX_EDITOR_VERTEX_MODE</A> &mdash; This is the default mode; in this case, the
+anchor points correspond to the vertices of quadrilateral
+regions and the end-points of the major and minor axes
+of elliptical regions.
+</LI><LI>
+<A HREF="globals.html#JPX_EDITOR_SKELETON_MODE">JPX_EDITOR_SKELETON_MODE</A> &mdash; In this case, the anchor points correspond
+to the mid-points of quadrilateral edge segments and
+the centres of elliptical regions.
+</LI><LI>
+<A HREF="globals.html#JPX_EDITOR_PATH_MODE">JPX_EDITOR_PATH_MODE</A> &mdash; In this case, the anchor points also correspond
+to the to the mid-points of quadrilateral edge segments
+and the centres of elliptical regions. In this mode,
+<A HREF="jpx$ditor__add_region.html">add_region</A> can add both circular junctions and quadrilateral
+regions to extend the path.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A region large enough to include all points and edges
+affected by the change. If there is no change, this
+region is empty.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="mode">mode</A> [<B>jpx_roi_editor_mode</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__reset.html"> prev </A>||<A HREF="jpx$ditor__init.html"> next </A>|</P>
+</BODY>
+</HTML>

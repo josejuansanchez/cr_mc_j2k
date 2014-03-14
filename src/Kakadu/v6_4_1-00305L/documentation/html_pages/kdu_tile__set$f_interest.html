@@ -1,0 +1,126 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::set_components_of_interest) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get_ycc.html"> prev </A>||<A HREF="kdu_tile__get$block_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::set_components_of_interest</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Set_components_of_interest</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_components_of_interest(
+<B>int</B>&nbsp;num_components_of_interest=0,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;components_of_interest=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_components_of_interest(
+int&nbsp;num_components_of_interest,
+int[]&nbsp;components_of_interest)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used together with 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> and the other 
+<B>get_mct_...</B> functions to customize the way the multi-component
+transform network appears.
+</P><P>
+ By default, the multi-component transform network
+described by 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> and related functions is configured to produce all
+apparent output components, where the set of apparent
+output components is determined by calls to 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>.
+</P><P>
+ Calls to this function, however, can identify any
+subset of these apparent output components as the ones
+which the multi-component transform network should
+be configured to generate. All other apparent output
+components will appear to contain constant sample values.
+</P><P>
+ We make the following important observations:
+</P><UL><LI>
+Let N be the number of apparent output components.
+This is the value returned by 
+<A HREF="kdu$tream__get$omponents.html">kdu_codestream::get_num_components</A> with its optional 
+<B>want_output_comps</B> argument set to true.
+</LI><LI>
+The value of N is not affected by calls to this function.
+Moreover, the 
+<B>num_stage_outputs</B> value returned by 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> for the final transform stage, is also not affected
+by calls to this function &mdash; this value will always
+be equal to N.
+</LI><LI>
+Calls to this function do, however, affect the connectivity
+of the multi-component transform network. In particular
+they may affect the number of transform blocks which
+appear to be involved, as well as the number of components
+which those transform blocks appear to produce and/or
+consume.
+</LI><LI>
+You can call the present function as often as you like,
+without closing and re-opening the tile interface.
+After each call, the multi-component transform network
+may appear to be different. This allows you to create
+multiple partial renderings for different subsets of
+the N apparent output components, each with their own
+multi-component transform network.
+</LI><LI>
+After each call to this function, you use the tile
+interface to construct a 
+<A HREF="kdu$hesis.html">kdu_multi_synthesis</A> or 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> object; with multiple calls to this function, each
+so-constructed object may be different. Each of them
+will advertize the same set of output image components,
+but they may have different sets of "constant" output
+components. Of course, you are not likely to want to
+access the constant output components, but doing so
+will not incur any computational overhead.
+</LI><LI>
+Calls to this function have no effect on the set of
+codestream components which are presented by the tile
+interface. In particular, they have no impact at all
+on the 
+<A HREF="kdu_tile__acc$_component.html">access_component</A> function's return value.
+</LI></UL><P>
+ Note that the impact of this function is lost if the
+tile is closed and then re-opened.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_components_of_interest">num_components_of_interest</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If 0, all apparent output components are considered
+to be of interest so that subsequent calls to 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> and related functions will describe a multi-component
+transform network which generates all apparent output
+image components.
+</P>
+</DIV>
+<H4><A NAME="components_of_interest">components_of_interest</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Contains 
+<A HREF="kdu_tile__set$f_interest.html#num_components_of_interest">num_components_of_interest</A> output component indices, each of which must be in
+the range 0 to N-1 where N is the value returned by
+<A HREF="kdu$tream__get$omponents.html">kdu_codestream::get_num_components</A> with its 
+<B>want_output_comps</B> argument set to true. If this argument is NULL and
+<A HREF="kdu_tile__set$f_interest.html#num_components_of_interest">num_components_of_interest</A> is greater than 0, the first 
+<A HREF="kdu_tile__set$f_interest.html#num_components_of_interest">num_components_of_interest</A> apparent output components will be the ones which
+are considered to be of interest.
+</P><P>
+ The 
+<A HREF="kdu_tile__set$f_interest.html#components_of_interest">components_of_interest</A> array is allowed to contain multiple entries with
+the same component index if you like.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get_ycc.html"> prev </A>||<A HREF="kdu_tile__get$block_info.html"> next </A>|</P>
+</BODY>
+</HTML>

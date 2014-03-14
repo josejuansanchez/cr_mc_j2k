@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::close) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_cache__attach_to.html"> prev </A>||<A HREF="kdu_cache__add$o_databin.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::close</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Close</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> close(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Close(
+)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ource__close.html">kdu_compressed_source::close</A></H3></DIV>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+It is always safe to call this function. It discards
+all cached data-bins and any associated structures,
+after which you can start using the object again with
+a clean slate. Immediately after this call, the 
+<A HREF="kdu_cache__get$in_length.html">get_databin_length</A> function will return 0 in response to all queries.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Always returns true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_cache__attach_to.html"> prev </A>||<A HREF="kdu_cache__add$o_databin.html"> next </A>|</P>
+</BODY>
+</HTML>

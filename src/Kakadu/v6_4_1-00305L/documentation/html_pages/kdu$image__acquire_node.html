@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_image::acquire_node) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$image__~kd$roi_image.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_roi_image::acquire_node</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_roi_image.Acquire_node</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <A HREF ="kdu$_node.html">kdu_roi_node</A>&nbsp;* acquire_node(
+<B>int</B>&nbsp;component,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;tile_region)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_roi_node Acquire_node(
+int&nbsp;component,
+Kdu_dims&nbsp;tile_region)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$i_processing+h.html">"../coresys/common/kdu_roi_processing.h"</A>]</P><P><A HREF="kdu$image.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Acquires a suitably derived 
+<A HREF="kdu$_node.html">kdu_roi_node</A> object, which is capable of delivering the ROI information
+for the indicated image component, confined to the
+indicated tile region.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+May return NULL if the entire region or component is
+to be interpreted as part of the foreground. Otherwise,
+the returned 
+<A HREF="kdu$_node.html">kdu_roi_node</A> object should be released (through 
+<A HREF="kdu$_node__release.html">kdu_roi_node::release</A>) once the application is done with it. Usually, the
+node will be supplied in the constructor for a sample
+data processing engine (see 
+<A HREF="kdu$lysis__kdu_analysis__1.html">kdu_analysis::kdu_analysis</A> or 
+<A HREF="kdu$3coder__kdu_encoder.html">kdu_encoder::kdu_encoder</A>), in which case the relevant object will take care
+of these release responsibilities itself.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="component">component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Image components start from 0.
+</P>
+</DIV>
+<H4><A NAME="tile_region">tile_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Regions supplied here are expected to form a partition
+of the image region, mapped to the relevant image component.
+Specifically, the 
+<A HREF="kdu$image__acquire_node.html#tile_region">tile_region</A> will normally be that returned by the 
+<A HREF="kdu$ution__get_dims.html">kdu_resolution::get_dims</A> function, applied to the highest resolution of the
+relevant tile-component (that recovered using 
+<A HREF="kdu$_comp__acc$esolution__1.html">kdu_tile_comp::access_resolution</A>). The reason for supplying explicit tile region coordinates
+rather than tile indices is to relieve the implementation
+of the derived 
+<B>kdu_image</B> object from having to understand tiles. The partition
+requirement ensures that every requested region will
+belong to the region occupied by the relevant image
+component and that no two requested regions will overlap.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$image__~kd$roi_image.html"> prev </A>|</P>
+</BODY>
+</HTML>

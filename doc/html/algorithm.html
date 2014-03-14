@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="algoritmo">Algoritmo</h1>
+<ol style="list-style-type: decimal">
+<li><p>Se descargan las dos primeras imágenes de la secuencia, <span class="math"><em>I</em><sub><em>i</em></sub></span> (<span class="math"><em>e</em><em>v</em><em>e</em><em>n</em>_<em>i</em><em>m</em><em>a</em><em>g</em><em>e</em></span>) y <span class="math"><em>I</em><sub><em>i</em> + 1</sub></span> (<span class="math"><em>o</em><em>d</em><em>d</em>_<em>i</em><em>m</em><em>a</em><em>g</em><em>e</em></span>).</p></li>
+<li><p>Calculamos los <strong>vectores de movimiento</strong> entre las dos imágenes, <span class="math"><em>I</em><sub><em>i</em></sub></span> (<span class="math"><em>e</em><em>v</em><em>e</em><em>n</em>_<em>i</em><em>m</em><em>a</em><em>g</em><em>e</em></span>) y <span class="math"><em>I</em><sub><em>i</em> + 1</sub></span> (<span class="math"><em>o</em><em>d</em><em>d</em>_<em>i</em><em>m</em><em>a</em><em>g</em><em>e</em></span>).<br /> Tool: <a href="tools.html#tool_motion_estimation"><code>me</code></a>.</p></li>
+<li><p>Generamos una <strong>imagen predicción</strong>, <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span>, a partir de la imagen <span class="math"><em>I</em><sub><em>i</em> + 1</sub></span> (<span class="math"><em>o</em><em>d</em><em>d</em>_<em>i</em><em>m</em><em>a</em><em>g</em><em>e</em></span>) y los vectores de movimiento calculados en el paso anterior.<br /> Tool: <a href="tools.html#decorrelate"><code>decorrelate</code></a>.</p></li>
+<li><p>A partir de la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span>, obtenemos el <strong>thumbnail</strong> <span class="math"><em>T</em><em>h</em><em>u</em><em>m</em><em>b</em><em>n</em><em>a</em><em>i</em><em>l</em>(<em>P</em><em>I</em><sub><em>i</em> + 2</sub>)</span>.<br /> Tool: <a href="tools.html#tool_mogrify"><code>mogrify</code></a>.</p></li>
+<li><p>Solicitamos al servidor el thumbnail de la siguiente imagen de la secuencia, <span class="math"><em>T</em><em>h</em><em>u</em><em>m</em><em>b</em><em>n</em><em>a</em><em>i</em><em>l</em>(<em>I</em><sub><em>i</em> + 2</sub>)</span>.</p></li>
+<li><p>Calculamos las <strong>diferencias</strong> entre el thumbnail de la imagen predicción, <span class="math"><em>T</em><em>h</em><em>u</em><em>m</em><em>b</em><em>n</em><em>a</em><em>i</em><em>l</em>(<em>P</em><em>I</em><sub><em>i</em> + 2</sub>)</span>, y el thumbnail de la siguiente imagen, <span class="math"><em>T</em><em>h</em><em>u</em><em>m</em><em>b</em><em>n</em><em>a</em><em>i</em><em>l</em>(<em>I</em><sub><em>i</em> + 2</sub>)</span>, y las ordenamos de mayor a menor.<br /> El resultado de este proceso nos devuelve la lista de <code>WOIs</code> que debemos solicitar al servidor, ordenadas de mayor a menor importancia.<br /> Tool: <a href="tools.html#tool_differencesthumbnails"><code>differencesthumbnails</code></a>.</p>
+<strong>TODO</strong>:
+<ul>
+<li><del>No incluir en el listado aquellas <code>WOIs</code> donde no exista diferencia, para ahorrarnos tener que solicitarlas al servidor.</del></li>
+<li><p>Podríamos <em>cambiar el método</em> que utilizamos para calcular las diferencias entre los dos thumbnails y realizar un estudio utilizando diferentes métricas:</p>
+<ul>
+<li><strong>Y-SSIM</strong>
+<ul>
+<li>Structural Similarity algorithm applied to luma channel only.</li>
+</ul></li>
+<li><strong>RGB-SSIM</strong>
+<ul>
+<li>Average of Structural Similarity algorithm applied to R, G, and B channels.</li>
+</ul></li>
+<li><strong>IW-SSIM</strong>
+<ul>
+<li>Information Content Weighted Structural Similarity algorithm applied to luma channel only.</li>
+</ul></li>
+<li><strong>PSNR-HVS-M</strong>
+<ul>
+<li>Peak Signal to Noise Ratio taking into account Contrast Sensitivity Function (CSF) and between-coefficient contrast masking of DCT basis functions.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Solicitamos al servidor los precintos/<strong><code>WOIs</code></strong> (1 precinto = 1 <code>WOI</code>) que nos interesan de la siguiente imagen, <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span>, en función del <span class="math"><em>b</em><em>i</em><em>t</em><em>r</em><em>a</em><em>t</em><em>e</em></span> estimado.<br /> Tool: <a href="tools.html#tool_woistocache"><code>woistocache</code></a>.</p>
+<strong>TODO</strong>:
+<ul>
+<li>Actualmente el valor del <span class="math"><em>b</em><em>i</em><em>t</em><em>r</em><em>a</em><em>t</em><em>e</em></span> es un valor constante que se asigna al inicio de la ejecución del algoritmo. Sería interesante hacer pruebas donde el valor del <span class="math"><em>b</em><em>i</em><em>t</em><em>r</em><em>a</em><em>t</em><em>e</em></span> pueda ir variando durante la ejecución del algoritmo.</li>
+</ul></li>
+<li><p>Comprimimos la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span> (obtenida en el paso 3) con la utilidad <code>kdu_compress</code>, para convertir de <strong>.pgm</strong> a <strong>.j2c</strong>.<br /> Los parámetros de compresión deben coincidir con los parámetros de compresión iniciales.</p>
+<strong>NOTA</strong>:
+<ul>
+<li>Esta operación debe realizarse en el cliente y puede ser un poco lenta.</li>
+</ul></li>
+<li><p>Convertimos el archivo <strong>.j2c</strong> de la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span> a <strong>.cache</strong>.<br /> Utilizamos la utilidad <a href="tools.html#tool_woistocache"><code>woistocache</code></a> y una lista que contiene todos los precintos de la imagen. Hay que tener en cuenta que la división de los precintos para toda la imagen sea exacta. En este caso el parámetro <code>Precincts Selection Mode = 0</code> para que la selección de los precintos se realice tal y como lo hace Kakadu.</p>
+<pre><code>woistocache prediction_temp.j2c precincts/xxx.todos.txt WIDTH_RECONS HEIGHT_RECONS ((CLEVELS+1)) CLAYERS 999999999 0</code></pre></li>
+<li><p>Con la utilidad <a href="tools.html#tool_extractcache"><code>extractcache</code></a> extraemos los precinctos de la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span> que no están entre los precintos que hemos solicitado en el paso 7 para la imagen <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span>. Los precintos que hemos extraído de la imagen predicción los guardamos en el archivo <span class="math"><em>t</em><em>e</em><em>m</em><em>p</em>_<em>a</em><em>u</em><em>x</em>. <em>c</em><em>a</em><em>c</em><em>h</em><em>e</em></span>.</p>
+<pre><code>extractcache next_image_j2c_cache prediction_temp.j2c.cache temp_aux.cache</code></pre></li>
+<li><p>Unimos los precintos que tenemos de la siguiente imagen <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span> con los precintos de la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span> que hemos extraído en el paso anterior y los ordenamos.</p></li>
+<li>Al solicitar los precintos/<code>WOIs</code> de la siguiente imagen <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span> en función de un determinado <span class="math"><em>b</em><em>i</em><em>t</em><em>r</em><em>a</em><em>t</em><em>e</em></span>, puede ocurrir que no se reciban los precintos completos y que solamente se reciban ciertos paquetes. Por este motivo tenemos que revisar entre todos los precintos que hemos recibido cuáles son los que se encuentran incompletos y generar los paquetes vacíos necesarios para completarlos. En este punto tendremos un archivo <strong>.cache</strong> que contiene:
+<ul>
+<li>los precintos que hemos solicitado de la siguiente imagen <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span>,</li>
+<li>los precintos que hemos extraído de la imagen predicción <span class="math"><em>P</em><em>I</em><sub><em>i</em> + 2</sub></span> que no están entre los nuevos precintos que hemos recibido,</li>
+<li>los paquetes vacíos que hemos ido generando para completar los precintos incompletos que hemos recibido de la siguiente imagen <span class="math"><em>I</em><sub><em>i</em> + 2</sub></span>.</li>
+</ul>
+<p>Tool: <a href="tools.html#tool_cookcache"><code>cookcache</code></a>.</p></li>
+<li><p>Descomprimimos el archivo <strong>.cache</strong> con el code-stream.<br /> Tool: <a href="tools.html#tool_decodefromcache"><code>decodefromcache</code></a>.</p></li>
+</ol>
+</body>
+</html>

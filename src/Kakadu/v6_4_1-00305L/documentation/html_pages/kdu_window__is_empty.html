@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window::is_empty) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_window__init.html"> prev </A>||<A HREF="kdu_window__copy_from.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window::is_empty</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window.Is_empty</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> is_empty(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_empty(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu_window.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if 
+<A HREF="kdu_window__init.html">init</A> has just been called, or any changes made to the object
+since the last call to 
+<A HREF="kdu_window__init.html">init</A> should have no impact on the response expected from
+a JPIP server. Any non-trivial value installed for
+the 
+<A HREF="kdu_window.html#resolution">resolution</A>, 
+<A HREF="kdu_window.html#region">region</A>, 
+<A HREF="kdu_window.html#components">components</A>, 
+<A HREF="kdu_window.html#codestreams">codestreams</A>, 
+<A HREF="kdu_window.html#contexts">contexts</A> or 
+<A HREF="kdu_window.html#max_layers">max_layers</A> members, or any 
+<A HREF="kdu_window.html#metareq">metareq</A> entries which have been added, will cause this function
+to return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_window__init.html"> prev </A>||<A HREF="kdu_window__copy_from.html"> next </A>|</P>
+</BODY>
+</HTML>

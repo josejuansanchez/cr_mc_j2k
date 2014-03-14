@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_input_box::open_next) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$t_box__open__2.html"> prev </A>||<A HREF="jp2$t_box__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_input_box::open_next</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_input_box.Open_next</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> open_next(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Open_next(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to open the next box in sequence,
+after the one which was last closed. If the box was
+last opened as a sub-box of another 
+<A HREF="jp2$t_box.html">jp2_input_box</A> object, the function attempts to open a new sibling
+sub-box, failing (leaving the box in the closed state
+and returning false) if the containing super-box is
+exhausted.
+</P><P>
+ If the box was last opened directly, using a 
+<B>locator</B> to navigate inside the 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object, this function opens the next box in sequence,
+failing (leaving the box in the closed state and returning
+false) only if the source is exhausted. Note that the
+behaviour could be misleading in this case, if the
+<B>locator</B> supplied to the first form of the 
+<A HREF="jp2$t_box__open__1.html">open</A> function did not correspond to a top level box, since
+we might then walk right over the containing super-box
+boundary without noticing. It is your responsibility
+to use this function in a meaningful way.
+</P><P>
+ If the function fails to open a new box, the 
+<A HREF="jp2$t_box__exists.html">exists</A> member will return false. While this usually means
+that the JP2 source, or the containing super-box is
+exhausted, it could also occur if the unerlying 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object uses a dynamic cache (
+<A HREF="kdu_cache.html">kdu_cache</A> or a suitably derived object). In that case, the present
+function may be called repeatedly, with the possibility
+of succeeding at a later point when the cache contents
+have been augmented.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$t_box__open__2.html"> prev </A>||<A HREF="jp2$t_box__close.html"> next </A>|</P>
+</BODY>
+</HTML>

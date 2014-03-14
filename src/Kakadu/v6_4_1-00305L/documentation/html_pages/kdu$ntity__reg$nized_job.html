@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::register_synchronized_job) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__terminate.html"> prev </A>||<A HREF="kdu$ntity__process_jobs.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::register_synchronized_job</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Register_synchronized_job</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> register_synchronized_job(
+<A HREF ="kdu_worker.html">kdu_worker</A>&nbsp;*&nbsp;worker,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;queue,
+<B>bool</B>&nbsp;run_deferred)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Register_synchronized_job(
+Kdu_worker&nbsp;worker,
+long&nbsp;queue,
+boolean&nbsp;run_deferred)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function registers a special 
+<A HREF="kdu$ntity__reg$nized_job.html#worker">worker</A> object, whose 
+<A HREF="kdu_worker__do_job.html">kdu_worker::do_job</A> function will not be called until all currently outstanding
+jobs associated with the identified 
+<A HREF="kdu$ntity__reg$nized_job.html#queue">queue</A> and its descendants have been completed. To be more
+specific, the conditions required for a synchronized
+job to become runnable are identical to those described
+for the 
+<B>synchronization</B> function to return, i.e.:
+</P><UL><LI>
+When 
+<A HREF="kdu$ntity__reg$nized_job.html">register_synchronized_job</A> is called, a synchronization point, S_q, is immediately
+installed in the 
+<B>root_queue</B>, q. In particular, S_q is set equal to the index of
+the next job to be added to that queue.
+</LI><LI>
+Once the job with index S_q-1 completes (or immediately,
+if it has already completed, or the queue has never
+had any jobs), a synchronization point, S_b, is installed
+in each of its sub-queues, b; the value of S_b is set
+equal to the index of the next job to be added to the
+corresponding sub-queue, b.
+</LI><LI>
+This procedure continues recursively, until we encounter
+a leaf queue. Once all leaf queues, e, under the 
+<B>root_queue</B> have reached their synchronization points (i.e., once
+all corresponding jobs S_e-1 complete), the synhronized
+job becomes runnable.
+</LI></UL><P>
+ If 
+<A HREF="kdu$ntity__reg$nized_job.html#queue">queue</A> is NULL, the 
+<A HREF="kdu$ntity__reg$nized_job.html#worker">worker</A> object is effectively registered against an invisible
+super-queue which is the root of all queues in the
+thread group. This means that the synchronized job
+will become runnable only once all jobs which have
+been added to any top level queue are completed, and
+once all jobs added to their sub-queues prior to that
+point have been completed, and so forth.
+</P><P>
+ Once a synchronized job becomes runnable, the 
+<A HREF="kdu_worker__do_job.html">worker&rarr;do_job</A> function is either called immediately from the thread
+which first caused the synchronization condition to
+occur, or else it is stored on a queue of runnable
+synchronized jobs, to be run when resources become
+available. Which of these two actions is taken depends
+on the 
+<A HREF="kdu$ntity__reg$nized_job.html#run_deferred">run_deferred</A> argument.
+</P><P>
+ If 
+<A HREF="kdu$ntity__reg$nized_job.html#run_deferred">run_deferred</A> is true, and there are multiple threads, the synchronized
+job is placed on a special queue associated with the
+entire thread group, to be run as soon as any worker
+thread completes all of its active jobs. In practice,
+this means that deferred jobs will only be run by worker
+threads within the context of their top-level 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> call &mdash; the one which has no 
+<B>wait_queue</B>. This policy ensures that the processing of deferred
+jobs cannot block the execution of any other thread.
+It thus allows large background jobs to be completed
+without risking a loss of throughput due to other thread
+resources (and their CPU's) becoming idle. The downside
+of deferred jobs is that you cannot be sure when they
+will be run. In fact, it is possible that the 
+<A HREF="kdu$ntity__reg$nized_job.html#queue">queue</A> against which they were registered will be terminated
+before the synchronized job is run &mdash; depending
+on how the application chooses to call 
+<A HREF="kdu$ntity__terminate.html">terminate</A>, of course. The only thing you can be sure of is that
+all deferred jobs will be run before the return of
+a call to 
+<A HREF="kdu$ntity__terminate.html">terminate</A> which results in the deletion of all top-level job
+queues. This is because such a call returns only once
+all threads have passed through their 
+<B>on_finished</B> function, which will not happen while deferred jobs
+remain.
+</P><P>
+ If you would just like to install a deferred job,
+without any associated synchronization conditions,
+you have simply to create a queue which has no jobs
+of its own and no descendants. Then register a deferred
+synchronized job against this queue. Since synchronization
+is achieved immediately, it will be added immediately
+to the queue of deferred jobs.
+</P><P>
+ It is worth noting that the 
+<A HREF="kdu$ntity__reg$nized_job.html#run_deferred">run_deferred</A> argument has no impact if there is only one thread.
+In this case, deferred jobs are run as soon as their
+synchronization conditions occur. If these conditions
+exist already, the function will be run immediately.
+</P><P>
+ If two activities (synchronizing threads or synchronized
+jobs) are registered against the same condition, they
+will be performed (return from 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> or perform synchronized job) in the same order that
+they were registered. If the order is important, then
+you should request the relevant synchronized activities
+from the same thread. A typical example is the registration
+of a sychronized job, followed by a call to 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> (e.g., through 
+<A HREF="kdu$ntity__terminate.html">terminate</A>). If both are done from the same thread, and the synchronized
+job is not deferred, you can be sure that the synchronized
+job will be run (completely) before 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> returns, which means that you will not terminate any
+of the queues associated with a synchronized job until
+after the job is complete. As already mentioned, this
+cannot be guaranteed for deferred jobs (those registered
+with 
+<A HREF="kdu$ntity__reg$nized_job.html#run_deferred">run_deferred</A>=true). The only thing you can be sure of with such
+jobs is that a 
+<A HREF="kdu$ntity__terminate.html">terminate</A> call which specifies a NULL 
+<B>root_queue</B> (i.e., one which terminates the entire queue hierarchy)
+will wait until the comletion of all deferred jobs
+before returning.
+</P><P>
+ As with 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A>, each queue is able to manage multiple outstanding
+synchronization points arising from any combination
+of synchronized jobs and/or calls to 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A>, with an upper limit for each queue set by 
+<B>KDU_MAX_SYNC_NESTING</B>. Since you cannot predict definitively when a synchronized
+job will be executed, it is possible that you could
+overflow this limit by registering repeated instances
+of a synchronized job without first checking to see
+if previous instances have already been dispatched.
+For this reason, if you intend to regularly schedule
+synchronized jobs (e.g., calls to 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> for incremental codestream generation), you should
+first check that previously scheduled jobs have been
+dispatched. There are many ways to do this.
+</P><P>
+ Note that it is perfectly legal to register synchronized
+jobs against queues which currently belong to dormant
+banks (see 
+<A HREF="kdu$ntity__add_queue.html">add_queue</A>). If the condition must be waited upon, it will not
+occur until after the relevant dormant queue banks
+have become active, in the normal course of affairs.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="worker">worker</A> [<A HREF ="kdu_worker.html">kdu_worker</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Object whose 
+<A HREF="kdu_worker__do_job.html">kdu_worker::do_job</A> function will be called at the appropriate time, as
+described above.
+</P>
+</DIV>
+<H4><A NAME="queue">queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the synchronized jobs will become runnable
+once all jobs on the specified 
+<A HREF="kdu$ntity__reg$nized_job.html#queue">queue</A> have completed, once all jobs added to any of its
+sub-queues prior to that point have completed, and
+so on. If NULL, the job will become runnable only once
+this condition is achieved by all top-level queues.
+As with 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> and 
+<A HREF="kdu$ntity__terminate.html">terminate</A>, this argument may only refer to a super-queue &mdash;
+i.e., one which has at least one sub-queue &mdash;
+or to a leaf queue which has never been assigned any
+jobs. The reasons for this have to do with the conditions
+under which 
+<B>do_sync</B> and 
+<B>need_sync</B> are called.
+</P>
+</DIV>
+<H4><A NAME="run_deferred">run_deferred</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, or there is only one thread in the system,
+the 
+<A HREF="kdu_worker__do_job.html">worker&rarr;do_job</A> function will be called immediately after the job
+becomes runnable. Moreover, no further synchronization
+points associated with the 
+<A HREF="kdu$ntity__reg$nized_job.html#queue">queue</A> concerned will be processed until after the 
+<A HREF="kdu_worker__do_job.html">worker&rarr;do_job</A> function returns. On the other hand, if 
+<A HREF="kdu$ntity__reg$nized_job.html#run_deferred">run_deferred</A> is true and there are at least two threads (i.e.,
+at least one worker thread, in addition to the group
+owner), runnable jobs are entered on their own special
+queue, to be processed by the next worker thread (not
+the group owner) which has no active jobs, as explained
+above.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__terminate.html"> prev </A>||<A HREF="kdu$ntity__process_jobs.html"> next </A>|</P>
+</BODY>
+</HTML>

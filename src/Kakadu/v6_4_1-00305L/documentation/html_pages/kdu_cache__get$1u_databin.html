@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::get_next_mru_databin) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$u_databin.html"> prev </A>||<A HREF="kdu_cache__mark_databin.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::get_next_mru_databin</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Get_next_mru_databin</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_next_mru_databin(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;codestream_id,
+<B>kdu_long</B>&nbsp;databin_id,
+<B>bool</B>&nbsp;only_if_marked=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_next_mru_databin(
+int&nbsp;databin_class,
+long&nbsp;codestream_id,
+long&nbsp;databin_id,
+boolean&nbsp;only_if_marked)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Gets the next more recently used data-bin, within the
+indicated data-bin class and code-stream, after the
+data-bin identified by 
+<A HREF="kdu_cache__get$1u_databin.html#databin_id">databin_id</A>. If 
+<A HREF="kdu_cache__get$1u_databin.html#only_if_marked">only_if_marked</A> is true, the function skips over any data-bins which
+do not have the marking bit set.
+</P><P>
+ If 
+<A HREF="kdu_cache__get$1u_databin.html#databin_id">databin_id</A> is negative, or does not refer to an existing data-bin
+with any representation in the cache, the function
+returns the identifier of the LEAST recently used data-bin
+in the indicated class.
+</P><P>
+ If there are no data-bins more recently used than
+that identified by 
+<A HREF="kdu_cache__get$1u_databin.html#databin_id">databin_id</A>, the function returns -1.
+</P><P>
+ See 
+<A HREF="kdu_cache__add$o_databin.html">add_to_databin</A> for an explanation of data-bin classes and identifiers.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="codestream_id">codestream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_id">databin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="only_if_marked">only_if_marked</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__get$u_databin.html"> prev </A>||<A HREF="kdu_cache__mark_databin.html"> next </A>|</P>
+</BODY>
+</HTML>

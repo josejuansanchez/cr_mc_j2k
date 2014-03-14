@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::get_timing_stats) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__col$ing_stats.html"> prev </A>||<A HREF="kdu$tream__get$ta_memory.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::get_timing_stats</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Get_timing_stats</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>double</B> get_timing_stats(
+<B>kdu_long</B>&nbsp;*&nbsp;num_samples,
+<B>bool</B>&nbsp;coder_only=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native double Get_timing_stats(
+long[]&nbsp;num_samples,
+boolean&nbsp;coder_only)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="kdu$tream__get$ing_stats.html#coder_only">coder_only</A> is false, the function returns the number of seconds
+since the last call to 
+<A HREF="kdu$tream__col$ing_stats.html">collect_timing_stats</A>. If a block coder timing loop has been used to gather
+more accurate block coding statistics by running the
+block coder multiple times, the function estimates
+the number of seconds which would have been consumed
+if the block coder had been executed only once per
+code-block.
+</P><P>
+ If 
+<A HREF="kdu$tream__get$ing_stats.html#coder_only">coder_only</A> is true, the function returns the number of seconds
+required to process all code-blocks. If the coder was
+invoked multiple times, the returned number of seconds
+is normalized to the time which would have been required
+by a single invocation of the coder. If the coding
+operation was not timed, the function returns 0.
+</P><P>
+ If 
+<A HREF="kdu$tream__get$ing_stats.html#num_samples">num_samples</A> is non-NULL, it is used to return the number of samples
+associated with returned CPU time. If 
+<A HREF="kdu$tream__get$ing_stats.html#coder_only">coder_only</A> is true, this is the number of code-block samples.
+Otherwise, it is the number of samples in the current
+image region. In any event, dividing the returned time
+by the number of samples yields the most appropriate
+estimate of per-sample processing time.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_samples">num_samples</A> [<B>kdu_long</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="coder_only">coder_only</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__col$ing_stats.html"> prev </A>||<A HREF="kdu$tream__get$ta_memory.html"> next </A>|</P>
+</BODY>
+</HTML>

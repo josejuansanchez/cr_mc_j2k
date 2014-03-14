@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_line_buf) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_line_buf</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_line_buf</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$e_processing+h.html">"../coresys/common/kdu_sample_processing.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Instances of this structure manage the buffering of
+a single line of sample values, whether image samples
+or subband samples. For the reversible path, samples
+must be absolute 32- or 16-bit integers. For irreversible
+processing, samples have a normalized representation,
+where the nominal range of the data is typically -0.5
+to +0.5 (actual nominal ranges for the data supplied
+to a 
+<A HREF="kdu$3coder.html">kdu_encoder</A> or 
+<A HREF="kdu$lysis.html">kdu_analysis</A> object or retrieved from a 
+<A HREF="kdu$2coder.html">kdu_decoder</A> or 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A> object may be explicitly set in the relevant constructor).
+These normalized quantities may have either a true
+32-bit floating point representation or a 16-bit fixed-point
+representation. In the latter case, the least significant
+<A HREF="globals.html#KDU_FIX_POINT">KDU_FIX_POINT</A> bits of the integer are interpreted as binary fraction
+bits, so that 2^{KDU_FIX_POINT} represents a normalized
+value of 1.0.
+</P><P>
+ The object always allocates space to allow access
+to a given number of samples before the first nominal
+sample (the one at index 0) and a given number of samples
+beyond the last nominal sample (the one at index 
+<B>width</B>-1). These extension limits are explained in the comments
+appearing with 
+<A HREF="kdu$e_buf__pre_create.html">pre_create</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$e_buf__kdu_line_buf.html">kdu_line_buf</A> {<U>Java:</U> Kdu_line_buf}
+</P>
+<P><A HREF="kdu$e_buf__pre_create.html">pre_create</A> {<U>Java:</U> Pre_create}
+</P>
+<P><A HREF="kdu$e_buf__create.html">create</A> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$e_buf__check_status.html">check_status</A> {<U>Java:</U> Check_status}
+</P>
+<P><A HREF="kdu$e_buf__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$e_buf__get_buf32.html">get_buf32</A></P>
+<P><A HREF="kdu$e_buf__get_buf16.html">get_buf16</A></P>
+<P><A HREF="kdu$e_buf__get_floats.html">get_floats</A> {<U>Java:</U> Get_floats}
+</P>
+<P><A HREF="kdu$e_buf__set_floats.html">set_floats</A> {<U>Java:</U> Set_floats}
+</P>
+<P><A HREF="kdu$e_buf__get_ints__1.html">get_ints</A> <EM>(2 forms)</EM> {<U>Java:</U> Get_ints}
+</P>
+<P><A HREF="kdu$e_buf__set_ints__1.html">set_ints</A> <EM>(2 forms)</EM> {<U>Java:</U> Set_ints}
+</P>
+<P><A HREF="kdu$e_buf__get_width.html">get_width</A> {<U>Java:</U> Get_width}
+</P>
+<P><A HREF="kdu$e_buf__is_absolute.html">is_absolute</A> {<U>Java:</U> Is_absolute}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

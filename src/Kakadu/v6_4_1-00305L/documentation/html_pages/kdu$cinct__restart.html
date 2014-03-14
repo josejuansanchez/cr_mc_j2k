@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_precinct::restart) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$cinct__get_packets.html"> prev </A>||<A HREF="kdu$cinct__close.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_precinct::restart</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_precinct.Restart</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> restart(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Restart(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$cinct.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function only after all code-blocks have
+been loaded into the precinct (
+<A HREF="kdu$cinct__check_loaded.html">check_loaded</A> returns true) to force the packet sizing and/or packet
+data generation processes associated with 
+<A HREF="kdu$cinct__size_packets.html">size_packets</A> and 
+<A HREF="kdu$cinct__get_packets.html">get_packets</A> to start from scratch (start from the first layer
+of the packet) when they are next called. Calls to
+this function are generally required only when we need
+to backtrack through previously generated packets and
+start sizing again. As already described above, restarts
+occur implicitly when 
+<A HREF="kdu$cinct__get_packets.html">get_packets</A> is first called after sizing packets or when 
+<A HREF="kdu$cinct__size_packets.html">size_packets</A> is first called after generating packet data with
+<A HREF="kdu$cinct__get_packets.html">get_packets</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$cinct__get_packets.html"> prev </A>||<A HREF="kdu$cinct__close.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::add_delayed) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$_to_label.html"> prev </A>||<A HREF="jpx$anode__cha$o_delayed.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::add_delayed</A></H1>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> add_delayed(
+<B>kdu_uint32</B>&nbsp;box_type,
+<B>int</B>&nbsp;i_param,
+<B>void</B>&nbsp;*&nbsp;addr_param)</P>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a descendant to the present
+node, assigning this descendant to represent a box
+of the indicated type, whose contents will not be provided
+until the metadata tree has been completed and 
+<A HREF="jpx_target__wri$metadata.html">jpx_target::write_metadata</A> is invoked. If the new node is assigned its own descendants,
+it will be represented by an association box, whose
+first sub-box is the box referenced here via 
+<A HREF="jpx$anode__add_delayed.html#box_type">box_type</A> and the placeholder parameters. More commonly, however,
+this function would be used to add leaf nodes, such
+as XML nodes, which might contain a lot of data.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Reference to the newly created node.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="i_param">i_param</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Application-defined integer parameter which will be
+returned via 
+<A HREF="jpx_target__wri$metadata.html">jpx_target::write_metadata</A> when the time comes to write this box to the file.
+You might use this to identify the type of object whose
+reference has been encoded via 
+<A HREF="jpx$anode__add_delayed.html#addr_param">addr_param</A>.
+</P>
+</DIV>
+<H4><A NAME="addr_param">addr_param</A> [<B>void</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Application-defined address which will be returned
+via 
+<A HREF="jpx_target__wri$metadata.html">jpx_target::write_metadata</A> when the time comes to write this box to the file.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$_to_label.html"> prev </A>||<A HREF="jpx$anode__cha$o_delayed.html"> next </A>|</P>
+</BODY>
+</HTML>

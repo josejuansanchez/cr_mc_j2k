@@ -1,0 +1,61 @@
+---- ÚLTIMOS EXPERIMIENTOS ----
+
+1) Calculamos los vectores de movimiento entre dos imágenes:
+rm motion; /home/josejuan/MCJ2K/bin/me -p 2 -x 352 -y 288 -b 16 -s 16 -e ../../data/thumbnails/foreman_352x288/000.pgm -o ../../data/thumbnails/foreman_352x288/001.pgm 
+
+2) Visualizamos los vectores de movimiento en GNUPLOT
+./viewingnuplot.sh gnuplot/next.dat
+
+3) Movemos los píxeles para calcular la imagen predicción
+tools/move_pixels experimentos/vectors/next.dat 16 288 352 ../data/thumbnails/foreman_352x288/000.pgm
+
+4) Ahora habría que utilizar el programa "decorrelate" para aplicar la DWT en cada uno de los bloques para suavizar los bordes de los bloques
+
+/home/josejuan/MCJ2K/bin/decorrelate -p 2 -x 352 -y 288 -b 16 -s 16 -e 000.pgm -o 001.pgm -i motion -v 2
+
+NOTAS: 
+- La segunda imagen no es necesaria.
+- Utilizar overlapping (parámetro -v) para difuminar los bordes de los bloques.
+  (Probar con 2 o 4. Con 8 los bordes de la imagen se empiezan a ver mal. Se podría mirar cómo optimizar esto.)
+
+---- TIPS PARA DEPURAR ----
+
+1) Compilar con el flag -g para que se pueda depurar
+
+2) ulimit -c unlimited
+Para generar un archivo "core" cada vez que se produce una excepción en un programa
+
+3) gdb <nombre_programa> <nombre_archivo_core>
+Para visualizar en qué línea del código se ha producido el error
+
+4) print <nombre_variable>
+Para consultar el valor actual de una variable
+
+---- EXPERIMIENTOS DE VICENTE ----
+
+1) export MCTF=/home/josejuan/Subversion/QSVC/MCTF/branches/gnuplot/
+
+2) cd /home/josejuan/tmp
+
+3) rm motion_*
+
+4) (mcj2k compress --search_range=16) | grep GNUPLOT > kk
+
+(Hemos generado los vectores de movimiento para todas las imágenes de la secuencia)
+
+Imprimimos los vectores con GNUPLOT
+
+5) cp /home/josejuan/tmp/kk .
+
+6) cat kk | awk '{print $2 " " $3 " " $4 " " $5}' > kk_filtrado
+
+7) head -n 396 kk_filtrado > kk_gnu
+
+El tamaño de bloque es: 16x16
+
+(Número de bloques Alto * Número de bloques Ancho) 
+22*18 = 396
+
+8) ./viewingnuplot.sh kk_gnu
+
+----

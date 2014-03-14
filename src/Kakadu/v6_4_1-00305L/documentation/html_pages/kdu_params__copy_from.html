@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::copy_from) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__new$instance.html"> prev </A>||<A HREF="kdu_params__copy_all.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::copy_from</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Copy_from</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> copy_from(
+<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*&nbsp;source,
+<B>int</B>&nbsp;source_tile,
+<B>int</B>&nbsp;target_tile,
+<B>int</B>&nbsp;instance=-1,
+<B>int</B>&nbsp;skip_components=0,
+<B>int</B>&nbsp;discard_levels=0,
+<B>bool</B>&nbsp;transpose=false,
+<B>bool</B>&nbsp;vflip=false,
+<B>bool</B>&nbsp;hflip=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Copy_from(
+Kdu_params&nbsp;source,
+int&nbsp;source_tile,
+int&nbsp;target_tile,
+int&nbsp;instance,
+int&nbsp;skip_components,
+int&nbsp;discard_levels,
+boolean&nbsp;transpose,
+boolean&nbsp;vflip,
+boolean&nbsp;hflip)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is a very powerful function, which is particularly
+useful in implementing code-stream transcoders. The
+function generates an error unless the 
+<A HREF="kdu_params__copy_from.html#source">source</A> object and the current object are both cluster heads
+(i.e., they both must have tile and component indices
+of -1). The function locates all entries within the
+source cluster which have the indicated 
+<A HREF="kdu_params__copy_from.html#source_tile">source_tile</A> index and all entries within the current object's
+cluster which have the 
+<A HREF="kdu_params__copy_from.html#target_tile">target_tile</A> index and copies them, skipping the first 
+<A HREF="kdu_params__copy_from.html#skip_components">skip_components</A> codestream image components of the source cluster,
+selecting instances on the basis of the 
+<A HREF="kdu_params__copy_from.html#instance">instance</A> argument, and applying whatever transformations are
+required (see below).
+</P><P>
+ If the 
+<A HREF="kdu_params__copy_from.html#source">source</A> and current objects are both the head of their respective
+cluster lists, the function scans through all clusters
+repeating the copying process on each one in turn.
+Even if one cluster does not have a tile which matches
+the 
+<A HREF="kdu_params__copy_from.html#source_tile">source_tile</A> or 
+<A HREF="kdu_params__copy_from.html#target_tile">target_tile</A> arguments, the function continues to scan through
+all the clusters. If either or both of the 
+<A HREF="kdu_params__copy_from.html#source">source</A> and current objects is not the head of its list of
+clusters, the function restricts its copying to just
+the one cluster. Moreover, an error is generated if
+the clusters do not belong to the same class.
+</P><P>
+ If you wish to copy information from all tiles simultaneously,
+you may use the 
+<A HREF="kdu_params__copy_all.html">copy_all</A> function; in many applications, however, it is useful
+to be able to copy information on a tile-by-tile basis.
+In particular, if the source parameters are being discovered
+incrementally as a code-stream is being parsed (usually
+the case for transcoding operations), the 
+<A HREF="kdu_params__copy_all.html">copy_all</A> function will not be appropriate, since information
+from some tile headers may not yet be available.
+</P><P>
+ If 
+<A HREF="kdu_params__copy_from.html#instance">instance</A> is -1, all instances of each tile-component are copied.
+Otherwise, only the instance whoses index is equal
+to the value of the 
+<A HREF="kdu_params__copy_from.html#instance">instance</A> argument is copied. If necessary, new target instances
+will be created in this process.
+</P><P>
+ Note carefully that no 
+<A HREF="kdu_params.html">kdu_params</A>-derived object will be copied if the object has already
+had any record of any of its attributes set by any
+means. In this event, the object is skipped, but an
+attempt is still made to copy any other objects which
+lie within the scope of the call, following the rules
+outlined above. The intent is to copy source objects
+into newly constructed (and hence empty) objects; however,
+the fact that individual objects will not be overwritten
+can come in handy when copying large parameter groupings,
+only some of which have already been set.
+</P><P>
+ The actual copying operation is performed by the protected
+pure virtual function, 
+<B>copy_with_xforms</B>, which must be implemented by each derived class.
+It is supplied the 5 arguments starting from 
+<A HREF="kdu_params__copy_from.html#skip_components">skip_components</A>, which may be used to modify the data as it is being
+copied.
+</P><P>
+ To ensure robust behaviour, you should be sure to
+ensure that the source parameter objects have all been
+finalized before invoking this function. In most cases,
+you will not need to worry about doing this, because
+any necessary finalization steps are performed inside
+the 
+<A HREF="kdu$tream.html">kdu_codestream</A> management system when the parameters are recovered
+from a source codestream. However, if you are filling
+in the source parameters yourself by means of 
+<A HREF="kdu_params__par$e_string__1.html">parse_string</A> and/or 
+<A HREF="kdu_params__set__1.html">set</A> calls, you should be sure to invoke 
+<A HREF="kdu_params__fin$lize_all__1.html">finalize_all</A> before calling this function.
+</P><P>
+ It is important to realize that the source object
+corresponding to a non-negative 
+<A HREF="kdu_params__copy_from.html#source_tile">source_tile</A> may be identical to the one which is associated with
+<B>tile_idx</B>=-1 (main code-stream header defaults). Similarly,
+on entry, the target object corresponding to a non-negative
+<A HREF="kdu_params__copy_from.html#target_tile">target_tile</A> may also be identical to the one which is associated
+with 
+<B>tiel_idx</B>=-1. When both these conditions are true, the function
+does not copy anything for that object, assuming that
+a consistent copying operation has already been performed
+for the main codestream defaults (
+<B>tile_idx</B>=-1). If this is not true in your application, you
+can ensure that the target objects are always copied
+explicitly (possibly wasting some space). To do this,
+simply invoke 
+<A HREF="kdu_params__acc$relation.html">access_relation</A> on each target object of interest before calling the
+present function, being sure to use a false value for
+the 
+<B>read_only</B> argument in the call to 
+<A HREF="kdu_params__acc$relation.html">access_relation</A>. This will cause each relevant target to be assigned
+its own unique object, rather than re-using a main
+code-stream header default. There should be few if
+any interesting applications where you need to do this.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="source">source</A> [<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Cluster head from which to copy attributes in accordance
+with the processing rules described above.
+</P>
+</DIV>
+<H4><A NAME="source_tile">source_tile</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Tile index which must be matched by any source objects
+which are actually copied. As usual, a value of -1
+refers to non-tile-specific source objects (i.e., those
+associated with the main code-stream header, as opposed
+to tile headers). See the discussion of tile indices
+and defaults in the comments appearing with the definition
+of the 
+<A HREF="kdu_params.html">kdu_params</A> object.
+</P>
+</DIV>
+<H4><A NAME="target_tile">target_tile</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Tile index which must be matched by target objects
+into which data is copied &mdash; same interpretation
+as 
+<A HREF="kdu_params__copy_from.html#source_tile">source_tile</A>.
+</P>
+</DIV>
+<H4><A NAME="instance">instance</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Instance index which must be matched by source and
+target objects which are copied, except that a value
+of -1 matches all instances.
+</P>
+</DIV>
+<H4><A NAME="skip_components">skip_components</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of source image components to be skipped during
+copying. Source objects with a component index of c+
+<A HREF="kdu_params__copy_from.html#skip_components">skip_components</A> are copied to target objects with a component index
+of c. The special component indices of -1 (associated
+with tile heads, as described in the comments appearing
+with the declaration of 
+<A HREF="kdu_params.html">kdu_params</A>) are unaffected by this argument.
+</P><P>
+ Note carefully, that the components referred to here
+are the codestream image components, the number of
+which is identified by the 
+<A HREF="globals.html#Scomponents">Scomponents</A> attribute in 
+<A HREF="siz_params.html">siz_params</A>. If a Part-2 multi-component transform has been used,
+these components are subject to further transformation
+before producing a final set of MCT output components.
+MCT output components are not affected by component
+skipping, but the existing multi-component transform
+will be automatically configured to treat discarded
+original codestream components as 0.
+</P>
+</DIV>
+<H4><A NAME="discard_levels">discard_levels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the number of DWT resolution levels which
+are to be discarded in a transcoding operation to produce
+a reduced resolution version of a compressed image.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates whether or not horizontal and vertical coordinates
+of all dimensional and other related parameters are
+to be swapped so as to describe a transposed image
+(rows become columns and vice-versa).
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the target object will be adjusted to yield
+a vertically flipped version of the source representation.
+When 
+<A HREF="kdu_params__copy_from.html#transpose">transpose</A> is used together with 
+<A HREF="kdu_params__copy_from.html#vflip">vflip</A>, the interpretation is that the top-most row in the
+target representation should be equivalent to the right-most
+column in the source representation. That is, we think
+of first transposing the source and then flipping it
+afterwards.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the target object will be adjusted to yield
+a horizontally flipped version of the source representation.
+When 
+<A HREF="kdu_params__copy_from.html#transpose">transpose</A> is used together with 
+<A HREF="kdu_params__copy_from.html#hflip">hflip</A>, the interpretation is that the left-most target column
+should be equivalent to the bottom-most source row.
+That is, we think of first transposing the source and
+then flipping it afterwards.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__new$instance.html"> prev </A>||<A HREF="kdu_params__copy_all.html"> next </A>|</P>
+</BODY>
+</HTML>

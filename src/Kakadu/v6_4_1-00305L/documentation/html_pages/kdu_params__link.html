@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::link) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__~kdu_params.html"> prev </A>||<A HREF="kdu_params__new$instance.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::link</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Link</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_params.html">kdu_params</A>&nbsp;* link(
+<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*&nbsp;existing,
+<B>int</B>&nbsp;tile_idx,
+<B>int</B>&nbsp;comp_idx,
+<B>int</B>&nbsp;num_tiles,
+<B>int</B>&nbsp;num_comps)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_params Link(
+Kdu_params&nbsp;existing,
+int&nbsp;tile_idx,
+int&nbsp;comp_idx,
+int&nbsp;num_tiles,
+int&nbsp;num_comps)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Links the object into a list of existing object clusters,
+of which 
+<A HREF="kdu_params__link.html#existing">existing</A> must be a member. In the process, the tile index and
+component index of the new object are replaced by the
+supplied values.
+</P><P>
+ Upon initial construction, 
+<A HREF="kdu_params.html">kdu_params</A> objects are configured as cluster heads, with tile
+and component indices of -1 and an instance index of
+0. If the existing list of clusters already contains
+an instance with the same cluster name and identical
+tile and component indices to those supplied here,
+the instance index will automatically be incremented
+to the next available one for that tile-component.
+If multiple instances are disallowed by the derived
+parameter class, an appropriate error will be generated.
+</P><P>
+ If an object with the same cluster name does not currently
+exist, the new object must be the cluster head, having
+<A HREF="kdu_params__link.html#tile_idx">tile_idx</A> and 
+<A HREF="kdu_params__link.html#comp_idx">comp_idx</A> both equal to -1. In this case, the cluster's array
+of references will be created for the first time and
+initialized such that all entries point back to the
+cluster head. Thereafter, each new object linked into
+the same cluster must specify the same values for 
+<A HREF="kdu_params__link.html#num_tiles">num_tiles</A> and 
+<A HREF="kdu_params__link.html#num_comps">num_comps</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Returns a pointer to itself (the 
+<B>this</B>) pointer, as a convenience for some statement constructions.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="existing">existing</A> [<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Pointer to any member (usually, but not necessarily
+a cluster head) of an existing list of clusters, into
+which the current object is to be linked.
+</P>
+</DIV>
+<H4><A NAME="tile_idx">tile_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+New value to use for the tile index &mdash; upon construction,
+objects will normally have a tile index of -1. The
+value supplied here should be in the range 0 to 
+<A HREF="kdu_params__link.html#num_tiles">num_tiles</A>-1 for tile-specific members of the cluster, or -1
+for cluster heads and component- but not tile-specific
+default objects.
+</P>
+</DIV>
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+New value to use for the component index &mdash; upon
+construction, objects will normally have a component
+index of -1. The value supplied here should be in the
+range 0 to 
+<A HREF="kdu_params__link.html#num_comps">num_comps</A>-1 for component-specific members of the cluster, or
+-1 for cluster and tile heads.
+</P>
+</DIV>
+<H4><A NAME="num_tiles">num_tiles</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of tiles (excluding the one with a negative
+tile index) for objects in this cluster. Must agree
+with the values supplied when linking new objects into
+the same cluster. Note that some parameter classes
+do not support tile diversity, in which case 
+<A HREF="kdu_params__link.html#num_tiles">num_tiles</A> must be 0.
+</P>
+</DIV>
+<H4><A NAME="num_comps">num_comps</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of image components (excluding the one with
+a negative component index) for objects in this cluster.
+Must agree with the values supplied when linking new
+objects into the same cluster. Note that some parameter
+classes do not support component diversity, in which
+case 
+<A HREF="kdu_params__link.html#num_comps">num_comps</A> must be 0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__~kdu_params.html"> prev </A>||<A HREF="kdu_params__new$instance.html"> next </A>|</P>
+</BODY>
+</HTML>

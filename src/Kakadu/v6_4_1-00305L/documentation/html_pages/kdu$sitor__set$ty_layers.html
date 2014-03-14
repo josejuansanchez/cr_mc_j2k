@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::set_max_quality_layers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__flu$ion_queue.html"> prev </A>||<A HREF="kdu$sitor__get$ty_layers.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::set_max_quality_layers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Set_max_quality_layers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_max_quality_layers(
+<B>int</B>&nbsp;quality_layers)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_max_quality_layers(
+int&nbsp;quality_layers)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Sets the maximum number of quality layers to be decompressed
+within any given code-stream. By default, all quality
+layers will be decompressed. Note that this function
+does not actually affect the imagery which has already
+been decompressed. Nor does it cause that imagery to
+be decompressed again from scratch in future calls
+to 
+<A HREF="kdu$sitor__process.html">process</A>. To ensure that this happens, you should call 
+<A HREF="kdu$sitor__refresh.html">refresh</A> before further calls to 
+<A HREF="kdu$sitor__process.html">process</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="quality_layers">quality_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__flu$ion_queue.html"> prev </A>||<A HREF="kdu$sitor__get$ty_layers.html"> next </A>|</P>
+</BODY>
+</HTML>

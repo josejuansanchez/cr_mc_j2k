@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_target) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jp2_target</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jp2_target</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="jp2$1t_box.html">jp2_output_box</A></P>
+<DIR><P>Derives from <A HREF ="kdu$arget.html">kdu_compressed_target</A></P>
+</DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides full support for generating or copying JP2
+files. After calling 
+<A HREF="jp2_target__open__1.html">jp2_target::open</A>, you may pass the object directly to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>. Note, however, that you should not invoke 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> until after you have called 
+<A HREF="jp2_target__wri$e_header.html">write_header</A> and 
+<A HREF="jp2_target__ope$destream.html">open_codestream</A>. In general, the sequence of operations used to generate
+a JP2 file is as follows:
+</P><UL><LI>
+Create and open a 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A> object.
+</LI><LI>
+Pass this object to 
+<A HREF="jp2_target__open__1.html">jp2_target::open</A> (not the base object's 
+<A HREF="jp2$1t_box__open__1.html">jp2_output_box::open</A> function).
+</LI><LI>
+Pass the open 
+<A HREF="jp2_target.html">jp2_target</A> object into 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A></LI><LI>
+Configure header attributes by using the present object's
+access functions and initializing the various attributes
+(
+<A HREF="jp2$sions.html">jp2_dimensions</A>, 
+<A HREF="jp2_colour.html">jp2_colour</A>, 
+<A HREF="jp2$nnels.html">jp2_channels</A>, etc.) as appropriate.
+</LI><LI>
+Call 
+<A HREF="jp2_target__wri$e_header.html">write_header</A> to write the JP2 header.
+</LI><LI>
+Optionally write additional boxes, opening them using
+the base object's 
+<A HREF="jp2$1t_box__open_next.html">jp2_output_box::open_next</A> function, writing their contents (or sub-boxes) and
+closing them using 
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A>.
+</LI><LI>
+Call 
+<A HREF="jp2_target__ope$destream.html">open_codestream</A> prior to any call to 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A>.
+</LI><LI>
+Call the base object's 
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A> function.
+</LI><LI>
+Optionally write additional boxes or code-streams by
+using 
+<A HREF="jp2$1t_box__open_next.html">jp2_output_box::open_next</A> and/or 
+<A HREF="jp2_target__ope$destream.html">open_codestream</A>, closing the relevant boxes once you are done with
+them.
+</LI><LI>
+Call 
+<A HREF="jp2$y_tgt__close.html">jp2_family_tgt::close</A> when you are completely finished.
+</LI></UL><P>
+ Note that objects of this class are no longer merely
+interfaces to an internal implementation object. For
+this reason, it is now illegal to directly assign a
+<A HREF="jp2_target.html">jp2_target</A> object to another 
+<A HREF="jp2_target.html">jp2_target</A> object.
+</P><P>
+ Also note that the base object's 
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A> function does not close the file (or other target
+device). It simply closes the currently open output
+box. To close the file, you need to call 
+<A HREF="jp2$y_tgt__close.html">jp2_family_tgt::close</A>.
+</P><P>
+ From Kakadu Version 4.1 the new 
+<A HREF="jpx_target.html">jpx_target</A> object is available for creating instances of the
+much more general JPX file format. You may wish to
+create JP2 compatible JPX files rather than just JP2
+files.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jp2_target__jp2_target.html">jp2_target</A> {<U>Java:</U> Jp2_target}
+</P>
+<P><A HREF="jp2_target__~jp2_target.html">~jp2_target</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="jp2_target__operator=.html">operator=</A></P>
+<P><A HREF="jp2_target__open__1.html">open</A> [virtual] <EM>(4 forms)</EM> {<U>Java:</U> Open}
+</P>
+<P><A HREF="jp2_target__wri$e_header.html">write_header</A> {<U>Java:</U> Write_header}
+</P>
+<P><A HREF="jp2_target__ope$destream.html">open_codestream</A> {<U>Java:</U> Open_codestream}
+</P>
+<P><A HREF="jp2_target__acc$mensions.html">access_dimensions</A> {<U>Java:</U> Access_dimensions}
+</P>
+<P><A HREF="jp2_target__acc$s_colour.html">access_colour</A> {<U>Java:</U> Access_colour}
+</P>
+<P><A HREF="jp2_target__acc$_palette.html">access_palette</A> {<U>Java:</U> Access_palette}
+</P>
+<P><A HREF="jp2_target__acc$channels.html">access_channels</A> {<U>Java:</U> Access_channels}
+</P>
+<P><A HREF="jp2_target__acc$solution.html">access_resolution</A> {<U>Java:</U> Access_resolution}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

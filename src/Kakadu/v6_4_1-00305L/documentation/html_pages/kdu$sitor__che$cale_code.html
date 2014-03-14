@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::check_invalid_scale_code) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__set$r_surface.html"> prev </A>||<A HREF="kdu$sitor__get$tion_dims.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::check_invalid_scale_code</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Check_invalid_scale_code</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> check_invalid_scale_code(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Check_invalid_scale_code(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function allows you to figure out what went wrong
+if any of the functions 
+<A HREF="kdu$sitor__process.html">process</A>, 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> or 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> returns a false or NULL result. As noted in connection
+with those functions, this can happen if the scale
+requested by the most recent call to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> is too large, too small, or its impact on the overall
+rendering dimensions needs to change slightly, given
+the limited number of DWT levels which can be discarded
+during decompression of some relevant tile-component.
+Alternatively, it may happen because the requested
+rendering process calls for geometric flipping of one
+or more image surfaces, and this operation cannot be
+performed dynamically during decompression, due to
+the use of adverse packet wavelet decomposition structures.
+These conditions are identified by the presence of
+one or more of the following error flags in the returned
+word:
+</P><UL><LI>
+<A HREF="globals.html#KDU_COMPOSITOR_SCALE_TOO_SMALL">KDU_COMPOSITOR_SCALE_TOO_SMALL</A> &mdash; remedy: increase the scale.
+</LI><LI>
+<A HREF="globals.html#KDU_COMPOSITOR_SCALE_TOO_LARGE">KDU_COMPOSITOR_SCALE_TOO_LARGE</A> &mdash; remedy: decrease the scale.
+</LI><LI>
+<A HREF="globals.html#KDU_COMPOSITOR_TRY_SCALE_AGAIN">KDU_COMPOSITOR_TRY_SCALE_AGAIN</A> &mdash; remedy: re-invoke 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A>, since dimensions need to change slightly for the
+current scale.
+</LI><LI>
+<A HREF="globals.html#KDU_COMPOSITOR_CANNOT_FLIP">KDU_COMPOSITOR_CANNOT_FLIP</A> &mdash; remedy: try an alternate rendering geometry.
+</LI></UL><P>
+ If you need to change the scale in response to 
+<A HREF="globals.html#KDU_COMPOSITOR_SCALE_TOO_SMALL">KDU_COMPOSITOR_SCALE_TOO_SMALL</A> or 
+<A HREF="globals.html#KDU_COMPOSITOR_SCALE_TOO_LARGE">KDU_COMPOSITOR_SCALE_TOO_LARGE</A>, you can use the 
+<A HREF="kdu$sitor__fin$mal_scale.html">find_optimal_scale</A> function to determine the closest acceptable scaling
+factor to the one you are currently using, by passing
+the current scale factor as the 
+<B>min_scale</B>, 
+<B>max_scale</B> and 
+<B>scale_anchor</B> arguments to that function.
+</P><P>
+ If the return value is 0, none of these problems has
+been detected. It is worth noting, however, that the
+<B>invalid_scale_code</B> value returned here is reset to 0 each time 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> is called, after which an attempt must be made to
+call one of 
+<A HREF="kdu$sitor__process.html">process</A>, 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> or 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> before an error code can be detected.
+</P><P>
+ It is also worth noting that rendering might proceed
+fine within some region, without generating an invalid
+scale code, but this may change later when we come
+to rendering a different region. This is because the
+adverse conditions responsible for the code may vary
+from tile-component to tile-component within JPEG2000
+codestreams.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__set$r_surface.html"> prev </A>||<A HREF="kdu$sitor__get$tion_dims.html"> next </A>|</P>
+</BODY>
+</HTML>

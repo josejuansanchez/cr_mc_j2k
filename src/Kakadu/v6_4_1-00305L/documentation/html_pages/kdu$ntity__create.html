@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$num_locks.html"> prev </A>||<A HREF="kdu$ntity__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Create</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> create(
+<B>kdu_long</B>&nbsp;cpu_affinity=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Create(
+long&nbsp;cpu_affinity)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You must call this function after construction to prepare
+the thread entity for use. Prior to this point 
+<A HREF="kdu$ntity__exists.html">exists</A> will return false. After creation, the present object
+will become the owner of a group, to which workers
+may be added using the 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="cpu_affinity">cpu_affinity</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument can be used to associate the threads
+which collaborate in this group with one or more specific
+logical CPU's. If the value is zero, threads can run
+on any CPU. Otherwise, the operating system is requested
+to schedule the threads only on those logical CPU's
+n, such that bit n is set in the 
+<A HREF="kdu$ntity__create.html#cpu_affinity">cpu_affinity</A> mask. The function effectively causes 
+<A HREF="kdu_thread__set$affinity.html">kdu_thread::set_cpu_affinity</A> to be invoked on the current thread and then each
+thread added to the group using 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A>. Whether or not this argument actually affects thread
+scheduling depends on the specific platform and the
+support offered by 
+<A HREF="kdu_thread__set$affinity.html">kdu_thread::set_cpu_affinity</A> for that platform.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__get$num_locks.html"> prev </A>||<A HREF="kdu$ntity__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

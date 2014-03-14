@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_error::~kdu_error) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_error__kdu_error__3.html"> prev </A>||<A HREF="kdu_error__put_text__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_error::~kdu_error</A></H1>
+<P CLASS="function-text">virtual  ~kdu_error(
+)</P>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ssage__~kdu_message.html">kdu_message::~kdu_message</A></H3></DIV>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P><A HREF="kdu_error.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The destructor terminates the process through 
+<B>exit</B>, unless a custom error handling 
+<A HREF="kdu$ssage.html">kdu_message</A>-derived object has been installed using 
+<A HREF="globals__kdu$mize_errors.html">kdu_customize_errors</A>. In the latter case, the error can be caught immediately
+before the call to 
+<B>exit</B> by overriding 
+<A HREF="kdu$ssage__flush.html">kdu_message::flush</A> and checking for the 
+<B>end_of_message</B>=true condition. The override may throw an exception
+in interactive applications where processing must be
+able to continue. Because this behaviour is to be expected,
+you should be careful only to destroy 
+<A HREF="kdu_error.html">kdu_error</A> objects from a context in which both process exit
+and exception throwing are reasonable behaviours.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_error__kdu_error__3.html"> prev </A>||<A HREF="kdu_error__put_text__1.html"> next </A>|</P>
+</BODY>
+</HTML>

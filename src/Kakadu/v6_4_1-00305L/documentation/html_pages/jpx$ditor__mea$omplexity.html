@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::measure_complexity) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$ditor__del$ed_region.html"> prev </A>||<A HREF="jpx$ditor__cle$le_points.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::measure_complexity</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Measure_complexity</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>double</B> measure_complexity(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native double Measure_complexity(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function calculates the complexity of the region
+description currently being stored, expressed in the
+range 0.0 to 1.0. The complexity is based on the number
+of individual region elements which would be required
+to represent the current configuration in a JPX ROI
+description box. This value may not exceed 255. Some
+quadrilateral/elliptical regions require two elements,
+while others require only 1. Since the internal storage
+is sufficient to hold up to 255 quadrilaterals/elliptical
+regions, it is possible for the complexity to be as
+large as 2.0, yet configurations with complexity greater
+than 1.0 are not externally representable.
+</P><P>
+ When the complexity becomes too high, 
+<A HREF="jpx$ditor__mov$ed_anchor.html">move_selected_anchor</A> may fail with a warning and 
+<A HREF="jpx$ditor__add_region.html">add_region</A> will not add anything. The 
+<A HREF="jpx$ditor__mov$ed_anchor.html">move_selected_anchor</A> function explicitly prevents any change which would
+cause the complexity to exceed 1.0, while 
+<A HREF="jpx$ditor__add_region.html">add_region</A> takes the conservative position that there must enough
+spare capacity to add an arbitrary ellipse or quadrilateral
+without exceeding a complexity of 1.0. However, other
+functions like 
+<A HREF="jpx$ditor__spl$ed_anchor.html">split_selected_anchor</A> are not checked, since there is no risk of violating
+internal storage constraints. This is OK, because such
+operations may be precursors to editing operations
+which may restore the limit. In any case, an application
+can always explicitly call this function after performing
+any editing operation and then execute 
+<A HREF="jpx$ditor__undo.html">undo</A> if the operation is not suitable.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A value in the range 0.0 to 2.0, where 1.0 is the maximum
+complexity that can be externalized to a JPX ROI description
+box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$ditor__del$ed_region.html"> prev </A>||<A HREF="jpx$ditor__cle$le_points.html"> next </A>|</P>
+</BODY>
+</HTML>

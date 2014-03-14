@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::set_state_ref) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__touch.html"> prev </A>||<A HREF="jpx$anode__get$state_ref.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::set_state_ref</A></H1>
+<P CLASS="function-text"><B>void</B> set_state_ref(
+<B>void</B>&nbsp;*&nbsp;ref)</P>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You can use this function to record an application-defined
+pointer with the metanode. Typically, this would be
+used to help efficiently synchronize changes in the
+metadata structure with an application-specific representation
+of some or all of the metadata. The supplied pointer
+survives editing and deleting of metadata nodes (since
+<A HREF="jpx$anode__delete_node.html">delete_node</A> does not deallocate the memory itself). However, these
+pointers are not copied by the 
+<A HREF="jpx$anode__add_copy.html">add_copy</A> function or by 
+<A HREF="jpx$nager.html">jpx_meta_manager</A>s copy functions.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ref">ref</A> [<B>void</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__touch.html"> prev </A>||<A HREF="jpx$anode__get$state_ref.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::find_render_point) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$eam_point.html"> prev </A>||<A HREF="kdu$essor__fin$over_dims.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::find_render_point</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Find_render_point</EM></H3></DIR></DIR>
+<P CLASS="function-text">static <A HREF ="kdu_coords.html">kdu_coords</A> find_render_point(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;codestream_point,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_subs,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_denominator)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_coords Find_render_point(
+Kdu_coords&nbsp;codestream_point,
+Kdu_coords&nbsp;ref_comp_subs,
+Kdu_coords&nbsp;ref_comp_expand_numerator,
+Kdu_coords&nbsp;ref_comp_expand_denominator)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns a single representative location
+on the rendering grid, corresponding to 
+<A HREF="kdu$essor__fin$der_point.html#codestream_point">codestream_point</A> on the high resolution codestream canvas.
+</P><P>
+ The function first locates the 
+<A HREF="kdu$essor__fin$der_point.html#codestream_point">codestream_point</A> on the coordinate system of a "reference" image component
+which has the sub-sampling factors supplied by 
+<A HREF="kdu$essor__fin$der_point.html#ref_comp_subs">ref_comp_subs</A>. It then applies the expansion factors represented
+by 
+<A HREF="kdu$essor__fin$der_point.html#ref_comp_expand_numerator">ref_comp_expand_numerator</A> and 
+<A HREF="kdu$essor__fin$der_point.html#ref_comp_expand_denominator">ref_comp_expand_denominator</A> to determine the region on the rendering grid which
+is associated with the relevant sample on the reference
+image component. Finally, the centroid of this region
+is taken to be the representative location on the rendering
+grid.
+</P><P>
+ The specific transformations employed by this function
+are as follows. Let X denote the horizontal or vertical
+ordinate of 
+<A HREF="kdu$essor__fin$der_point.html#codestream_point">codestream_point</A> (the same transformations are applied in each direction).
+Assuming symmetric wavelet kernels, the closest corresponding
+point x on the reference image component is obtained
+from x = ceil(X/S - 0.5) = ceil((2*X-S)/(2*S)).
+</P><P>
+ Considering the conventions described in conjunction
+with the 
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A> function, the reference component sample at location
+x covers the half-open interval [x*N/D-H,(x+1)*N/D-H)
+on the reference grid. Here, N and D are the relevant
+ordinates of 
+<A HREF="kdu$essor__fin$der_point.html#ref_comp_expand_numerator">ref_comp_expand_numerator</A> and 
+<A HREF="kdu$essor__fin$der_point.html#ref_comp_expand_denominator">ref_comp_expand_denominator</A>, respectively, and H = floor((N-1)/2) / D. The present
+function returns the centroid of this region, rounded
+to the "nearest" integer. Specifically, the function
+returns Xr = floor((2*x+1)*N/(2*D) - H).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream_point">codestream_point</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_subs">ref_comp_subs</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_numerator">ref_comp_expand_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_denominator">ref_comp_expand_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$eam_point.html"> prev </A>||<A HREF="kdu$essor__fin$over_dims.html"> next </A>|</P>
+</BODY>
+</HTML>

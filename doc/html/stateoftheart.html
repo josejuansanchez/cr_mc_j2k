@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="state-of-the-art">State of the art</h1>
+<h4 id="keywords">Keywords</h4>
+<p>JPEG2000, Streaming, Conditional Replenishment, Motion Compensation</p>
+<h4 id="conditional-replenishment-of-jpeg2000-tiles-with-motion-compensation">Conditional Replenishment of JPEG2000 tiles with Motion Compensation</h4>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Reduces the inter-frame redundancy present in common JPEG2000 sequences (MJP2 sequences).</li>
+<li>Applies a real-time motion compensation technique to the MJP2 sequences before transmission.</li>
+<li>They propose transmitting only the tiles that change in each JPEG2000 frame.</li>
+<li><em>Review</em>: the method proposed for real-time tile change detection.</li>
+</ul>
+<p><strong>References</strong></p>
+<ol style="list-style-type: decimal">
+<li><a href="http://www.sciencedirect.com/science/article/pii/S1047320311000253">MIJ2K: Enhanced video transmission based on conditional replenishment of JPEG2000 tiles with motion compensation</a>.<br />Alvaro Luis Bustamante, José M. Molina López, Miguel A. Patricio.<br />Univ. Carlos III de Madrid, Madrid, Spain.</li>
+</ol>
+<h4 id="conditional-replenishment-of-jpeg2000-code-blocks-with-motion-compensation">Conditional Replenishment of JPEG2000 code-blocks with Motion Compensation</h4>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Too complex to be applied in real-time environments.</li>
+<li>Clients and servers have to be purposely designed for use with these techniques.</li>
+</ul>
+<p><strong>References</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4379773">A novel paradigm for optimized scalable video transmission based on JPEG2000 with motion.</a><br />A. Naman, D. Taubman.<br />IEEE International Conference on Image Processing, 2007. ICIP 2007, vol. 5, 2007.</p></li>
+<li><p><a href="http://delivery.acm.org/10.1145/1300000/1290061/p43-naman.pdf">Optimized scalable video transmission based on conditional replenishment of JPEG2000 code-blocks with motion compensation</a>. A. Naman, D. Taubman.<br />Proceedings of the International Workshop on Mobile Video, ACM, New York, NY, USA (2007), pp. 43–48</p></li>
+<li><p><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX%20-%20A%20FLEXIBLE%20VIDEO%20TRANSMISSION%20SYSTEM%20BASED%20ON%20JPEG%202000%20CONDITIONAL%20REPLENISHMENTWITH%20MULTIPLE%20REFERENCES_FO_Devaux.pdf">A flexible video transmission system based on JPEG 2000 conditional replenishment with multiple references</a>.<br />F. Devaux, J. Meessen, C. Parisot, J. Delaigle, B. Macq, C. De Vleeschouwer.<br />IEEE International Conference on Acoustics, Speech Signal Proces. (ICASSP 07).</p></li>
+</ol>
+<hr />
+<p><strong>Notes</strong></p>
+<ul>
+<li>They propose a rate-distortion optimal strategy to select the most profitable packets to transmit.</li>
+<li>They provide the client with two references, the previous reconstructed frame and an estimation of the current scene background, which improves the transmission system performances.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX%20-%20A%20FLEXIBLE%20VIDEO%20TRANSMISSION%20SYSTEM%20BASED%20ON%20JPEG%202000%20CONDITIONAL%20REPLENISHMENTWITH%20MULTIPLE%20REFERENCES_FO_Devaux.pdf">A flexible video transmission system based on JPEG2000 Conditional Replenishment with multiple references</a></li>
+</ul>
+<hr />
+<p><strong>Thesis</strong>:</p>
+<ul>
+<li><p><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX_JPEG%202000%20and%20Parity%20Bit%20Replenishment%20for%20Remote%20Video%20Browsing_Thesis_FO_Devaux.pdf">JPEG 2000 and Parity Bit Replenishment for Remote Video Browsing</a><br /> François-Olivier Devaux. September 2008.</p></li>
+<li><p><a href="http://www.hpca.ual.es/~jjsanchez/references/Thesis_JPEG2000-Based_Scalable_Interactive_Video.pdf">JPEG2000-Based Scalable Interactive Video (JSIV)</a><br /> Aous Thabit Naman. September 2010.</p></li>
+</ul>
+<hr />
+<h3 id="patents">Patents</h3>
+<ul>
+<li><a href="http://www.google.com/patents/US8577157">Conditional replenishment for motion JPEG2000 »</a><br /> Inventors: <a href="http://www.technicolor.com/en/talent/researcher/le-leannec">Fabrice Le Leannec</a> and <a href="http://www.informatik.uni-trier.de/~ley/pers/hd/h/Henocq:Xavier.html">Xavier Henocq</a>. / Canon.<br /> Date of Patent: Nov. 5, 2013</li>
+</ul>
+<hr />
+<ul>
+<li><p><a href="http://www.stanford.edu/class/ee368b/Projects/chiao/">Rate-constrained Conditional Replenishment Video Coding with Adaptive Change Detection</a><br /> Xinqiao Liu. December 1, 2000.</p></li>
+<li><p><a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4387612">A New Video Compression Scheme Combining Conditional Replenishment and Address Event Representation</a><br /> IEEE Workshop on Signal Processing Systems, 2007. Date of Conference: 17-19 Oct. 2007.</p></li>
+</ul>
+<hr />
+<h3 id="references">References</h3>
+<ul>
+<li>H. Everett, III. <a href="http://www.hpca.ual.es/~jjsanchez/references/Generalized_Lagrange_multiplier_method_for_solving_problems_of_optimum_allocation_of_resources.pdf">Generalized lagrange multiplier method for solving problems of optimum allocation of resources</a>. Operations Research, 11(3):399–417, 1963</li>
+</ul>
+</body>
+</html>

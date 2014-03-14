@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create__2.html"> prev </A>||<A HREF="kdu$tream__restart__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Create</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$tream__create__1.html">1</A>,
+<A HREF="kdu$tream__create__2.html">2</A>,
+3</B></P>
+<P CLASS="function-text"><B>void</B> create(
+<A HREF ="siz_params.html">siz_params</A>&nbsp;*&nbsp;siz)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Create(
+Siz_params&nbsp;siz)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This third form of the 
+<A HREF="kdu$tream__create__1.html">create</A> function is used to create what we refer to as an
+<B>interchange codestream</B>, for want of a better name. There is no source and
+no target for the compressed data. Code-blocks are
+generally pushed into the internal code-stream management
+machinery with the aid of the 
+<A HREF="kdu$cinct__open_block.html">kdu_precinct::open_block</A> function and assembled code-stream packets are generally
+recovered using 
+<A HREF="kdu$cinct__get_packets.html">kdu_precinct::get_packets</A>. The 
+<A HREF="kdu$bband.html">kdu_subband</A> and 
+<A HREF="kdu$cinct.html">kdu_precinct</A> interfaces may ultimately be recovered from the top
+level 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface by exercising appropriate functions to open
+tiles, and access their tile-components, resolutions,
+subbands and precincts.
+</P><P>
+ It is perhaps easiest to think of an 
+<B>interchange codestream</B> as an 
+<B>output codestream</B> (see the first form of the 
+<A HREF="kdu$tream__create__1.html">create</A> function) without any compressed data target. By and
+large, code-blocks are pushed into the object in the
+same manner as they are for an output codestream and
+this may be accomplished either by the data processing
+machinery (see "kdu_sample_processing.h") or (more
+commonly) by handing on code-blocks recovered from
+a separate input codestream.
+</P><P>
+ There are a number of key points at which the behaviour
+of an 
+<B>interchange codestream</B> differs sigificantly from that of an 
+<B>output codestream</B>. Firstly, the 
+<A HREF="kdu$cinct.html">kdu_precinct</A> interface is accessible only when the internal code-stream
+management machinery is created for interchange. Moreover,
+when a precinct is closed (by calling 
+<A HREF="kdu$cinct__close.html">kdu_precinct::close</A>), all of the associated code-block data is discarded
+immediately, regardless of whether it has been put
+to any good purpose or not.
+</P><P>
+ Interchange codestreams are primarily intended for
+implementing dynamic code-stream servers. In such applications,
+a separate input codestream (usually one with the persistent
+mode enabled &mdash; see 
+<A HREF="kdu$tream__set$ersistent.html">set_persistent</A>) is used to derive compressed data on an as-needed
+basis, which is then transcoded on-the-fly into packets
+which may be accessed in any order and delivered to
+a client based upon its region of interest. The precinct
+size adopted by the interchange codestream object may
+be optimized for the communication needs of the client-server
+application, regardless of the precinct size used when
+compressing the separate input code-stream. Other transcoding
+operations may be employed in this interchange operation,
+including the insertion of error resilience information.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="siz">siz</A> [<A HREF ="siz_params.html">siz_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Plays the same role as its namesake in the first form
+of the 
+<A HREF="kdu$tream__create__1.html">create</A> function, used to create an 
+<B>output codestream</B>. As in that case, the 
+<A HREF="siz_params.html">siz_params</A> object must have been filled out (and finalized) by
+the caller; an internal copy of the object is made
+for use by the internal machinery.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create__2.html"> prev </A>||<A HREF="kdu$tream__restart__1.html"> next </A>|</P>
+</BODY>
+</HTML>

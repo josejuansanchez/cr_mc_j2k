@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compositor_buf::~kdu_compositor_buf) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$r_buf__kdu$sitor_buf.html"> prev </A>||<A HREF="kdu$r_buf__init.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compositor_buf::~kdu_compositor_buf</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compositor_buf.Native_destroy</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual  ~kdu_compositor_buf(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native  Native_destroy(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$r_buf.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If you are providing your own buffers, based on a derived
+version of this class, beware that the internal 
+<B>buf</B> and 
+<B>float_buf</B> arrays will be passed to the C++ 
+<B>delete</B> operator if non-NULL. If you have allocated these
+using anything other than 
+<B>new</B>, be sure to override the destructor and set them to
+NULL before exiting your version of the function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$r_buf__kdu$sitor_buf.html"> prev </A>||<A HREF="kdu$r_buf__init.html"> next </A>|</P>
+</BODY>
+</HTML>

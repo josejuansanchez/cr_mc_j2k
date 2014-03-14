@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::read_tag) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__read_tag__4.html"> prev </A>||<A HREF="kdu$ffdir__create_tag.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::read_tag</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Read_tag</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$ffdir__read_tag__1.html">1</A>,
+<A HREF="kdu$ffdir__read_tag__2.html">2</A>,
+<A HREF="kdu$ffdir__read_tag__3.html">3</A>,
+<A HREF="kdu$ffdir__read_tag__4.html">4</A>,
+5</B></P>
+<P CLASS="function-text"><B>kdu_long</B> read_tag(
+<B>kdu_uint32</B>&nbsp;tag_type,
+<B>kdu_long</B>&nbsp;length,
+<B>kdu_long</B>&nbsp;data[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Read_tag(
+long&nbsp;tag_type,
+long&nbsp;length,
+long[]&nbsp;data)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the second form of 
+<A HREF="kdu$ffdir__read_tag__1.html">read_tag</A>, except that this function may be used with tags whose
+data type (least significant two bytes of the 
+<A HREF="kdu$ffdir__read_tag__5.html#tag_type">tag_type</A>) is one of 3, 4, 8 or 9, 16 or 17. These are the data
+types for which each entry is a 2, 4 or 8 byte integer.
+Attempts to read anything else will generate an error
+through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ If the 
+<A HREF="kdu$ffdir__read_tag__5.html#tag_type">tag_type</A> utilizes only 2 or 4 byte integers, the representation
+is automatically expanded, using either signed or unsigned
+extension, depending on whether the underlying data
+type is signed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tag_type">tag_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="length">length</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of 64-bit words to read.
+</P>
+</DIV>
+<H4><A NAME="data">data[]</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array containing at least 
+<A HREF="kdu$ffdir__read_tag__5.html#length">length</A> entries, into which the data is written.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__read_tag__4.html"> prev </A>||<A HREF="kdu$ffdir__create_tag.html"> next </A>|</P>
+</BODY>
+</HTML>

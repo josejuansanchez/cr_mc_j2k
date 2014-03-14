@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::custom_textualize_field) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__cus$se_field.html"> prev </A>||<A HREF="kdu_params__finalize.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::custom_textualize_field</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Custom_textualize_field</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> custom_textualize_field(
+<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;&amp;&nbsp;output,
+<B>const char *</B>&nbsp;name,
+<B>int</B>&nbsp;field_idx,
+<B>int</B>&nbsp;val)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Custom_textualize_field(
+Kdu_message&nbsp;output,
+String&nbsp;name,
+int&nbsp;field_idx,
+int&nbsp;val)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to textualize parameter attributes
+which were assigned the 
+<B>C</B> (custom) type identifier by the 
+<B>define_attribute</B> function. In this case, the attribute has a complex
+textual representation, which cannot conveniently be
+described using the generic enumerated type. Any meaningful
+implementation of this function must be provided by
+the specific 
+<A HREF="kdu_params.html">kdu_params</A>-derived object in question.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="output">output</A> [<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Location to which the translated text is written.
+</P>
+</DIV>
+<H4><A NAME="name">name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the attribute name, e.g., 
+<A HREF="globals.html#Cdecomp">Cdecomp</A>.
+</P>
+</DIV>
+<H4><A NAME="field_idx">field_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies which field in a record is actually being
+translated. A value of 0 refers to the first field.
+</P>
+</DIV>
+<H4><A NAME="val">val</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The value to be translated into a text string.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__cus$se_field.html"> prev </A>||<A HREF="kdu_params__finalize.html"> next </A>|</P>
+</BODY>
+</HTML>

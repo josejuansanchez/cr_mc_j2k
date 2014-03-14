@@ -1,0 +1,29 @@
+1. JP2 to PGM
+2. PGM to PPM
+3. PPM to YUV
+4. Use "split.sh" to create: even.yuv and odd.yuv
+5. ./bin/me -p 999 -x 4096 -y 4096 -b 16 -e images/even.yuv -o images/odd.yuv -a 3
+6. ./bin/media -b 16 -x 4096 -y 4096 -prev -f 498
+7. ./bin/media -b 16 -x 4096 -y 4096 -next -f 498
+
+----
+
+Hemos modificado las siguientes constantes:
+
+ORIGINAL:   //#define TC_CPU_TYPE short
+MODIFICADO: #define TC_CPU_TYPE unsigned char
+
+ORIGINAL:   //#define MVC_CPU_TYPE short
+MODIFICADO: #define MVC_CPU_TYPE float
+
+----
+
+./bin/me -p 2 -x 4096 -y 4096 -b 16 -e images/sunpgm/sun001.pgm -o images/sunpgm/sun402.pgm -a 1
+
+File: vectors/prev_0000 created!
+File: gnuplot/prev_0000 created!
+
+josejuan@indalo:~/MCJ2K/gnuplot$ ./view.sh prev_0000
+
+./bin/media -b 16 -x 4096 -y 4096 -f vectors/cinco.dat -F 0.2 -g vectors/cuatro.dat -G 0.8
+

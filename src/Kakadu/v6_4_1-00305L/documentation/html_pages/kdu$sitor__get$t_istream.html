@@ -1,0 +1,149 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::get_next_istream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$xt_ilayer.html"> prev </A>||<A HREF="kdu$sitor__get$le_ilayer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::get_next_istream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Get_next_istream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$m_ref.html">kdu_istream_ref</A> get_next_istream(
+<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;last_istream_ref,
+<B>bool</B>&nbsp;only_active_istreams=true,
+<B>bool</B>&nbsp;no_duplicates=false,
+<B>int</B>&nbsp;codestream_idx=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_istream_ref Get_next_istream(
+Kdu_istream_ref&nbsp;last_istream_ref,
+boolean&nbsp;only_active_istreams,
+boolean&nbsp;no_duplicates,
+int&nbsp;codestream_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You may use this function to walk through the istreams
+which are currently available in the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object. An "istream" (or "imagery stream") corresponds
+to a single JPEG2000 codestream, within the context
+of a single imagery layer in the composition. A single
+codestream may be used by multiple imagery layers,
+in which case each use corresponds to a distinct istream,
+even if the underlying codestream resource is actually
+shared between such distinct uses for efficiency. A
+single imagery layer usually builds its imagery from
+a single istream, but in some cases multiple codestreams
+may be involved (JPX compositing layers, for example,
+can draw each of their colour/opacity channels from
+different codestreams).
+</P><P>
+ If you are using the present function to enumerate
+all of the actual underlying codestreams which are
+in use, you may wish to set the 
+<A HREF="kdu$sitor__get$t_istream.html#no_duplicates">no_duplicates</A> argument to true.
+</P><P>
+ The function can be used to walk through not only
+those istreams which are part of the current composition,
+but also those which are associated with inactive ilayers
+that have not yet been culled (see 
+<A HREF="kdu$sitor__cul$e_ilayers.html">cull_inactive_ilayers</A>). This latter type of istream is identified as "inactive".
+Normally, you would not be interested in scanning through
+the inactive istreams, but you can add them into the
+mix by setting the 
+<A HREF="kdu$sitor__get$t_istream.html#only_active_istreams">only_active_istreams</A> argument to false.
+</P><P>
+ If you like, you can also narrow the search performed
+by this function, so that it only includes codestreams
+with the absolute index given by 
+<A HREF="kdu$sitor__get$t_istream.html#codestream_idx">codestream_idx</A>. This absolute codestream index has exactly the same
+interpretation as in the 
+<A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Opaque reference which may be passed to many other
+member functions offered by 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> (e.g., 
+<A HREF="kdu$sitor__get$ream_info.html">get_istream_info</A>), or used with the present function to advance to
+the next istream. If there are no more istreams which
+match the constraints imposed by the 
+<A HREF="kdu$sitor__get$t_istream.html#codestream_idx">codestream_idx</A> argument, the function returns a "null" reference
+(i.e., an instance of the 
+<A HREF="kdu$m_ref.html">kdu_istream_ref</A> class whose 
+<A HREF="kdu$m_ref__is_null.html">kdu_istream_ref::is_null</A> function returns true).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="last_istream_ref">last_istream_ref</A> [<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>]</H4><DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="kdu$m_ref__is_null.html">last_istream_ref.is_null</A> is true, the function finds the first istream (in
+some sequence, that is consistent but not well defined)
+that satisfies any constraints imposed by the 
+<A HREF="kdu$sitor__get$t_istream.html#codestream_idx">codestream_idx</A> argument. You can readily instantiate such a "null"
+instance of the 
+<A HREF="kdu$m_ref.html">kdu_istream_ref</A> class using its default constructor.
+</P><P>
+ Otherwise, the function looks for the first istream
+which satisfies the constraints imposed by 
+<A HREF="kdu$sitor__get$t_istream.html#codestream_idx">codestream_idx</A> and follows the istream identified by 
+<A HREF="kdu$sitor__get$t_istream.html#last_istream_ref">last_istream_ref</A> (in the same order defined above). If none exists
+(or 
+<A HREF="kdu$sitor__get$t_istream.html#last_istream_ref">last_istream_ref</A> does not correspond to an existing istream, the function
+returns a "null" istream reference.
+</P>
+</DIV>
+<H4><A NAME="only_active_istreams">only_active_istreams</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function only returns istreams which are
+associated with a currently active ilayer. Active ilayers
+are those which are involved in the current composition.
+If you want to include those istreams which are associated
+with inactive ilayers (those that have not yet been
+culled by a call to 
+<A HREF="kdu$sitor__cul$e_ilayers.html">cull_inactive_ilayers</A>), set this argument to false.
+</P>
+</DIV>
+<H4><A NAME="no_duplicates">no_duplicates</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the sequence of istreams visited by this function
+(with each successive call using the previous call's
+return for its 
+<A HREF="kdu$sitor__get$t_istream.html#last_istream_ref">last_istream_ref</A> argument) excludes all but one istream which is associated
+with any given physical codestream resource internally.
+This can be useful if you wish to gather statistics
+regarding the physical codestream resources currently
+being managed.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If -ve, this argument does not restrict the set of
+istreams which can be returned. Otherwise, the function
+limits its search to istreams which have the indicated
+absolute codestream index. If the data source for this
+object is a raw codestream, the only codestream index
+which can exist is 0. If the data source is a 
+<A HREF="jpx_source.html">jpx_source</A> object (handles JP2 and JPX files), the codestream
+index is the positional index (starting from 0) of
+the codestream within the source, as returned by 
+<A HREF="jpx$1ource__get$layer_id.html">jpx_layer_source::get_layer_id</A>. If the data source is an 
+<A HREF="mj2_source.html">mj2_source</A> object (handles MJ2 files), the codestream index is
+the unique index whose interpretation is described
+in connection with the 
+<A HREF="mj2$ource__get$tream_idx.html">mj2_video_source::get_stream_idx</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$xt_ilayer.html"> prev </A>||<A HREF="kdu$sitor__get$le_ilayer.html"> next </A>|</P>
+</BODY>
+</HTML>

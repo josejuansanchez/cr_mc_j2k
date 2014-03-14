@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_dimensions::get_compression_type) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$sions__get_signed.html"> prev </A>||<A HREF="jp2$sions__is_$available.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_dimensions::get_compression_type</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_dimensions.Get_compression_type</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_compression_type(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_compression_type(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$sions.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns an integer identifier which should match one
+of the compression types described below. Note, the
+Kakadu tool set does not attempt to provide explicit
+support for anything other than JPEG2000 code-streams.
+</P><UL><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_NONE">JP2_COMPRESSION_TYPE_NONE</A>: The image data is uncompressed, with samples stored
+in component-interleaved fashion. All components must
+have the same bit-depth and the same dimensions. Each
+scan line commences on a byte boundary, but subsequent
+samples are bit packed so that at most the trailing
+bits of the last byte in each scan line are unused.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_MH">JP2_COMPRESSION_TYPE_MH</A>: The basic algorithm in ITU-T Rec. T.4, known as modified
+Huffman coding. This option is valid only for bi-level
+imagery.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_MR">JP2_COMPRESSION_TYPE_MR</A>: The basic algorithm in ITU-T Rec. T.4, known as modified
+READ. This option is valid only for bi-level imagery.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_MMR">JP2_COMPRESSION_TYPE_MMR</A>: The basic algorithm in ITU-T Rec. T.6, known as modified
+modified READ. This option is valid only for bi-level
+imagery.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JBIG_B">JP2_COMPRESSION_TYPE_JBIG_B</A>: JBIG compression; use this value only for bi-level
+imagery.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JPEG">JP2_COMPRESSION_TYPE_JPEG</A>: JPEG compression.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JLS">JP2_COMPRESSION_TYPE_JLS</A>: JPEG-LS compression.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JPEG2000">JP2_COMPRESSION_TYPE_JPEG2000</A>: Any valid JPEG2000 code-stream, including Part 1
+and Part 2 code-streams.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JBIG2">JP2_COMPRESSION_TYPE_JBIG2</A>: The JBIG2 algorithm.
+</LI><LI>
+<A HREF="globals.html#JP2_COMPRESSION_TYPE_JBIG">JP2_COMPRESSION_TYPE_JBIG</A>: Any code-stream allowed by the original JBIG standard,
+including multi-level imagery.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$sions__get_signed.html"> prev </A>||<A HREF="jp2$sions__is_$available.html"> next </A>|</P>
+</BODY>
+</HTML>

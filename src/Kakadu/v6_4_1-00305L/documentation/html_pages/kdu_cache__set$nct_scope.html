@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::set_precinct_scope) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__set$der_scope.html"> prev </A>||<A HREF="kdu_cache__read.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::set_precinct_scope</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Set_precinct_scope</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> set_precinct_scope(
+<B>kdu_long</B>&nbsp;unique_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Set_precinct_scope(
+long&nbsp;unique_id)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ource__set$nct_scope.html">kdu_compressed_source::set_precinct_scope</A></H3></DIV>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$ource__set$nct_scope.html">kdu_compressed_source::set_precinct_scope</A> for an explanation. Note that this function essentially
+just calls 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A>, passing in 
+<B>databin_class</B>=
+<B>KDU_PRECINCT_DATABIN</B> and 
+<B>databin_id</B>=
+<A HREF="kdu_cache__set$nct_scope.html#unique_id">unique_id</A>, while using the same code-stream identifier which
+was involved in the most recent call to 
+<A HREF="kdu_cache__set$ead_scope.html">set_read_scope</A>. The present function always returns true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="unique_id">unique_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__set$der_scope.html"> prev </A>||<A HREF="kdu_cache__read.html"> next </A>|</P>
+</BODY>
+</HTML>

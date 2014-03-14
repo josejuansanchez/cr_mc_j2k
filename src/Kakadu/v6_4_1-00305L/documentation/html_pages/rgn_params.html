@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (rgn_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">rgn_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Rgn_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 
+<B>RGN</B> (encoder-side region of interest) marker segment.
+Tile- and component-specific forms are allowed (in
+fact, required for a complete code-stream description).
+</P><P>
+ The cluster name is "RGN", but you are recommended
+to use the macro 
+<A HREF="globals.html#RGN_params">RGN_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Rshift">Rshift</A>; Pattern = "I" &mdash; Region of interest up-shift
+value. All subband samples which are involved in the
+synthesis of any image sample which belongs to the
+foreground region of an ROI mask will be effectively
+shifted up (scaled by two the power of this shift value)
+prior to quantization. The region geometry is specified
+independently and is not explicitly signalled through
+the code-stream; instead, this shift must be sufficiently
+large to enable the decoder to separate the foreground
+and background on the basis of the shifted sample amplitudes
+alone. You will receive an appropriate error message
+if the shift value is too small. Default is 0.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Rlevels">Rlevels</A>; Pattern = "I" &mdash; Number of initial (highest
+frequency) DWT levels through which to propagate geometric
+information concerning the foreground region for ROI
+processing. Additional levels (i.e., lower frequency
+subbands) will be treated as belonging entirely to
+the foreground region. Default is 4.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Rweight">Rweight</A>; Pattern = "F" &mdash; Region of interest significance
+weight. Although this attribute may be used together
+with 
+<A HREF="globals.html#Rshift">Rshift</A>, it is common to use only one or the other. All code-blocks
+whose samples contribute in any way to the reconstruction
+of the foreground region of an ROI mask will have their
+distortion metrics scaled by the square of the supplied
+weighting factor, for the purpose of rate allocation.
+This renders such blocks more important and assigns
+to them relatively more bits, in a manner which is
+closely related to the effect of the 
+<B>Clevel_weights</B> and 
+<A HREF="globals.html#Cband_weights">Cband_weights</A> attributes on the importance of whole subbands. Note
+that this region weighting strategy is most effective
+when working with large images and relatively small
+code-blocks (or precincts). Default is 1, i.e., no
+extra weighting.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="rgn_params__rgn_params.html">rgn_params</A> {<U>Java:</U> Rgn_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

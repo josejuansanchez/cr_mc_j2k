@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_target::close) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx_target__wri$metadata.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_target::close</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_target.Close</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> close(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Close(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function only after you have written the
+JPX header and generated contiguous codestream boxes
+or fragment tables for each codestream. It is possible
+that the function will generate additional trailing
+boxes of its own. If you fail to do this, an error
+will be generated through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ It is safe to call this function even if the object
+was never opened, or has been closed since it was last
+opened, but in this case the function will return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True, unless the object was not open.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx_target__wri$metadata.html"> prev </A>|</P>
+</BODY>
+</HTML>

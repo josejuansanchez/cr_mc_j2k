@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::get_valid_precincts) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get_dims.html"> prev </A>||<A HREF="kdu$ution__ope$_precinct.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::get_valid_precincts</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Get_valid_precincts</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> get_valid_precincts(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;indices)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Get_valid_precincts(
+Kdu_dims&nbsp;indices)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the range of precinct indices which correspond
+to the current region of interest. The indices of the
+first precinct whose code-blocks make any contribution
+to the region of interest are returned via 
+<A HREF="kdu_dims.html#pos">indices.pos</A>. Note that these may be negative if geometric transformations
+were specified in any call to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>. The number of precincts in each direction whose code-blocks
+contribute to the region of interest is returned via
+<A HREF="kdu_dims.html#size">indices.size</A>.
+</P><P>
+ It is worth stressing the fact that the range of indices
+returned by this function refers to precincts whose
+code-blocks contribute to the region of interest during
+subband synthesis. This does not necessarily mean that
+the region occupied by the precinct on the canvas actually
+intersects with the region of interest, since subband
+synthesis is a spatially expansive operation. This
+interpretation of the range of valid indices is particularly
+useful for building servers for interactive client-server
+applications.
+</P><P>
+ The caller should not attempt to attach any interpretation
+to the absolute indices retrieved by this function.
+Instead, it should use these indices to determine which
+precincts are to be opened using the 
+<A HREF="kdu$ution__ope$_precinct.html">open_precinct</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="indices">indices</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get_dims.html"> prev </A>||<A HREF="kdu$ution__ope$_precinct.html"> next </A>|</P>
+</BODY>
+</HTML>

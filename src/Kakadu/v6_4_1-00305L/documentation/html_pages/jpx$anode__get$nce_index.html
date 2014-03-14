@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_sequence_index) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__che$_complete.html"> prev </A>||<A HREF="jpx$anode__get_parent.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_sequence_index</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_sequence_index</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_sequence_index(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_sequence_index(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns an index which identifies the
+point at which the current metanode was added to the
+hierarchy by parsing, copying or direct use of one
+of the add... functions, such that metanodes added
+later should have larger indices. This is useful if
+you need a means of managing a stable ordering system
+for metanodes. In particular, descendants of a given
+metanode will have monotonically increasing indices.
+</P><P>
+ Although indices should be unique and should have
+the ordering properties mentioned above, it would be
+best not to rely upon this fact to the extent that
+your code might fail, because the internal mechanism
+might only use a 32-bit integer to represent sequence
+numbers, leading to a slim possibility of wrap-around.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__che$_complete.html"> prev </A>||<A HREF="jpx$anode__get_parent.html"> next </A>|</P>
+</BODY>
+</HTML>

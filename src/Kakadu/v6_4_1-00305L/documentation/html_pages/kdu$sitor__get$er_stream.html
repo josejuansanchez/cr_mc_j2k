@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::get_ilayer_stream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$ayer_info.html"> prev </A>||<A HREF="kdu$sitor__get$m_packets.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::get_ilayer_stream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Get_ilayer_stream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$m_ref.html">kdu_istream_ref</A> get_ilayer_stream(
+<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>&nbsp;ilayer_ref,
+<B>int</B>&nbsp;which,
+<B>int</B>&nbsp;codestream_idx=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_istream_ref Get_ilayer_stream(
+Kdu_ilayer_ref&nbsp;ilayer_ref,
+int&nbsp;which,
+int&nbsp;codestream_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to obtain references to the istreams
+which are associated with an ilayer. You can use the
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> argument to enumerate the istreams, starting from
+the ilayer's primary stream at 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A>=0. Alternatively, by supplying a -ve value for 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A>, you can access the istream (if any) which has a specific
+absolute codestream index.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A "null" istreams reference (one whose 
+<A HREF="kdu$m_ref__is_null.html">kdu_istream_ref::is_null</A> function returns true) unless 
+<A HREF="kdu$sitor__get$er_stream.html#ilayer_ref">ilayer_ref</A> identifies an ilayer which is part of the current
+composition and either: 1) 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> lies in the range 0 to S-1 where S is the value returned
+by 
+<A HREF="kdu$sitor__get$ayer_info.html">get_ilayer_info</A>; or 2) 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> is -ve and 
+<A HREF="kdu$sitor__get$er_stream.html#codestream_idx">codestream_idx</A> identifies the absolute index of one of the codestreams
+which is used by the ilayer.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ilayer_ref">ilayer_ref</A> [<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> argument can take on values of 0 through S-1 where
+S is the number of istreams returned by 
+<A HREF="kdu$sitor__get$ayer_info.html">get_ilayer_info</A>. The first istream (corresponding to 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A>=0) is considered the layer's primary istream. If 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> is -ve, the 
+<A HREF="kdu$sitor__get$er_stream.html#codestream_idx">codestream_idx</A> argument is used to locate the codestream of interest.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored unless 
+<A HREF="kdu$sitor__get$er_stream.html#which">which</A> &lt; 0, in which case the function looks for an istream
+which belongs to the imagery layer identified by 
+<A HREF="kdu$sitor__get$er_stream.html#ilayer_ref">ilayer_ref</A> and has the indicated absolute codestream index.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$ayer_info.html"> prev </A>||<A HREF="kdu$sitor__get$m_packets.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::get_valid_band_indices) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__access_node.html"> prev </A>||<A HREF="kdu$ution__acc$s_subband.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::get_valid_band_indices</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Get_valid_band_indices</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_valid_band_indices(
+<B>int</B>&nbsp;&amp;&nbsp;min_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_valid_band_indices(
+int[]&nbsp;min_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns the total number of subbands
+which belong to this resolution, along with the index
+assocated with the first subband index. This 
+<A HREF="kdu$ution__get$d_indices.html#min_idx">min_idx</A> value will be set to 0 (
+<A HREF="globals.html#LL_BAND">LL_BAND</A>) if this is the lowest resolution, in which case the
+function is also guaranteed to return exactly 1. Otherwise,
+<A HREF="kdu$ution__get$d_indices.html#min_idx">min_idx</A> is set to 1 and valid subband indices passed to the
+<A HREF="kdu$ution__acc$s_subband.html">access_subband</A> function must lie in the range 1 to N where N is the
+return value.
+</P><P>
+ In the case of a conventional Mallat subband decomposition
+structure, the valid subband indices for all but the
+lowest resolution will be identical to the values defined
+by the constants 
+<A HREF="globals.html#HL_BAND">HL_BAND</A> (horizontally high-pass), 
+<A HREF="globals.html#LH_BAND">LH_BAND</A> (vertically high-pass) and 
+<A HREF="globals.html#HH_BAND">HH_BAND</A> (horizontally and vertically high-pass), meaning that
+<A HREF="kdu$ution__get$d_indices.html#min_idx">min_idx</A> is 1 and the function's return value is 3. For more
+general decomposition structures, however, the subband
+indices do not have any special meaning which you will
+find useful. However, they are guaranteed to be identical
+to the indices associated with entries in the array
+of subband descriptors returned by 
+<B>ads_params::get_dstyle_bands</B>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="min_idx">min_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__access_node.html"> prev </A>||<A HREF="kdu$ution__acc$s_subband.html"> next </A>|</P>
+</BODY>
+</HTML>

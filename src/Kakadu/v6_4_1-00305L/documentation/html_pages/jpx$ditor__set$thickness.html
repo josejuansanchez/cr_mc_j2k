@@ -1,0 +1,107 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::set_path_thickness) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__spl$ed_anchor.html"> prev </A>||<A HREF="jpx$ditor__fil$sed_paths.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::set_path_thickness</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Set_path_thickness</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> set_path_thickness(
+<B>int</B>&nbsp;thickness,
+<B>bool</B>&nbsp;&amp;&nbsp;success)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Set_path_thickness(
+int&nbsp;thickness,
+boolean[]&nbsp;success)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This powerful function modifies all "path brick" regions,
+as defined under 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>, so as to ensure that the "thickness" of the regions
+which define path segments is as close as possible
+to the supplied value. Only true path bricks are modified,
+as opposed to "potential path bricks". The function
+also modifies any elliptical region whose centre lies
+at the end-point of a path segment, setting such ellipses
+to circles whose diameter is as close as possible to
+<A HREF="jpx$ditor__set$thickness.html#thickness">thickness</A>.
+</P><P>
+ The function is careful not to alter the path segments
+themselves in any way. The thickness of a path brick
+is defined to be the distance between the two edges
+which run on either side of the brick's path segment.
+The path segment itself runs between the mid-points
+of the other two edges.
+</P><P>
+ The compatible edges associated with path bricks are
+modified in pleasing ways, according to the following
+policy:
+</P><UL><LI>
+If the end of a path segment lies at an edge which
+is not a compatible edge, or which is shared with an
+ellipse (as defined above), that edge is aligned perpendicularly
+to the path segment.
+</LI><LI>
+If the end of a path segment lies at a compatible edge
+of non-zero extent (i.e., the end-points of the edge
+are not the same point), which is not shared with any
+ellipse, the edge is modified simultaneously in both
+quadrilaterals, so as to preserve the sharing property.
+If both quadrilaterals are path bricks, this is done
+in such a way that the thicknesses of both path bricks
+is established.
+</LI></UL><P>
+ Note that the 
+<A HREF="jpx$ditor__set$thickness.html#thickness">thickness</A> value is interpreted with respect to the notion that
+each individual sample point has a size of 1x1. Thus,
+a 
+<A HREF="jpx$ditor__set$thickness.html#thickness">thickness</A> of 1 means that each path brick has only two distinct
+vertices, so that the path brick region is actually
+a line which coincides with the path segment itself.
+As a general rule, it is better to request odd valued
+<A HREF="jpx$ditor__set$thickness.html#thickness">thickness</A> values, since path bricks which run horizontally or
+vertically can achieve such thicknesses precisely.
+</P><P>
+ It is worth noting that isolated path bricks (i.e.,
+quadrilateral regions which do not share any edges
+with other quadrilaterals) must not be as thick as
+their path segment is long &mdash; otherwise, the path
+segment would switch to run between the opposite two
+edges (see the explanation under 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>). The function imposes this restriction automatically.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A region large enough to include all points and edges
+affected by the change.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="thickness">thickness</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="success">success</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to indicate whether or not the operation was able
+to successfully modify all path bricks and path junctions.
+If none of them were modified, or only a subset were
+modified, the function sets 
+<A HREF="jpx$ditor__set$thickness.html#success">success</A> to false. Otherwise, it sets 
+<A HREF="jpx$ditor__set$thickness.html#success">success</A> to true.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__spl$ed_anchor.html"> prev </A>||<A HREF="jpx$ditor__fil$sed_paths.html"> next </A>|</P>
+</BODY>
+</HTML>

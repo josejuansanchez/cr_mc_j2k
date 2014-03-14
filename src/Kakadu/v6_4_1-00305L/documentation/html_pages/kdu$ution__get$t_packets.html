@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::get_precinct_packets) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$relevance.html"> prev </A>||<A HREF="kdu$ution__get$t_samples.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::get_precinct_packets</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Get_precinct_packets</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_precinct_packets(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;precinct_idx,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<B>bool</B>&nbsp;parse_if_necessary=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_precinct_packets(
+Kdu_coords&nbsp;precinct_idx,
+Kdu_thread_env&nbsp;env,
+boolean&nbsp;parse_if_necessary)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of code-stream packets which are
+available for the indicated precinct.
+</P><P>
+ The 
+<A HREF="kdu$ution__get$t_packets.html#precinct_idx">precinct_idx</A> argument should lie within the range of indices returned
+via 
+<A HREF="kdu$ution__get$precincts.html">get_valid_precincts</A>.
+</P><P>
+ To find out the number of packets which could potentially
+be read for any precinct, you may use the 
+<A HREF="kdu_tile__get$num_layers.html">kdu_tile::get_num_layers</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="precinct_idx">precinct_idx</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Used only if 
+<A HREF="kdu$ution__get$t_packets.html#parse_if_necessary">parse_if_necessary</A> is true &mdash; see below for an explanation.
+</P>
+</DIV>
+<H4><A NAME="parse_if_necessary">parse_if_necessary</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+It may be necessary for the function to actually parse
+one or more packets in order to determine the answer
+to this question, in which case the parsing will be
+performed so long as 
+<A HREF="kdu$ution__get$t_packets.html#parse_if_necessary">parse_if_necessary</A> is true. If 
+<A HREF="kdu$ution__get$t_packets.html#parse_if_necessary">parse_if_necessary</A> is false, the function will only report the number
+of packets which it can be sure are available, which
+may be limited to the number which have already been
+parsed, depending upon the nature of the compressed
+data source. In fact, even if a precinct's packets
+have already been parsed, its storage may have subsequently
+been recycled for use elsewhere, so re-parsing is almost
+invariably a good idea, if you really want to know
+how many packets are currently available for the precinct.
+</P><P>
+ Note carefully that when 
+<A HREF="kdu$ution__get$t_packets.html#parse_if_necessary">parse_if_necessary</A> is true, the function's behaviour is not inherently
+thread safe. If you are using a multi-threaded environment,
+you should supply the appropriate 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> pointer as the function's second argument, so that
+thread safe execution can be ensured.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$relevance.html"> prev </A>||<A HREF="kdu$ution__get$t_samples.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_args::find) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_args__get_first.html"> prev </A>||<A HREF="kdu_args__advance.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_args::find</A></H1>
+<P CLASS="function-text"><B>char *</B> find(
+<B>const char *</B>&nbsp;pattern)</P>
+<P>[Declared in <A HREF="++++apps+args+kdu_args+h.html">"../apps/args/kdu_args.h"</A>]</P><P><A HREF="kdu_args.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns NULL unless an argument matching the supplied
+<A HREF="kdu_args__find.html#pattern">pattern</A> string can be found, in which it returns a pointer
+to the internal copy of this argument string. Currently,
+only direct string matching on the 
+<A HREF="kdu_args__find.html#pattern">pattern</A> string is supported.
+</P><P>
+ Note carefully that the returned string points to
+an internal resource, which might be deleted by the
+<A HREF="kdu_args__advance.html">advance</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pattern">pattern</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_args__get_first.html"> prev </A>||<A HREF="kdu_args__advance.html"> next </A>|</P>
+</BODY>
+</HTML>

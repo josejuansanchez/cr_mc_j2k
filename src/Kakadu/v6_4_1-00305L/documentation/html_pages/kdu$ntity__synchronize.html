@@ -1,0 +1,197 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::synchronize) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__add_jobs.html"> prev </A>||<A HREF="kdu$ntity__terminate.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::synchronize</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Synchronize</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> synchronize(
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;root_queue,
+<B>bool</B>&nbsp;finalize_descendants_when_synchronized=false,
+<B>bool</B>&nbsp;finalize_root_when_synchronized=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Synchronize(
+long&nbsp;root_queue,
+boolean&nbsp;finalize_descendants_when_synchronized,
+boolean&nbsp;finalize_root_when_synchronized)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function waits for all outstanding work on the
+supplied 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> and all of its descendants (sub-queues, sub-sub-queues,
+etc.) to complete. If 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> is NULL, all work on all queues must complete before
+the function returns. By the time the function returns,
+all threads which have done any work within the identified
+sub-tree of the queue hierarchy are guaranteed also
+to have invoked their 
+<B>do_sync</B> function, since they have either become idle or moved
+onto other branches in the queue hierarchy &mdash;
+see 
+<B>do_sync</B> for a discussion of the conditions under which that
+function is called. The bottom line is that you can
+be quite sure that all relevant work has been done
+and that all relevant thread-local state information
+has been globally synchronized by the time the function
+returns.
+</P><P>
+ It is worth noting that the calling thread itself
+contributes to the pool of working threads. This minimizes
+the performance penalty which can be expected from
+invoking this function frequently. Also, the caller
+will not throw an exception if failure occurs inside
+the thread group. Instead, the return value indicates
+whether or not this has occurred.
+</P><P>
+ One important restriction of the present function
+is that the 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> argument may not refer to a leaf in the queue hierarchy
+&mdash; i.e., it must refer to a queue which has sub-queues.
+The only exception to this is where a leaf queue has
+never been assigned any jobs. The reason for this restriction
+is rather technical, but the main reason has to do
+with the fact that we need to ensure that 
+<B>do_sync</B> has been invoked on any thread which has done work
+in the queue by the time the synchronization condition
+is achieved, while at the same time we want to avoid
+calling 
+<B>do_sync</B> overly often. The compromise is to allow this function
+to be invoked only on super-queues and to insist that
+whenever a thread moves from processing within one
+non-leaf queue to processing within a different non-leaf
+queue, or between leaves with different super-queues,
+the 
+<B>do_sync</B> function will be called first. For more on this, 
+<B>do_sync</B>.
+</P><P>
+ It is worth pointing out that 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> can be used to directly wait for completion of outstanding
+jobs on a queue, but the behaviour offered by 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> is quite different (in fact complementary) to that
+offered by 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A>. While the present function cannot be invoked on leaf
+queues, the 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> function will commonly be used to wait for completion
+of outstanding jobs on leaf queues. Also, while this
+function can be invoked over the entire thread group
+(by setting 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> to NULL), the 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> function requires a non-NULL queue to wait upon. Finally,
+the 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> function is only interested in synchronizing on a
+single queue, without regard for the state of its sub-queues.
+By contrast, 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> synchronizes on the entire sub-tree anchored at 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A>.
+</P><P>
+ Since this function may be invoked from any thread,
+a natural question to ask is what happens if a thread
+adds jobs to the queue on which we are waiting or any
+of its descendants, while we are still waiting. The
+behaviour in this case, may be understood in terms
+of the following recursive description of queue synchronization
+points:
+</P><UL><LI>
+When 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> is called, a synchronization point, S_q, is immediately
+installed in the 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A>, q. In particular, S_q is set equal to the index of
+the next job to be added to that queue.
+</LI><LI>
+Once the job with index S_q-1 completes (or immediately,
+if the job has already completed or no job was ever
+added), a synchronization point, S_b, is installed
+in each of its sub-queues, b; the value of S_b is set
+equal to the index of the next job to be added to the
+corresponding sub-queue, b.
+</LI><LI>
+This procedure continues recursively, until we encounter
+a leaf queue. Once all leaf queues, e, under the 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> have reached their synchronization points (i.e., once
+all corresponding jobs S_e-1 complete), the 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> function returns.
+</LI></UL><P>
+ A second important question to answer here is what
+happens if a thread attempts to synchronize on a condition
+while a call to 
+<A HREF="kdu$ntity__synchronize.html">synchronize</A> is already in progress. The implementation here is
+intended to handle such situations robustly. It does
+so by maintaining a list of synchronization points
+inside each queue. Once any queue reaches a synchronization
+point, the next element in the list is moved to the
+head. There is, however, a limit on the number of outstanding
+synchronization points which any queue can manage &mdash;
+this limit is given by the 
+<B>KDU_MAX_SYNC_NESTING</B> macro.
+</P><P>
+ Note that it is perfectly legal to wait upon queues
+which currently belong to dormant banks (see 
+<A HREF="kdu$ntity__add_queue.html">add_queue</A>). If the condition must be waited upon, it will not
+occur until after the relevant dormant queue banks
+have become active, in the normal course of affairs.
+</P><P>
+ For additional information on the handling of synchronization
+conditions, you may wish to consult the documentation
+for the 
+<A HREF="kdu$ntity__reg$nized_job.html">register_synchronized_job</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if any thread in the entire thread group has
+invoked its 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> function. In this case, the synchronized state will
+generally be achieved quickly, since all outstanding
+jobs on all queues should have been cancelled.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="root_queue">root_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, we are waiting for all queues in the entire
+thread group to complete. Otherwise, we are waiting
+only for the completion of jobs on the indicated queue
+and all of its descendant queues. Note that 
+<B>queue</B> must point to a super-queue if non-NULL &mdash; i.e.,
+a queue which has at least one sub-queue.
+</P>
+</DIV>
+<H4><A NAME="finalize_descendants_when_synchronized">finalize_descendants_when_synchronized</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is normally set to true only when the
+function is called from within 
+<A HREF="kdu$ntity__terminate.html">terminate</A>. It forces all descendants of the 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> to be marked as finalized (as though 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A> where called with its 
+<B>finalize_queue</B> argument set to true) once the synchronization condition
+is reached in those queues.
+</P>
+</DIV>
+<H4><A NAME="finalize_root_when_synchronized">finalize_root_when_synchronized</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is normally set to true only when the
+function is called from within 
+<A HREF="kdu$ntity__terminate.html">terminate</A>, with its 
+<B>leave_root</B> argument set to false. It forces the 
+<A HREF="kdu$ntity__synchronize.html#root_queue">root_queue</A> to be marked as finalized (as though 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A> were called with its 
+<B>finalize_queue</B> argument set to true) once the synchronization condition
+is reached.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__add_jobs.html"> prev </A>||<A HREF="kdu$ntity__terminate.html"> next </A>|</P>
+</BODY>
+</HTML>

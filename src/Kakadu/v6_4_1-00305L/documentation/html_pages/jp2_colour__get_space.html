@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_colour::get_space) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2_colour__get$_colours.html"> prev </A>||<A HREF="jp2_colour__is_$nt_space.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_colour::get_space</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_colour.Get_space</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>jp2_colour_space</B> get_space(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_space(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2_colour.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If the return value is 
+<B>JP2_iccLUM_SPACE</B>, 
+<B>JP2_iccRGB_SPACE</B>, the colour space is defined by a restricted ICC profile.
+If it is 
+<B>JP2_iccANY_SPACE</B>, the colour space is defined by a general ICC profile.
+In both cases, further information may be obtained
+using 
+<A HREF="jp2_colour__get$_profile.html">get_icc_profile</A>.
+</P><P>
+ If the return value is 
+<B>JP2_CIELab_SPACE</B> or 
+<B>JP2_CIEJab_SPACE</B>, additional parameters must be recovered via the 
+<A HREF="jp2_colour__get$b_params.html">get_lab_params</A> or 
+<A HREF="jp2_colour__get$1b_params.html">get_jab_params</A> functions, as appropriate.
+</P><P>
+ If the return value is 
+<B>JP2_vendor_SPACE</B>, the UUID and any associated parameters must be recovered
+via the 
+<B>get_vendor_params</B> function.
+</P><P>
+ Otherwise, the function returns one of the enumerated
+colour spaces, 
+<B>JP2_bilevel1_SPACE</B>, 
+<B>JP2_YCbCr1_SPACE</B>, 
+<B>JP2_YCbCr2_SPACE</B>, 
+<B>JP2_YCbCr3_SPACE</B>, 
+<B>JP2_PhotoYCC_SPACE</B>, 
+<B>JP2_CMY_SPACE</B>, 
+<B>JP2_CMYK_SPACE</B>, 
+<B>JP2_YCCK_SPACE</B>, 
+<B>JP2_bilevel2_SPACE</B>, 
+<B>JP2_sRGB_SPACE</B>, 
+<B>JP2_sLUM_SPACE</B>, 
+<B>JP2_sYCC_SPACE</B>, 
+<B>JP2_esRGB_SPACE</B>, 
+<B>JP2_ROMMRGB_SPACE</B>, 
+<B>JP2_YPbPr60_SPACE</B>, 
+<B>JP2_YPbPr50_SPACE</B> or 
+<B>JP2_esYCC_SPACE</B>. The definitions of these various colour spaces are
+supplied with the first form of the 
+<A HREF="jp2_colour__init__1.html">init</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2_colour__get$_colours.html"> prev </A>||<A HREF="jp2_colour__is_$nt_space.html"> next </A>|</P>
+</BODY>
+</HTML>

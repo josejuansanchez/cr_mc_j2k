@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::add_numlist) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$ge_parent.html"> prev </A>||<A HREF="jpx$anode__add_regions.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::add_numlist</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Add_numlist</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> add_numlist(
+<B>int</B>&nbsp;num_codestreams,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;codestream_indices,
+<B>int</B>&nbsp;num_compositing_layers,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;layer_indices,
+<B>bool</B>&nbsp;applies_to_rendered_result)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Add_numlist(
+int&nbsp;num_codestreams,
+int[]&nbsp;codestream_indices,
+int&nbsp;num_compositing_layers,
+int[]&nbsp;layer_indices,
+boolean&nbsp;applies_to_rendered_result)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a descendant to the present
+node, assigning this descendant to represent a number
+list box. If this node is assigned its own descendants,
+it will be represented by an association box, whose
+first sub-box is the number list box; in this, the
+most useful case, the node's descendants will all be
+associate with the image entities identified via the
+function's arguments. If no descendants are added to
+the new node, it will be represented as an isolated
+number list box, all by itself.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Reference to the newly created node.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_codestreams">num_codestreams</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of codestream indices to be referenced by the
+number list.
+</P>
+</DIV>
+<H4><A NAME="codestream_indices">codestream_indices</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx$anode__add_numlist.html#num_codestreams">num_codestreams</A> entries. holding the indices of the codestreams to
+be referenced by the number list. This array is copied
+internally.
+</P>
+</DIV>
+<H4><A NAME="num_compositing_layers">num_compositing_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of compositing layer indices to be referenced
+by the number list.
+</P>
+</DIV>
+<H4><A NAME="layer_indices">layer_indices</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx$anode__add_numlist.html#num_compositing_layers">num_compositing_layers</A> entries. holding the indices of the compositing layers
+to be referenced by the number list. This array is
+copied internally.
+</P>
+</DIV>
+<H4><A NAME="applies_to_rendered_result">applies_to_rendered_result</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+True if the number list is to contain a reference to
+the "rendered result". See 
+<A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> for a discussion of the meaning of the rendered result.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$ge_parent.html"> prev </A>||<A HREF="jpx$anode__add_regions.html"> next </A>|</P>
+</BODY>
+</HTML>

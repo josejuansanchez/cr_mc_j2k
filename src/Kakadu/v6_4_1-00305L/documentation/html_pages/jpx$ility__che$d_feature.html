@@ -1,0 +1,241 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_compatibility::check_standard_feature) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__has$ments_box.html"> prev </A>||<A HREF="jpx$ility__che$r_feature.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_compatibility::check_standard_feature</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_compatibility.Check_standard_feature</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> check_standard_feature(
+<B>kdu_uint16</B>&nbsp;feature_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Check_standard_feature(
+int&nbsp;feature_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ility.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if a feature with the indicated identifier
+appears in the reader requirements box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="feature_id">feature_id</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+The following standard feature ID's are defined by
+JPX. Asterisks (*) are used to identify features which
+are automatically detected for the purpose of writing
+a reader requirements box when generating a JPX file
+(see 
+<A HREF="jpx$ility__set$d_feature.html">set_used_standard_feature</A> for more on this).
+</P><UL><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_NO_EXTENSIONS">JPX_SF_CODESTREAM_NO_EXTENSIONS</A> = 1 &mdash; the way this feature is expressed in the
+JPX standard leaves it unclear whether this means that
+the file contains at least one codestream without extensions
+or that no codestreams in the file have extensions;
+nor is the meaning of extensions clarified. For the
+purpose of writing JPX files, Kakadu interprets it
+as meaning that no codestreams use any PART2 extensions,
+but for the purpose of reading, Kakadu does not expect
+it to mean anything in particular. This is probably
+the safest option.
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_MULTIPLE_LAYERS">JPX_SF_MULTIPLE_LAYERS</A> = 2
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JPEG2000_PART1_PROFILE0">JPX_SF_JPEG2000_PART1_PROFILE0</A> = 3
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JPEG2000_PART1_PROFILE1">JPX_SF_JPEG2000_PART1_PROFILE1</A> = 4
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JPEG2000_PART1">JPX_SF_JPEG2000_PART1</A> = 5
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JPEG2000_PART2">JPX_SF_JPEG2000_PART2</A> = 6
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_NO_OPACITY">JPX_SF_NO_OPACITY</A> = 8 &mdash; for the purpose of writing a JPX file,
+Kakadu sets this feature if no opacity information
+is used by any compositing layer, but it is not clear
+that a generic reader can interpret its presence as
+meaning that.
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_OPACITY_NOT_PREMULTIPLIED">JPX_SF_OPACITY_NOT_PREMULTIPLIED</A> = 9
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_OPACITY_PREMULTIPLIED">JPX_SF_OPACITY_PREMULTIPLIED</A> = 10
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_OPACITY_BY_CHROMA_KEY">JPX_SF_OPACITY_BY_CHROMA_KEY</A> = 11
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_CONTIGUOUS">JPX_SF_CODESTREAM_CONTIGUOUS</A> = 12
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_FRAGMENTS_INTERNAL_AND_ORDERED">JPX_SF_CODESTREAM_FRAGMENTS_INTERNAL_AND_ORDERED</A> = 13
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_FRAGMENTS_INTERNAL">JPX_SF_CODESTREAM_FRAGMENTS_INTERNAL</A> = 14
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_FRAGMENTS_LOCAL">JPX_SF_CODESTREAM_FRAGMENTS_LOCAL</A> = 15
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CODESTREAM_FRAGMENTS_REMOTE">JPX_SF_CODESTREAM_FRAGMENTS_REMOTE</A> = 16
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_COMPOSITING_USED">JPX_SF_COMPOSITING_USED</A> = 17
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_COMPOSITING_NOT_REQUIRED">JPX_SF_COMPOSITING_NOT_REQUIRED</A> = 18
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_MULTIPLE_LAYERS_NO_COMPOSITING_OR_ANIMATION">JPX_SF_MULTIPLE_LAYERS_NO_COMPOSITING_OR_ANIMATION</A> = 19
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ONE_CODESTREAM_PER_LAYER">JPX_SF_ONE_CODESTREAM_PER_LAYER</A> = 20
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_MULTIPLE_CODESTREAMS_PER_LAYER">JPX_SF_MULTIPLE_CODESTREAMS_PER_LAYER</A> = 21
+</LI><LI>
+<A HREF="globals.html#JPX_SF_SINGLE_COLOUR_SPACE">JPX_SF_SINGLE_COLOUR_SPACE</A> = 22
+</LI><LI>
+<A HREF="globals.html#JPX_SF_MULTIPLE_COLOUR_SPACES">JPX_SF_MULTIPLE_COLOUR_SPACES</A> = 23
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_NO_ANIMATION">JPX_SF_NO_ANIMATION</A> = 24
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_COVERED_BY_FIRST_LAYER">JPX_SF_ANIMATED_COVERED_BY_FIRST_LAYER</A> = 25
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_NOT_COVERED_BY_FIRST_LAYER">JPX_SF_ANIMATED_NOT_COVERED_BY_FIRST_LAYER</A> = 26
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_LAYERS_NOT_REUSED">JPX_SF_ANIMATED_LAYERS_NOT_REUSED</A> = 27
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_LAYERS_REUSED">JPX_SF_ANIMATED_LAYERS_REUSED</A> = 28
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_PERSISTENT_FRAMES">JPX_SF_ANIMATED_PERSISTENT_FRAMES</A> = 29
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANIMATED_NON_PERSISTENT_FRAMES">JPX_SF_ANIMATED_NON_PERSISTENT_FRAMES</A> = 30
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_NO_SCALING">JPX_SF_NO_SCALING</A> = 31
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_SCALING_WITHIN_LAYER">JPX_SF_SCALING_WITHIN_LAYER</A> = 32
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_SCALING_BETWEEN_LAYERS">JPX_SF_SCALING_BETWEEN_LAYERS</A> = 33
+</LI><LI>
+<A HREF="globals.html#JPX_SF_ROI_METADATA">JPX_SF_ROI_METADATA</A> = 34
+</LI><LI>
+<A HREF="globals.html#JPX_SF_IPR_METADATA">JPX_SF_IPR_METADATA</A> = 35
+</LI><LI>
+<A HREF="globals.html#JPX_SF_CONTENT_METADATA">JPX_SF_CONTENT_METADATA</A> = 36
+</LI><LI>
+<A HREF="globals.html#JPX_SF_HISTORY_METADATA">JPX_SF_HISTORY_METADATA</A> = 37
+</LI><LI>
+<A HREF="globals.html#JPX_SF_CREATION_METADATA">JPX_SF_CREATION_METADATA</A> = 38
+</LI><LI>
+<A HREF="globals.html#JPX_SF_DIGITALLY_SIGNED">JPX_SF_DIGITALLY_SIGNED</A> = 39
+</LI><LI>
+<A HREF="globals.html#JPX_SF_CHECKSUMMED">JPX_SF_CHECKSUMMED</A> = 40
+</LI><LI>
+<A HREF="globals.html#JPX_SF_DESIRED_REPRODUCTION">JPX_SF_DESIRED_REPRODUCTION</A> = 41
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_PALETTIZED_COLOUR">JPX_SF_PALETTIZED_COLOUR</A> = 42
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_RESTRICTED_ICC">JPX_SF_RESTRICTED_ICC</A> = 43
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ANY_ICC">JPX_SF_ANY_ICC</A> = 44
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_sRGB">JPX_SF_sRGB</A> = 45
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_sLUM">JPX_SF_sLUM</A> = 46
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_BILEVEL1">JPX_SF_BILEVEL1</A> = 47
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_BILEVEL2">JPX_SF_BILEVEL2</A> = 48
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_YCbCr1">JPX_SF_YCbCr1</A> = 49
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_YCbCr2">JPX_SF_YCbCr2</A> = 50
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_YCbCr3">JPX_SF_YCbCr3</A> = 51
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_PhotoYCC">JPX_SF_PhotoYCC</A> = 52
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_YCCK">JPX_SF_YCCK</A> = 53
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CMY">JPX_SF_CMY</A> = 54
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_CMYK">JPX_SF_CMYK</A> = 55
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_LAB_DEFAULT">JPX_SF_LAB_DEFAULT</A> = 56
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_LAB">JPX_SF_LAB</A> = 57
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JAB_DEFAULT">JPX_SF_JAB_DEFAULT</A> = 58
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_JAB">JPX_SF_JAB</A> = 59
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_esRGB">JPX_SF_esRGB</A> = 60
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_ROMMRGB">JPX_SF_ROMMRGB</A> = 61
+</LI><LI>
+* 
+<A HREF="globals.html#JPX_SF_SAMPLES_NOT_SQUARE">JPX_SF_SAMPLES_NOT_SQUARE</A> = 62
+</LI><LI>
+<A HREF="globals.html#JPX_SF_LAYERS_HAVE_LABELS">JPX_SF_LAYERS_HAVE_LABELS</A> = 63
+</LI><LI>
+<A HREF="globals.html#JPX_SF_CODESTREAMS_HAVE_LABELS">JPX_SF_CODESTREAMS_HAVE_LABELS</A> = 64
+</LI><LI>
+<A HREF="globals.html#JPX_SF_MULTIPLE_COLOUR_SPACES2">JPX_SF_MULTIPLE_COLOUR_SPACES2</A> = 65 &mdash; appears to have exactly the same meaning
+as standard feature code 23; the standard feature list
+in the standard might not have been carefully checked.
+</LI><LI>
+<A HREF="globals.html#JPX_SF_LAYERS_HAVE_DIFFERENT_METADATA">JPX_SF_LAYERS_HAVE_DIFFERENT_METADATA</A> = 66
+</LI></UL>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__has$ments_box.html"> prev </A>||<A HREF="jpx$ility__che$r_feature.html"> next </A>|</P>
+</BODY>
+</HTML>

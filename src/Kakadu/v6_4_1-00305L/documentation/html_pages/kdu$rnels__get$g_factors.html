@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_lifting_factors) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$step_info.html"> prev </A>||<A HREF="kdu$rnels__get$downshift.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_lifting_factors</A></H1>
+<P CLASS="function-text">const&nbsp;<B>float</B>&nbsp;* get_lifting_factors(
+<B>int</B>&nbsp;&amp;&nbsp;num_steps,
+<B>float</B>&nbsp;&amp;&nbsp;dc_scale,
+<B>float</B>&nbsp;&amp;&nbsp;nyq_scale)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a complete lifting factorization of the kernels.
+</P><P>
+ If the kernels are symmetric, with odd least dissimilar
+lengths (lengths differ by 2), the lifting steps will
+involve symmetric 2-tap filters, characterized by a
+single factor each. These factors are given by the
+first 
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A> entries in the returned array, establishing backward
+compatibility with earlier versions of Kakadu which
+supported only the DWT kernels defined by Part-1 of
+the JPEG2000 standard.
+</P><P>
+ More generally, the lifting step s is characterized
+by Ls coefficients, Cs[n], where n lies in the range
+Ns &lt;= n &lt;= Ps, as described in conjunction with
+the 
+<A HREF="kdu$_info.html">kdu_kernel_step_info</A> structure &mdash; see also, 
+<A HREF="kdu$rnels__get$step_info.html">get_step_info</A>. The first 
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A> entries in the returned array contain the coefficients
+Cs[Ns] for each lifting steps, s. The next 
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A> entries in the returned array contain the coefficients
+Cs[Ns+1] for each lifting step, s, and so forth. Thus,
+the returned array contains 
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A>*Lmax entries, where Lmax is the 
+<B>max_length</B> value returned via 
+<A HREF="kdu$rnels__get$step_info.html">get_step_info</A>, and coefficient Cs[n] may be found in the entry at
+location (n-Ns)*
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Array of lifting step coefficients for the analysis
+transform. For the synthesis transform, the steps are
+reversed and the coefficients negated. The array is
+guaranteed to contain 
+<A HREF="kdu$rnels__get$g_factors.html#num_steps">num_steps</A>*
+<B>max_length</B> entries, where 
+<B>max_length</B> is the value returned via the 
+<B>get_lifting_lengths</B> function. Unused entries will be 0.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_steps">num_steps</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of lifting steps.
+</P>
+</DIV>
+<H4><A NAME="dc_scale">dc_scale</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return a scale factor by which the low-pass
+subband samples must be multiplied after all lifting
+steps are complete, during subband analysis. For reversible
+transforms, this factor is guaranteed to be equal to
+1.0. For irreversible transforms, the scale factor
+is computed so as to ensure that the DC gain of the
+low-pass analysis kernel is equal to 1.0.
+</P>
+</DIV>
+<H4><A NAME="nyq_scale">nyq_scale</A> [<B>float</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu$rnels__get$g_factors.html#dc_scale">dc_scale</A>, but applied to the high-pass subband. For reversible
+transforms the factor is guaranteed to be 1.0, while
+for irreversible transforms, it is computed so as to
+ensure that the gain of the high-pass analysis kernel
+at the Nyquist frequency is equal to 1.0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$step_info.html"> prev </A>||<A HREF="kdu$rnels__get$downshift.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::set_max_bytes) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__set$alization.html"> prev </A>||<A HREF="kdu$tream__set$1threshold.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::set_max_bytes</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Set_max_bytes</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_max_bytes(
+<B>kdu_long</B>&nbsp;max_bytes,
+<B>bool</B>&nbsp;simulate_parsing=false,
+<B>bool</B>&nbsp;allow_periodic_trimming=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_max_bytes(
+long&nbsp;max_bytes,
+boolean&nbsp;simulate_parsing,
+boolean&nbsp;allow_periodic_trimming)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If used with an 
+<B>input codestream</B>, this function sets the maximum number of bytes which
+will be read from the input code-stream. Additional
+bytes will be discarded. In this case, the 
+<A HREF="kdu$tream__set$max_bytes.html#simulate_parsing">simulate_parsing</A> argument may modify the behaviour as described in
+connection with that argument below.
+</P><P>
+ If used with an 
+<B>interchange codestream</B>, the function does nothing at all.
+</P><P>
+ If used with an 
+<B>output codestream</B>, this function enables internal machinery for incrementally
+estimating the parameters which will be used by the
+PCRD-opt rate allocation algorithm, so that the block
+coder can be given feedback to assist it in minimizing
+the number of coding passes which must be processed
+&mdash; in many cases, most of the coding passes will
+be discarded. Note that the actual rate allocation
+performed during a call to the 
+<A HREF="kdu$tream__flush.html">flush</A> member function is independent of the value supplied
+here, although it is expected that 
+<A HREF="kdu$tream__set$max_bytes.html#max_bytes">max_bytes</A> will be equal to (certainly no smaller than) the maximum
+layer byte count supplied in the 
+<A HREF="kdu$tream__flush.html">flush</A> call.
+</P><P>
+ The following cautionary notes should be observed
+concerning the incremental rate control machinery enabled
+when this function is invoked on an 
+<B>output codestream</B>:
+</P><UL><LI>
+The rate control prediction strategy relies upon the
+assumption that the image samples will be processed
+incrementally, with all image components processed
+together at the same relative rate. It is not at all
+appropriate to process one image component completely,
+followed by another component and so forth. It such
+a processing order is intended, this function should
+not be called.
+</LI><LI>
+The prediction strategy may inappropriately discard
+information, thereby harming compression, if the compressibility
+of the first part of the image which is processed is
+very different to that of the last part of the image.
+Although this is rare in our experience, it may be
+a problem with certain types of imagery, such as medical
+images which sometimes contain empty regions near boundaries.
+</LI><LI>
+If truly lossless compression is desired, this function
+should not be called, no matter how large the supplied
+<A HREF="kdu$tream__set$max_bytes.html#max_bytes">max_bytes</A> value. This is because terminal coding passes which
+do not lie on the convex hull of the rate-distortion
+curve will be summarily discarded, violating the official
+mandate that a lossless code-stream contain all compressed
+bits.
+</LI></UL><P>
+ For both input and output codestreams, the function
+should only be called prior to the point at which the
+first tile is opened and it should only be called once,
+if at all. The behaviour is not guaranteed at other
+points, particularly in a multi-threading environment.
+</P><P>
+ If 
+<A HREF="kdu$tream__restart__1.html">restart</A> is used to restart the code-stream managment machinery,
+the effect of the current function is lost. It may
+be restored by calling the function again after each
+call to 
+<A HREF="kdu$tream__restart__1.html">restart</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="max_bytes">max_bytes</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+If the supplied limit exceeds 
+<B>KDU_LONG_MAX</B>/2, the limit will be reduced to that value, to avoid
+the possibility of overflow in the internal implementation.
+</P>
+</DIV>
+<H4><A NAME="simulate_parsing">simulate_parsing</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+The default value of this argument is false. If set
+to true, the behaviour with non-persistent input code-streams
+is modified as follows. Rather than simply counting
+the number of bytes consumed from the compressed data
+source, the function explicitly excludes all bytes
+consumed while parsing packet data which does not belong
+to precincts which contribute to the current spatial
+region, at the current resolution, within the current
+image components, as configured in any call to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A>. It also excludes bytes consumed while parsing packets
+which do not belong to the current layers of interest,
+as configured in any call to 
+<A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A>. The byte limit applies only to those bytes which
+are of interest. Moreover, in this case, the number
+of bytes returned by the 
+<A HREF="kdu$tream__get$tal_bytes.html">get_total_bytes</A> function will also exclude the bytes corresponding
+to packets which are not of interest. If SOP markers
+have been used, the cost of these may still be counted,
+even for packets which would have been parsed away.
+</P>
+</DIV>
+<H4><A NAME="allow_periodic_trimming">allow_periodic_trimming</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is valid only for output codestreams.
+If true, the coded block data will periodically be
+examined to determine whether some premature truncation
+of the generated coding passes can safely take place,
+without waiting until the entire image has been processed.
+The purpose of this is to minimize buffering requirements.
+On the other hand, periodic trimming of existing compressed
+data can require a large number of accesses to memory
+which is often no longer loaded in the cache. Moreover,
+in multi-threaded environments, other threads may be
+blocked until the trimming process is complete. In
+view of these drawbacks, for multi-threaded applications
+you may prefer to turn periodic trimming off.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__set$alization.html"> prev </A>||<A HREF="kdu$tream__set$1threshold.html"> next </A>|</P>
+</BODY>
+</HTML>

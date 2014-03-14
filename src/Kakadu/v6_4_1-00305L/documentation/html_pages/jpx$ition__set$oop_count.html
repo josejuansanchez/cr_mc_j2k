@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::set_loop_count) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__add$struction.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_composition::set_loop_count</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Set_loop_count</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_loop_count(
+<B>int</B>&nbsp;count)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_loop_count(
+int&nbsp;count)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+By default, the complete sequence of frames will be
+played through exactly once. This is equivalent to
+the case 
+<A HREF="jpx$ition__set$oop_count.html#count">count</A>=1. Call this function to set a different value for
+the loop counter. A value of 
+<A HREF="jpx$ition__set$oop_count.html#count">count</A>=0 will cause the frame sequence to be repeated indefinitely.
+</P><P>
+ When the frames are repeated, they are played again
+with exactly the same set of layers; the layer indices
+are not incremented upon global repetition.
+</P><P>
+ Note that the maximum representable loop count is
+255. Supplying a larger value will result in the generation
+of an error.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="count">count</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__add$struction.html"> prev </A>|</P>
+</BODY>
+</HTML>

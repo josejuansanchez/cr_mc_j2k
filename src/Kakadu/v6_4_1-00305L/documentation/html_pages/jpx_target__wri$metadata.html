@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_target::write_metadata) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_target__wri$_headers.html"> prev </A>||<A HREF="jpx_target__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_target::write_metadata</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_target.Write_metadata</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jp2$1t_box.html">jp2_output_box</A>&nbsp;* write_metadata(
+<B>int</B>&nbsp;*&nbsp;i_param=NULL,
+<B>void</B>&nbsp;**&nbsp;addr_param=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jp2_output_box Write_metadata(
+int[]&nbsp;i_param)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to write the metadata managed via
+<A HREF="jpx$nager.html">jpx_meta_manager</A> (see 
+<A HREF="jpx_target__acc$_manager.html">access_meta_manager</A>) to the actual output file. You must not do this until
+after 
+<A HREF="jpx_target__wri$_headers.html">write_headers</A> has been successfully completed, but you can otherwise
+choose to write metadata at any point in the file you
+like. Some applications may choose to write the metadata
+prior to embedded code-streams, while others might
+choose to write it all at the end of the file. The
+latter is probably a better choice from the perspective
+of editing flexibility.
+</P><P>
+ The function may need to be called multiple times
+before the metadata is completely written. Exactly
+like 
+<A HREF="jpx_target__wri$_headers.html">write_headers</A> the function will return with a non-NULL pointer whenever
+it encounters a breakpoint. A breakpoint is any 
+<A HREF="jpx$anode.html">jpx_metanode</A> which was created using 
+<A HREF="jpx$anode__add_delayed.html">jpx_metanode::add_delayed</A>.
+</P><P>
+ You should not attempt to add any new metadata after
+the first call to this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if all of the available metadata has been written.
+Otherwise, the function has encountered a 
+<B>jpx_metadata</B> node which was created using 
+<A HREF="jpx$anode__add_delayed.html">jpx_metanode::add_delayed</A>. In this case, the function returns a pointer to an
+open 
+<B>jpx_output_box</B> object which has the correct box type code &mdash;
+the one passed to 
+<A HREF="jpx$anode__add_delayed.html">jpx_metanode::add_delayed</A>. You have only to write the box's contents.
+</P><P>
+ Note carefully that the function may return the same
+breakpoint twice, expecting you to write the relevant
+delayed metadata on two separate occasions, so you
+should be careful not to delete any state information
+associated with the 
+<A HREF="jpx_target__wri$metadata.html#i_param">i_param</A> and 
+<A HREF="jpx_target__wri$metadata.html#addr_param">addr_param</A> values. The reason for this is that a first pass through
+the metadata tree may be required in order to discover
+the lengths and locations of boxes which are the targets
+of link nodes (these are written using cross-reference
+boxes which identify the absolute file location and
+content length of the referenced boxes).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="i_param">i_param</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the integer parameter supplied to 
+<A HREF="jpx$anode__add_delayed.html">jpx_metanode::add_delayed</A> is written into *
+<A HREF="jpx_target__wri$metadata.html#i_param">i_param</A>.
+</P>
+</DIV>
+<H4><A NAME="addr_param">addr_param</A> [<B>void</B>&nbsp;**]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the address parameter supplied to 
+<A HREF="jpx$anode__add_delayed.html">jpx_metanode::add_delayed</A> is written into *
+<A HREF="jpx_target__wri$metadata.html#addr_param">addr_param</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_target__wri$_headers.html"> prev </A>||<A HREF="jpx_target__close.html"> next </A>|</P>
+</BODY>
+</HTML>

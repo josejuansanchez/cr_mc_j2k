@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_synthesis) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_multi_synthesis</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_multi_synthesis</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$e_processing+h.html">"../coresys/common/kdu_sample_processing.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This powerful object generalizes the functionality
+of 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A> to the processing of multiple image components, allowing
+all the data for a tile (or any subset thereof) to
+be reconstructed by a single object. The object creates
+the 
+<A HREF="kdu$1hesis.html">kdu_synthesis</A> objects required to process each required codestream
+image component, but it also inverts Part-1 colour
+decorrelation transforms (RCT and ICT) and Part-2 generalized
+multi-component transforms, as required.
+</P><P>
+ Objects of this class serve as interfaces. The constructor
+simply creates an empty interface, and there is no
+meaningful destructor. This means that you may copy
+and transfer objects of this class at will, without
+any impact on internal resources. To create a meaningful
+insance of the internal machine, you must use the 
+<A HREF="kdu$hesis__create.html">create</A> member. To destroy the internal machine you must use
+the 
+<A HREF="kdu$hesis__destroy.html">destroy</A> member.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$hesis__kdu$synthesis.html">kdu_multi_synthesis</A></P>
+<P><A HREF="kdu$hesis__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$hesis__operator!.html">operator!</A></P>
+<P><A HREF="kdu$hesis__create.html">create</A> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$hesis__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$hesis__get_size.html">get_size</A> {<U>Java:</U> Get_size}
+</P>
+<P><A HREF="kdu$hesis__get_line.html">get_line</A> {<U>Java:</U> Get_line}
+</P>
+<P><A HREF="kdu$hesis__is_$e_precise.html">is_line_precise</A> {<U>Java:</U> Is_line_precise}
+</P>
+<P><A HREF="kdu$hesis__is_$_absolute.html">is_line_absolute</A> {<U>Java:</U> Is_line_absolute}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::access_subband) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$d_indices.html"> prev </A>||<A HREF="kdu$ution__get$eversible.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::access_subband</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Access_subband</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$bband.html">kdu_subband</A> access_subband(
+<B>int</B>&nbsp;band_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_subband Access_subband(
+int&nbsp;band_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns an interface to a particular subband within
+the internal code-stream management machinery.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="band_idx">band_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument must lie in the range 
+<B>min_idx</B> to 
+<B>min_idx</B>+N-1 where 
+<B>min_idx</B> and N are returned by the 
+<A HREF="kdu$ution__get$d_indices.html">get_valid_band_indices</A> function (N is the function's return value). In practice,
+this means that 
+<A HREF="kdu$ution__acc$s_subband.html#band_idx">band_idx</A> must be equal to 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> if 
+<B>get_res_level</B> returns 0. Otherwise, 
+<A HREF="kdu$ution__acc$s_subband.html#band_idx">band_idx</A> must lie in the range 1 to N where N is the total
+number of subbands, returned via 
+<A HREF="kdu$ution__get$d_indices.html">get_valid_band_indices</A>.
+</P><P>
+ For the conventional Mallat decomposition structure,
+all but the lowest decomposition level have 3 subbands,
+with indices 
+<A HREF="globals.html#HL_BAND">HL_BAND</A> (horizontally high-pass), 
+<A HREF="globals.html#LH_BAND">LH_BAND</A> (vertically high-pass) and 
+<A HREF="globals.html#HH_BAND">HH_BAND</A> (horizontally and vertically high-pass). For more
+general decomposition structures, however, the number
+of bands may range anywhere from 1 to 48 and the interpretation
+of the indices is not so obvious.
+</P><P>
+ It should be noted that the 
+<B>transpose</B> flag supplied during any call to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> affects the interpretation of the 
+<A HREF="kdu$ution__acc$s_subband.html#band_idx">band_idx</A> argument. This is done so as to ensure that the roles
+of the HL and LH bands are reversed if the codestream
+is to be presented in transposed fashion.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$d_indices.html"> prev </A>||<A HREF="kdu$ution__get$eversible.html"> next </A>|</P>
+</BODY>
+</HTML>

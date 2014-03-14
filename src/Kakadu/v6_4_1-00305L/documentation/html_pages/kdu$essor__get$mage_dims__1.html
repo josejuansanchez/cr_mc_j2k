@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::get_rendered_image_dims) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$1over_dims.html"> prev </A>||<A HREF="kdu$essor__get$mage_dims__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::get_rendered_image_dims</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Get_rendered_image_dims</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$essor__get$mage_dims__2.html">2</A></B></P>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> get_rendered_image_dims(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*&nbsp;mapping,
+<B>int</B>&nbsp;single_component,
+<B>int</B>&nbsp;discard_levels,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expand_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expand_denominator=kdu_coords(1,
+<B>kdu_component_access_mode</B>&nbsp;access_mode=KDU_WANT_OUTPUT_COMPONENTS)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Get_rendered_image_dims(
+Kdu_codestream&nbsp;codestream,
+Kdu_channel_mapping&nbsp;mapping,
+int&nbsp;single_component,
+int&nbsp;discard_levels,
+Kdu_coords&nbsp;expand_numerator,
+Kdu_coords&nbsp;expand_denominator,
+int&nbsp;access_mode)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to determine the size of
+the complete image on the rendering canvas, based upon
+the supplied component mapping rules, number of discarded
+resolution levels and rational expansion factors. For
+further explanation of the rendering canvas and these
+various parameters, see the 
+<A HREF="kdu$essor__start.html">start</A> function. The present function is provided to assist
+implementators in ensuring that the 
+<B>region</B> they pass to 
+<A HREF="kdu$essor__start.html">start</A> will indeed lie within the span of the image after
+all appropriate level discarding and expansion has
+taken place.
+</P><P>
+ The function may not be called between 
+<A HREF="kdu$essor__start.html">start</A> and 
+<A HREF="kdu$essor__finish.html">finish</A> &mdash; i.e. while the object is open for processing.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="mapping">mapping</A> [<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="single_component">single_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="discard_levels">discard_levels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expand_numerator">expand_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expand_denominator">expand_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="access_mode">access_mode</A> [<B>kdu_component_access_mode</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$1over_dims.html"> prev </A>||<A HREF="kdu$essor__get$mage_dims__2.html"> next </A>|</P>
+</BODY>
+</HTML>

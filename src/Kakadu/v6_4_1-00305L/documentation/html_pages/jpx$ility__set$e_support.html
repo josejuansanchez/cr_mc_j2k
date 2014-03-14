@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_compatibility::set_standard_feature_support) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__get$r_feature__2.html"> prev </A>||<A HREF="jpx$ility__set$1e_support.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_compatibility::set_standard_feature_support</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_compatibility.Set_standard_feature_support</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_standard_feature_support(
+<B>kdu_uint16</B>&nbsp;feature_id,
+<B>bool</B>&nbsp;is_supported)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_standard_feature_support(
+int&nbsp;feature_id,
+boolean&nbsp;is_supported)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ility.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided for applications which are
+reading an existing JPX data source. The application
+typically uses this function to identify those features
+which it explicitly does not support (setting 
+<A HREF="jpx$ility__set$e_support.html#is_supported">is_supported</A> = false).
+</P><P>
+ By default all standard features are marked as supported,
+except those whose support is the responsibility of
+the 
+<A HREF="jpx_source.html">jpx_source</A> object and which are known not to be currently supported.
+By contrast, all vendor features (see 
+<A HREF="jpx$ility__set$1e_support.html">set_vendor_feature_support</A>) are unsupported by default.
+</P><P>
+ Once the collection of supported features has been
+identified, the application may use the 
+<A HREF="jpx$ility__tes$nderstand.html">test_fully_understand</A> and/or 
+<A HREF="jpx$ility__tes$ompletely.html">test_decode_completely</A> function to evaluate the reader requirements expressions
+and hence deduce whether or not it will be able to
+fully understand all aspects of the data source, or
+at least completely decode the data source to obtain
+the result intended by its creator.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="feature_id">feature_id</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+For a list of standard features, see the 
+<A HREF="jpx$ility__che$d_feature.html">check_standard_feature</A> function.
+</P>
+</DIV>
+<H4><A NAME="is_supported">is_supported</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, support for this feature is being affirmed.
+Otherwise, it is being declined. Since all standard
+features are supported by default, unless the internal
+implementation inherently fails to support them, this
+function will normally be used with 
+<A HREF="jpx$ility__set$e_support.html#is_supported">is_supported</A> set to false.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__get$r_feature__2.html"> prev </A>||<A HREF="jpx$ility__set$1e_support.html"> next </A>|</P>
+</BODY>
+</HTML>

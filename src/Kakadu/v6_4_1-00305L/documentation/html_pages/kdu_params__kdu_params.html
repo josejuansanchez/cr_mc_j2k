@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::kdu_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__new_object.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::kdu_params</A></H1>
+<P CLASS="function-text"> kdu_params(
+<B>const char *</B>&nbsp;cluster_name,
+<B>bool</B>&nbsp;allow_tile_diversity,
+<B>bool</B>&nbsp;allow_component_diversity,
+<B>bool</B>&nbsp;allow_instance_diversity,
+<B>bool</B>&nbsp;force_component_specific_forms=false,
+<B>bool</B>&nbsp;treat_instances_like_components=false)</P>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Since 
+<A HREF="kdu_params.html">kdu_params</A> is an abstract base class, this constructor will always
+be invoked from that of some derived class, which sets
+the various arguments to reflect the meaningfulness
+of tile diversity, component diversity, instance diversity,
+and so forth.
+</P><P>
+ Note that all newly constructed objects have tile
+and component indices of -1 and instance indices of
+0. This can be changed by a subsequent call to the
+<A HREF="kdu_params__link.html">link</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="cluster_name">cluster_name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+This string will NOT be copied; it normally points
+to a constant string resource.
+</P>
+</DIV>
+<H4><A NAME="allow_tile_diversity">allow_tile_diversity</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="allow_component_diversity">allow_component_diversity</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="allow_instance_diversity">allow_instance_diversity</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="force_component_specific_forms">force_component_specific_forms</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument should be true only for marker segments
+which may need to be written separately for each component,
+even where all components are the same, since there
+are no tile-wide and image-wide forms which can legally
+be written. This is the case for the RGN marker segment,
+represented by the 
+<A HREF="rgn_params.html">rgn_params</A> derived class.
+</P>
+</DIV>
+<H4><A NAME="treat_instances_like_components">treat_instances_like_components</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument may be true only if 
+<A HREF="kdu_params__kdu_params.html#allow_instance_diversity">allow_instance_diversity</A> is true and 
+<A HREF="kdu_params__kdu_params.html#allow_component_diversity">allow_component_diversity</A> is false. It treats instance indices as though they
+were component indices when implementing inheritance
+rules. This allows for the efficient handling of marker
+segments which are not component-specific but have
+a separate index (often with a variable range) which
+behaves as though it were a component index for the
+purpose of inheritance. This is true of a number of
+marker segments defined by Part 2 of the JPEG2000 standard.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__new_object.html"> next </A>|</P>
+</BODY>
+</HTML>

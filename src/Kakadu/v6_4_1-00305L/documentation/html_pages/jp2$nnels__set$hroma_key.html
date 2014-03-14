@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_channels::set_chroma_key) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$t_mapping.html"> prev </A>||<A HREF="jp2$nnels__get$m_colours.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_channels::set_chroma_key</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_channels.Set_chroma_key</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_chroma_key(
+<B>int</B>&nbsp;colour_idx,
+<B>kdu_int32</B>&nbsp;key_val)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_chroma_key(
+int&nbsp;colour_idx,
+int&nbsp;key_val)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$nnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You may use this function to specify a chroma key.
+Any pixel whose colour matches the chroma key exactly
+is understood to be fully transparent. Note carefully
+that many potential dangers exist with chroma keys.
+The main danger is that JPEG2000 code-streams are usually
+designed with lossy decoding in mind. Even if the original
+image is represented losslessly, truly lossless decoding
+may not be possible during interactive remote image
+browsing, until all data has been received from a server.
+Also, it is perfectly acceptable for a compliant decoder
+to discard some of the originally encoded data, resulting
+in a lossy rendition. Furthermore, reconstruction at
+reduced resolutions is a desirable capability for general
+purpose decoders, which generally prevents reliable
+recovery of chroma keys. Finally, unless the reversible
+processing path has been used, uncertainties on the
+order of a few digital counts typically arise as a
+result of numerical implementation differences between
+different compliant decoders.
+</P><P>
+ For all of the above reasons, applications should
+be strongly discouraged from using this function. If
+it is used, the information must be recorded in a JPX
+"Opacity" (opct) box, which places restrictions on
+other component mapping possibilities. One immediate
+restriction is that you may not define opacity or pre-multiplied
+opacity channels in addition to the chroma key. If
+a chroma key value is defined for any one colour intensity
+channel, a chroma key value must be defined for all
+<B>num_colours</B> colour intensity channels, where 
+<B>num_colours</B> is the value supplied to 
+<A HREF="jp2$nnels__init.html">init</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="colour_idx">colour_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the colour intensity channel whose chroma
+key is being supplied. The meaning of this argument
+is identical to that explained in connection with the
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> function.
+</P>
+</DIV>
+<H4><A NAME="key_val">key_val</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Defines the chroma key value. If the colour intensity
+channel is derived directly from an image component,
+the bit-depth and signed/unsigned properties of the
+chroma key value are those of the corresponding image
+component. If the colour intensity channel is derived
+from a palette LUT, the bit-depth and signed/unsigned
+properties of the chroma key value are those of the
+corresponding palette lookup table (see 
+<A HREF="jp2$lette.html">jp2_palette</A>).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$t_mapping.html"> prev </A>||<A HREF="jp2$nnels__get$m_colours.html"> next </A>|</P>
+</BODY>
+</HTML>

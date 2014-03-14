@@ -1,0 +1,145 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::get_codestream_packets) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$er_stream.html"> prev </A>||<A HREF="kdu$sitor__find_point.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::get_codestream_packets</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Get_codestream_packets</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_codestream_packets(
+<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;istream_ref,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;visible_precinct_samples,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;visible_packet_samples,
+<B>kdu_long</B>&nbsp;&amp;&nbsp;max_visible_packet_samples)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_codestream_packets(
+Kdu_istream_ref&nbsp;istream_ref,
+Kdu_dims&nbsp;region,
+long[]&nbsp;visible_precinct_samples,
+long[]&nbsp;visible_packet_samples,
+long[]&nbsp;max_visible_packet_samples)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+It is best to wait until all codestream processing
+is complete before invoking this function, since it
+will halt any current processing which uses the codestream
+&mdash; frequently halting and restarting the processing
+within a codestream can cause considerable computational
+overhead. Consider using the 
+<A HREF="kdu$sitor__is_$1_complete.html">is_codestream_processing_complete</A> function to determine whether or not invoking this
+function will cause such inefficiencies.
+</P><P>
+ This function may be used to discover the degree to
+which codestream packets which are relevant to the
+visible portion of 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A> are available for decompression. This information,
+in turn, may be used as a measure of the amount of
+relevant information which has been loaded into a dynamic
+cache, during remote browsing with JPIP, for example.
+To obtain this information, the function uses 
+<A HREF="kdu$ution__get$t_samples.html">kdu_resolution::get_precinct_samples</A> and 
+<A HREF="kdu$ution__get$t_packets.html">kdu_resolution::get_precinct_packets</A>,scanning the precincts which are relevant to the supplied
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A> according to their visible area. The 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A> argument is expressed with the same rendering coordinate
+system as that associated with 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A>, but the sample counts returned by the last three
+arguments represent relevant actual JPEG2000 subband
+samples. Samples produced by the codestream are said
+to be visible if they are not covered by any opaque
+composition layer which is closer to the foreground.
+A foreground layer is opaque if it has no alpha blending
+channel.
+</P><P>
+ The value returned via 
+<A HREF="kdu$sitor__get$m_packets.html#visible_precinct_samples">visible_precinct_samples</A> is intended to represent the total number of subband
+samples which contribute to the reconstruction of any
+visible samples within 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A>. While it will normally hold exactly this value, you
+should note that some samples may be counted multiple
+times if there are partially covering foreground compositing
+layers. This is because the function internally segments
+the visible portion of 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A> into a collection of disjoint rectangles (this is
+always possible) and then figures out the sample counts
+for each region separately, adding the results. Since
+the DWT is expansive, wherever more than one adjacent
+rectangle is required to cover the region, some samples
+will be counted more than once.
+</P><P>
+ The value returned via 
+<A HREF="kdu$sitor__get$m_packets.html#visible_packet_samples">visible_packet_samples</A> is similar to that returned via 
+<A HREF="kdu$sitor__get$m_packets.html#visible_precinct_samples">visible_precinct_samples</A>, except that each subband sample, n, which contributes
+to the visible portion of 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A>, contributes Pn to the 
+<A HREF="kdu$sitor__get$m_packets.html#visible_packet_samples">visible_packet_samples</A> count, where Pn is the number of packets which are
+currently available for the precinct to which it belongs,
+from the compressed data source. This value is recovered
+using 
+<A HREF="kdu$ution__get$t_packets.html">kdu_resolution::get_precinct_packets</A>.
+</P><P>
+ The value returned via 
+<A HREF="kdu$sitor__get$m_packets.html#max_visible_packet_samples">max_visible_packet_samples</A> is similar to that returned via 
+<A HREF="kdu$sitor__get$m_packets.html#visible_precinct_samples">visible_precinct_samples</A>, except that each subband sample, n, which contributes
+to the visible portion of 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A>, contributes Ln to the 
+<A HREF="kdu$sitor__get$m_packets.html#visible_packet_samples">visible_packet_samples</A> count, where Ln is the maximum number of packets which
+could potentially become available for the precinct
+to which it belongs. This value is recovered using
+<A HREF="kdu_tile__get$num_layers.html">kdu_tile::get_num_layers</A>.
+</P><P>
+ Where samples are counted multiple times (as described
+above), they are counted multiple times in the computation
+of all three sample counters, so that the ratio between
+<A HREF="kdu$sitor__get$m_packets.html#visible_packet_samples">visible_packet_samples</A> and 
+<A HREF="kdu$sitor__get$m_packets.html#max_visible_packet_samples">max_visible_packet_samples</A> will be 1 if and only if all possible packets are
+currently available for all precincts containing subband
+samples which are involved in the reconstruction of
+the visible portion of 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the istream identified by 
+<A HREF="kdu$sitor__get$m_packets.html#istream_ref">istream_ref</A> makes no visible contribution to 
+<A HREF="kdu$sitor__get$m_packets.html#region">region</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="istream_ref">istream_ref</A> [<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>]</H4><DIV CLASS="indented-text">
+<P>
+Reference obtained by 
+<A HREF="kdu$sitor__get$t_istream.html">get_next_istream</A>, 
+<A HREF="kdu$sitor__get$er_stream.html">get_ilayer_stream</A>, or any of the other functions offered by 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> which can provide istream references.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Region of interest, expressed within the same rendering
+coordinate system as that used by 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P>
+</DIV>
+<H4><A NAME="visible_precinct_samples">visible_precinct_samples</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="visible_packet_samples">visible_packet_samples</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_visible_packet_samples">max_visible_packet_samples</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$er_stream.html"> prev </A>||<A HREF="kdu$sitor__find_point.html"> next </A>|</P>
+</BODY>
+</HTML>

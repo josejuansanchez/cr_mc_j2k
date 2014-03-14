@@ -1,0 +1,143 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (atk_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">atk_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Atk_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 Part-2
+<B>ATK</B> marker segments. Tile-specific forms are allowed and
+multiple instances are treated like components for
+the purpose of inheritance (see the 
+<B>treat_instances_like_components</B> argument to the 
+<A HREF="kdu_params.html">kdu_params</A> constructor).
+</P><P>
+ The purpose of this parameter class is to describe
+a wavelet transform kernel. The instance number of
+the 
+<A HREF="atk_params.html">atk_params</A> object is referenced by the 
+<A HREF="globals.html#Catk">Catk</A> attribute, if 
+<A HREF="globals.html#Ckernels">Ckernels</A> holds the value 
+<A HREF="globals.html#Ckernels_ATK">Ckernels_ATK</A>. These instance numbers must be in the range 2 through
+255.
+</P><P>
+ The cluster name is "ATK", but you are recommended
+to use the macro 
+<A HREF="globals.html#ATK_params">ATK_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Kreversible">Kreversible</A>; Pattern = "B" &mdash; This attribute determines how
+the 
+<A HREF="globals.html#Ksteps">Ksteps</A> and 
+<A HREF="globals.html#Kcoeffs">Kcoeffs</A> attributes should be treated. A default value cannot
+be created automatically, so you must explicitly specify
+a value if you want ATK information to become available
+for any particular instance index in the main header
+or a tile header. In the end, this parameter attribute
+must agree with the value of the 
+<A HREF="globals.html#Creversible">Creversible</A> attribute, for any tile-component which uses this
+transformation kernel. In practice, this consistency
+can only be ensured once 
+<B>cod_params::finalize</B> has been called, which means that the 
+<A HREF="kdu_params__fin$lize_all__1.html">kdu_params::finalize_all</A> function must be called both during the writing and
+during the reading of codestream parameters.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Ksymmetric">Ksymmetric</A>; Pattern = "B" &mdash; If true, the transform kernel
+belongs to the whole-sample symmetric class, which
+is treated specially by JPEG2000 Part-2. The translated
+impulse responses of these kernels are all symmetric
+about 0 &mdash; see the Taubman & Marcellin book, Chapter
+6, for a definition of translated impulse responses.
+Equivalently, all lifting steps involve even-length
+symmetric lifting coefficients, Cs[n], where the coefficients
+associated with steps s=0, 2, 4, ... are symmetric
+about n = 1/2 and the coefficients associated with
+steps s=1, 3, 5, ... are symmetric about n = -1/2.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Kextension">Kextension</A>; Pattern = "(CON=0,SYM=1)" &mdash; Identifies the
+boundary extension method to be applied in each lifting
+step. If 
+<B>CON</B>, boundary samples are simply replicated. The other
+possible value, 
+<B>SYM</B>, means that boundary samples are symmetrically extended.
+The centre of symmetry in this case is the boundary
+sample location within an interleaved representation
+in which low-pass samples occupy the even indexed locations
+and high-pass samples occupy the odd indexed locations.
+The 
+<B>SYM</B> method must be used if 
+<A HREF="globals.html#Ksymmetric">Ksymmetric</A> is true. Conversely, for non-symmetric filters you
+are strongly recommded to use the 
+<B>CON</B> method, since this method can use less memory and
+other methods can make region-of-interest calculations
+very difficult for small regions which are close to
+the image boundaries. When setting the profile, you
+may find it convenient to use the macro's 
+<A HREF="globals.html#Kextension_CON">Kextension_CON</A> and 
+<A HREF="globals.html#Kextension_SYM">Kextension_SYM</A>.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Ksteps">Ksteps</A>; Pattern = "IIII", [MULTI_RECORD] &mdash; Array with
+one entry for each lifting step. The first entry corrsponds
+to lifting step s=0, which updates odd indexed samples,
+based on even indexed samples; the second entry corresponds
+to lifting step s=1, which updates even indexed samples,
+based on odd indexed samples; and so forth. The first
+field in each record holds the length, Ls, of the coefficient
+array Cs[n], for the relevant step s. The second field
+is the location of the first entry, Ns, where Cs[n]
+is defined for n=Ns to Ns+Ls-1. The value of Ns is
+typically negative, but need not be. For symmetric
+kernels, Ls must be even and Ns must satisfy Ns=-floor((Ls+p-1)/2),
+where p is the lifting step parity (0 if s is even,
+1 if s is odd). The third and fourth fields must both
+be 0 if 
+<A HREF="globals.html#Kreversible">Kreversible</A> is false. For reversible transform kernels, however,
+the third field holds the downshift value, Ds, while
+the fourth field holds the rounding offset, Rs, to
+be added immediately prior to downshifting.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Kcoeffs">Kcoeffs</A>; Pattern = "F", [MULTI_RECORD] &mdash; Holds the lifting
+coefficients, Cs[n]. The first L0 records describe
+the coefficients of the first lifting step. These are
+followed by the L1 coefficients of the second lifting
+step, and so forth. The Ls values are identified by
+the first field in each 
+<A HREF="globals.html#Ksteps">Ksteps</A> record. Lifting step s may be described by X_s[2k+1-p]
++= TRUNC(sum_{Ns&lt;=n&lt;Ns+Ls} Cs[n]*X_{s-1}[2k+p+2n]).
+In the case of an irreversible transform, the TRUNC
+operator does nothing and all arithmetic is performed
+(at least notionally) in floating point. For reversible
+transforms, TRUNC(a) = floor(a + Rs*2^{-Ds}) and Cs[n]
+is guaranteed to be an integer multiple of 2^{-Ds}.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="atk_params__atk_params.html">atk_params</A> {<U>Java:</U> Atk_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

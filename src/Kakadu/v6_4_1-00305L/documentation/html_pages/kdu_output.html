@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_output) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_output</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_output</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This abstract base class must be derived to construct
+meaningful output objects. In particular, derived objects
+must implement the protected pure virtual function,
+<B>flush_buf</B>. Since there may be many low level byte-oriented transactions,
+the base implementation emphasizes efficiency, providing
+a small buffer of its own, with all I/O functions in-lined.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_output__kdu_output.html">kdu_output</A></P>
+<P><A HREF="kdu_output__~kdu_output.html">~kdu_output</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu_output__put__1.html">put</A> <EM>(4 forms)</EM> {<U>Java:</U> Put}
+</P>
+<P><A HREF="kdu_output__write.html">write</A> {<U>Java:</U> Write}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

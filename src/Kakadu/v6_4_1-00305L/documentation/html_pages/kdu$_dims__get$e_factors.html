@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::get_resolution_scale_factors) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get$esolution.html"> prev </A>||<A HREF="kdu$_dims__set$lour_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::get_resolution_scale_factors</A></H1>
+<P CLASS="function-text"><B>bool</B> get_resolution_scale_factors(
+<B>int</B>&nbsp;comp_idx,
+<B>double</B>&nbsp;&amp;&nbsp;scale_x,
+<B>double</B>&nbsp;&amp;&nbsp;scale_y)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Used to retrieve the amount by which the original image
+sampling density has been scaled due to resolution
+reduction. This information is recovered by taking
+the ratio of the actual dimensions for component 
+<A HREF="kdu$_dims__get$e_factors.html#comp_idx">comp_idx</A>, as returned by 
+<A HREF="kdu$_dims__get_width.html">get_width</A> and 
+<A HREF="kdu$_dims__get_height.html">get_height</A>, and the reference dimensions supplied to 
+<A HREF="kdu$_dims__set$esolution.html">set_resolution</A>. This should be a good indication of the amount by
+which image size has been reduced (the factors should
+generally be &lt;= 1) due to reconstruction at a reduced
+resolution. The situation may be a little murky for
+JPX files, since the reference dimensions supplied
+to 
+<A HREF="kdu$_dims__set$esolution.html">set_resolution</A> belong to the JPX compositing layer, yet the "kdu_expand"
+demo application only does decompression of codestream
+data &mdash; in exceptional circumstances, compositing
+layers may have a different sampling density to the
+codestream(s) from which they are composed.
+</P><P>
+ Note that the 
+<A HREF="kdu$_dims__get$e_factors.html#scale_x">scale_x</A> and 
+<A HREF="kdu$_dims__get$e_factors.html#scale_y">scale_y</A> parameters may differ if the image is being decompressed
+after discarding one or more decomposition levels from
+a Part-2 wavelet decomposition with non-uniform decimation
+properties.
+</P><P>
+ The function returns true if 
+<A HREF="kdu$_dims__set$esolution.html">set_resolution</A> was successfully invoked in the past; otherwise, it
+sets 
+<A HREF="kdu$_dims__get$e_factors.html#scale_x">scale_x</A> and 
+<A HREF="kdu$_dims__get$e_factors.html#scale_y">scale_y</A> to 1 and returns false, indicating that the scaling
+factors cannot actually be known.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="scale_x">scale_x</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="scale_y">scale_y</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get$esolution.html"> prev </A>||<A HREF="kdu$_dims__set$lour_info.html"> next </A>|</P>
+</BODY>
+</HTML>

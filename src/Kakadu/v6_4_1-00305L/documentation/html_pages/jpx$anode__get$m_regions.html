@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_num_regions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__test_numlist.html"> prev </A>||<A HREF="jpx$anode__get_regions.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_num_regions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_num_regions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_regions(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_regions(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to determine whether or not the node
+is represented by an ROI description box. If it is,
+the function returns the number of rectangular or elliptical
+regions in the ROI description box; otherwise, it returns
+0. The remainder of the discussion here assumes that
+the function returns a value greater than 0.
+</P><P>
+ If this is an intermediate node, the ROI description
+box is the first sub-box of an association box, and
+all of the node's descendants (both immediate and indirect
+descendants) are deemed to be associated with the set
+of regions described by the ROI description box. Although
+this is the most useful case, it can happen that the
+node is a leaf node, involving no association box and
+no descendants.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__test_numlist.html"> prev </A>||<A HREF="jpx$anode__get_regions.html"> next </A>|</P>
+</BODY>
+</HTML>

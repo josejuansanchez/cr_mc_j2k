@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_dimensions::finalize_compatibility) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$sions__init__2.html"> prev </A>||<A HREF="jp2$sions__fin$atibility__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_dimensions::finalize_compatibility</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_dimensions.Finalize_compatibility</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jp2$sions__fin$atibility__2.html">2</A>,
+<A HREF="jp2$sions__fin$atibility__3.html">3</A></B></P>
+<P CLASS="function-text"><B>void</B> finalize_compatibility(
+<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*&nbsp;root)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Finalize_compatibility(
+Kdu_params&nbsp;root)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$sions.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function has no impact over the generation of
+a valid Image Header Box. However, it provides important
+information to allow the correct generation of File
+Type and Reader Requirements boxes for a JPX file and
+also to determine the legality of JP2 and MJ2 files.
+These processes require knowledge of the profile and/or
+specific Part-2 extensions used by the associated codestream.
+This information, in turn, requires access to the finalized
+parameter attributes associated with the codestream's
+main header. Since this information might not be available
+when the 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object is first initialized, this separate function
+allows the information to be acquired later.
+</P><P>
+ When writing a JP2/MJ2/JPX file, this function should
+be called with the root of the parameter sub-system
+returned by 
+<A HREF="kdu$tream__access_siz.html">kdu_codestream::access_siz</A>, after the 
+<A HREF="kdu_params__fin$lize_all__1.html">kdu_params::finalize_all</A> function has been used to finalize all main header
+attributes, at least. It should be called before the
+relevant file header is written. If you do not call
+this function, the generated file might be written
+with misleading File Type and/or Reader Requirements
+boxes.
+</P><P>
+ When reading a JP2/MJ2/JPX file, there is no need
+to ever call this function, unless you are going to
+use the present object to initialize another 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object using the 
+<A HREF="jp2$sions__copy.html">copy</A> member function. In this case, you should call the
+present function prior to 
+<A HREF="jp2$sions__copy.html">copy</A> if you wish to include the copied dimensional information
+in a JP2/MJ2/JPX file with correctly generated File
+Type and Reader Requirements boxes.
+</P><P>
+ If the codestream associated with this object is not
+a JPEG2000 codestream, you will not be calling this
+function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="root">root</A> [<A HREF ="kdu_params.html">kdu_params</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$sions__init__2.html"> prev </A>||<A HREF="jp2$sions__fin$atibility__2.html"> next </A>|</P>
+</BODY>
+</HTML>

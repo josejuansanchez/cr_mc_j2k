@@ -1,0 +1,178 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
+#
+# psnr_vs_br.py
+
+import sys
+import getopt
+import os
+import array
+import display
+import string
+
+block_overlaping = 0
+block_size = 16
+block_size_min = 16
+border_size = 0
+original = "../videos/mobile_352x288x30x420x300.yuv"
+pictures = 33
+pixels_in_x = 352
+pixels_in_y = 288
+search_range = 4
+slopes = "52000"
+subpixel_accuracy = 0
+temporal_levels = 6
+
+def usage():
+    sys.stderr.write("+--------------------------+\n")
+    sys.stderr.write("| MCTF psnr_vs_br compress |\n")
+    sys.stderr.write("+--------------------------+\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("  Description:\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("   Traces a RD (Rate-Distortion) curve.\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("  Parameters:\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("   -[-]block_o[v]erlaping=number of overlaped pixels between the blocks in the motion estimation (%d)\n" % block_overlaping)
+    sys.stderr.write("   -[-b]lock_size=size of the blocks in the motion estimation process (%d)\n" % block_size)
+    sys.stderr.write("   -[-]block_si[z]e_min=minimal block size allowed in the motion estimation (%d)\n" % block_size_min)
+    sys.stderr.write("   -[-]bor[d]der_size=size of the border of the blocks in the motion estimation process (%d)\n" % border_size)
+    sys.stderr.write("   -[-o]riginal=original video to compare (%s)\n" % original)
+    sys.stderr.write("   -[-p]ictures=number of images to process (%d)\n" % pictures)
+    sys.stderr.write("   -[-]pixels_in_[x]=size of the X dimension of the pictures (%d)\n" %  pixels_in_x)
+    sys.stderr.write("   -[-]pixels_in_[y]=size of the Y dimension of the pictures (%d)\n" %  pixels_in_y)
+    sys.stderr.write("   -[-s]earch_range=size of the searching area of the motion estimation (%d)\n" % search_range)
+    sys.stderr.write("   -[-]s[l]opes=distortion-length slope for each quality layer (\"%s\")\n" % slopes)
+    sys.stderr.write("   -[-]subpixel_[a]ccuracy=sub-pixel accuracy of the motion estimation (%d)\n" % subpixel_accuracy)
+    sys.stderr.write("   -[-t]emporal_levels=number of iterations of the temporal transform + 1 (%d)\n" % temporal_levels)
+    sys.stderr.write("\n")
+    
+opts = ""
+
+
+
+try:
+    opts, extraparams = getopt.getopt(sys.argv[1:],"v:b:z:d:p:x:y:l:p:a:t:h",
+                                      ["block_overlaping=",
+                                       "block_size=",
+                                       "block_size_min=",
+                                       "border_size=",
+                                       "original=",
+                                       "pictures=",
+                                       "pixels_in_x=",
+                                       "pixels_in_y=",
+                                       "search_range=",
+                                       "slopes=",
+                                       "subpixel_accuracy=",
+                                       "temporal_levels=",
+                                       "help"
+                                       ])
+except getopt.GetoptError, exc:
+    sys.stderr.write(sys.argv[0] + ": " + exc.msg + "\n")
+    sys.exit(2)
+
+for o, a in opts:
+    if o in ("-v", "--block_overlaping"):
+        block_overlaping = int(a)
+        
+    if o in ("-b", "--block_size"):
+        block_size = int(a)
+        
+    if o in ("-z", "--block_size_min"):
+        block_size_min = int(a)
+        
+    if o in ("-d", "--border_size"):
+        border_size = int(a)
+        
+    if o in ("-o", "--original"):
+        original = a
+        
+    if o in ("-p", "--pictures"):
+        pictures = int(a)
+        
+    if o in ("-x", "--pixels_in_x"):
+        pixels_in_x = int(a)
+        
+    if o in ("-y", "--pixels_in_y"):
+        pixels_in_y = int(a)
+        
+    if o in ("-s", "--search_range"):
+        search_range = int(a)
+        
+    if o in ("-l", "--slopes"):
+        slopes = a
+        
+#        slopes += ",65535"
+    if o in ("-a", "--subpixel_accuracy"):
+        subpixel_accuracy = int(a)
+        
+    if o in ("-t", "--temporal_levels"):
+        temporal_levels = int(a)
+        
+    if o in ("-h", "--help"):
+	usage()
+	sys.exit()
+
+output = open("psnr_vs_br.txt", "w")
+
+slopes = 52000
+while slopes < 65535:
+
+    command = "cp " + original + " low_0"
+    os.system(command)
+
+    command = "mctf compress" + \
+              " --block_overlaping=" + str(block_overlaping) + \
+              " --block_size=" + str(block_size) + \
+              " --block_size_min=" + str(block_size_min) + \
+              " --border_size=" + str(border_size) + \
+              " --pictures=" + str(pictures) + \
+              " --pixels_in_x=" + str(pixels_in_x) + \
+              " --pixels_in_y=" + str(pixels_in_y) + \
+              " --search_range=" + str(search_range) + \
+              " --slopes=\"" + str(slopes) + "\"" + \
+              " --subpixel_accuracy=" + str(subpixel_accuracy) + \
+              " --temporal_levels=" + str(temporal_levels)
+    os.system(command)
+
+    command = "mctf expand" + \
+              " --block_overlaping=" + str(block_overlaping) + \
+              " --block_size=" + str(block_size) + \
+              " --block_size_min=" + str(block_size_min) + \
+              " --pictures=" + str(pictures) + \
+              " --pixels_in_x=" + str(pixels_in_x) + \
+              " --pixels_in_y=" + str(pixels_in_y) + \
+              " --search_range=" + str(search_range) + \
+              " --subpixel_accuracy=" + str(subpixel_accuracy) + \
+              " --temporal_levels=" + str(temporal_levels)
+    os.system(command)
+
+#    command = "mctf info" + \
+#              " --pictures=" + str(pictures) + \
+#              " --temporal_levels=" + str(temporal_levels) + \
+#              " | grep \"Total Kbps average\""
+    command = "mctf info" + \
+              " --pictures=" + str(pictures) + \
+              " --temporal_levels=" + str(temporal_levels)
+    out = os.popen(command).read()
+    print "......"
+    print out
+    br = float(out.split(" ")[3])
+
+    command = "mctf psnr" + \
+              " --original=" + original + \
+              " --pixels_in_x=" + str(pixels_in_x) + \
+              " --pixels_in_y=" + str(pixels_in_y)
+    out = os.popen(command).read()
+    psnr = float(out)
+
+    output.write("%f\t" % br)
+    output.write("%f\t" % psnr)
+    output.write("#%d\n" % slopes)
+    output.flush()
+    sys.stdout.write("%f\t" % br)
+    sys.stdout.write("%f\t" % psnr)
+    sys.stdout.write("#%d\n" % slopes)
+
+    slopes += 100

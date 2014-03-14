@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::write_tag) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__write_tag__8.html"> prev </A>||<A HREF="kdu$ffdir__copy_tag.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::write_tag</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Write_tag</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$ffdir__write_tag__1.html">1</A>,
+<A HREF="kdu$ffdir__write_tag__2.html">2</A>,
+<A HREF="kdu$ffdir__write_tag__3.html">3</A>,
+<A HREF="kdu$ffdir__write_tag__4.html">4</A>,
+<A HREF="kdu$ffdir__write_tag__5.html">5</A>,
+<A HREF="kdu$ffdir__write_tag__6.html">6</A>,
+<A HREF="kdu$ffdir__write_tag__7.html">7</A>,
+<A HREF="kdu$ffdir__write_tag__8.html">8</A>,
+9</B></P>
+<P CLASS="function-text"><B>void</B> write_tag(
+<B>kdu_uint32</B>&nbsp;tag_type,
+<B>kdu_long</B>&nbsp;val64)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Write_tag(
+long&nbsp;tag_type,
+long&nbsp;val64)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Convenience function to write a single 64-bit tag value.
+See the fifth form of the 
+<A HREF="kdu$ffdir__write_tag__1.html">write_tag</A> function for more info. Note that this function may
+be used with tags whose data type (least significant
+two bytes of the 
+<A HREF="kdu$ffdir__write_tag__9.html#tag_type">tag_type</A>) is any of 3, 8, 4, 9, 16 or 17. It is the preferred
+function to use for single-samle writing through foreign
+language bindings, where argument data-type alone might
+not be sufficient to resolve ambiguity.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tag_type">tag_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="val64">val64</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__write_tag__8.html"> prev </A>||<A HREF="kdu$ffdir__copy_tag.html"> next </A>|</P>
+</BODY>
+</HTML>

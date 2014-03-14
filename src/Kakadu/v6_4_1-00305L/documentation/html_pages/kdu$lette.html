@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_rgb8_palette) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_rgb8_palette [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This simple structure may be used to convey information
+about an RGB colour palette, indexed by up to 8 bit
+component sample values. If the index has more than
+8 bits, it is probably better to compress the de-palettized
+colour samples rather than the palette index.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$lette__kdu$8_palette.html">kdu_rgb8_palette</A></P>
+<P><A HREF="kdu$lette__exists.html">exists</A></P>
+<P><A HREF="kdu$lette__operator!.html">operator!</A></P>
+<P><A HREF="kdu$lette__is_$onochrome.html">is_monochrome</A></P>
+<P><A HREF="kdu$lette__rearrange.html">rearrange</A></P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="input_bits">input_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Precision of the indices mapped by this palette. Must
+be no larger than 8.
+</P>
+</DIV>
+<H4><A NAME="output_bits">output_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the bit-depth of the palette colour values
+in the 
+<A HREF="kdu$lette.html#red">red</A>, 
+<A HREF="kdu$lette.html#green">green</A> and 
+<A HREF="kdu$lette.html#blue">blue</A> arrays. May not exceed 31.
+</P>
+</DIV>
+<H4><A NAME="source_component">source_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Should be set to the index (starting from 0) of the
+JPEG2000 image component which holds palette indices.
+</P>
+</DIV>
+<H4><A NAME="red">red[]</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+<P>
+The first 2^{
+<A HREF="kdu$lette.html#input_bits">input_bits</A>} entries in this array hold valid palette entries
+for the red colour channel. These entries are all expected
+to be unsigned quantities; the reason for selecting
+a signed integer data type to hold these unsigned quantities
+is only to simplify interaction with the 
+<A HREF="jp2$lette.html">jp2_palette</A> object.
+</P>
+</DIV>
+<H4><A NAME="green">green[]</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the description of the 
+<A HREF="kdu$lette.html#red">red</A> array.
+</P>
+</DIV>
+<H4><A NAME="blue">blue[]</A> [<B>kdu_int32</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the description of the 
+<A HREF="kdu$lette.html#red">red</A> array.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

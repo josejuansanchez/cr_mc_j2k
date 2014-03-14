@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_overlay_params::map_jpx_regions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__get$ng_points.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_overlay_params::map_jpx_regions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_overlay_params.Map_jpx_regions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;* map_jpx_regions(
+const&nbsp;<A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;*&nbsp;regions,
+<B>int</B>&nbsp;num_regions,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;image_offset,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;subsampling,
+<B>bool</B>&nbsp;transpose,
+<B>bool</B>&nbsp;vflip,
+<B>bool</B>&nbsp;hflip,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expansion_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expansion_denominator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;compositing_offset)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_roi Map_jpx_regions(
+Jpx_roi&nbsp;regions,
+int&nbsp;num_regions,
+Kdu_coords&nbsp;image_offset,
+Kdu_coords&nbsp;subsampling,
+boolean&nbsp;transpose,
+boolean&nbsp;vflip,
+boolean&nbsp;hflip,
+Kdu_coords&nbsp;expansion_numerator,
+Kdu_coords&nbsp;expansion_denominator,
+Kdu_coords&nbsp;compositing_offset)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$arams.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function conveniently performs all the coordinate
+mapping operations prescribed by the 
+<B>custom_paint_overlay</B> function, returning an array with 
+<A HREF="kdu$arams__map$x_regions.html#num_regions">num_regions</A> entries, corresponding to transformed versions of
+the entries supplied with the 
+<A HREF="kdu$arams__map$x_regions.html#regions">regions</A> array on input. The copies belong to an internal array
+managed by the present object. You may feel free to
+modify them further if required.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="regions">regions</A> [const&nbsp;<A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_regions">num_regions</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="image_offset">image_offset</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="subsampling">subsampling</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expansion_numerator">expansion_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expansion_denominator">expansion_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="compositing_offset">compositing_offset</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__get$ng_points.html"> prev </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (qcd_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">qcd_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Qcd_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with JPEG2000 
+<B>QCD</B> and 
+<B>QCC</B> marker segments. Tile- and component-specific forms
+are allowed (in fact, required for a complete code-stream
+description).
+</P><P>
+ The cluster name is "QCD", but you are recommended
+to use the macro 
+<A HREF="globals.html#QCD_params">QCD_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ NOTE: It is important that you link 
+<A HREF="cod_params.html">cod_params</A> into the cluster list ahead of 
+<A HREF="qcd_params.html">qcd_params</A>. This ensures that 
+<B>cod_params::finalize</B> will be called prior to 
+<B>qcd_params::finalize</B> so that reversibility can be reliably determined from
+the 
+<A HREF="globals.html#Creversible">Creversible</A> attribute.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Qguard">Qguard</A>; Pattern = "I" &mdash; Number of guard bits to prevent
+overflow in the magnitude bit-plane representation.
+Typical values are 1 or 2. Default is 1.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Qderived">Qderived</A>; Pattern = "B" &mdash; Quantization steps derived
+from LL band parameters? If true, all quantization
+step sizes will be related to the LL subband's step
+sizes through appropriate powers of 2 and only the
+LL band step size will be written in code-stream markers.
+Otherwise, a separate step size will be recorded for
+every subband. You cannot use this option with reversible
+compression. Default is not derived.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Qstep">Qstep</A>; Pattern = "F" &mdash; Base step size to be used in
+deriving irreversible quantization step sizes for every
+subband. The base step parameter should be in the range
+0 to 2. Default is 1/256.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Qabs_steps">Qabs_steps</A>; Pattern = "F", [MULTI_RECORD] &mdash; Absolute quantization
+step sizes for each subband, expressed as a fraction
+of the nominal dynamic range for that subband. The
+nominal range is equal to 2^B (B is the image sample
+bit-depth) multiplied by the DC gain of each low-pass
+subband analysis filter and the AC gain of each high-pass
+subband analysis filter, involved in the construction
+of the relevant subband. The bands are described one
+by one, in the following sequence: LL_D, HL_D, LH_D,
+..., HL_1, LH_1, HH_1. Here, D denotes the number of
+DWT levels. A single step size must be supplied for
+every subband (there is no extrapolation), except in
+the event that 
+<A HREF="globals.html#Qderived">Qderived</A> is set to true &mdash; then, only one parameter is
+allowed, corresponding to the LL_D subband. For compressors,
+the absolute step sizes are ignored if 
+<A HREF="globals.html#Qstep">Qstep</A> has been used.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Qabs_ranges">Qabs_ranges</A>; Pattern = "I", [MULTI_RECORD] &mdash; Number of range
+bits used to code each subband during reversible compression.
+Subbands appear in the sequence, LL_D, HL_D, LH_D,
+..., HL_1, LH_1, HH_1, where D denotes the number of
+DWT levels. The number of range bits for a reversibly
+compressed subband, plus the number of guard bits (see
+<A HREF="globals.html#Qguard">Qguard</A>), is equal to 1 plus the number of magnitude bit-planes
+which are used for coding its samples. For compressors,
+most users will accept the default policy, which sets
+the number of range bits to the smallest value which
+is guaranteed to avoid overflow or underflow in the
+bit-plane representation, assuming that the RCT (colour
+transform) is used. If explicit values are supplied,
+they must be given for each and every subband.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="qcd_params__qcd_params.html">qcd_params</A> {<U>Java:</U> Qcd_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

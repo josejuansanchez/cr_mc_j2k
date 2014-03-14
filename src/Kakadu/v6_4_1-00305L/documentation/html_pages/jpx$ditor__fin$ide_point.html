@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::find_nearest_guide_point) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__fin$ary_point.html"> prev </A>||<A HREF="jpx$ditor__sel$ct_anchor.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::find_nearest_guide_point</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Find_nearest_guide_point</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> find_nearest_guide_point(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;point)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Find_nearest_guide_point(
+Kdu_coords&nbsp;point)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx$ditor__fin$ary_point.html">find_nearest_boundary_point</A>, except that this function projects onto a set of
+"guide" lines which depend upon the currently selected
+anchor point. If there is no currently selected anchor,
+the function returns false without doing anything.
+The guide lines are as follows:
+</P><UL><LI>
+In the 
+<A HREF="globals.html#JPX_EDITOR_SKELETON_MODE">JPX_EDITOR_SKELETON_MODE</A> and 
+<A HREF="globals.html#JPX_EDITOR_PATH_MODE">JPX_EDITOR_PATH_MODE</A> editing modes (see 
+<A HREF="jpx$ditor__set_mode.html">set_mode</A>), selected elliptical regions have no guidelines.
+</LI><LI>
+In 
+<A HREF="globals.html#JPX_EDITOR_VERTEX_MODE">JPX_EDITOR_VERTEX_MODE</A>, a selected ellipse has exactly one guideline, corresponding
+to the elliptical axis which runs through the centre
+of the ellipse and the currently selected anchor point.
+</LI><LI>
+In 
+<A HREF="globals.html#JPX_EDITOR_VERTEX_MODE">JPX_EDITOR_VERTEX_MODE</A>, a selected quadrilateral has up to two guidelines,
+formed by extending the quadrilateral edges which have
+the currently selected anchor point as one (but not
+both) of their end-points.
+</LI><LI>
+In 
+<A HREF="globals.html#JPX_EDITOR_SKELETON_MODE">JPX_EDITOR_SKELETON_MODE</A>, a selected quadrilateral has up to three guidelines.
+These guidelines are formed by drawing lines through
+the currently selected anchor point which are parallel
+to any of the three edges whose end-points include
+one of the two end-points which are bisected by the
+selected anchor point. You might like to read the definition
+of 
+<A HREF="jpx$ditor__set_mode.html">set_mode</A> to understand the geometry of the anchor points better.
+</LI><LI>
+In 
+<A HREF="globals.html#JPX_EDITOR_PATH_MODE">JPX_EDITOR_PATH_MODE</A>, a selected quadrilateral has only one guideline,
+formed by extending its path segment. Path segments
+are defined carefully in connection with the 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A> function. Note that not all quadrilateral regions
+have path segments, but those that do not cannot be
+selected in 
+<A HREF="globals.html#JPX_EDITOR_PATH_MODE">JPX_EDITOR_PATH_MODE</A>.
+</LI></UL><P>
+ If the nearest projection onto any of the above guide
+lines happens to be identical to the currently selected
+anchor point, that projection is ignored.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="point">point</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__fin$ary_point.html"> prev </A>||<A HREF="jpx$ditor__sel$ct_anchor.html"> next </A>|</P>
+</BODY>
+</HTML>

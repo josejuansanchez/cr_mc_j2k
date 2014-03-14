@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::refresh) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__is_$1_complete.html"> prev </A>||<A HREF="kdu$sitor__inv$date_rect.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::refresh</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Refresh</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> refresh(
+<B>bool</B>&nbsp;*&nbsp;new_imagery=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Refresh(
+boolean[]&nbsp;new_imagery)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function to force the buffer surfaces to
+be rendered and composited again, from the raw codestream
+data. This is particularly useful when operating with
+a data source which is fed by a dynamic cache whose
+contents might have expanded since the buffer surface
+was last rendered and composited.
+</P><P>
+ No processing actually takes place within this function;
+it simply schedules the processing to take place in
+subsequent calls to the 
+<A HREF="kdu$sitor__process.html">process</A> function.
+</P><P>
+ The call is ignored if the object was constructed
+with a negative 
+<B>persistent_cache_threshold</B> argument, since non-persistent code-streams do not
+allow any image regions to be decompressed over again.
+</P><P>
+ If one or more of the imagery layers involved in a
+frame constructed by 
+<A HREF="kdu$sitor__set_frame.html">set_frame</A> did not previously have sufficient codestream main
+header data to be completely initialized, the present
+function tries to initialize those imagery layers.
+If this is successful, the image dimensions, buffer
+surface and dimensions last retrieved via 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> may be invalid, so the function returns false, informing
+the caller that it should update its record of the
+image dimensions and buffer surfaces.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the image dimensions, buffer surface and dimensions
+retrieved via a previous call to 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> and/or 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> can no longer be trusted.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="new_imagery">new_imagery</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is non-NULL, the function does not
+refresh anything unless at least one imagery layer
+involved in a frame constructed by 
+<A HREF="kdu$sitor__set_frame.html">set_frame</A> is completely initialized for the first time, or a
+pending request to advance an MJ2 video frame can be
+granted, as a result of invoking this function. Moreover,
+the value of *
+<A HREF="kdu$sitor__refresh.html#new_imagery">new_imagery</A> is set to true if indeed anything was refreshed and
+false otherwise.
+</P><P>
+ The main reason for providing this argument is to
+support applications in which the region compositor
+is fed from a dynamic cache (typically a JPIP media
+browser). It is often desirable for the application
+to re-render content as soon as possible once a new
+compositing layer or video frame is available in the
+cache, but we don't want to refresh the entire display
+(possibly consisting of a massive number of compositing
+layers) every time the cache contents expand unless
+we know that there are indeed newly available codestreams
+for rendering imagery.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__is_$1_complete.html"> prev </A>||<A HREF="kdu$sitor__inv$date_rect.html"> next </A>|</P>
+</BODY>
+</HTML>

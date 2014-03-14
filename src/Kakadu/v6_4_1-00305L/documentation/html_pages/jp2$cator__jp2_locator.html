@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_locator::jp2_locator) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$cator__is_null.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_locator::jp2_locator</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_locator.Jp2_locator</EM></H3></DIR></DIR>
+<P CLASS="function-text"> jp2_locator(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native  Jp2_locator(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$cator.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Creates a null locator, which can be used to open the
+first JP2 box in any JP2-family source, using 
+<A HREF="jp2$t_box__open__1.html">jp2_input_box::open</A>. Immediately after construction, the 
+<A HREF="jp2$cator__is_null.html">is_null</A> function returns true. There are two ways to obtain
+another locator, as follows:
+</P><UL><LI>
+Invoke 
+<A HREF="jp2$t_box__get_locator.html">jp2_input_box::get_locator</A> on an existing open box.
+</LI><LI>
+Use 
+<A HREF="jp2$cator__set_file_pos.html">set_file_pos</A> to set the locator to reference an absolute location
+in an original file (works even if the file is being
+served up incrementally in an unpredictable order).
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$cator__is_null.html"> next </A>|</P>
+</BODY>
+</HTML>

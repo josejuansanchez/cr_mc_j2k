@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_worker::do_job) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_worker__~kdu_worker.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_worker::do_job</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_worker.Do_job</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> do_job(
+<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*&nbsp;ent,
+<B>int</B>&nbsp;job_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Do_job(
+Kdu_thread_entity&nbsp;ent,
+int&nbsp;job_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu_worker.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is called with a negative 
+<A HREF="kdu_worker__do_job.html#job_idx">job_idx</A> only if the containing object was registered against
+a queue using the 
+<A HREF="kdu$ntity__reg$nized_job.html">kdu_thread_entity::register_synchronized_job</A> function. Otherwise, the 
+<A HREF="kdu_worker__do_job.html#job_idx">job_idx</A> argument represents the ordinal position at which
+the job was added to its queue, starting from 0 for
+the first job in the queue.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ent">ent</A> [<A HREF ="kdu$ntity.html">kdu_thread_entity</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="job_idx">job_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_worker__~kdu_worker.html"> prev </A>|</P>
+</BODY>
+</HTML>

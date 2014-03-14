@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::get_precinct_samples) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$t_packets.html"> prev </A>||<A HREF="kdu$ution__access_node.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::get_precinct_samples</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Get_precinct_samples</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_precinct_samples(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;precinct_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_precinct_samples(
+Kdu_coords&nbsp;precinct_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the total number of code-block samples which
+belong to the precinct identified by 
+<A HREF="kdu$ution__get$t_samples.html#precinct_idx">precinct_idx</A>. This can be 0 if the precinct contains no code-blocks
+&mdash; some precincts in JPEG2000 can contain no code-blocks
+yet exist nonetheless, depending upon the image dimensions.
+</P><P>
+ The 
+<A HREF="kdu$ution__get$t_samples.html#precinct_idx">precinct_idx</A> argument should lie within the range of indices returned
+via 
+<A HREF="kdu$ution__get$precincts.html">get_valid_precincts</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="precinct_idx">precinct_idx</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ution__get$t_packets.html"> prev </A>||<A HREF="kdu$ution__access_node.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,229 @@
+8 Layers
+--------
+kdu_compress -i tree.pgm -o tree.j2c Cuse_sop=yes Corder=LRCP Clayers=8 Clevels=2 Cprecincts="{128,128},{64,64},{32,32}" Cblk="{32,32}" Creversible=yes
+
+kdu_compress -i stockholm.pgm -o stockholm.j2c Cuse_sop=yes Corder=LRCP Clayers=8 Clevels=2 Cprecincts="{128,128},{64,64},{32,32}" Cblk="{32,32}" Creversible=yes
+
+
+Pasos
+-----
+1) ./sh_compress.sh
+
+2) ./sh_extract_packets_from_j2c.sh images_j2c/stockholm.j2c packets_stockholm > sh_stockholm.sh
+
+3) chmod +x sh_stockholm.sh
+
+4) ./sh_stockholm.sh
+
+5) ./sh_extract_packets_from_j2c.sh images_j2c/tree.j2c packets_tree > sh_tree.sh
+
+6) chmod +x sh_tree.sh
+
+7) ./sh_tree.sh
+
+
+Consultamos cuántos bytes ocupa la cabecera de cada imagen
+----------------------------------------------------------
+less sh_stockholm.sh 
+
+
+J2C Headers (8 Layers)
+----------------------
+(dd if=images_j2c/tree.j2c of=tree_header.j2c bs=320 count=1 2>&1) > /dev/null
+(dd if=images_j2c/stockholm.j2c of=stockholm_header.j2c bs=320 count=1 2>&1) > /dev/null
+
+
+Distribución de precintos y paquetes para el caso de 8 capas
+------------------------------------------------------------
+Precinct: 0 	 Packets: 0 180 360 540 720 900 1080 1260 
+Precinct: 1 	 Packets: 1 181 361 541 721 901 1081 1261 
+Precinct: 2 	 Packets: 2 182 362 542 722 902 1082 1262 
+Precinct: 3 	 Packets: 3 183 363 543 723 903 1083 1263 
+Precinct: 4 	 Packets: 4 184 364 544 724 904 1084 1264 
+Precinct: 5 	 Packets: 5 185 365 545 725 905 1085 1265 
+Precinct: 6 	 Packets: 6 186 366 546 726 906 1086 1266 
+Precinct: 7 	 Packets: 7 187 367 547 727 907 1087 1267 
+Precinct: 8 	 Packets: 8 188 368 548 728 908 1088 1268 
+Precinct: 9 	 Packets: 9 189 369 549 729 909 1089 1269 
+Precinct: 10 	 Packets: 10 190 370 550 730 910 1090 1270 
+Precinct: 11 	 Packets: 11 191 371 551 731 911 1091 1271 
+Precinct: 12 	 Packets: 12 192 372 552 732 912 1092 1272 
+Precinct: 13 	 Packets: 13 193 373 553 733 913 1093 1273 
+Precinct: 14 	 Packets: 14 194 374 554 734 914 1094 1274 
+Precinct: 15 	 Packets: 15 195 375 555 735 915 1095 1275 
+Precinct: 16 	 Packets: 16 196 376 556 736 916 1096 1276 
+Precinct: 17 	 Packets: 17 197 377 557 737 917 1097 1277 
+Precinct: 18 	 Packets: 18 198 378 558 738 918 1098 1278 
+Precinct: 19 	 Packets: 19 199 379 559 739 919 1099 1279 
+Precinct: 20 	 Packets: 20 200 380 560 740 920 1100 1280 
+Precinct: 21 	 Packets: 21 201 381 561 741 921 1101 1281 
+Precinct: 22 	 Packets: 22 202 382 562 742 922 1102 1282 
+Precinct: 23 	 Packets: 23 203 383 563 743 923 1103 1283 
+Precinct: 24 	 Packets: 24 204 384 564 744 924 1104 1284 
+Precinct: 25 	 Packets: 25 205 385 565 745 925 1105 1285 
+Precinct: 26 	 Packets: 26 206 386 566 746 926 1106 1286 
+Precinct: 27 	 Packets: 27 207 387 567 747 927 1107 1287 
+Precinct: 28 	 Packets: 28 208 388 568 748 928 1108 1288 
+Precinct: 29 	 Packets: 29 209 389 569 749 929 1109 1289 
+Precinct: 30 	 Packets: 30 210 390 570 750 930 1110 1290 
+Precinct: 31 	 Packets: 31 211 391 571 751 931 1111 1291 
+Precinct: 32 	 Packets: 32 212 392 572 752 932 1112 1292 
+Precinct: 33 	 Packets: 33 213 393 573 753 933 1113 1293 
+Precinct: 34 	 Packets: 34 214 394 574 754 934 1114 1294 
+Precinct: 35 	 Packets: 35 215 395 575 755 935 1115 1295 
+Precinct: 36 	 Packets: 36 216 396 576 756 936 1116 1296 
+Precinct: 37 	 Packets: 37 217 397 577 757 937 1117 1297 
+Precinct: 38 	 Packets: 38 218 398 578 758 938 1118 1298 
+Precinct: 39 	 Packets: 39 219 399 579 759 939 1119 1299 
+Precinct: 40 	 Packets: 40 220 400 580 760 940 1120 1300 
+Precinct: 41 	 Packets: 41 221 401 581 761 941 1121 1301 
+Precinct: 42 	 Packets: 42 222 402 582 762 942 1122 1302 
+Precinct: 43 	 Packets: 43 223 403 583 763 943 1123 1303 
+Precinct: 44 	 Packets: 44 224 404 584 764 944 1124 1304 
+Precinct: 45 	 Packets: 45 225 405 585 765 945 1125 1305 
+Precinct: 46 	 Packets: 46 226 406 586 766 946 1126 1306 
+Precinct: 47 	 Packets: 47 227 407 587 767 947 1127 1307 
+Precinct: 48 	 Packets: 48 228 408 588 768 948 1128 1308 
+Precinct: 49 	 Packets: 49 229 409 589 769 949 1129 1309 
+Precinct: 50 	 Packets: 50 230 410 590 770 950 1130 1310 
+Precinct: 51 	 Packets: 51 231 411 591 771 951 1131 1311 
+Precinct: 52 	 Packets: 52 232 412 592 772 952 1132 1312 
+Precinct: 53 	 Packets: 53 233 413 593 773 953 1133 1313 
+Precinct: 54 	 Packets: 54 234 414 594 774 954 1134 1314 
+Precinct: 55 	 Packets: 55 235 415 595 775 955 1135 1315 
+Precinct: 56 	 Packets: 56 236 416 596 776 956 1136 1316 
+Precinct: 57 	 Packets: 57 237 417 597 777 957 1137 1317 
+Precinct: 58 	 Packets: 58 238 418 598 778 958 1138 1318 
+Precinct: 59 	 Packets: 59 239 419 599 779 959 1139 1319 
+Precinct: 60 	 Packets: 60 240 420 600 780 960 1140 1320 
+Precinct: 61 	 Packets: 61 241 421 601 781 961 1141 1321 
+Precinct: 62 	 Packets: 62 242 422 602 782 962 1142 1322 
+Precinct: 63 	 Packets: 63 243 423 603 783 963 1143 1323 
+Precinct: 64 	 Packets: 64 244 424 604 784 964 1144 1324 
+Precinct: 65 	 Packets: 65 245 425 605 785 965 1145 1325 
+Precinct: 66 	 Packets: 66 246 426 606 786 966 1146 1326 
+Precinct: 67 	 Packets: 67 247 427 607 787 967 1147 1327 
+Precinct: 68 	 Packets: 68 248 428 608 788 968 1148 1328 
+Precinct: 69 	 Packets: 69 249 429 609 789 969 1149 1329 
+Precinct: 70 	 Packets: 70 250 430 610 790 970 1150 1330 
+Precinct: 71 	 Packets: 71 251 431 611 791 971 1151 1331 
+Precinct: 72 	 Packets: 72 252 432 612 792 972 1152 1332 
+Precinct: 73 	 Packets: 73 253 433 613 793 973 1153 1333 
+Precinct: 74 	 Packets: 74 254 434 614 794 974 1154 1334 
+Precinct: 75 	 Packets: 75 255 435 615 795 975 1155 1335 
+Precinct: 76 	 Packets: 76 256 436 616 796 976 1156 1336 
+Precinct: 77 	 Packets: 77 257 437 617 797 977 1157 1337 
+Precinct: 78 	 Packets: 78 258 438 618 798 978 1158 1338 
+Precinct: 79 	 Packets: 79 259 439 619 799 979 1159 1339 
+Precinct: 80 	 Packets: 80 260 440 620 800 980 1160 1340 
+Precinct: 81 	 Packets: 81 261 441 621 801 981 1161 1341 
+Precinct: 82 	 Packets: 82 262 442 622 802 982 1162 1342 
+Precinct: 83 	 Packets: 83 263 443 623 803 983 1163 1343 
+Precinct: 84 	 Packets: 84 264 444 624 804 984 1164 1344 
+Precinct: 85 	 Packets: 85 265 445 625 805 985 1165 1345 
+Precinct: 86 	 Packets: 86 266 446 626 806 986 1166 1346 
+Precinct: 87 	 Packets: 87 267 447 627 807 987 1167 1347 
+Precinct: 88 	 Packets: 88 268 448 628 808 988 1168 1348 
+Precinct: 89 	 Packets: 89 269 449 629 809 989 1169 1349 
+Precinct: 90 	 Packets: 90 270 450 630 810 990 1170 1350 
+Precinct: 91 	 Packets: 91 271 451 631 811 991 1171 1351 
+Precinct: 92 	 Packets: 92 272 452 632 812 992 1172 1352 
+Precinct: 93 	 Packets: 93 273 453 633 813 993 1173 1353 
+Precinct: 94 	 Packets: 94 274 454 634 814 994 1174 1354 
+Precinct: 95 	 Packets: 95 275 455 635 815 995 1175 1355 
+Precinct: 96 	 Packets: 96 276 456 636 816 996 1176 1356 
+Precinct: 97 	 Packets: 97 277 457 637 817 997 1177 1357 
+Precinct: 98 	 Packets: 98 278 458 638 818 998 1178 1358 
+Precinct: 99 	 Packets: 99 279 459 639 819 999 1179 1359 
+Precinct: 100 	 Packets: 100 280 460 640 820 1000 1180 1360 
+Precinct: 101 	 Packets: 101 281 461 641 821 1001 1181 1361 
+Precinct: 102 	 Packets: 102 282 462 642 822 1002 1182 1362 
+Precinct: 103 	 Packets: 103 283 463 643 823 1003 1183 1363 
+Precinct: 104 	 Packets: 104 284 464 644 824 1004 1184 1364 
+Precinct: 105 	 Packets: 105 285 465 645 825 1005 1185 1365 
+Precinct: 106 	 Packets: 106 286 466 646 826 1006 1186 1366 
+Precinct: 107 	 Packets: 107 287 467 647 827 1007 1187 1367 
+Precinct: 108 	 Packets: 108 288 468 648 828 1008 1188 1368 
+Precinct: 109 	 Packets: 109 289 469 649 829 1009 1189 1369 
+Precinct: 110 	 Packets: 110 290 470 650 830 1010 1190 1370 
+Precinct: 111 	 Packets: 111 291 471 651 831 1011 1191 1371 
+Precinct: 112 	 Packets: 112 292 472 652 832 1012 1192 1372 
+Precinct: 113 	 Packets: 113 293 473 653 833 1013 1193 1373 
+Precinct: 114 	 Packets: 114 294 474 654 834 1014 1194 1374 
+Precinct: 115 	 Packets: 115 295 475 655 835 1015 1195 1375 
+Precinct: 116 	 Packets: 116 296 476 656 836 1016 1196 1376 
+Precinct: 117 	 Packets: 117 297 477 657 837 1017 1197 1377 
+Precinct: 118 	 Packets: 118 298 478 658 838 1018 1198 1378 
+Precinct: 119 	 Packets: 119 299 479 659 839 1019 1199 1379 
+Precinct: 120 	 Packets: 120 300 480 660 840 1020 1200 1380 
+Precinct: 121 	 Packets: 121 301 481 661 841 1021 1201 1381 
+Precinct: 122 	 Packets: 122 302 482 662 842 1022 1202 1382 
+Precinct: 123 	 Packets: 123 303 483 663 843 1023 1203 1383 
+Precinct: 124 	 Packets: 124 304 484 664 844 1024 1204 1384 
+Precinct: 125 	 Packets: 125 305 485 665 845 1025 1205 1385 
+Precinct: 126 	 Packets: 126 306 486 666 846 1026 1206 1386 
+Precinct: 127 	 Packets: 127 307 487 667 847 1027 1207 1387 
+Precinct: 128 	 Packets: 128 308 488 668 848 1028 1208 1388 
+Precinct: 129 	 Packets: 129 309 489 669 849 1029 1209 1389 
+Precinct: 130 	 Packets: 130 310 490 670 850 1030 1210 1390 
+Precinct: 131 	 Packets: 131 311 491 671 851 1031 1211 1391 
+Precinct: 132 	 Packets: 132 312 492 672 852 1032 1212 1392 
+Precinct: 133 	 Packets: 133 313 493 673 853 1033 1213 1393 
+Precinct: 134 	 Packets: 134 314 494 674 854 1034 1214 1394 
+Precinct: 135 	 Packets: 135 315 495 675 855 1035 1215 1395 
+Precinct: 136 	 Packets: 136 316 496 676 856 1036 1216 1396 
+Precinct: 137 	 Packets: 137 317 497 677 857 1037 1217 1397 
+Precinct: 138 	 Packets: 138 318 498 678 858 1038 1218 1398 
+Precinct: 139 	 Packets: 139 319 499 679 859 1039 1219 1399 
+Precinct: 140 	 Packets: 140 320 500 680 860 1040 1220 1400 
+Precinct: 141 	 Packets: 141 321 501 681 861 1041 1221 1401 
+Precinct: 142 	 Packets: 142 322 502 682 862 1042 1222 1402 
+Precinct: 143 	 Packets: 143 323 503 683 863 1043 1223 1403 
+Precinct: 144 	 Packets: 144 324 504 684 864 1044 1224 1404 
+Precinct: 145 	 Packets: 145 325 505 685 865 1045 1225 1405 
+Precinct: 146 	 Packets: 146 326 506 686 866 1046 1226 1406 
+Precinct: 147 	 Packets: 147 327 507 687 867 1047 1227 1407 
+Precinct: 148 	 Packets: 148 328 508 688 868 1048 1228 1408 
+Precinct: 149 	 Packets: 149 329 509 689 869 1049 1229 1409 
+Precinct: 150 	 Packets: 150 330 510 690 870 1050 1230 1410 
+Precinct: 151 	 Packets: 151 331 511 691 871 1051 1231 1411 
+Precinct: 152 	 Packets: 152 332 512 692 872 1052 1232 1412 
+Precinct: 153 	 Packets: 153 333 513 693 873 1053 1233 1413 
+Precinct: 154 	 Packets: 154 334 514 694 874 1054 1234 1414 
+Precinct: 155 	 Packets: 155 335 515 695 875 1055 1235 1415 
+Precinct: 156 	 Packets: 156 336 516 696 876 1056 1236 1416 
+Precinct: 157 	 Packets: 157 337 517 697 877 1057 1237 1417 
+Precinct: 158 	 Packets: 158 338 518 698 878 1058 1238 1418 
+Precinct: 159 	 Packets: 159 339 519 699 879 1059 1239 1419 
+Precinct: 160 	 Packets: 160 340 520 700 880 1060 1240 1420 
+Precinct: 161 	 Packets: 161 341 521 701 881 1061 1241 1421 
+Precinct: 162 	 Packets: 162 342 522 702 882 1062 1242 1422 
+Precinct: 163 	 Packets: 163 343 523 703 883 1063 1243 1423 
+Precinct: 164 	 Packets: 164 344 524 704 884 1064 1244 1424 
+Precinct: 165 	 Packets: 165 345 525 705 885 1065 1245 1425 
+Precinct: 166 	 Packets: 166 346 526 706 886 1066 1246 1426 
+Precinct: 167 	 Packets: 167 347 527 707 887 1067 1247 1427 
+Precinct: 168 	 Packets: 168 348 528 708 888 1068 1248 1428 
+Precinct: 169 	 Packets: 169 349 529 709 889 1069 1249 1429 
+Precinct: 170 	 Packets: 170 350 530 710 890 1070 1250 1430 
+Precinct: 171 	 Packets: 171 351 531 711 891 1071 1251 1431 
+Precinct: 172 	 Packets: 172 352 532 712 892 1072 1252 1432 
+Precinct: 173 	 Packets: 173 353 533 713 893 1073 1253 1433 
+Precinct: 174 	 Packets: 174 354 534 714 894 1074 1254 1434 
+Precinct: 175 	 Packets: 175 355 535 715 895 1075 1255 1435 
+Precinct: 176 	 Packets: 176 356 536 716 896 1076 1256 1436 
+Precinct: 177 	 Packets: 177 357 537 717 897 1077 1257 1437 
+Precinct: 178 	 Packets: 178 358 538 718 898 1078 1258 1438 
+Precinct: 179 	 Packets: 179 359 539 719 899 1079 1259 1439 
+
+
+J2C Headers (1 Layer)
+----------------------
+(dd if=images_j2c/tree.j2c of=tree_header.j2c bs=201 count=1 2>&1) > /dev/null
+(dd if=images_j2c/stockholm.j2c of=stockholm_header.j2c bs=201 count=1 2>&1) > /dev/null
+
+
+J2C Headers (2 Layer)
+----------------------
+(dd if=images_j2c/tree.j2c of=tree_header.j2c bs=218 count=1 2>&1) > /dev/null
+(dd if=images_j2c/stockholm.j2c of=stockholm_header.j2c bs=218 count=1 2>&1) > /dev/null

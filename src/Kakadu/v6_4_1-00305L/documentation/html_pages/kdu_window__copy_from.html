@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window::copy_from) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_window__is_empty.html"> prev </A>||<A HREF="kdu_window__cop$req_from.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window::copy_from</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window.Copy_from</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> copy_from(
+const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;&amp;&nbsp;src,
+<B>bool</B>&nbsp;copy_expansions=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Copy_from(
+Kdu_window&nbsp;src,
+boolean&nbsp;copy_expansions)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu_window.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Copies the window represented by 
+<A HREF="kdu_window__copy_from.html#src">src</A>. If 
+<A HREF="kdu_window__copy_from.html#copy_expansions">copy_expansions</A> is true, the context expansions (see 
+<A HREF="kdu$range.html#expansion">kdu_sampled_range::expansion</A>) within the 
+<A HREF="kdu_window.html#contexts">contexts</A> range set are also copied. Otherwise, expansions are
+not copied, and 
+<A HREF="kdu$range.html#expansion">kdu_sampled_range::expansion</A> is set to NULL for each copied element of the 
+<A HREF="kdu_window.html#contexts">contexts</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [const&nbsp;<A HREF ="kdu_window.html">kdu_window</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="copy_expansions">copy_expansions</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_window__is_empty.html"> prev </A>||<A HREF="kdu_window__cop$req_from.html"> next </A>|</P>
+</BODY>
+</HTML>

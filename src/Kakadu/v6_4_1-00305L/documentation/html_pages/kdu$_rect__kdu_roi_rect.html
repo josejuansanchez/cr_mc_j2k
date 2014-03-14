@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_rect::kdu_roi_rect) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_rect__~kd$_roi_rect.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_roi_rect::kdu_roi_rect</A></H1>
+<P CLASS="function-text"> kdu_roi_rect(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region)</P>
+<P>[Declared in <A HREF="++++apps+k$+roi_sources+h.html">"../apps/kdu_compress/roi_sources.h"</A>]</P><P><A HREF="kdu$_rect.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Accepts a single rectangular region, specified relative
+to the high resolution code-stream canvas coordinate
+system. This will be the foreground region associated
+with all ROI mask generation activities. It is transformed
+into a region on each of the individual image components
+by applying the usual coordinate transformation rules.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+<P>
+Master interface to the internal code-stream management
+machinery associated with the image being compressed.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+The supplied region should incorporate the effects
+of any prevailing geometric transformations, which
+may have been set up by calls to 
+<A HREF="kdu$tream__cha$ppearance.html">codestream.change_appearance</A>. As a result, if 
+<A HREF="kdu$_rect__kdu_roi_rect.html#region">region</A> were set to that returned by 
+<A HREF="kdu$tream__get_dims.html">codestream.get_dims</A> (called with a negative 
+<B>comp_idx</B> argument), the foreground would correspond exactly
+to the full image region on the canvas.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_rect__~kd$_roi_rect.html"> next </A>|</P>
+</BODY>
+</HTML>

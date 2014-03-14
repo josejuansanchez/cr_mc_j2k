@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_graphics::kdu_roi_graphics) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$phics__~kd$_graphics.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_roi_graphics::kdu_roi_graphics</A></H1>
+<P CLASS="function-text"> kdu_roi_graphics(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<B>char *</B>&nbsp;fname,
+<B>float</B>&nbsp;threshold)</P>
+<P>[Declared in <A HREF="++++apps+k$+roi_sources+h.html">"../apps/kdu_compress/roi_sources.h"</A>]</P><P><A HREF="kdu$phics.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Accepts the name of a monochrome image file and a single
+threshold. The image represented by this file is stretched
+(interpolated) or shrunk (decimated) to match the geometry
+of the actual image being compressed (as represented
+by the 
+<A HREF="kdu$phics__kdu$_graphics.html#codestream">codestream</A>) and its sample values are thresholded. Locations
+where the threshold is exceeded are deemed to belong
+to the foreground, while the remainder is interpreted
+as background.
+</P><P>
+ Note that the mask image (the one being thresholded)
+is read incrementally, buffering the smallest amount
+of data required to satisfy the demand for ROI information,
+which filters through from the leaves of the compression
+tree (
+<A HREF="kdu$3coder.html">kdu_encoder</A> objects) all the way up through the DWT analysis system.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+<P>
+Master interface to the internal code-stream management
+machinery associated with the image being compressed.
+</P>
+</DIV>
+<H4><A NAME="fname">fname</A> [<B>char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Name of the mask image, to be opened and used to determine
+the foreground region. Currently, only binary PGM files
+are accepted, although it would be trivial to add support
+for other file formats. Note that the dimensions of
+the mask image are arbitrary. The width and the height
+are independently stretched to the dimensions of the
+image which is actually being compressed.
+</P>
+</DIV>
+<H4><A NAME="threshold">threshold</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+Foreground threshold, expressed as a normalized quantity
+in the range 0 to 1, where 0 means black and 1 means
+white. Foreground locations must have sample values
+which strictly exceed the threshold, meaning that a
+threshold of 0 will produce foreground everywhere the
+mask image's samples are non-zero, while a threshold
+of 1 will produce an empty foreground.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$phics__~kd$_graphics.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::set_tile_unloading_threshold) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__aug$threshold.html"> prev </A>||<A HREF="kdu$tream__is_$_fragment.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::set_tile_unloading_threshold</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Set_tile_unloading_threshold</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> set_tile_unloading_threshold(
+<B>int</B>&nbsp;max_tiles_on_list)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Set_tile_unloading_threshold(
+int&nbsp;max_tiles_on_list)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function sets the second of two thresholds associated
+with the internal memory management logic described
+in conjunction with the 
+<A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A> function. This second threshold serves to limit the
+number of unloadable tiles which the code-stream management
+machinery is prepared to manage on an internal list.
+A tile becomes unloadable once it is closed, so long
+as the compressed data source is seekable (or a dynamic
+cache) and the codestream manage is in the persistent
+mode (see 
+<A HREF="kdu$tream__set$ersistent.html">set_persistent</A>). Actually, a closed tile may become unloadable slightly
+later, if it has a partially parsed tile-part &mdash;
+this is a feature of the on-demand parsing machinery,
+which waits to see if the tile will subsequently be
+re-opened and accessed, before completing the parsing
+of a partially parsed tile-part.
+</P><P>
+ When a new tile-part is about to be parsed into memory,
+the cache management machinery checks to see if the
+number of unloadable tiles exceeds 
+<A HREF="kdu$tream__set$threshold.html#max_tiles_on_list">max_tiles_on_list</A>. If so, unloadable tiles are deleted as necessary
+(by definition, they can be reloaded later). This minimizes
+the number of tiles which must be scanned to determine
+which ones intersect with the current region of interest,
+since we want to unload those which do not intersect
+before unloading those which do.
+</P><P>
+ Whenever this function is called, the tile unloading
+process is triggered automatically, so the function
+also provides you with a mechanism for explicitly deciding
+when to unload tiles from memory so as to satisfy both
+the 
+<A HREF="kdu$tream__set$threshold.html#max_tiles_on_list">max_tiles_on_list</A> limit and the cache memory limit adjusted by 
+<A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A>. In particular, if you call this function iwth 
+<A HREF="kdu$tream__set$threshold.html#max_tiles_on_list">max_tiles_on_list</A> equal to 0, all unloadable tiles will immediately
+be deleted from memory and their precinct and bit-stream
+buffering resources will be recycled for later use.
+</P><P>
+ If you do not call this function, a default unloading
+threshold of 64 will be used. Unlike the cache memory
+threshold controlled by 
+<A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A>, the tile list threshold is specific to each 
+<A HREF="kdu$tream.html">kdu_codestream</A> object, regardless of whether or not 
+<A HREF="kdu$tream__sha$buffering.html">share_buffering</A> has been used to share buffering resources amongst
+multiple codestreams.
+</P><P>
+ This function is not currently thread-safe.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The previous value of the tile unloading threshold.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="max_tiles_on_list">max_tiles_on_list</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__aug$threshold.html"> prev </A>||<A HREF="kdu$tream__is_$_fragment.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_model::get_meta_instructions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__add$struction__2.html"> prev </A>||<A HREF="kdu$model__get$ic_stream.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_model::get_meta_instructions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_model.Get_meta_instructions</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_meta_instructions(
+<B>kdu_long</B>&nbsp;&amp;&nbsp;bin_id,
+<B>int</B>&nbsp;buf[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_meta_instructions(
+long[]&nbsp;bin_id,
+int[]&nbsp;buf)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$model.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This instruction retrieves digested cache modeling
+instructions for exactly one meta data-bin. If 
+<A HREF="kdu$model__get$tructions.html#bin_id">bin_id</A> holds a non-negative value on entry, information is
+retrieved for that data-bin only. Otherwise, information
+is retrieved for any meta data-bin. In the first case,
+the information retrieved may come from atomic or non-atomic
+cache model instructions, while in the second case
+only atomic cache model instructions are considered.
+In either case, matching atomic cache model instructions
+are discarded by the function so that they will not
+be matched again.
+</P><P>
+ Note that in the stateless mode (see 
+<A HREF="kdu$model__init__1.html">init</A>), this function returns 0 unless 
+<A HREF="kdu$model__get$tructions.html#bin_id">bin_id</A> holds a non-negative value on entry. That is, the
+function only returns information for explicitly identified
+meta data-bins.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if no matching cache model instructions were found;
+otherwise, the function returns the number of values
+written to 
+<A HREF="kdu$model__get$tructions.html#buf">buf</A>, which will never exceed 2.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="bin_id">bin_id</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buf">buf[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with at least two entries. The first entry, P,
+provides positive statements about the state of the
+client cache for this data-bin, while the second entry,
+N, provides negative statements about the state of
+the client cache for this data-bin. Together, these
+quantitites declare that the number of bytes B in the
+client cache for this data-bin satisfy P &lt;= B &lt;
+N. Values of P &lt; 0 mean that there the data-bin
+is complete in the client's cache (a bit like P = infinity).
+If N = 0, there is no upper bound (a bit like N = infinity).
+If the function returns less than 2, N is taken to
+be 0 (no upper bound), while if the function returns
+0, P is taken to be 0 (no lower bound). For convenience,
+the function always initializes 
+<A HREF="kdu$model__get$tructions.html#buf">buf</A> with zeros, so that the caller can ignore the function's
+return value if desired.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__add$struction__2.html"> prev </A>||<A HREF="kdu$model__get$ic_stream.html"> next </A>|</P>
+</BODY>
+</HTML>

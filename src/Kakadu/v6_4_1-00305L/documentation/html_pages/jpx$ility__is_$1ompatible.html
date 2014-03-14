@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_compatibility::is_jpxb_compatible) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ility__is_$ompatible.html"> prev </A>||<A HREF="jpx$ility__has$ments_box.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_compatibility::is_jpxb_compatible</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_compatibility.Is_jpxb_compatible</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> is_jpxb_compatible(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_jpxb_compatible(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ility.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the data source is compatible with
+the baseline JPX specification, meaning that it includes
+"jpxb" in its compatibility list. Amongst other things,
+this means that the first compositing layer uses only
+one codestream, with the following properties:
+</P><UL><LI>
+The codestream is a JPEG2000 code-stream.
+</LI><LI>
+The codestream can be decoded using only JP2000 Part
+1 capabilities, possibly in addition to certain multi-component
+decorrelation extensions from Part 2.
+</LI><LI>
+The codestream is fully contained within the JPX file.
+</LI></UL><P>
+ JP2 files are also considered to be JPX baseline compatible.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ility__is_$ompatible.html"> prev </A>||<A HREF="jpx$ility__has$ments_box.html"> next </A>|</P>
+</BODY>
+</HTML>

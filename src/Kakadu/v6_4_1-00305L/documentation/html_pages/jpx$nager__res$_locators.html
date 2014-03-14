@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_meta_manager::reset_copy_locators) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$nager__copy.html"> prev </A>||<A HREF="jpx$nager__load_matches.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_meta_manager::reset_copy_locators</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_meta_manager.Reset_copy_locators</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> reset_copy_locators(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;src,
+<B>bool</B>&nbsp;recursive,
+<B>bool</B>&nbsp;fixup_unresolved_links=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Reset_copy_locators(
+Jpx_metanode&nbsp;src,
+boolean&nbsp;recursive,
+boolean&nbsp;fixup_unresolved_links)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$nager.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+It is good practice to call this function prior to
+<A HREF="jpx$anode__add_copy.html">jpx_metanode::add_copy</A> if you are planning to supply a true value for that
+function's 
+<B>link_to_internal_copies</B> argument &mdash; note that this is not the default.
+</P><P>
+ The function erases all internal records of copies
+which have been made to the 
+<A HREF="jpx$nager__res$_locators.html#src">src</A> object and (if 
+<A HREF="jpx$nager__res$_locators.html#recursive">recursive</A> is true) to all of its descendants. You invoke the
+function on the 
+<A HREF="jpx$nager__res$_locators.html#src">src</A> node/s that you intend to copy, from the 
+<A HREF="jpx$nager.html">jpx_meta_manager</A> into which you intend to make the copy. The internal
+copy locators kept by the target 
+<A HREF="jpx$nager.html">jpx_meta_manager</A> are used to resolve links within the source of the
+copy to point to copies of original link target where
+possible &mdash; this behaviour is automatic when copying
+between different metadata managers, but requires 
+<B>add_copy</B> to be given 
+<B>link_to_internal_copies</B>=true when copying within a single metadata manager.
+The first time you make such a copy there is no need
+to call the present function. However, if you make
+a second copy between the same pair of metadata managers
+(or a second copy within the same metadata manager),
+this function should be invoked first to ensure that
+links resolve to the correct copy generation.
+</P><P>
+ It is usually simplest and safest to invoke this function
+with 
+<A HREF="jpx$nager__res$_locators.html#src">src</A> set to the root of the source metadata hierarchy and
+<A HREF="jpx$nager__res$_locators.html#recursive">recursive</A> set to true.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="recursive">recursive</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function recursively passes through all
+descendants of the 
+<A HREF="jpx$nager__res$_locators.html#src">src</A> node.
+</P>
+</DIV>
+<H4><A NAME="fixup_unresolved_links">fixup_unresolved_links</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function examines unresolved links which
+were left over from a previous copy process. Unresolved
+links are copied link nodes (nodes for which 
+<A HREF="jpx$anode__get_link.html">jpx_metanode::get_link</A> returns a non-empty interface) which were generated
+by 
+<A HREF="jpx$anode__add_copy.html">jpx_metanode::add_copy</A> with 
+<B>link_to_internal_copies</B>=true, but for which no copy of the original link target
+has yet been encountered. If 
+<A HREF="jpx$nager__res$_locators.html#fixup_unresolved_links">fixup_unresolved_links</A> is true and an unresolved link is discovered, the
+link is set to point back to the original target of
+the copy operation &mdash; of course, this is not done
+if 
+<A HREF="jpx$nager__res$_locators.html#src">src</A> belongs to a different metadata manager to the copied
+link which needs resolving, since links cannot point
+into the metadata hierarchy of a separate JPX source/target.
+This fixup procedure is a very convenient way to conclude
+any large scale copying operation within a complex
+metadata graph.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$nager__copy.html"> prev </A>||<A HREF="jpx$nager__load_matches.html"> next </A>|</P>
+</BODY>
+</HTML>

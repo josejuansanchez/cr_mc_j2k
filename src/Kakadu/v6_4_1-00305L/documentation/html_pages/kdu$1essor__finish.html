@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::finish) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__start.html"> prev </A>||<A HREF="kdu$1essor__get$_heights.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::finish</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_compressor.Finish</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> finish(
+<B>int</B>&nbsp;num_layer_specs=0,
+<B>kdu_long</B>&nbsp;*&nbsp;layer_sizes=NULL,
+<B>kdu_uint16</B>&nbsp;*&nbsp;layer_slopes=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Finish(
+int&nbsp;num_layer_specs,
+long[]&nbsp;layer_sizes,
+int[]&nbsp;layer_slopes)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Each call to 
+<A HREF="kdu$1essor__start.html">start</A> must be bracketed by a call to 
+<A HREF="kdu$1essor__finish.html">finish</A>, for the compression cycle to be completed.
+</P><P>
+ If you did not push all required image data into the
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function before calling 
+<A HREF="kdu$1essor__finish.html">finish</A>, the function returns false. If this happens, the
+compressed image is not completely generated, but the
+internal machinery is cleaned up, so you cannot continue
+to push more stripes in. This means that a new call
+to 
+<A HREF="kdu$1essor__start.html">start</A> can be issued regardless of whether 
+<A HREF="kdu$1essor__finish.html">finish</A> returns true or false. You should watch the value
+returned by 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> if you have any doubts as to whether sufficient image
+data has been supplied.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True only if the compressed image is complete. Otherwise,
+insufficent image data was pushed in via 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A>, but the internal machinery is cleaned up anyway.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_layer_specs">num_layer_specs</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the number of entries in the 
+<A HREF="kdu$1essor__finish.html#layer_sizes">layer_sizes</A> and/or 
+<A HREF="kdu$1essor__finish.html#layer_slopes">layer_slopes</A> arrays, if non-NULL.
+</P>
+</DIV>
+<H4><A NAME="layer_sizes">layer_sizes</A> [<B>kdu_long</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, the final cumulative sizes of each code-stream
+quality layer will be written into this array. At most
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A> cumulative layer sizes will be written. If the actual
+number of quality layers whose sizes are known is less
+than 
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A>, the additional entries are set to 0.
+</P>
+</DIV>
+<H4><A NAME="layer_slopes">layer_slopes</A> [<B>kdu_uint16</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="kdu$1essor__finish.html#layer_sizes">layer_sizes</A> but used to receive final values of the distortion
+length slope thresholds associated with each layer.
+Again, if 
+<A HREF="kdu$1essor__finish.html#num_layer_specs">num_layer_specs</A> exceeds the number of layers for which slope information
+is available, the additional entries will be set to
+0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__start.html"> prev </A>||<A HREF="kdu$1essor__get$_heights.html"> next </A>|</P>
+</BODY>
+</HTML>

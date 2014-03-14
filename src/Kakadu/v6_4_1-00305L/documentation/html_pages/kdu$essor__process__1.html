@@ -1,0 +1,456 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::process) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__start.html"> prev </A>||<A HREF="kdu$essor__process__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::process</A></H1>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$essor__process__2.html">2</A>,
+<A HREF="kdu$essor__process__3.html">3</A>,
+<A HREF="kdu$essor__process__4.html">4</A>,
+<A HREF="kdu$essor__process__5.html">5</A>,
+<A HREF="kdu$essor__process__6.html">6</A>,
+<A HREF="kdu$essor__process__7.html">7</A></B></P>
+<P CLASS="function-text"><B>bool</B> process(
+<B>kdu_byte</B>&nbsp;**&nbsp;channel_bufs,
+<B>bool</B>&nbsp;expand_monochrome,
+<B>int</B>&nbsp;pixel_gap,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;buffer_origin,
+<B>int</B>&nbsp;row_gap,
+<B>int</B>&nbsp;suggested_increment,
+<B>int</B>&nbsp;max_region_pixels,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;incomplete_region,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;new_region,
+<B>int</B>&nbsp;precision_bits=8,
+<B>bool</B>&nbsp;measure_row_gap_in_pixels=true)</P>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This powerful function is the workhorse of a typical
+interactive image rendering application. It is used
+to incrementally decompress an active region into identified
+portions of one or more application-supplied buffers.
+Each call to the function always decompresses some
+whole number of lines of one or more horizontally adjacent
+tiles, aiming to produce roughly the number of samples
+suggested by the 
+<A HREF="kdu$essor__process__1.html#suggested_increment">suggested_increment</A> argument, unless that value is smaller than a single
+line of the current tile, or larger than the number
+of samples in a row of horizontally adjacent tiles.
+The newly rendered samples are guaranteed to belong
+to a rectangular region &mdash; the function returns
+this region via the 
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> argument. This, and all other regions manipulated
+by the function are expressed relative to the 
+<B>rendering canvas</B> (the coordinate system associated with the 
+<B>region</B> argument supplied to the 
+<A HREF="kdu$essor__start.html">start</A> member function).
+</P><P>
+ Decompressed samples are automatically colour transformed,
+clipped, level adjusted, interpolated and colour appearance
+transformed, as necessary. The result is a collection
+of rendered image pixels, each of which has the number
+of channels described by the 
+<A HREF="kdu$pping.html#num_channels">kdu_channel_mapping::num_channels</A> member of the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object passed to 
+<A HREF="kdu$essor__start.html">start</A> (or just one channel, if no 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object was passed to 
+<A HREF="kdu$essor__start.html">start</A>). The initial 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A> of these describe the pixel colour, while any remaining
+channels describe auxiliary properties such as opacity.
+Other than these few constraints, the properties of
+the channels are entirely determined by the way in
+which the application configures the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object.
+</P><P>
+ The rendered channel samples are written to the buffers
+supplied via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array. If 
+<A HREF="kdu$essor__process__1.html#expand_monochrome">expand_monochrome</A> is false, this array must have exactly one entry for
+each of the channels described by the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object supplied to 
+<A HREF="kdu$essor__start.html">start</A>. The entries may all point to offset locations within
+a single channel-interleaved rendering buffer, or else
+they may point to distinct buffers for each channel;
+this allows the application to render to buffers with
+a variety of interleaving conventions.
+</P><P>
+ If 
+<A HREF="kdu$essor__process__1.html#expand_monochrome">expand_monochrome</A> is true and the number of colour channels (see 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A>) is exactly equal to 1, the function automatically
+copies the single (monochrome) colour channel into
+3 identical colour channels whose buffers appear as
+the first three entries in the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array. This is a convenience feature to support direct
+rendering of monochrome images into 24- or 32-bpp display
+buffers, with the same ease as full colour images.
+Your application is not obliged to use this feature,
+of course.
+</P><P>
+ Each buffer referenced by the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array has horizontally adjacent pixels separated by
+<A HREF="kdu$essor__process__1.html#pixel_gap">pixel_gap</A>. Regarding vertical organization, however, two distinct
+configurations are supported.
+</P><P>
+ If 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is 0, successive rows of the region written into 
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> are concatenated within each channe buffer, so that
+the row gap is effectively equal to 
+<B>new_region.size.x</B> &mdash; it is determined by the particular dimensions
+of the region processed by the function. In this case,
+the 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> argument is ignored.
+</P><P>
+ If 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is non-zero, each channel buffer points to the location
+identified by 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> (on the rendering canvas), and each successive row
+of the buffer is separated by the amount determined
+by 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A>. In this case, it is the application's responsibility
+to ensure that the buffers will not be overwritten
+if any samples from the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> are written onto the buffer, taking the 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> into account. In particular, the 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> must not lie beyond the first row or first column
+of the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A>. Note that the interpretation of 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> depends upon the 
+<A HREF="kdu$essor__process__1.html#measure_row_gap_in_pixels">measure_row_gap_in_pixels</A> argument.
+</P><P>
+ On entry, the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> structure identifies the subset of the original region
+supplied to 
+<A HREF="kdu$essor__start.html">start</A>, which has not yet been decompressed and is still
+relevant to the application. The function uses this
+information to avoid unnecessary processing of tiles
+which are no longer relevant, unless these tiles are
+already opened and being processed.
+</P><P>
+ On exit, the upper boundary of the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> is updated to reflect any completely decompressed
+rows. Once the region becomes empty, all processing
+is complete and future calls will return false.
+</P><P>
+ The function may return true, with 
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> empty. This can happen, for example, when skipping
+over unnecessary tile or group of tiles. The intent
+is to avoid the possibility that the caller might be
+forced to wait for an unbounded number of tiles to
+be loaded (possibly from disk) while hunting for one
+which has a non-empty intersection with the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A>. In general, the current implementation limits the
+number of new tiles which will be opened to one row
+of horizontally adjacent tiles. In this way, a number
+of calls may be required before the function will return
+with 
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> non-empty.
+</P><P>
+ If the code-stream is found to offer insufficient
+DWT levels to support the 
+<B>discard_levels</B> argument supplied to 
+<A HREF="kdu$essor__start.html">start</A>, the present function will return false, after which
+you should invoke 
+<A HREF="kdu$essor__finish.html">finish</A> and potentially start again with a different number
+of discard levels.
+</P><P>
+ If the underlying code-stream is found to be sufficiently
+corrupt that the decompression process must be aborted,
+the current function will catch any exceptions thrown
+from an application supplied 
+<A HREF="kdu_error.html">kdu_error</A> handler, returning false prematurely. This condition
+will be evident from the fact that 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> is non-empty. You should still call 
+<A HREF="kdu$essor__finish.html">finish</A> and watch the return value from that function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> becomes empty as a result of this call, or if a required
+tile is found to offer insufficient DWT levels to support
+the 
+<B>discard_levels</B> values originally supplied to 
+<A HREF="kdu$essor__start.html">start</A>, or if an internal error occurs during code-stream
+data processing and an exception was thrown by the
+application-supplied 
+<A HREF="kdu_error.html">kdu_error</A> handler. In any case, the correct response to a false
+return value is to call 
+<A HREF="kdu$essor__finish.html">finish</A> and check its return value.
+</P><P>
+ If 
+<A HREF="kdu$essor__finish.html">finish</A> returns false, an error has occurred and you must
+close the 
+<A HREF="kdu$tream.html">kdu_codestream</A> object (possibly re-opening it for subsequent processing,
+perhaps in a more resilient mode &mdash; see 
+<A HREF="kdu$tream__set$resilient.html">kdu_codestream::set_resilient</A>).
+</P><P>
+ If 
+<A HREF="kdu$essor__finish.html">finish</A> returns true, the incomplete region might not have
+been completed if the present function found that you
+were attempting to discard too many resolution levels
+or to flip an image which cannot be flipped, due to
+the use of certain packet wavelet decomposition structures.
+To check for the former possibility, you should always
+check the value returned by 
+<A HREF="kdu$tream__get$wt_levels.html">kdu_codestream::get_min_dwt_levels</A> after 
+<A HREF="kdu$essor__finish.html">finish</A> returns true. To check for the second possibility,
+you should also test the value returned by 
+<A HREF="kdu$tream__can_flip.html">kdu_codestream::can_flip</A>, possibly adjusting the appearance of the codestream
+(via 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>) before further processing. Note that the values returned
+by 
+<A HREF="kdu$tream__get$wt_levels.html">kdu_codestream::get_min_dwt_levels</A> and 
+<A HREF="kdu$tream__can_flip.html">kdu_codestream::can_flip</A> can become progressively more restrictive over time,
+as more tiles are visited.
+</P><P>
+ Note carefully that this function may return true,
+even though it has decompressed no new data of interest
+to the application (
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> empty). This is because a limited number of new tiles
+are opened during each call, and these tiles might
+not have any intersection with the current 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> &mdash; the application might have reduced the incomplete
+region to reflect changing interests.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="channel_bufs">channel_bufs</A> [<B>kdu_byte</B>&nbsp;**]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="kdu$pping.html#num_channels">kdu_channel_mapping::num_channels</A> entries, or 
+<A HREF="kdu$pping.html#num_channels">kdu_channel_mapping::num_channels</A>+2 entries. The latter applies only if 
+<A HREF="kdu$essor__process__1.html#expand_monochrome">expand_monochrome</A> is true and 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A> is equal to 1. If no 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object was passed to 
+<A HREF="kdu$essor__start.html">start</A>, the number of channel buffers is equal to 1 (if 
+<A HREF="kdu$essor__process__1.html#expand_monochrome">expand_monochrome</A> is false) or 3 (if 
+<A HREF="kdu$essor__process__1.html#expand_monochrome">expand_monochrome</A> is true). The entries in the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array are not modified by this function.
+</P><P>
+ If any entry in the array is NULL, that channel will
+effectively be skipped. This can be useful, for example,
+if the value of 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A> is larger than the number of channels produced by
+a colour transform supplied by 
+<B>kdu_channel_mapping::colour_transform</B> &mdash; for example, a CMYK colour space (
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A>=4) might be converted to an sRGB space, so that the
+4'th colour channel, after conversion, becomes meaningless.
+</P>
+</DIV>
+<H4><A NAME="expand_monochrome">expand_monochrome</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true and the number of colour channels identified
+by 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A> is 1, or if no 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object was passed to 
+<A HREF="kdu$essor__start.html">start</A>, the function automatically copies the colour channel
+data into the first three buffers supplied via the
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array, and the second real channel, if any, corresponds
+to the fourth entry in the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array.
+</P>
+</DIV>
+<H4><A NAME="pixel_gap">pixel_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Separation between consecutive pixels, in each of the
+channel buffers supplied via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> argument.
+</P>
+</DIV>
+<H4><A NAME="buffer_origin">buffer_origin</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Location, in rendering canvas coordinates, of the upper
+left hand corner pixel in each channel buffer supplied
+via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> argument, unless 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is 0, in which case, this argument is ignored.
+</P>
+</DIV>
+<H4><A NAME="row_gap">row_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If zero, rendered image lines will simply be concatenated
+into the channel buffers supplied via 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A>, so that the line spacing is given by the value written
+into 
+<B>new_region.size.x</B> upon return. In this case, 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> is ignored. Otherwise, this argument identifies the
+separation between vertically adjacent pixels within
+each of the channel buffers. If 
+<A HREF="kdu$essor__process__1.html#measure_row_gap_in_pixels">measure_row_gap_in_pixels</A> is true, the number of samples between consecutive
+buffer lines is 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A>*
+<A HREF="kdu$essor__process__1.html#pixel_gap">pixel_gap</A>. Otherwise, it is just 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A>.
+</P>
+</DIV>
+<H4><A NAME="suggested_increment">suggested_increment</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Suggested number of samples to decompress from the
+code-stream component associated with the first channel
+(or the single image component) before returning. Of
+course, there will often be other image components
+which must be decompressed as well, in order to reconstruct
+colour imagery; the number of these samples which will
+be decompressed is adjusted in a commensurate fashion.
+Note that the decompressed samples may be subject to
+interpolation (if the 
+<B>expand_numerator</B> and 
+<B>expand_denominator</B> arguments supplied to the 
+<A HREF="kdu$essor__start.html">start</A> member function represent expansion factors which
+are larger than 1); the 
+<A HREF="kdu$essor__process__1.html#suggested_increment">suggested_increment</A> value refers to the number of decompressed samples
+prior to any such interpolation. Note also that the
+function is free to make up its own mind exactly how
+many samples it will process in the current call, which
+may vary from 0 to the entire 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A>.
+</P><P>
+ For interactive applications, typical values for the
+<A HREF="kdu$essor__process__1.html#suggested_increment">suggested_increment</A> argument might range from tens of thousands, to hundreds
+of thousands.
+</P><P>
+ If 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is 0, and the present argument is 0, the only constraint
+will be that imposed by 
+<A HREF="kdu$essor__process__1.html#max_region_pixels">max_region_pixels</A>.
+</P>
+</DIV>
+<H4><A NAME="max_region_pixels">max_region_pixels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Maximum number of pixels which can be written to any
+channel buffer provided via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> argument. This argument is ignored unless 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is 0, since only in that case is the number of pixels
+which can be written governed solely by the size of
+the buffers. An error will be generated (through 
+<A HREF="kdu_error.html">kdu_error</A>) if the supplied limit is too small to accommodate
+even a single line from the new region. For this reason,
+you should be careful to ensure that 
+<A HREF="kdu$essor__process__1.html#max_region_pixels">max_region_pixels</A> is at least as large as 
+<B>incomplete_region.size.x</B>.
+</P>
+</DIV>
+<H4><A NAME="incomplete_region">incomplete_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Region on the rendering canvas which is still required
+by the application. This region should be a subset
+of the region of interest originally supplied to 
+<A HREF="kdu$essor__start.html">start</A>. However, it may be much smaller. The function works
+internally with a bank of horizontally adjacent tiles,
+which may range from a single tile to an entire row
+of tiles (or part of a row of tiles). From within the
+current tile bank, the function decompresses lines
+as required to fill out the incomplete region, discarding
+any rows from already open tiles which do not intersect
+with the incomplete region. On exit, the first row
+in the incomplete region will be moved down to reflect
+any completely decompressed image rows. Note, however,
+that the function may decompress image data and return
+with 
+<A HREF="kdu$essor__process__1.html#new_region">new_region</A> non-empty, without actually adjusting the incomplete
+region. This happens when the function decompresses
+tile data which intersects with the incomplete region,
+but one or more tiles remain to the right of that region.
+Generally speaking, the function advances the top row
+of the incomplete region only when it decompresses
+data from right-most tiles which intersect with that
+region, or when it detects that the identity of the
+right-most tile has changed (due to the width of the
+incomplete region shrinking) and that the new right-most
+tile has already been decompressed.
+</P>
+</DIV>
+<H4><A NAME="new_region">new_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the location and dimensions of the region
+of the image which was actually decompressed and written
+into the channel buffers supplied via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> argument. The region's size and location are all expressed
+relative to the same rendering canvas as the 
+<A HREF="kdu$essor__process__1.html#incomplete_region">incomplete_region</A> and 
+<A HREF="kdu$essor__process__1.html#buffer_origin">buffer_origin</A> arguments. Note that the region might be empty, even
+though processing is not yet complete.
+</P>
+</DIV>
+<H4><A NAME="precision_bits">precision_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the precision of the unsigned integers represented
+by each sample in each buffer supplied via the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> argument. This value need not bear any special relationship
+to the original bit-depth of the compressed image samples.
+The rendered sample values are written into the buffer
+as B-bit unsigned integers, where B is the value of
+<A HREF="kdu$essor__process__1.html#precision_bits">precision_bits</A> and the most significant bits of the B-bit integer
+correspond to the most significant bits of the original
+image samples. Normally, the value of this argument
+will be 8 so that the rendered data is always normalized
+for display on an 8-bit/sample device. There may be
+more interest in selecting different precisions when
+using the second form of the overloaded 
+<A HREF="kdu$essor__process__1.html">process</A> function.
+</P><P>
+ From Kakadu v4.3, it is possible to supply a special
+value of 0 for this argument. In this case, a "default"
+set of precisions will be used (one for each channel).
+If a 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object was supplied to 
+<A HREF="kdu$essor__start.html">start</A>, that object's 
+<A HREF="kdu$pping.html#default_rendering_precision">kdu_channel_mapping::default_rendering_precision</A> and 
+<A HREF="kdu$pping.html#default_rendering_signed">kdu_channel_mapping::default_rendering_signed</A> arrays are used to derive the default channel precisions,
+as well as per-channel information about whether the
+samples should be rendered as unsigned quantities or
+as 2's complement 8-bit integers. That information,
+in turn, is typically initialized by one of the 
+<A HREF="kdu$pping__configure__1.html">kdu_channel_mapping::configure</A> functions to represent the native bit-depths and signed/unsigned
+properties of the original image samples (or palette
+indices); however, it may be explicitly overridden
+by the application. This gives you enormous flexibility
+in choosing the way you want rendered sample bits to
+be represented. If no 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object was supplied to 
+<A HREF="kdu$essor__start.html">start</A>, the default rendering precision and signed/unsigned
+characteristics are derived from the original properties
+of the image samples represented by the code-stream.
+</P><P>
+ It is worth noting that the rendering precision, B,
+can actually exceed 8, either because 
+<A HREF="kdu$essor__process__1.html#precision_bits">precision_bits</A> &gt; 8, or because 
+<A HREF="kdu$essor__process__1.html#precision_bits">precision_bits</A>=0 and the default rendering precisions, derived in
+the above-mentioned manner, exceed 8. In this case,
+the function automatically truncates the rendered values
+to fit within the 8-bit representation associated with
+the 
+<A HREF="kdu$essor__process__1.html#channel_bufs">channel_bufs</A> array(s). If B &lt;= 8, the rendered values are truncated
+to fit within the B bits. Where 2's complement output
+samples are written, they are truncated in the natural
+way and sign extended.
+</P>
+</DIV>
+<H4><A NAME="measure_row_gap_in_pixels">measure_row_gap_in_pixels</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, 
+<A HREF="kdu$essor__process__1.html#row_gap">row_gap</A> is interpreted as the number of whole pixels between
+consecutive rows in the buffer. Otherwise, it is interpreted
+as the number of samples only. The latter form can
+be useful when working with image buffers having alignment
+constraints which are not based on whole pixels (e.g.,
+Windows bitmap buffers).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__start.html"> prev </A>||<A HREF="kdu$essor__process__2.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_error) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_error</A></H1>
+<DIR><P>Derives from <A HREF ="kdu$ssage.html">kdu_message</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class may be created, written to and
+then destroyed as a compact and powerful mechanism
+for generating error messages and jumping out of the
+immediate execution context. All text is delivered
+to the 
+<A HREF="kdu$ssage.html">kdu_message</A>-derived object supplied in the most recent call to
+the 
+<A HREF="globals__kdu$mize_errors.html">kdu_customize_errors</A> function. The 
+<A HREF="kdu_error.html">kdu_error</A> object's destructor plays a key role in completing
+errors. It first invokes the output object's 
+<A HREF="kdu$ssage__flush.html">kdu_message::flush</A> function with an 
+<B>end_of_message</B> argument equal to true, and then terminates the process
+through the system 
+<B>exit</B> function.
+</P><P>
+ To avoid process termination, the caller may supply
+a special 
+<A HREF="kdu$ssage.html">kdu_message</A>-derived object to 
+<A HREF="globals__kdu$mize_errors.html">kdu_customize_errors</A> which overrides the 
+<A HREF="kdu_error__flush.html">flush</A> function so as to throw an exception in the event
+that its 
+<A HREF="kdu_error__flush.html">flush</A> member is called with 
+<B>end_of_message</B> equal to true. This condition is guaranteed not to
+occur until the 
+<A HREF="kdu_error.html">kdu_error</A> object is destroyed. For consistency, and especially
+to ensure correct behaviour of Kakadu's multi-threaded
+processing machinery, you should only throw exceptions
+of type 
+<B>kdu_exception</B>.
+</P><P>
+ The following code-fragment illustrates typical usage:
+{ kdu_error e; if (error) { kdu_error e; e &lt;&lt;
+"Oops! Don't do that."; }}
+</P><P>
+ In view of the preceding discussion, it should be
+clear that 
+<A HREF="kdu_error.html">kdu_error</A> objects should never be created on the heap.
+</P><P>
+ As of Kakadu Version 4.5, the 
+<A HREF="kdu_error.html">kdu_error</A> object provides additional constructors which may
+be used to customize the way messages are displayed,
+providing for internationalizable text and/or allowing
+compiled code to be stripped of numerous messages which
+are meaningful only to the developer.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_error__kdu_error__1.html">kdu_error</A> <EM>(3 forms)</EM></P>
+<P><A HREF="kdu_error__~kdu_error.html">~kdu_error</A> [virtual]</P>
+<P><A HREF="kdu_error__put_text__1.html">put_text</A> [virtual] <EM>(2 forms)</EM></P>
+<P><A HREF="kdu_error__flush.html">flush</A> [virtual]</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::get_curve) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get_edge.html"> prev </A>||<A HREF="jpx$ditor__get$h_segment.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::get_curve</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Get_curve</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_curve(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;centre,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;extent,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;skew,
+<B>int</B>&nbsp;which,
+<B>bool</B>&nbsp;selected_region_only,
+<B>bool</B>&nbsp;dragged)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_curve(
+Kdu_coords&nbsp;centre,
+Kdu_coords&nbsp;extent,
+Kdu_coords&nbsp;skew,
+int&nbsp;which,
+boolean&nbsp;selected_region_only,
+boolean&nbsp;dragged)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx$ditor__get_edge.html">get_edge</A>, this function is used to walk through all the boundaries
+of elliptical regions within the current edit state.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A combination of the following flags (or 0 if the requested
+ellipse does not exist):
+</P><UL><LI>
+The 
+<A HREF="globals.html#JPX_EDITOR_FLAG_NZ">JPX_EDITOR_FLAG_NZ</A> flag provides a means of ensuring the return value
+is non-zero; this flag has no special meaning.
+</LI><LI>
+The 
+<A HREF="globals.html#JPX_EDITOR_FLAG_ENCODED">JPX_EDITOR_FLAG_ENCODED</A> flag means that the elliptical region is marked as
+"encoded", meaning that ROI encoding procedures have
+been used within that region in the relevant codestream.
+</LI><LI>
+The 
+<A HREF="globals.html#JPX_EDITOR_FLAG_SELECTED">JPX_EDITOR_FLAG_SELECTED</A> flag means that the elliptical boundary has been selected
+&mdash; a graphical user interface should somehow highlighted
+this fact.
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="centre">centre</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the location of the centre of the ellipse.
+</P>
+</DIV>
+<H4><A NAME="extent">extent</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the half-width Wo=
+<A HREF="kdu_coords.html#x">extent.x</A> and the half-height Ho=
+<A HREF="kdu_coords.html#y">extent.y</A> of the tightest bounding box for the ellipse &mdash;
+see 
+<A HREF="jpx_roi__init_ellipse__1.html">jpx_roi::init_ellipse</A> for a discussion of these parameters.
+</P>
+</DIV>
+<H4><A NAME="skew">skew</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the locations at which a potentially
+oriented ellipse intersects its bounding box. The intercept
+with the top edge of the bounding box occurs at 
+<A HREF="kdu_coords.html#x">centre.x</A>+
+<A HREF="kdu_coords.html#x">skew.x</A>. The intercept with the left edge of the bounding
+box occurs at 
+<A HREF="kdu_coords.html#y">centre.y</A>-
+<A HREF="kdu_coords.html#y">skew.y</A>. See 
+<A HREF="jpx_roi__init_ellipse__1.html">jpx_roi::init_ellipse</A> for more explanation.
+</P>
+</DIV>
+<H4><A NAME="which">which</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="selected_region_only">selected_region_only</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function skips all but the current region
+(if there is one) &mdash; this is determined by the
+most recent call to 
+<A HREF="jpx$ditor__sel$ct_anchor.html">select_anchor</A>.
+</P>
+</DIV>
+<H4><A NAME="dragged">dragged</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function returns only those elliptical
+boundaries which are affected by a drag operation &mdash;
+see 
+<A HREF="jpx$ditor__dra$ed_anchor.html">drag_selected_anchor</A>. If false, only the existing ellipses are returned
+&mdash; i.e., ignoring the effect of any drag operation.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get_edge.html"> prev </A>||<A HREF="jpx$ditor__get$h_segment.html"> next </A>|</P>
+</BODY>
+</HTML>

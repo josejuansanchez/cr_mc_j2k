@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_compatibility::set_used_standard_feature) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__copy.html"> prev </A>||<A HREF="jpx$ility__set$r_feature.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_compatibility::set_used_standard_feature</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_compatibility.Set_used_standard_feature</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_used_standard_feature(
+<B>kdu_uint16</B>&nbsp;feature_id,
+<B>kdu_byte</B>&nbsp;fully_understand_sub_expression=255,
+<B>kdu_byte</B>&nbsp;decode_completely_sub_expression=255)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_used_standard_feature(
+int&nbsp;feature_id,
+byte&nbsp;fully_understand_sub_expression,
+byte&nbsp;decode_completely_sub_expression)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ility.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided to allow applications to
+customize the contents of the reader requirements box.
+The function is used both to identify the contents
+of the file and also to generate "fully understand"
+and "decode completely" expressions.
+</P><P>
+ The "fully understand" and "decode completely" expressions
+are each evaluated by taking the logical AND of a collection
+of sub-expressions. Each sub_expression is evaluated
+by taking the logical OR of a collection of features.
+If any of the features identified by the sub-expression
+is available to the reader, that sub-expression evaluates
+to true. If all sub-expressions evaluate to true, the
+corresponding "fully understand" or "decode completely"
+expression evaluates to true. If there are no sub-expressions
+at all, the "fully understand" and "decode completely"
+expressions also evaluate to true.
+</P><P>
+ For an explanation of the difference between the "fully
+understand" and "decode completely" expressions, see
+the comments appearing with the 
+<A HREF="jpx$ility__tes$nderstand.html">test_fully_understand</A> and 
+<A HREF="jpx$ility__tes$ompletely.html">test_decode_completely</A> functions.
+</P><P>
+ In addition to the sub-expressions generated here,
+the 
+<A HREF="jpx_target.html">jpx_target</A> object builds its own sub-expressions to represent
+the features it knows about. The features which it
+knows about are those marked with an asterisk in the
+list of standard features appearing with the 
+<B>check_feature</B> function. If any of those features are not explicitly
+used to form sub-expressions by means of the present
+function, they will be formed into sub-expressions
+which identify them as required both to completely
+decode and to fully understand the file's contents,
+wherever this makes sense.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="feature_id">feature_id</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the 
+<A HREF="jpx$ility__che$d_feature.html">check_standard_feature</A> function for a list of standard feature identifiers.
+</P>
+</DIV>
+<H4><A NAME="fully_understand_sub_expression">fully_understand_sub_expression</A> [<B>kdu_byte</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates which sub-expression of the "fully understand"
+expression this feature is being added to. The index
+has no particular meaning except to associate multiple
+features in the same sub-expression with one another.
+However, valid sub-expression indices must lie in the
+range 0 to 254. The special value of 255 means that
+the feature is not being added to any "fully understand"
+sub-expression. This is useful if the feature is only
+to be added to "decode completely" sub-expressions.
+It also provides a useful mechanism for preventing
+the internal object from automatically asserting that
+the feature is required to fully understand the file,
+if that feature is believed to have been used.
+</P>
+</DIV>
+<H4><A NAME="decode_completely_sub_expression">decode_completely_sub_expression</A> [<B>kdu_byte</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates which sub-expression of the "decode completely"
+expression this feature is being added to. The index
+has no particular meaning except to associate multiple
+features in the same sub-expression with one another.
+However, valid sub-expression indices must lie in the
+range 0 to 254. The special value of 255 means that
+the feature is not being added to any "decode completely"
+sub-expression. This is useful if the feature is only
+to be added to "fully understand" sub-expressions.
+It also provides a useful mechanism for preventing
+the internal object from automatically asserting that
+the feature is required to completely decode the file,
+if that feature is believed to have been used.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ility__copy.html"> prev </A>||<A HREF="jpx$ility__set$r_feature.html"> next </A>|</P>
+</BODY>
+</HTML>

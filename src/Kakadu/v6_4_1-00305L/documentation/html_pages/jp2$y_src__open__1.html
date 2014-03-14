@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_family_src::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$y_src__operator!.html"> prev </A>||<A HREF="jp2$y_src__open__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_family_src::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_family_src.Open</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jp2$y_src__open__2.html">2</A>,
+<A HREF="jp2$y_src__open__3.html">3</A></B></P>
+<P CLASS="function-text">virtual <B>void</B> open(
+<B>const char *</B>&nbsp;fname,
+<B>bool</B>&nbsp;allow_seeks=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open(
+String&nbsp;fname,
+boolean&nbsp;allow_seeks)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$y_src.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Open a JP2-family file, having the indicated name.
+The function does not actually read anything from the
+file, and no assumption is made concerning the file
+structure other than the fact that it should consist
+of a sequence of boxes, each of which may have sub-boxes,
+where the box structure conforms to that used by the
+JP2 family file formats such as JP2, JPX, JPM and MJ2.
+</P><P>
+ Generates an error through 
+<A HREF="kdu_error.html">kdu_error</A> if the file cannot be opened.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="fname">fname</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Relative path name of file to be opened.
+</P>
+</DIV>
+<H4><A NAME="allow_seeks">allow_seeks</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, seeking within the source will not be permitted.
+Disabling seeking means that any 
+<A HREF="jp2$t_box.html">jp2_input_box</A> objects which are opened from the present object will
+not list 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A> amongst their capabilities. This has no effect unless
+embedded code-stream(s) contains TLM and/or PLT marker
+segments, in which case the ability to seek within
+the file can save a lot of memory when working with
+large images, but this may come at the expense of some
+loss in speed if we know ahead of time that we want
+to decompress the entire image(s). Perhaps more significantly,
+if the source is not seekable, you will only be able
+to open boxes one at a time, and then only in strict
+linear order.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$y_src__operator!.html"> prev </A>||<A HREF="jp2$y_src__open__2.html"> next </A>|</P>
+</BODY>
+</HTML>

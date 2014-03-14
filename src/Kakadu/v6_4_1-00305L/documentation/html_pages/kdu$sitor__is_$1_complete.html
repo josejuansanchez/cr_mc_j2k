@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::is_codestream_processing_complete) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__is_$_complete.html"> prev </A>||<A HREF="kdu$sitor__refresh.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::is_codestream_processing_complete</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Is_codestream_processing_complete</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> is_codestream_processing_complete(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_codestream_processing_complete(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> but returns true if all outstanding codestream-related
+processing is complete, even if some overlay or composition
+processing remains to be done. One reason why you might
+want to use this function is to determine the earliest
+point at which codestreams can be accessed and safely
+manipuated via 
+<A HREF="kdu$sitor__acc$odestream.html">access_codestream</A> &mdash; you should, in general, call 
+<A HREF="kdu$sitor__hal$rocessing.html">halt_processing</A> before accessing codestreams outside the compositor
+machinery, but doing so may cause some partially computed
+results to be discarded unless you can be sure that
+codestream processing is complete.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__is_$_complete.html"> prev </A>||<A HREF="kdu$sitor__refresh.html"> next </A>|</P>
+</BODY>
+</HTML>

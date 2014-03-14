@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_in::destroy) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ge_in__kdu_image_in__2.html"> prev </A>||<A HREF="kdu$ge_in__exists.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_in::destroy</A></H1>
+<P CLASS="function-text"><B>void</B> destroy(
+)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$ge_in.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Instances of the 
+<A HREF="kdu$ge_in.html">kdu_image_in</A> class are only interfaces to the underlying image
+reading object. As such, they may be copied at will.
+To avoid the underlying object being destroyed when
+an interface to it goes out of scope, we provide an
+explicit destruction function. This is simpler and
+more obvious, if slightly more dangerous than reference
+counting.
+</P><P>
+ Generates a warning message if one or more image lines
+were not consumed from any component.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ge_in__kdu_image_in__2.html"> prev </A>||<A HREF="kdu$ge_in__exists.html"> next </A>|</P>
+</BODY>
+</HTML>

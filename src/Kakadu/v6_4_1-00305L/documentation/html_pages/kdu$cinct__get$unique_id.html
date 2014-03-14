@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_precinct::get_unique_id) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$cinct__check_loaded.html"> prev </A>||<A HREF="kdu$cinct__get$id_blocks.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_precinct::get_unique_id</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_precinct.Get_unique_id</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> get_unique_id(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_unique_id(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$cinct.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The return value from this function uniquely identifies
+the precinct amongst all precincts associated with
+the compressed image representation. This unique identifier
+is identical to that used by the 
+<A HREF="kdu$ource__set$nct_scope.html">kdu_compressed_source::set_precinct_scope</A> function to recover a precinct's packets from a cached
+compressed data source. The formula used to determine
+the unique identifier is described with that function.
+This connection facilitates the recovery of packet
+data in a server which may then be transmitted to a
+caching client in client-server applications.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$cinct__check_loaded.html"> prev </A>||<A HREF="kdu$cinct__get$id_blocks.html"> next </A>|</P>
+</BODY>
+</HTML>

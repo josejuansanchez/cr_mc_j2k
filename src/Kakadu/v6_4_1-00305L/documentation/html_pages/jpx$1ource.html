@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_layer_source) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpx_layer_source</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpx_layer_source</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages a single compositing layer within a JPX file.
+Specifically, this object manages the layer-specific
+attributes which are found either in a compositing
+layer header (jplh) box or the global JP2 header box.
+If the JPX file contains no compositing layer header
+boxes, the first codestream will be assigned its own
+layer, using the default information recorded in the
+JP2 header box to deduce the relevant colour space
+and channel mapping rules.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Use 
+<A HREF="jpx_source__acc$ss_layer.html">jpx_source::access_layer</A> to obtain a non-empty interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpx$1ource__jpx$r_source__1.html">jpx_layer_source</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jpx$1ource__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpx$1ource__operator!.html">operator!</A></P>
+<P><A HREF="jpx$1ource__get$layer_id.html">get_layer_id</A> {<U>Java:</U> Get_layer_id}
+</P>
+<P><A HREF="jpx$1ource__get$ader_loc.html">get_header_loc</A> {<U>Java:</U> Get_header_loc}
+</P>
+<P><A HREF="jpx$1ource__acc$channels.html">access_channels</A> {<U>Java:</U> Access_channels}
+</P>
+<P><A HREF="jpx$1ource__acc$solution.html">access_resolution</A> {<U>Java:</U> Access_resolution}
+</P>
+<P><A HREF="jpx$1ource__acc$s_colour.html">access_colour</A> {<U>Java:</U> Access_colour}
+</P>
+<P><A HREF="jpx$1ource__get$estreams.html">get_num_codestreams</A> {<U>Java:</U> Get_num_codestreams}
+</P>
+<P><A HREF="jpx$1ource__get$tream_id.html">get_codestream_id</A> {<U>Java:</U> Get_codestream_id}
+</P>
+<P><A HREF="jpx$1ource__get$yer_size.html">get_layer_size</A> {<U>Java:</U> Get_layer_size}
+</P>
+<P><A HREF="jpx$1ource__hav$_headers.html">have_stream_headers</A> {<U>Java:</U> Have_stream_headers}
+</P>
+<P><A HREF="jpx$1ource__get$stration.html">get_codestream_registration</A> {<U>Java:</U> Get_codestream_registration}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

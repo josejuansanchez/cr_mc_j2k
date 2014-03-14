@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::install_notifier) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__ins$anslator.html"> prev </A>||<A HREF="kdu_client__connect.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::install_notifier</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Install_notifier</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> install_notifier(
+<A HREF ="kdu$ifier.html">kdu_client_notifier</A>&nbsp;*&nbsp;notifier)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Install_notifier(
+Kdu_client_notifier&nbsp;notifier)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides a generic mechanism for the network management
+thread to notify the application when the connection
+state changes or when new data is placed in the cache.
+Specifically, the application provides an appropriate
+object, derived from the abstract base class, 
+<A HREF="kdu$ifier.html">kdu_client_notifier</A>. The object's virtual 
+<B>notify</B> function is called from within the network management
+thread whenever any of the following conditions occur:
+</P><UL><LI>
+Connection with the server is completed;
+</LI><LI>
+The server has acknowledged a request for a new window
+into the image, possibly modifying the requested window
+to suit its needs (call 
+<A HREF="kdu_client__get$progress.html">get_window_in_progress</A> to learn about any changes to the window which is
+actually being served);
+</LI><LI>
+One or more new messages from the server have been
+received and used to augment the cache; or
+</LI><LI>
+The server has disconnected &mdash; in this case, 
+<A HREF="kdu$ifier__notify.html">notifier&rarr;notify</A> is called immediately before the network management
+thread is terminated, but 
+<A HREF="kdu_client__is_alive.html">is_alive</A> is guaranteed to be false from immediately before
+the point at which the notification was raised, so
+as to avoid possible race conditions in the client
+application.
+</LI></UL><P>
+ A typical notifier would post a message on an interactive
+client's message queue so as to wake the application
+up if necessary. A more intelligent notifier may choose
+to wake the application up in this way only if a substantial
+change has occurred in the cache &mdash; something
+which may be determined with the aid of the 
+<A HREF="kdu_cache__get$red_bytes.html">kdu_cache::get_transferred_bytes</A> function.
+</P><P>
+ The following functions should never be called from
+within the 
+<A HREF="kdu$ifier__notify.html">notifier&rarr;notify</A> call, since that call is generated from within the
+network management thread: 
+<A HREF="kdu_client__connect.html">connect</A>, 
+<A HREF="kdu_client__add_queue.html">add_queue</A>, 
+<A HREF="kdu_client__close.html">close</A>, 
+<A HREF="kdu_client__disconnect.html">disconnect</A> and 
+<A HREF="kdu_client__post_window.html">post_window</A>.
+</P><P>
+ We note that the notifier remains installed after
+its 
+<B>notify</B> function has been called, so there is no need to re-install
+the notifier. If you wish to remove the notifier, the
+<A HREF="kdu_client__ins$notifier.html">install_notifier</A> function may be called with a NULL argument.
+</P><P>
+ You may install the notifier before or after the first
+call to 
+<A HREF="kdu_client__connect.html">connect</A>; however, the call to 
+<A HREF="kdu_client__connect.html">connect</A> starts a network management thread, and the notifier
+will be removed as the final step in the termination
+of this thread - thus, you cannot expect the notifier
+to remain installed after an unsuccessful call to 
+<A HREF="kdu_client__connect.html">connect</A>. The notifier will also be removed by a call to 
+<A HREF="kdu_client__close.html">close</A>.
+</P><P>
+ In the future, you can expect a more powerful notification
+mechanism to be offered by Kakadu, providing more detailed
+information about the relevant events &mdash; this
+will exist side by side with the current method, for
+backward compatibility.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="notifier">notifier</A> [<A HREF ="kdu$ifier.html">kdu_client_notifier</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__ins$anslator.html"> prev </A>||<A HREF="kdu_client__connect.html"> next </A>|</P>
+</BODY>
+</HTML>

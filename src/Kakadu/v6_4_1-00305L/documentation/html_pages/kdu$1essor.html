@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_stripe_compressor</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object provides a high level interface to the
+Kakadu compression machinery, which is capable of satisfying
+the needs of most developers while providing essentially
+a one-function-call solution for simple applications.
+Most new developers will probably wish to base their
+compression applications upon this object.
+</P><P>
+ It should be noted, however, that some performance
+benefits can be obtained by creating compression engines
+yourself and directly passing them 
+<A HREF="kdu$e_buf.html">kdu_line_buf</A> lines, since this can often avoid unnecessary copying
+and level shifting of image samples. Nevertheless,
+there has been a lot of demand for a dead-simple, yet
+also powerful interface to Kakadu, and this object
+is intended to fill that requirement. In fact, the
+various objects found in the "support" directory (
+<A HREF="kdu$1essor.html">kdu_stripe_compressor</A>, 
+<A HREF="kdu$2essor.html">kdu_stripe_decompressor</A> and 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A>) are aimed at meeting the needs of 90% of the applications
+using Kakadu. That is not to say that these objects
+are all that is required. You still need to open streams
+of one form or another and create a 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface.
+</P><P>
+ In a typical compression application based on this
+object, you will need to do the following:
+</P><UL><LI>
+Create a 
+<A HREF="kdu$tream.html">kdu_codestream</A> object;
+</LI><LI>
+Use the interface recovered using 
+<A HREF="kdu$tream__access_siz.html">kdu_codestream::access_siz</A> to install any custom compression parameters you have
+in mind, unless you are happy with all the defaults;
+</LI><LI>
+Initialize the 
+<A HREF="kdu$1essor.html">kdu_stripe_compressor</A> object, by calling 
+<A HREF="kdu$1essor__start.html">kdu_stripe_compressor::start</A>.
+</LI><LI>
+Push image stripes into 
+<A HREF="kdu$1essor__push_stripe__1.html">kdu_stripe_compressor::push_stripe</A> until the image is fully compressed (you can do it
+all in one go, from a memory buffer of your choice,
+if you like);
+</LI><LI>
+Call 
+<A HREF="kdu$1essor__finish.html">kdu_stripe_compressor::finish</A>.
+</LI><LI>
+Call 
+<A HREF="kdu$tream__destroy.html">kdu_codestream::destroy</A>.
+</LI></UL><P>
+ For a tuturial example of how to use the present object
+in a typical application, consult the Kakadu demo application,
+"kdu_buffered_compress".
+</P><P>
+ It is worth noting that this object is built directly
+on top of the services offered by 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A>, so for a thorough understanding of how things work,
+you might like to consult the documentation for that
+object as well.
+</P><P>
+ Most notably, the image components which are supplied
+to the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function are those which are known (during decompression)
+as multi-component output components (or just output
+components). This means that the present object inverts
+any Part 2 multi-component transformation network,
+which may be involved.
+</P><P>
+ From Kakadu version 5.1, this object offers multi-threaded
+processing capabilities for enhanced throughput. These
+capabilities are based upon the options for multi-threaded
+processing offered by the underlying 
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A> object and the 
+<A HREF="kdu$lysis.html">kdu_analysis</A> and 
+<A HREF="kdu$3coder.html">kdu_encoder</A> objects which it, in turn, uses. Multi-threaded processing
+provides the greatest benefit on platforms with multiple
+physical CPU's, or where CPU's offer hyperthreading
+capabilities. Interestingly, although hyper-threading
+is often reported as offering relatively little gain,
+Kakadu's multi-threading model is typically able to
+squeeze 30-50% speedup out of processors which offer
+hyperthreading, in addition to the benefits which can
+be reaped from true multi-processor (or multi-core)
+architectures.
+</P><P>
+ To take advantage of multi-threading, you need to
+create a 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object, add a suitable number of working threads to
+it (see comments appearing with the definition of 
+<A HREF="kdu$d_env.html">kdu_thread_env</A>) and pass it into the 
+<A HREF="kdu$1essor__start.html">start</A> function. You can re-use this 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object as often as you like &mdash; that is, you need
+not tear down and recreate the collaborating multi-threaded
+environment between calls to 
+<A HREF="kdu$1essor__finish.html">finish</A> and 
+<A HREF="kdu$1essor__start.html">start</A>. Multi-threading could not be much simpler. The only
+thing you do need to remember is that all calls to
+<A HREF="kdu$1essor__start.html">start</A>, 
+<B>process</B> and 
+<A HREF="kdu$1essor__finish.html">finish</A> should be executed from the same thread &mdash; the
+one identified by the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> reference passed to 
+<A HREF="kdu$1essor__start.html">start</A>. This constraint represents a slight loss of flexibility
+with respect to the core processing objects such as
+<A HREF="kdu$1lysis.html">kdu_multi_analysis</A>, which allow calls from any thread. In exchange, however,
+you get simplicity. In particular, you only need to
+pass the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object into the 
+<A HREF="kdu$1essor__start.html">start</A> function, after which the object remembers the thread
+reference for you.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$1essor__kdu$mpressor.html">kdu_stripe_compressor</A> {<U>Java:</U> Kdu_stripe_compressor}
+</P>
+<P><A HREF="kdu$1essor__~kd$mpressor.html">~kdu_stripe_compressor</A> {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$1essor__start.html">start</A> {<U>Java:</U> Start}
+</P>
+<P><A HREF="kdu$1essor__finish.html">finish</A> {<U>Java:</U> Finish}
+</P>
+<P><A HREF="kdu$1essor__get$_heights.html">get_recommended_stripe_heights</A> {<U>Java:</U> Get_recommended_stripe_heights}
+</P>
+<P><A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> <EM>(8 forms)</EM></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::push_stripe) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__3.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__5.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::push_stripe</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_compressor.Push_stripe</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$1essor__push_stripe__1.html">1</A>,
+<A HREF="kdu$1essor__push_stripe__2.html">2</A>,
+<A HREF="kdu$1essor__push_stripe__3.html">3</A>,
+4,
+<A HREF="kdu$1essor__push_stripe__5.html">5</A>,
+<A HREF="kdu$1essor__push_stripe__6.html">6</A>,
+<A HREF="kdu$1essor__push_stripe__7.html">7</A>,
+<A HREF="kdu$1essor__push_stripe__8.html">8</A></B></P>
+<P CLASS="function-text"><B>bool</B> push_stripe(
+<B>kdu_int16</B>&nbsp;*&nbsp;buffer,
+<B>int</B>&nbsp;stripe_heights[],
+<B>int</B>&nbsp;*&nbsp;sample_offsets=NULL,
+<B>int</B>&nbsp;*&nbsp;sample_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;row_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;precisions=NULL,
+<B>bool</B>&nbsp;*&nbsp;is_signed=NULL,
+<B>int</B>&nbsp;flush_period=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Push_stripe(
+short[]&nbsp;buffer,
+int[]&nbsp;stripe_heights,
+int[]&nbsp;sample_offsets,
+int[]&nbsp;sample_gaps,
+int[]&nbsp;row_gaps,
+int[]&nbsp;precisions,
+boolean[]&nbsp;is_signed,
+int&nbsp;flush_period)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the third form of the overloaded 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function, except that all component buffers are found
+within the single supplied 
+<A HREF="kdu$1essor__push_stripe__4.html#buffer">buffer</A>. Specifically, sample values have a 16-bit signed
+(but possibly unsigned, depending on the 
+<A HREF="kdu$1essor__push_stripe__4.html#is_signed">is_signed</A> argument) representation, rather than an 8-bit unsigned
+representation. As with the second form of the function,
+this fourth form is provided primarily to facilitate
+automatic construction of Java language bindings by
+the "kdu_hyperdoc" utility.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True until all samples for all image components have
+been pushed in, at which point the function returns
+false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buffer">buffer</A> [<B>kdu_int16</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="stripe_heights">stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="sample_offsets">sample_offsets</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with one entry for each image component, identifying
+the position of the first sample of that component
+within the 
+<A HREF="kdu$1essor__push_stripe__4.html#buffer">buffer</A> array. If this argument is NULL, the implied sample
+offsets are 
+<A HREF="kdu$1essor__push_stripe__4.html#sample_offsets">sample_offsets</A>[c] = c &mdash; i.e., samples are tightly interleaved.
+In this case, the interpretation of a NULL 
+<A HREF="kdu$1essor__push_stripe__4.html#sample_gaps">sample_gaps</A> array is modified to match the tight interleaving
+assumption.
+</P>
+</DIV>
+<H4><A NAME="sample_gaps">sample_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function. If NULL, the sample gaps for all image components
+are taken to be 1, which means that the organization
+of 
+<A HREF="kdu$1essor__push_stripe__4.html#buffer">buffer</A> must be either line- or component- interleaved. The
+only exception to this is if 
+<A HREF="kdu$1essor__push_stripe__4.html#sample_offsets">sample_offsets</A> is also NULL, in which case, the sample gaps all default
+to the number of image components, corresponding to
+a sample-interleaved organization.
+</P>
+</DIV>
+<H4><A NAME="row_gaps">row_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function. If NULL, the lines of each component stripe
+buffers are assumed to be contiguous, meaning that
+the organization of 
+<A HREF="kdu$1essor__push_stripe__4.html#buffer">buffer</A> must be either component- or sample-interleaved.
+</P>
+</DIV>
+<H4><A NAME="precisions">precisions</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the third form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="is_signed">is_signed</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the third form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="flush_period">flush_period</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__3.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__5.html"> next </A>|</P>
+</BODY>
+</HTML>

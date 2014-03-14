@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_resolution) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jp2_resolution</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jp2_resolution</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages simple geometric information which may be used
+to guide image rendering: specifically, pixel aspect
+ratios; original image capture resolution; and recommended
+image display resolution.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Creation and destruction of the internal
+object, as well as saving and reading of the associated
+JP2 boxes are capabilities reserved for the internal
+machinery associated with the file format manager which
+provides the interface.
+</P><P>
+ Objects which can provide a non-empty 
+<A HREF="jp2$ution.html">jp2_resolution</A> interface include 
+<A HREF="jp2_source.html">jp2_source</A>, 
+<A HREF="jp2_target.html">jp2_target</A>, 
+<A HREF="jpx$1ource.html">jpx_layer_source</A>, 
+<A HREF="jpx$1arget.html">jpx_layer_target</A>, 
+<A HREF="mj2$ource.html">mj2_video_source</A> and 
+<A HREF="mj2$arget.html">mj2_video_target</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jp2$ution__jp2$esolution__1.html">jp2_resolution</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jp2$ution__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jp2$ution__operator!.html">operator!</A></P>
+<P><A HREF="jp2$ution__copy.html">copy</A> {<U>Java:</U> Copy}
+</P>
+<P><A HREF="jp2$ution__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="jp2$ution__set$ect_ratio.html">set_different_capture_aspect_ratio</A> {<U>Java:</U> Set_different_capture_aspect_ratio}
+</P>
+<P><A HREF="jp2$ution__set$esolution.html">set_resolution</A> {<U>Java:</U> Set_resolution}
+</P>
+<P><A HREF="jp2$ution__get$ect_ratio.html">get_aspect_ratio</A> {<U>Java:</U> Get_aspect_ratio}
+</P>
+<P><A HREF="jp2$ution__get$esolution.html">get_resolution</A> {<U>Java:</U> Get_resolution}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

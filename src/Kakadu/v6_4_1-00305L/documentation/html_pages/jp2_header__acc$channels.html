@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_header::access_channels) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2_header__acc$_palette.html"> prev </A>||<A HREF="jp2_header__acc$solution.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_header::access_channels</A></H1>
+<P CLASS="function-text"><A HREF ="jp2$nnels.html">jp2_channels</A> access_channels(
+)</P>
+<P>[Declared in <A HREF="++++apps+jp2+jp2_shared+h.html">"../apps/jp2/jp2_shared.h"</A>]</P><P><A HREF="jp2_header.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides an interface which may be used to specify
+the relationship between code-stream image components
+and colour reproduction channels (colour intensity
+channels, opacity channels, and pre-multiplied opacity
+channels). This information is used to construct appropriate
+JP2 "Component Mapping" and "Channel Definition" boxes.
+</P><P>
+ It is NOT NECESSARY to access or initialize the 
+<A HREF="jp2$nnels.html">jp2_channels</A> object directly; the default behaviour is to assign
+the colour intensity channels to the initial code-stream
+image components. That is, the first code-stream component
+is assigned to the luminance or red intensity, the
+second is assigned to the green intensity, and the
+third is assigned to the blue intensity. The mandatory
+information configured in the 
+<A HREF="jp2_colour.html">jp2_colour</A> object is used to determine whether a luminance or
+RGB colour space is involved.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2_header__acc$_palette.html"> prev </A>||<A HREF="jp2_header__acc$solution.html"> next </A>|</P>
+</BODY>
+</HTML>

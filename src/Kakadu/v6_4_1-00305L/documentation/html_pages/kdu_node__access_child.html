@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_node::access_child) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__operator!=.html"> prev </A>||<A HREF="kdu_node__get$directions.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_node::access_child</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_node.Access_child</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_node.html">kdu_node</A> access_child(
+<B>int</B>&nbsp;child_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_node Access_child(
+int&nbsp;child_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_node.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to probe the descendants of a node.
+If this is a leaf node, there will be no descendants
+so all calls to this function will return empty interfaces.
+Otherwise, there will be anywhere from 1 to 4 children.
+</P><P>
+ If the node is split only in the horizontal direction,
+non-empty interfaces will be returned when 
+<A HREF="kdu_node__access_child.html#child_idx">child_idx</A> is one of 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> or 
+<A HREF="globals.html#HL_BAND">HL_BAND</A>.
+</P><P>
+ If the node is split only in the vertical direction,
+non-empty interfaces will be returned when 
+<A HREF="kdu_node__access_child.html#child_idx">child_idx</A> is one of 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> or 
+<A HREF="globals.html#LH_BAND">LH_BAND</A>.
+</P><P>
+ If the node is split in both directions, non-empty
+interfaces will be returned when 
+<A HREF="kdu_node__access_child.html#child_idx">child_idx</A> is one of 
+<A HREF="globals.html#LL_BAND">LL_BAND</A>, 
+<A HREF="globals.html#LH_BAND">LH_BAND</A>, 
+<A HREF="globals.html#HL_BAND">HL_BAND</A> or 
+<A HREF="globals.html#HH_BAND">HH_BAND</A>.
+</P><P>
+ In the degenerate case of no splitting at all, only
+the 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> child exists. This can happen for a primary node in
+a degenerate resolution level, whose next resolution
+has exactly the same dimensions &mdash; JPEG2000 Part-2
+DFS marker segments can cause this to occur if a splitting
+code happens to be 0.
+</P><P>
+ The 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> child of a primary node is always the primary node
+of the next lower resolution object, unless that resolution
+would be the lowest resolution of all (the one with
+<B>res_level</B>=0), in which case the 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> child is a subband &mdash; i.e., its 
+<A HREF="kdu_node__acc$ss_subband.html">access_subband</A> function will return a non-empty interface. This means
+that you can use the 
+<A HREF="kdu_node__access_child.html">access_child</A> and 
+<A HREF="kdu_node__acc$resolution.html">access_resolution</A> functions as an alternate mechanism for navigating
+to each of the available resolutions in a tile-component,
+except for the lowest resolution.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="child_idx">child_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__operator!=.html"> prev </A>||<A HREF="kdu_node__get$directions.html"> next </A>|</P>
+</BODY>
+</HTML>

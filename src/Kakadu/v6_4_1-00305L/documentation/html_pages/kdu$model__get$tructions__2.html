@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_model::get_header_instructions) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__get$tructions__1.html"> prev </A>||<A HREF="kdu$model__get$1tructions.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_model::get_header_instructions</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_model.Get_header_instructions</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$model__get$tructions__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>int</B> get_header_instructions(
+<B>int</B>&nbsp;stream_idx,
+<B>int</B>&nbsp;*&nbsp;tnum,
+<B>int</B>&nbsp;buf[])</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_header_instructions(
+int&nbsp;stream_idx,
+int[]&nbsp;tnum,
+int[]&nbsp;buf)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$model.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as first form of 
+<A HREF="kdu$model__get$tructions__1.html">get_header_instructions</A>, except that this version of the function searches
+for the first atomic cache model instruction(s) which
+refer to main or tile header data-bins within the indicated
+codestream, returning the tile index (or -1 for a main
+header data-bin) via 
+<A HREF="kdu$model__get$tructions__2.html#tnum">tnum</A>.
+</P><P>
+ The caller will typically use this function only to
+retrieve information about codestream header data-bins
+which are not directly relevant to a current window
+request, during session-based processing.
+</P><P>
+ As with all the other 
+<B>get_...</B> functions, matching atomic cache model instructions
+are automatically discarded after their information
+has been retrieved by this function.
+</P><P>
+ Note that in the stateless mode (see 
+<A HREF="kdu$model__init__1.html">init</A>), this function always returns 0. This is because
+the function is not used to retrieve information about
+explicitly identified data-bins. That is the role of
+the first form of the function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stream_idx">stream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tnum">tnum</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buf">buf[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__get$tructions__1.html"> prev </A>||<A HREF="kdu$model__get$1tructions.html"> next </A>|</P>
+</BODY>
+</HTML>

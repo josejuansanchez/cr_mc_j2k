@@ -1,0 +1,321 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_analysis::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__operator!.html"> prev </A>||<A HREF="kdu$1lysis__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_analysis::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_analysis.Create</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> create(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu_tile.html">kdu_tile</A>&nbsp;tile,
+<B>bool</B>&nbsp;force_precise=false,
+<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*&nbsp;roi=NULL,
+<B>bool</B>&nbsp;want_fastest=false,
+<B>int</B>&nbsp;processing_stripe_height=1,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;env_queue=NULL,
+<B>bool</B>&nbsp;double_buffering=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Create(
+Kdu_codestream&nbsp;codestream,
+Kdu_tile&nbsp;tile,
+boolean&nbsp;force_precise,
+Kdu_roi_image&nbsp;roi,
+boolean&nbsp;want_fastest,
+int&nbsp;processing_stripe_height,
+Kdu_thread_env&nbsp;env,
+long&nbsp;env_queue,
+boolean&nbsp;double_buffering)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$e_processing+h.html">"../coresys/common/kdu_sample_processing.h"</A>]</P><P><A HREF="kdu$1lysis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to create an instance of the internal
+processing machinery, for compressing data associated
+with the supplied open tile interface. Until you call
+this function (or copy another object which has been
+created), the 
+<A HREF="kdu$1lysis__exists.html">exists</A> function will return false.
+</P><P>
+ It is worth noting that multi-component transformations
+performed by this function are affected by any previous
+calls to 
+<A HREF="kdu_tile__set$f_interest.html">kdu_tile::set_components_of_interest</A>. In particular, you need only supply those components
+which have been marked of interest via the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function. Those components marked as uninteresting
+are ignored &mdash; you can pass them in via 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> if you like, but they will have no impact on the way
+in which codestream components are generated and subjected
+to spatial wavelet transformation and coding.
+</P><P>
+ If insufficient components are currently marked as
+being of interest (i.e., too many components were excluded
+in a previous call to 
+<A HREF="kdu_tile__set$f_interest.html">kdu_tile::set_components_of_interest</A>), the present object might not be able to find a way
+of inverting the multi-component transformation network,
+so as to work back to codestream image components.
+In this case, an informative error message will be
+generated through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ From Kakadu v5.1, this function takes optional 
+<A HREF="kdu$1lysis__create.html#env">env</A> and 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> arguments to support a variety of multi-threaded processing
+paradigms, to leverage the capabilities of multi-processor
+platforms. To see how this works, consult the description
+of these arguments below. Also, play close attention
+to the use of 
+<A HREF="kdu$1lysis__create.html#env">env</A> arguments with the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> and 
+<A HREF="kdu$1lysis__destroy.html">destroy</A> functions.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Returns the number of bytes which have been allocated
+internally for the processing of multi-component transformations,
+spatial wavelet transforms and intermediate buffering
+between the wavelet and block coder engines. Essentially,
+this includes all memory resources, except for those
+managed by the 
+<A HREF="kdu$tream.html">kdu_codestream</A> machinery (for structural information and code-block
+bit-streams). The latter information can be recovered
+by querying the 
+<A HREF="kdu$tream__get$ta_memory.html">kdu_codestream::get_compressed_data_memory</A> and 
+<A HREF="kdu$tream__get$te_memory.html">kdu_codestream::get_compressed_state_memory</A> functions.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tile">tile</A> [<A HREF ="kdu_tile.html">kdu_tile</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="force_precise">force_precise</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If this is true, the internal machinery will be configured
+to work with 32-bit representations for all image component
+samples, all the way through to the production of spatial
+subbands for encoding. Otherwise, the internal machinery
+will determine a suitable representation precision,
+making every attempt to use lower precision implementations,
+which are faster and consume less memory, where this
+does not unduly compromise quality.
+</P>
+</DIV>
+<H4><A NAME="roi">roi</A> [<A HREF ="kdu$image.html">kdu_roi_image</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+A non-NULL object may be passed in via this argument
+to allow for region-of-interest driven encoding. Note
+carefully, however, that the component indices supplied
+to the 
+<A HREF="kdu$image__acquire_node.html">kdu_roi_image::acquire_node</A> function correspond to codestream image components.
+It is up to you to ensure that the correct geometry
+is returned for each codestream image component, in
+the event that the source image components do not map
+directly (component for component) to codestream image
+components.
+</P>
+</DIV>
+<H4><A NAME="want_fastest">want_fastest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument represents the opposite extreme in precision
+selection to that represented by 
+<A HREF="kdu$1lysis__create.html#force_precise">force_precise</A>. The argument is ignored if 
+<A HREF="kdu$1lysis__create.html#force_precise">force_precise</A> is true. If 
+<A HREF="kdu$1lysis__create.html#want_fastest">want_fastest</A> is true and 
+<A HREF="kdu$1lysis__create.html#force_precise">force_precise</A> is false, the function selects the lowest internal
+precision possible, even if this does sacrifice image
+quality. This also generally results in the fastest
+possible implementation. The 
+<A HREF="kdu$1lysis__create.html#want_fastest">want_fastest</A> option usually makes more sense for decompression
+(see 
+<A HREF="kdu$hesis__create.html">kdu_multi_synthesis::create</A>) than it does for compression. Even in compression
+applications, however, it can make sense to perform
+irreversible compression of high bit-depth imagery
+using a lower internal precision, if you know that
+you are not going to be targeting a very high compressed
+bit-rate. It can happen, for example, that you want
+to compress 16-bit imagery, with no more fidelity than
+you would be interested in typically for 8-bit imagery.
+In that case, you might as well use the same internal
+implementation precision you would use for 8 or 10-bit/sample
+imagery if speed is important to you.
+</P><P>
+ Essentially, this argument forces the selection of
+the lower precision 16-bit internal representations,
+for all processing which involves irreversible transforms
+&mdash; reversible transforms must currently be implemented
+using the required precision, or else numerical overflow
+might result.
+</P>
+</DIV>
+<H4><A NAME="processing_stripe_height">processing_stripe_height</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument must be strictly positive. It identifies
+the number of row buffers maintained internally for
+each codestream component. As codestream component
+lines are generated they are temporarily buffered until
+the stripe buffer is full. At that point all of the
+buffered rows are passed consecutively to the spatial
+DWT analysis and block encoding processes. Larger stripe
+buffers have the potential to reduce context switching
+overhead when working with a large number of components
+or a large number of tiles. On the other hand, the
+price you pay for this is increased memory consumption.
+For single-threaded processing, a stripe height of
+1 is usually fine (although perhaps not quite optimal).
+For multi-threaded processing with the 
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> option set to true, however, it is advisable to use
+a larger stripe height (e.g., 8 or even 16) since the
+thread context switching overhead is considerably higher
+than that of individual function calls within a single
+thread.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Supply a non-NULL argument here if you want to enable
+multi-threaded processing. After creating a cooperating
+thread group by following the procedure outlined in
+the description of 
+<A HREF="kdu$d_env.html">kdu_thread_env</A>, any one of the threads may be used to construct this
+processing engine. Separate processing queues will
+automatically be created for each image component.
+If 
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> is set to true, these queues will also be used to
+schedule the spatial wavelet transform operations associated
+with each image component as jobs to be processed asynchronously
+by different threads. Regardless of whether 
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> is true or false, within each tile-component, separate
+queues are created to allow simultaneous processing
+of code-blocks from different subbands.
+</P><P>
+ By and large, you can use this object in exactly the
+same way when 
+<A HREF="kdu$1lysis__create.html#env">env</A> is non-NULL as you would with a NULL 
+<A HREF="kdu$1lysis__create.html#env">env</A> argument. That is, the use of multi-threaded processing
+can be largely transparent. However, you must remember
+the following two points:
+</P><UL><LI>
+You must supply a non-NULL 
+<A HREF="kdu$1lysis__create.html#env">env</A> argument to the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function &mdash; it need not refer to the same thread
+as the one used to create the object here, though.
+</LI><LI>
+You cannot rely upon all processing being complete
+until you invoke the 
+<A HREF="kdu$ntity__synchronize.html">kdu_thread_entity::synchronize</A> or 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A> function, or until you call 
+<A HREF="kdu$1lysis__destroy.html">destroy</A> with a non-NULL 
+<A HREF="kdu$1lysis__create.html#env">env</A> argument. If you are considering using the 
+<A HREF="kdu$ntity__synchronize.html">kdu_thread_entity::synchronize</A> function to synchronize all processing prior to running
+some job (e.g., incremental flushing with 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A>), you might want to seriously consider the advantages
+of registering a synchronized job to do this in the
+background &mdash; see 
+<A HREF="kdu$ntity__reg$nized_job.html">kdu_thread_entity::register_synchronized_job</A>.
+</LI></UL>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu$1lysis__create.html#env">env</A> is non-NULL. When 
+<A HREF="kdu$1lysis__create.html#env">env</A> is non-NULL, all job queues which are created inside
+this object are added as sub-queues of 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> (or as top-level queues if 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> is NULL). If you do supply a non-NULL 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A>, it is best to use a separate 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> (obtained using 
+<A HREF="kdu$ntity__add_queue.html">kdu_thread_entity::add_queue</A>) for each tile processing engine which you want to
+keep active concurrently. That way, you can individually
+wait upon completion of the activities within the engine,
+using 
+<A HREF="kdu$ntity__synchronize.html">kdu_thread_entity::synchronize</A>; also, with a separate high-level queue for each tile
+engine, you can terminate all of the queues created
+for that engine, without affecting any others, by passing
+the 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> argument supplied here into 
+<A HREF="kdu$ntity__terminate.html">kdu_thread_entity::terminate</A>.
+</P><P>
+ Another advantage of supplying a separate 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> for each tile processing engine is that it can improve
+the efficiency of Kakadu's thread scheduling algorithm.
+This algorithm tries to keep each thread working in
+the same queue as it was previously working, so long
+as there are jobs. Failing this, it tries to assign
+the thread to a queue with the closest possible common
+ancestor to the one it is currently working in. Thus,
+by supplying a unique 
+<A HREF="kdu$1lysis__create.html#env_queue">env_queue</A> when calling this constructor, you can be sure that
+threads which are processing this tile will continue
+to do so until there is no more work to be done &mdash;
+this reduces the likelihood of cache misses, since
+all of the working memory associated with a tile is
+allocated in a single contiguous block, managed by
+the 
+<B>allocator</B> object.
+</P>
+</DIV>
+<H4><A NAME="double_buffering">double_buffering</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu$1lysis__create.html#env">env</A> is non-NULL. It allows you to determine whether the
+spatial DWT operations associated with each codestream
+image component should be executed as asynchronous
+jobs (via 
+<A HREF="kdu$ntity__add_jobs.html">kdu_thread_entity::add_jobs</A>) or synchronously when new imagery is supplied via
+the 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> function.
+</P><P>
+ In the latter case (i.e., 
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A>=false), the thread which calls 
+<A HREF="kdu$1lysis__exc$nge_line.html">exchange_line</A> performs all multi-component and spatial transform
+processing, leaving only the CPU-intensive block coding
+operations for other threads. This may leave these
+extra threads occasionally idle, particularly in systems
+which have a large number of physical processors. Nevertheless,
+it is the simplest way to make good use of parallel
+processing.
+</P><P>
+ If you set 
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> to true, two sets of stripe buffers will be maintained
+for each codestream image component, each having 
+<A HREF="kdu$1lysis__create.html#processing_stripe_height">processing_stripe_height</A> rows. New lines can be pushed to one stripe buffer
+while the other is being processed asynchronously by
+other threads. This approach has the maximum potential
+to exploit the availability of parallel processing
+resources. However, you must be careful to select a
+good value for 
+<A HREF="kdu$1lysis__create.html#processing_stripe_height">processing_stripe_height</A>, since scheduling jobs onto threads incurs a non-negligible
+overhead. This is particularly important if you have
+very narrow tiles. One rough guide is to arrange for
+H*W to be around 2048 samples or more, where W is the
+tile width and H is the value of 
+<A HREF="kdu$1lysis__create.html#processing_stripe_height">processing_stripe_height</A>. Thus, for small tiles of, say, 128x128, you might
+select a stripe height of 16 rows. In any case, with
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> set to true, it is a good idea (and not particularly
+costly in terms of memory, relative to other parts
+of the system) to set the stripe height to at least
+8 rows.
+</P><P>
+ At the end of the day, to get the most out of a multi-processor
+platform, you should be prepared to play around with
+the value of 
+<A HREF="kdu$1lysis__create.html#processing_stripe_height">processing_stripe_height</A> and compare the performance with that obtained when
+<A HREF="kdu$1lysis__create.html#double_buffering">double_buffering</A> is false.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__operator!.html"> prev </A>||<A HREF="kdu$1lysis__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::set_surface_initialization_mode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set$threshold.html"> prev </A>||<A HREF="kdu$sitor__add_ilayer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::set_surface_initialization_mode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Set_surface_initialization_mode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_surface_initialization_mode(
+<B>bool</B>&nbsp;pre_initialize)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_surface_initialization_mode(
+boolean&nbsp;pre_initialize)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function was introduced for the first time in
+v5.0 so that video rendering applications can proceed
+with the maximum possible efficiency. However, you
+may find it useful in other applications.
+</P><P>
+ By default, whenever a new frame buffer is allocated,
+its contents are initialized to an appropriate default
+state. This means that the buffer retrieved via 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> can be painted to a display, even before the imagery
+has been fully decompressed. Although initializing
+the buffer does not take long, this overhead can noticeably
+slow down video rendering applications. Moreover, when
+motion video is being displayed, the buffer surface
+is always fully rendered prior to being displayed,
+so as to avoid tearing. For these applications, or
+any application in which you know that the 
+<A HREF="kdu$sitor__process.html">process</A> function will be called until rendering is complete
+before displaying anything, it is a good idea to call
+this function with 
+<A HREF="kdu$sitor__set$tion_mode.html#pre_initialize">pre_initialize</A> set to false.
+</P><P>
+ You can change the pre-initialization mode at any
+time. However, changes will not be reflected until
+new buffers are allocated or the 
+<A HREF="kdu$sitor__refresh.html">refresh</A> function is called. If you want to switch from a real-time
+video rendering mode to incremental rendering of a
+single frame or image, it is a good idea to first call
+this function with 
+<A HREF="kdu$sitor__set$tion_mode.html#pre_initialize">pre_initialize</A> to true and then call 
+<A HREF="kdu$sitor__refresh.html">refresh</A>, so as to be sure that surface buffers which are currently
+only partially rendered can be meaningfully displayed.
+The call to 
+<A HREF="kdu$sitor__refresh.html">refresh</A> can be safely omitted, of course, if 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> already returns true.
+</P><P>
+ If this all seems to hard for you, and you don't care
+about the last iota of speed, you don't need to bother
+with this function at all.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pre_initialize">pre_initialize</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__set$threshold.html"> prev </A>||<A HREF="kdu$sitor__add_ilayer.html"> next </A>|</P>
+</BODY>
+</HTML>

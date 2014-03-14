@@ -1,0 +1,209 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::get_mct_dependency_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$xform_info.html"> prev </A>||<A HREF="kdu_tile__get$t_dwt_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::get_mct_dependency_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Get_mct_dependency_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_mct_dependency_info(
+<B>int</B>&nbsp;stage_idx,
+<B>int</B>&nbsp;block_idx,
+<B>bool</B>&nbsp;&amp;&nbsp;is_reversible,
+<B>float</B>&nbsp;*&nbsp;irrev_coefficients=NULL,
+<B>float</B>&nbsp;*&nbsp;irrev_offsets=NULL,
+<B>int</B>&nbsp;*&nbsp;rev_coefficients=NULL,
+<B>int</B>&nbsp;*&nbsp;rev_offsets=NULL,
+<B>int</B>&nbsp;*&nbsp;active_outputs=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_mct_dependency_info(
+int&nbsp;stage_idx,
+int&nbsp;block_idx,
+boolean[]&nbsp;is_reversible,
+float[]&nbsp;irrev_coefficients,
+float[]&nbsp;irrev_offsets,
+int[]&nbsp;rev_coefficients,
+int[]&nbsp;rev_offsets,
+int[]&nbsp;active_outputs)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function, after first discovering the structure
+of a multi-component transform block, using 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>, to determine whether the transform block is implemented
+using a dependency transform. If the function returns
+false, you should try 
+<A HREF="kdu_tile__get$atrix_info.html">get_mct_matrix_info</A>, 
+<A HREF="kdu_tile__get$xform_info.html">get_mct_rxform_info</A> and 
+<A HREF="kdu_tile__get$t_dwt_info.html">get_mct_dwt_info</A> to determine if the block is implemented using a decorrelation
+transform or a discrete wavelet transform. If all four
+functions return zero (false or NULL), the block is
+implemented using a "null transform" &mdash; see 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> for a discussion of null transforms.
+</P><P>
+ Unlike decorrelation transforms, the offsets associated
+with dependency transforms are added to each output
+component before it is used as a predictor for subsequent
+components. These offsets are returned via the 
+<A HREF="kdu_tile__get$dency_info.html#irrev_offsets">irrev_offsets</A> and 
+<A HREF="kdu_tile__get$dency_info.html#rev_offsets">rev_offsets</A> arguments provided to this function; the corresponding
+arguments to 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> will consistently return 0's for dependency transforms.
+</P><P>
+ The inverse irreversible dependency transform (used
+during decompression) is implemented as follows:
+</P><UL><LI>
+Form Out_0 = In_0 + Off_0
+</LI><LI>
+Form Out_1 = T_10 * Out_0 + In_1 + Off_1
+</LI><LI>
+Form Out_2 = T_20 * Out_0 + T_21 * Out_1 + In_2 + Off_2
+</LI><LI>
+etc.
+</LI></UL><P>
+ Here, the coefficients of the strictly lower triangular
+matrix, T, are returned via a non-NULL 
+<A HREF="kdu_tile__get$dency_info.html#irrev_coefficients">irrev_coefficients</A> array with M*(M-1)/2 entries, where M is the value
+of 
+<B>num_block_inputs</B> returned via 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>. These coefficients are returned in row-major order.
+</P><P>
+ The inverse reversible dependency transform is implemented
+as follows:
+</P><UL><LI>
+Form Out_0 = In_0 + Off_0
+</LI><LI>
+Form Out_1 = floor((T_10*Out_0 + floor(T_11/2))/T_11)
++ In_1 + Off_1
+</LI><LI>
+Form Out_2 = floor((T_20*Out_0 + T_21*Out_1 + floor(T_22/2))/T_22)
++ In_2 + Off_2
+</LI><LI>
+etc.
+</LI></UL><P>
+ Here, the coefficients of the lower triangular matrix,
+T, are returned via a non-NULL 
+<A HREF="kdu_tile__get$dency_info.html#rev_coefficients">rev_coefficients</A> array with M*(M+1)/2-1 entries, where M is the value
+of 
+<B>num_block_inputs</B> returned via 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>. Note that the reversible dependency transform has
+M-1 extra coefficients, corresponding to the diagonal
+entries, which are used to scale the weighted contribution
+of previously computed outputs &mdash; there is no
+scale factor for the first component. Note also that
+the diagonal entries, T_ii are guaranteed to be exact
+positive powers of 2.
+</P><P>
+ Inverse dependency transforms can be implemented for
+any contiguous prefix of the original set of components,
+but the application may require only a subset of these
+components. In this case, the 
+<B>num_block_outputs</B> value returned via 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> may be smaller than M. In this case, you will have
+to supply an 
+<A HREF="kdu_tile__get$dency_info.html#active_outputs">active_outputs</A> array to discover the indices of the transformed input
+components which are actually mapped through to outputs.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if this block is not implemented by a reversible
+or irreversible dependency transform.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stage_idx">stage_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="block_idx">block_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="is_reversible">is_reversible</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return whether or not the transform is to be
+implemented reversibly. If true, the 
+<A HREF="kdu_tile__get$dency_info.html#rev_coefficients">rev_coefficients</A> argument must be used rather than 
+<A HREF="kdu_tile__get$dency_info.html#irrev_coefficients">irrev_coefficients</A> to recover the transform coefficients. Also, in this
+case the 
+<B>rev_block_offsets</B> argument must be used instead of the 
+<B>irrev_block_offsets</B> argument when retrieving offsets from the 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> function.
+</P>
+</DIV>
+<H4><A NAME="irrev_coefficients">irrev_coefficients</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You would typically call the function first with this
+argument set to NULL. Then, once you know that an irreversible
+dependency transform is being used, you would allocate
+an array of the correct size and pass it to the function
+in a second call, so as to receive the transform coefficients.
+The array should have M*(M-1)/2 entries, where M is
+the number of block inputs, which is also equal to
+the number of block outputs. This argument must be
+NULL if the transform block is reversible.
+</P>
+</DIV>
+<H4><A NAME="irrev_offsets">irrev_offsets</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument must be NULL if the transform block is
+reversible. It is used to return exactly M offsets,
+which are to be applied in the manner described above.
+Note that offsets belong to the input components, M,
+which may be larger than the set of output components
+(required by the application) reported by 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>.
+</P>
+</DIV>
+<H4><A NAME="rev_coefficients">rev_coefficients</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu_tile__get$dency_info.html#irrev_coefficients">irrev_coefficients</A> but this array is used to return the integer-valued
+coefficients used for reversible transforms. It must
+be NULL if the transform block is irreversible. Note
+carefully that the array should have M*(M+1)/2-1 entries,
+where M is the number of block inputs, which is also
+equal to the number of block outputs &mdash; see above
+for an explanation.
+</P>
+</DIV>
+<H4><A NAME="rev_offsets">rev_offsets</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu_tile__get$dency_info.html#irrev_offsets">irrev_offsets</A>, but this argument must be NULL except for reversible
+transforms, for which it may be used to return the
+M offset values.
+</P>
+</DIV>
+<H4><A NAME="active_outputs">active_outputs</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You would typically call the function first with this
+argument set to NULL. Then, once you know that a dependency
+transform is being used, you would allocate an array
+with 
+<B>num_block_outputs</B> entries (the number of block outputs is returned by
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A>) and pass it to the function in a second call, so
+as to determine the indices of the transformed input
+components which are to be assigned to each output
+component. In the special case where the 
+<B>num_block_inputs</B> and 
+<B>num_block_outputs</B> values returned via 
+<A HREF="kdu_tile__get$block_info.html">get_mct_block_info</A> are identical, this is not necessary, since then the
+set (and order) of outputs is guaranteed to be identical
+to the set of inputs &mdash; this is the way dependency
+transform blocks are defined by the underlying JPEG2000
+standard, in the absence of any restrictions on the
+set of components which are of interest to the application.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_tile__get$xform_info.html"> prev </A>||<A HREF="kdu_tile__get$t_dwt_info.html"> next </A>|</P>
+</BODY>
+</HTML>

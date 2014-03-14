@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tile::get_ycc) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_tile__get_tile_idx.html"> prev </A>||<A HREF="kdu_tile__set$f_interest.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tile::get_ycc</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tile.Get_ycc</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_ycc(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_ycc(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_tile.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if a component colour transform is to
+be applied to the first 3 codestream image components
+of the current tile. In the event that the one or more
+of the first 3 codestream image components is not visible
+(due to prior calls to 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A>), of not of interest (as indicated by calls to 
+<A HREF="kdu_tile__set$f_interest.html">kdu_tile::set_components_of_interest</A> in the 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A> access mode), the function will return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_tile__get_tile_idx.html"> prev </A>||<A HREF="kdu_tile__set$f_interest.html"> next </A>|</P>
+</BODY>
+</HTML>

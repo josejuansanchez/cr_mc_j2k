@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_error::flush) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_error__put_text__2.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_error::flush</A></H1>
+<P CLASS="function-text">virtual <B>void</B> flush(
+<B>bool</B>&nbsp;end_of_message)</P>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ssage__flush.html">kdu_message::flush</A></H3></DIV>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P><A HREF="kdu_error.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Invokes the 
+<A HREF="kdu$ssage__flush.html">kdu_message::flush</A> function associated with the error message handler
+supplied to 
+<A HREF="globals__kdu$mize_errors.html">kdu_customize_errors</A>, if not NULL, being careful to always set 
+<A HREF="kdu_error__flush.html#end_of_message">end_of_message</A> to false in this forwarded call. This ensures that
+an 
+<A HREF="kdu_error__flush.html#end_of_message">end_of_message</A> value of true will uniquely identify the fact that
+the 
+<A HREF="kdu_error.html">kdu_error</A> object is being destroyed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="end_of_message">end_of_message</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_error__put_text__2.html"> prev </A>|</P>
+</BODY>
+</HTML>

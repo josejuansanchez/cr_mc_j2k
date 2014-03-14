@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_compressor::push_stripe) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__4.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__6.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_compressor::push_stripe</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$1essor__push_stripe__1.html">1</A>,
+<A HREF="kdu$1essor__push_stripe__2.html">2</A>,
+<A HREF="kdu$1essor__push_stripe__3.html">3</A>,
+<A HREF="kdu$1essor__push_stripe__4.html">4</A>,
+5,
+<A HREF="kdu$1essor__push_stripe__6.html">6</A>,
+<A HREF="kdu$1essor__push_stripe__7.html">7</A>,
+<A HREF="kdu$1essor__push_stripe__8.html">8</A></B></P>
+<P CLASS="function-text"><B>bool</B> push_stripe(
+<B>kdu_int32</B>&nbsp;*&nbsp;stripe_bufs[],
+<B>int</B>&nbsp;stripe_heights[],
+<B>int</B>&nbsp;*&nbsp;sample_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;row_gaps=NULL,
+<B>int</B>&nbsp;*&nbsp;precisions=NULL,
+<B>bool</B>&nbsp;*&nbsp;is_signed=NULL,
+<B>int</B>&nbsp;flush_period=0)</P>
+<P>[Declared in <A HREF="++++apps+s$e_compressor+h.html">"../apps/support/kdu_stripe_compressor.h"</A>]</P><P><A HREF="kdu$1essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the third form of the overloaded 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function, except that stripe samples for each image
+component are provided with a 32-bit representation;
+as with other forms of the function, the actual number
+of bits of this representation which are used is given
+by the 
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A> argument, but all 32 bits may be used (this is the
+default).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True until all samples for all image components have
+been pushed in, at which point the function returns
+false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stripe_bufs">stripe_bufs[]</A> [<B>kdu_int32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="stripe_heights">stripe_heights[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="sample_gaps">sample_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="row_gaps">row_gaps</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+<H4><A NAME="precisions">precisions</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function, but note these two changes: the precision
+for any component may be as large as 32 (this is the
+default, if 
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A> is NULL); and the samples all have a nominally signed
+representation (not the unsigned representation assumed
+by the first form of the function), unless otherwise
+indicated by a non-NULL 
+<A HREF="kdu$1essor__push_stripe__5.html#is_signed">is_signed</A> argument.
+</P>
+</DIV>
+<H4><A NAME="is_signed">is_signed</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the supplied samples for each component, c,
+are assumed to have a signed representation in the
+range -2^{
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A>[c]-1} to 2^{
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A>[c]-1}-1. Otherwise, this argument points to an array
+with one element for each component. If 
+<A HREF="kdu$1essor__push_stripe__5.html#is_signed">is_signed</A>[c] is true, the default signed representation is assumed
+for that component; if false, the component samples
+are assumed to have an unsigned representation in the
+range 0 to 2^{
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A>[c]}-1. What this means is that the function subtracts
+2^{
+<B>precisions[c]</B>-1} from the samples of any component for which 
+<A HREF="kdu$1essor__push_stripe__5.html#is_signed">is_signed</A>[c] is false. It is allowable to have 
+<A HREF="kdu$1essor__push_stripe__5.html#precisions">precisions</A>[c]=32 even if 
+<A HREF="kdu$1essor__push_stripe__5.html#is_signed">is_signed</A>[c] is false, meaning that the input words are treated
+as though they were 32-bit unsigned words.
+</P>
+</DIV>
+<H4><A NAME="flush_period">flush_period</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+See description of the first form of the 
+<A HREF="kdu$1essor__push_stripe__1.html">push_stripe</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1essor__push_stripe__4.html"> prev </A>||<A HREF="kdu$1essor__push_stripe__6.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::read_tag) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__read_tag__2.html"> prev </A>||<A HREF="kdu$ffdir__read_tag__4.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::read_tag</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$ffdir__read_tag__1.html">1</A>,
+<A HREF="kdu$ffdir__read_tag__2.html">2</A>,
+3,
+<A HREF="kdu$ffdir__read_tag__4.html">4</A>,
+<A HREF="kdu$ffdir__read_tag__5.html">5</A></B></P>
+<P CLASS="function-text"><B>kdu_long</B> read_tag(
+<B>kdu_uint32</B>&nbsp;tag_type,
+<B>kdu_long</B>&nbsp;length,
+<B>kdu_uint32</B>&nbsp;data[])</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the second form of 
+<A HREF="kdu$ffdir__read_tag__1.html">read_tag</A>, except that this function may be used with tags whose
+data type (least significant two bytes of the 
+<A HREF="kdu$ffdir__read_tag__3.html#tag_type">tag_type</A>) is one of 3, 4, 8 or 9. These are the data types
+for which each entry is 2 or 4 byte integer. Attempts
+to read anything else will generate an error through
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ If the 
+<A HREF="kdu$ffdir__read_tag__3.html#tag_type">tag_type</A> utilizes only 2 byte integers, the representation
+is automatically expanded, using either signed or unsigned
+extension, depending on whether the underlying data
+type is signed.
+</P><P>
+ To correctly recover signed 2's complement quantities
+(data types 8 and 9) using this function, it is sufficient
+to cast the returned 
+<A HREF="kdu$ffdir__read_tag__3.html#data">data</A> values to type 
+<B>kdu_int32</B>.
+</P><P>
+ Use the 64-bit version of this function with foreign
+language bindings.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tag_type">tag_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="length">length</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of 32-bit words to read.
+</P>
+</DIV>
+<H4><A NAME="data">data[]</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array containing at least 
+<A HREF="kdu$ffdir__read_tag__3.html#length">length</A> entries, into which the data is written.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__read_tag__2.html"> prev </A>||<A HREF="kdu$ffdir__read_tag__4.html"> next </A>|</P>
+</BODY>
+</HTML>

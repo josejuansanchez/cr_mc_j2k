@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_input_box::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__open__1.html"> prev </A>||<A HREF="jp2$t_box__open_next.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_input_box::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_input_box.Open</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="jp2$t_box__open__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text">virtual <B>bool</B> open(
+<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*&nbsp;super_box)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Open(
+Jp2_input_box&nbsp;super_box)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Opens the box as a sub-box of the indicated 
+<A HREF="jp2$t_box__open__2.html#super_box">super_box</A>. You may think of the present box and the super-box
+as sharing a common "read pointer" so that once the
+present box is closed, reading may continue within
+the super-box from the point where we left off. The
+super-box is "locked" so long as any sub-box is open;
+an error will be generated if any attempt is made to
+read from a super-box which is locked in this way.
+While the sub-box is being read, values returned by
+<A HREF="jp2$t_box__get$ing_bytes.html">super_box&rarr;get_remaining_bytes</A> or 
+<A HREF="jp2$t_box__get_pos.html">super_box&rarr;get_pos</A> are unstable and cannot be trusted.
+</P><P>
+ If this function fails to open a new box, the function
+returns false, leaving the box closed (the 
+<A HREF="jp2$t_box__exists.html">exists</A> function will return false). This may happen if one
+of the following conditions occur:
+</P><UL><LI>
+The super-box is exhausted, meaning that it has no
+remaining content bytes at all; or
+</LI><LI>
+The super-box contains insufficient contents for the
+moment to open a new box, but it may contain sufficient
+bytes in the future as more data becomes available.
+This is only possible if the 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object uses a cache for its information source, since
+the cache may be updated dynamically. This case may
+be distinguished from the former case by checking the
+super-box's 
+<A HREF="jp2$t_box__get$ing_bytes.html">get_remaining_bytes</A> member, which will be 0 if and only if the super-box
+has actually been exhausted.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if a new box was opened, else false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="super_box">super_box</A> [<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__open__1.html"> prev </A>||<A HREF="jp2$t_box__open_next.html"> next </A>|</P>
+</BODY>
+</HTML>

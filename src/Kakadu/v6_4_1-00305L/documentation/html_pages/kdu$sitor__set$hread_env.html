@@ -1,0 +1,152 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::set_thread_env) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$ty_layers.html"> prev </A>||<A HREF="kdu$sitor__process.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::set_thread_env</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Set_thread_env</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;* set_thread_env(
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;env_queue)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_thread_env Set_thread_env(
+Kdu_thread_env&nbsp;env,
+long&nbsp;env_queue)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+From Kakadu version 5.1, this function offers the option
+of multi-threaded processing, which allows enhanced
+throughput on multi-processor (or hyperthreading) platforms.
+Multi-threaded processing may be useful even if there
+is only one physical (or virtual) processor, since
+it allows decompression work to continue while the
+main application is blocked on an I/O condition or
+other event which does not involve the CPU's resources.
+</P><P>
+ To introduce multi-threaded processing, invoke this
+function you have simply to create a suitable 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> environment by following the instructions found with
+the definition of 
+<A HREF="kdu$d_env.html">kdu_thread_env</A>, and then pass the object into this function.
+</P><P>
+ In the simplest case, the owner of your multi-threaded
+processing group is the one which calls all of the
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> interface functions. In which case the 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> object should belong to this owning thread and there
+is no need to do anything more, other than invoke 
+<A HREF="kdu$ntity__destroy.html">kdu_thread_entity::destroy</A> once you are completely finished using the multi-threaded
+environment.
+</P><P>
+ It is possible, however, to have one of the auxiliary
+worker threads within your thread group access the
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object. This can be useful for video or stereo processing
+applications, where separate 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> objects are created to manage two different image
+buffers. In this case, you may create separate queues
+for each of the objects, and have the various calls
+to 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> delivered from jobs which are run on the relevant
+queue. This allows for parallel processing of multiple
+image composition tasks, which can be helpful in minimizing
+the amount of thread idle time in environments with
+many processors. When operating in this way, however,
+you must observe the following strict requirements:
+</P><UL><LI>
+The thread identified by the 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> object supplied to this function must be the only
+one which is used to call any of this object's interface
+functions, from that point until the present function
+is invoked again.
+</LI><LI>
+Where this function is used to identify that a new
+thread will be calling the object's interface functions
+(i.e., where the 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> argument identifies a different thread to the previous
+one), you must be quite sure that all internal processing
+has stopped. This can be achieved by ensuring that
+whenever a job on a thread queue needs to use the present
+object's interface functions, it does not return until
+either 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> returns true or 
+<A HREF="kdu$sitor__hal$rocessing.html">halt_processing</A> has been called. Later, if another job is run on a
+different thread, it will be able to successfully register
+itself as the new user of the object's interface functions.
+Each such job should call this function as its first
+task, to identify the context from which calls to 
+<A HREF="kdu$sitor__process.html">process</A> and other functions will be delivered.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if this function has never been called before,
+or else the 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> value which was supplied in the last call to this
+function. If the return value differs from the supplied
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> argument, access control to this object's member function
+is assumed to be getting assigned to a new thread of
+execution. This is legal only if there is no work which
+is still in progress under the previous thread environment
+&mdash; a condition which can be avoided by having
+the previous access thread call 
+<A HREF="kdu$sitor__hal$rocessing.html">halt_processing</A> or ensure that 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> returns true before releasing controll. Failure to
+observe this constraint will result in the delivery
+of a suitable error message through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+NULL if multi-threaded processing is to be disabled.
+Otherwise, this argument identifies the thread which
+will henceforth have exclusive access to the object's
+member functions. As mentioned above, the thread with
+access rights to this object's member functions may
+be changed only when there is no outstanding processing
+(i.e., when 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> returns true or when no call to 
+<A HREF="kdu$sitor__process.html">process</A> has occurred since the last call to 
+<A HREF="kdu$sitor__hal$rocessing.html">halt_processing</A>).
+</P><P>
+ As a convenience to the user, if 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> points to an object whose 
+<A HREF="kdu$ntity__exists.html">kdu_thread_entity::exists</A> function returns false, the behaviour will be the
+same as if 
+<A HREF="kdu$sitor__set$hread_env.html#env">env</A> were NULL.
+</P>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+The queue referenced by this argument will be passed
+through to 
+<A HREF="kdu$essor__start.html">kdu_region_decompressor::start</A> whenever that function is called henceforth. The 
+<A HREF="kdu$sitor__set$hread_env.html#env_queue">env_queue</A> may be NULL, as discussed in connection with 
+<A HREF="kdu$essor__start.html">kdu_region_decompressor::start</A>. You would normally only use a non-NULL 
+<A HREF="kdu$sitor__set$hread_env.html#env_queue">env_queue</A> if you intended to manage multiple 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object's concurrently, in which case you would do
+this by accessing them from within jobs registered
+on the relevant object's 
+<A HREF="kdu$sitor__set$hread_env.html#env_queue">env_queue</A>. The application would then synchronize its access
+to composited results by passing the relevant queue
+into the 
+<A HREF="kdu$ntity__synchronize.html">kdu_thread_entity::synchronize</A> function or 
+<A HREF="kdu$ntity__reg$nized_job.html">kdu_thread_entity::register_synchronized_job</A> function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$ty_layers.html"> prev </A>||<A HREF="kdu$sitor__process.html"> next </A>|</P>
+</BODY>
+</HTML>

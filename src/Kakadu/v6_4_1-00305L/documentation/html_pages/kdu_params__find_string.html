@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::find_string) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__des$ttribute.html"> prev </A>||<A HREF="kdu_params__del$ttribute.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::find_string</A></H1>
+<P CLASS="function-text"><A HREF ="kdu_params.html">kdu_params</A>&nbsp;* find_string(
+<B>char *</B>&nbsp;string,
+<B>const char *</B>&nbsp;&amp;&nbsp;name)</P>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Finds the object which would be used by 
+<A HREF="kdu_params__par$e_string__1.html">parse_string</A> if parsing the supplied 
+<A HREF="kdu_params__find_string.html#string">string</A>, returning a pointer to that object, if it exists.
+Follows the same searching rules as 
+<A HREF="kdu_params__par$e_string__1.html">parse_string</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if a match is not found.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="string">string</A> [<B>char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="name">name</A> [<B>const char *</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the attribute name string (not decorated
+with tile- or component- specifiers) associated with
+the match, if any. If the function returns NULL, this
+argument will be unaffected; otherwise, it points to
+a constant string resource, which should not be overwritten.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__des$ttribute.html"> prev </A>||<A HREF="kdu_params__del$ttribute.html"> next </A>|</P>
+</BODY>
+</HTML>

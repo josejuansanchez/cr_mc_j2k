@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_cross_reference) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get_uuid.html"> prev </A>||<A HREF="jpx$anode__get_link.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_cross_reference</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_cross_reference</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_uint32</B> get_cross_reference(
+<A HREF ="jpx$_list.html">jpx_fragment_list</A>&nbsp;&amp;&nbsp;frags)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_cross_reference(
+Jpx_fragment_list&nbsp;frags)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to access information for
+cross-reference nodes &mdash; any node derived from
+a 
+<B>cref</B> box, having box-type 
+<A HREF="globals.html#jp2_cross_reference_4cc">jp2_cross_reference_4cc</A>. If the node is not a cross-reference node, the function
+returns 0. Otherwise, the function returns the 
+<B>box_type</B> of the referenced box and a fragment list identifying
+the (potentially fragmented) contents of the referenced
+box. These may be passed to 
+<A HREF="jpx$t_box__open_as.html">jpx_input_box::open_as</A> in order to open the referenced box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frags">frags</A> [<A HREF ="jpx$_list.html">jpx_fragment_list</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get_uuid.html"> prev </A>||<A HREF="jpx$anode__get_link.html"> next </A>|</P>
+</BODY>
+</HTML>

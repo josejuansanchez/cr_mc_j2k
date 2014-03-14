@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::get_fieldlength) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__get$taglength.html"> prev </A>||<A HREF="kdu$ffdir__delete_tag.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::get_fieldlength</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Get_fieldlength</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_fieldlength(
+<B>kdu_uint32</B>&nbsp;tag_type)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_fieldlength(
+long&nbsp;tag_type)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of bytes per field (i.e., per tag
+value), based on the least significant 16 bits of the
+supplied 
+<A HREF="kdu$ffdir__get$eldlength.html#tag_type">tag_type</A>. Essentially, this function just translates the data
+type values described in the introductory comments
+to this 
+<A HREF="kdu$ffdir.html">kdu_tiffdir</A> object. The total number of bytes in the body of a
+TIFF tag may be found by multiplying this quantity
+by the value returned by 
+<A HREF="kdu$ffdir__get$taglength.html">get_taglength</A>.
+</P><P>
+ Note that the result of this function does not depend
+in any way upon the state of the object &mdash; in
+particular, the tag does not need to exist.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if the 
+<A HREF="kdu$ffdir__get$eldlength.html#tag_type">tag_type</A> has an unrecognized data type code. Otherwise, returns
+the number of bytes used for values of this type.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tag_type">tag_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__get$taglength.html"> prev </A>||<A HREF="kdu$ffdir__delete_tag.html"> next </A>|</P>
+</BODY>
+</HTML>

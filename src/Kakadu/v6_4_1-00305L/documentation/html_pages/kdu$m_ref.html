@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_istream_ref) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_istream_ref</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_istream_ref</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Instances of this class are used to robustly pass references
+to imagery streams within the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A>. Only null instances of this class can be created
+by an application &mdash; these are instances for which
+<A HREF="kdu$m_ref__is_null.html">is_null</A> returns true. All non-trivial instances are created
+exclusively by the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object.
+</P><P>
+ The term "imagery stream" (abbreviated "istream")
+refers to a single codestream within the context of
+a specific imagery layer (ilayer). Each istream is
+associated with a single ilayer and a single JPEG2000
+codestream; however, each ilayer may involve multiple
+istreams (since different codestreams can be used to
+render its various colour channels); and any given
+JPEG2000 codestream may provide colour channel samples
+for more than one imagery layer within a composition.
+</P><P>
+ In practice, the current implementation uses an integer
+of type 
+<B>kdu_long</B> assigning these integers in a manner which ensures
+uniqueness amongst all istreams managed by the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> and minimizes the likelihood that an istream which
+has been destroyed will have the same reference value
+as another istream which has since been created.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$m_ref__kdu$tream_ref.html">kdu_istream_ref</A> {<U>Java:</U> Kdu_istream_ref}
+</P>
+<P><A HREF="kdu$m_ref__is_null.html">is_null</A> {<U>Java:</U> Is_null}
+</P>
+<P><A HREF="kdu$m_ref__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$m_ref__operator!.html">operator!</A></P>
+<P><A HREF="kdu$m_ref__operator==.html">operator==</A></P>
+<P><A HREF="kdu$m_ref__operator!=.html">operator!=</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

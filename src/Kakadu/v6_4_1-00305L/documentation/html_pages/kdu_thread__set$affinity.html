@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::set_cpu_affinity) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__destroy.html"> prev </A>||<A HREF="kdu_thread__get$priority.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread::set_cpu_affinity</A></H1>
+<P CLASS="function-text"><B>bool</B> set_cpu_affinity(
+<B>kdu_long</B>&nbsp;affinity_mask)</P>
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+If supported, this function requests the scheduler
+to run the thread only on one of the CPU's whose bit
+is set in the supplied 
+<B>cpu_mask</B>. CPU n is included if bit n is set in 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A>. The function returns true if the request is accepted.
+Although this function should be executable from any
+thread in the system, experience shows that some platforms
+do not behave correctly unless the function is invoked
+from within the thread whose processor affinity is
+being modified.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if the thread has not been successfully created,
+or the 
+<A HREF="kdu_thread__set$affinity.html#affinity_mask">affinity_mask</A> is invalid, or the calling thread does not have permission
+to set the CPU affinity of another thread, or operating
+support has not yet been extended to offer this specific
+feature.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="affinity_mask">affinity_mask</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_thread__destroy.html"> prev </A>||<A HREF="kdu_thread__get$priority.html"> next </A>|</P>
+</BODY>
+</HTML>

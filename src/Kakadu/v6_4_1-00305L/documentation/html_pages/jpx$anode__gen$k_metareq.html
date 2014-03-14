@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::generate_link_metareq) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__gen$e_metareq.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::generate_link_metareq</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Generate_link_metareq</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> generate_link_metareq(
+<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*&nbsp;client_window,
+<B>int</B>&nbsp;num_box_types_of_interest,
+const&nbsp;<B>kdu_uint32</B>&nbsp;box_types_of_interest[],
+<B>int</B>&nbsp;num_descend_box_types,
+const&nbsp;<B>kdu_uint32</B>&nbsp;descend_box_types[],
+<B>bool</B>&nbsp;priority)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Generate_link_metareq(
+Kdu_window&nbsp;client_window,
+int&nbsp;num_box_types_of_interest,
+long[]&nbsp;box_types_of_interest,
+int&nbsp;num_descend_box_types,
+long[]&nbsp;descend_box_types,
+boolean&nbsp;priority)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="jpx$anode__gen$e_metareq.html">generate_metareq</A> but used to recover information associated with the
+target of a link node (see 
+<A HREF="jpx$anode__get_link.html">get_link</A>).
+</P><P>
+ If 
+<A HREF="jpx$anode__get_link.html">get_link</A> reports a 
+<B>jpx_metanode_link_type</B> value of 
+<A HREF="globals.html#JPX_METANODE_LINK_NONE">JPX_METANODE_LINK_NONE</A>, the current node is not a link node (or at least
+we are not able to discover whether or not it is a
+link node yet) and so the function does nothing.
+</P><P>
+ In the first instance, the function generates sufficient
+metadata requests to obtain the information required
+for 
+<A HREF="jpx$anode__get_link.html">get_link</A> to return a non-empty target node, unless the target
+of the link is known to have a box-type which is not
+one of the box types of interest (see 
+<A HREF="jpx$anode__gen$k_metareq.html#num_box_types_of_interest">num_box_types_of_interest</A> and 
+<A HREF="jpx$anode__gen$k_metareq.html#box_types_of_interest">box_types_of_interest</A>).
+</P><P>
+ If 
+<A HREF="jpx$anode__gen$k_metareq.html#num_descend_box_types">num_descend_box_types</A> &gt; 0 and the link target's box-type can be determined
+to match both one of the required box types and one
+of the box types in the 
+<A HREF="jpx$anode__gen$k_metareq.html#descend_box_types">descend_box_types</A> array, the function effectively applies 
+<A HREF="jpx$anode__gen$e_metareq.html">generate_metareq</A> to the link target, passing all of its arguments through
+to their namesakes in that function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The number of calls to 
+<A HREF="kdu_window__add_metareq.html">client_window&rarr;add_metareq</A> issued by the function. If the function returns 0
+and 
+<A HREF="jpx$anode__get_link.html">get_link</A> continues to return an empty interface, the function
+must have discovered that the target of the link has
+a box-type other than one of those given by 
+<A HREF="jpx$anode__gen$k_metareq.html#num_box_types_of_interest">num_box_types_of_interest</A> and 
+<A HREF="jpx$anode__gen$k_metareq.html#box_types_of_interest">box_types_of_interest</A> &mdash; it might be able to discover this without
+actually having sufficient data in the caching source
+to read the contents of the target node's primary box.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="client_window">client_window</A> [<A HREF ="kdu_window.html">kdu_window</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Object whose 
+<A HREF="kdu_window__add_metareq.html">kdu_window::add_metareq</A> function is used to add metadata requests for the
+relevant entities.
+</P>
+</DIV>
+<H4><A NAME="num_box_types_of_interest">num_box_types_of_interest</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of elements in the 
+<A HREF="jpx$anode__gen$k_metareq.html#box_types_of_interest">box_types_of_interest</A> array. If zero, the caller is interested in all box-types.
+</P>
+</DIV>
+<H4><A NAME="box_types_of_interest">box_types_of_interest[]</A> [const&nbsp;<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array of box types which are of interest to the caller.
+If the target of any link represented by the current
+node is known to have a box-type which differs from
+all of these box-types (and 
+<A HREF="jpx$anode__gen$k_metareq.html#num_box_types_of_interest">num_box_types_of_interest</A> &gt; 0), the function does not do anything. This argument
+may be NULL if 
+<A HREF="jpx$anode__gen$k_metareq.html#num_box_types_of_interest">num_box_types_of_interest</A> is 0.
+</P>
+</DIV>
+<H4><A NAME="num_descend_box_types">num_descend_box_types</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If 0, the function does not generate metadata requests
+for anything other than the target of the link node.
+Otherwise, this argument specifies the number of box-types
+provided by the 
+<A HREF="jpx$anode__gen$k_metareq.html#descend_box_types">descend_box_types</A> array.
+</P>
+</DIV>
+<H4><A NAME="descend_box_types">descend_box_types[]</A> [const&nbsp;<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array of box-types, one of which must be matched by
+the target of the current link node in order for the
+function to consider generating further metadata requests.
+If a match is found, 
+<A HREF="jpx$anode__gen$e_metareq.html">generate_metareq</A> is invoked on the link's target node.
+</P>
+</DIV>
+<H4><A NAME="priority">priority</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Same interpretation as its namesake in 
+<A HREF="kdu_window__add_metareq.html">kdu_window::add_metareq</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__gen$e_metareq.html"> prev </A>|</P>
+</BODY>
+</HTML>

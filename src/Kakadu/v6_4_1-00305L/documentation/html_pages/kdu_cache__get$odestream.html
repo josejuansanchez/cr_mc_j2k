@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_cache::get_next_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__dem$e_databin.html"> prev </A>||<A HREF="kdu_cache__get$u_databin.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_cache::get_next_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_cache.Get_next_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_next_codestream(
+<B>kdu_long</B>&nbsp;stream_id)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_next_codestream(
+long&nbsp;stream_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$io+kdu_cache+h.html">"../apps/compressed_io/kdu_cache.h"</A>]</P><P><A HREF="kdu_cache.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the next code-stream for which one or more
+data-bins are available in the cache, after the code-stream
+identified by 
+<A HREF="kdu_cache__get$odestream.html#stream_id">stream_id</A>. If 
+<A HREF="kdu_cache__get$odestream.html#stream_id">stream_id</A>=-1, the function returns the index of the first such
+code-stream. If there are no more code-streams for
+which data-bins are available, the function return
+-1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stream_id">stream_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_cache__dem$e_databin.html"> prev </A>||<A HREF="kdu_cache__get$u_databin.html"> next </A>|</P>
+</BODY>
+</HTML>

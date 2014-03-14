@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::convert_scribble_path) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get$ble_point.html"> prev </A>||<A HREF="jpx$ditor__spl$ed_anchor.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::convert_scribble_path</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Convert_scribble_path</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> convert_scribble_path(
+<B>bool</B>&nbsp;replace_content,
+<B>int</B>&nbsp;conversion_flags,
+<B>double</B>&nbsp;accuracy)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Convert_scribble_path(
+boolean&nbsp;replace_content,
+int&nbsp;conversion_flags,
+double&nbsp;accuracy)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function converts the sequence of points most
+recently supplied to 
+<B>add_scribble_points</B> (i.e., since the last call to 
+<A HREF="jpx$ditor__cle$le_points.html">clear_scribble_points</A>) into a sequence of quadrilaterals and/or ellipses.
+If 
+<A HREF="jpx$ditor__con$bble_path.html#replace_content">replace_content</A> is true, this sequence of quadrilaterals and ellipses
+replaces any existing content being managed by the
+editor; otherwise, the new regions are added. It is
+possible that the complexity of the representation
+is too high to be stored internally, in which case
+the function returns an empty region and does nothing.
+Even if the function succeeds, returning a non-empty
+region, it is possible that the complexity of the result
+is too high to be externalized to a JPX ROI description
+box &mdash; to determine whether or not this is the
+case, you would be advised to invoke 
+<A HREF="jpx$ditor__mea$omplexity.html">measure_complexity</A> after this function returns true. The complexity and
+nature of the approximation depend upon the 
+<A HREF="jpx$ditor__con$bble_path.html#conversion_flags">conversion_flags</A> and 
+<A HREF="jpx$ditor__con$bble_path.html#accuracy">accuracy</A> arguments.
+</P><P>
+ Note that this function does not clear the scribble
+points, even if conversion is successful.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A region large enough to include all points and edges
+affected by the change. This region is guaranteed to
+be empty if and only if the scribble path could not
+be converted with the requested 
+<A HREF="jpx$ditor__con$bble_path.html#accuracy">accuracy</A>. This is more likely, of course, if 
+<A HREF="jpx$ditor__con$bble_path.html#replace_content">replace_content</A> is false, since then the resources available for representing
+the approximation are further constrained by the existing
+regions which the editor is managing.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="replace_content">replace_content</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the function removes all regions which it
+is managing before adding quadrilaterals/ellipses to
+approximate the scribble path. If the function returns
+false, however, nothing is erased. In any case, you
+can always get any deleted regions back again via the
+<A HREF="jpx$ditor__undo.html">undo</A> operation.
+</P>
+</DIV>
+<H4><A NAME="conversion_flags">conversion_flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Any combination of the 
+<A HREF="globals.html#JPX_EDITOR_FLAG_FILL">JPX_EDITOR_FLAG_FILL</A> and 
+<A HREF="globals.html#JPX_EDITOR_FLAG_ELLIPSES">JPX_EDITOR_FLAG_ELLIPSES</A> flags may be used here, with the following implications:
+</P><UL><LI>
+<A HREF="globals.html#JPX_EDITOR_FLAG_FILL">JPX_EDITOR_FLAG_FILL</A> and 
+<A HREF="globals.html#JPX_EDITOR_FLAG_ELLIPSES">JPX_EDITOR_FLAG_ELLIPSES</A> &mdash; In this case, the function generates a collection
+of ellipses and/or quadrilaterals, which form a single
+connected region, whose boundary approximates the scribble
+path to within a tolerance which is ultimately determined
+by the 
+<A HREF="jpx$ditor__con$bble_path.html#accuracy">accuracy</A> value. Initial implementations of this mode may not
+actually introduce ellipses, but the idea is eventually
+to use ellipses to approximate convex portions of the
+boundary wherever this is efficient.
+</LI><LI>
+<A HREF="globals.html#JPX_EDITOR_FLAG_FILL">JPX_EDITOR_FLAG_FILL</A> only &mdash; in this case, the function uses quadrilaterals
+only to create a single connected region (a polygon)
+whose boundary approximates the scribble path, to within
+a tolerance determined by the 
+<A HREF="jpx$ditor__con$bble_path.html#accuracy">accuracy</A> values.
+</LI><LI>
+<A HREF="globals.html#JPX_EDITOR_FLAG_ELLIPSES">JPX_EDITOR_FLAG_ELLIPSES</A> only &mdash; in this case, the function approximates
+the scribble path itself with a collection of connected
+line segments (quadrilaterals which have only two distinct
+vertices) and inserts circles of radius 1 at the end-points
+of every line segment. If the 
+<A HREF="jpx$ditor__set$thickness.html">set_path_thickness</A> function is subsequently used to widen the resulting
+path, these circles will serve to provide rounded corners.
+</LI><LI>
+0 &mdash; in this case, the function behaves as above,
+except that no junctions are inserted. If the path
+is subsequently widened with 
+<A HREF="jpx$ditor__set$thickness.html">set_path_thickness</A>, it will have a strictly polygonal boundary.
+</LI></UL>
+</DIV>
+<H4><A NAME="accuracy">accuracy</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument takes a value in the range 0.0 to 1.0,
+whose interpretation is left up to the internal implementation.
+As expected, larger values should more closely approximate
+the path defined by the scribble points, but the scale
+is non-linear. The accuracy is also relative to the
+size of the region defined by the scribble path. As
+a general rule, a value of 0.5 is intended to provide
+a moderate level of approximation, which is usable
+but usually far from perfect. A value of 1.0 will cause
+the function to approximate the scribble path to within
+an error of at most 1 grid point. No higher accuracy
+values make any sense.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__get$ble_point.html"> prev </A>||<A HREF="jpx$ditor__spl$ed_anchor.html"> next </A>|</P>
+</BODY>
+</HTML>

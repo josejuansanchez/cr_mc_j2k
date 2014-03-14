@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs::parse_prefs) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__update.html"> prev </A>||<A HREF="kdu$prefs__write_prefs.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs::parse_prefs</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_prefs.Parse_prefs</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> parse_prefs(
+<B>const char *</B>&nbsp;string)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Parse_prefs(
+String&nbsp;string)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$prefs.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Parse the contents of a JPIP "pref=" request field,
+modifying the object's contents accordingly. The object
+is automatically initialized before parsing, so this
+function cannot itself perform any update of an existence
+preference state record &mdash; that is the role of
+the 
+<A HREF="kdu$prefs__update.html">update</A> function.
+</P><P>
+ Every successfully parsed preference modifies either
+the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or the 
+<A HREF="kdu$prefs.html#required">required</A> word, along with any relevant parameters for the related-pref-set
+in question.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if the 
+<A HREF="kdu$prefs__parse_prefs.html#string">string</A> is successfully parsed. Otherwise, returns a pointer
+to the first point in the supplied 
+<A HREF="kdu$prefs__parse_prefs.html#string">string</A> at which a parsing error occurred.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="string">string</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__update.html"> prev </A>||<A HREF="kdu$prefs__write_prefs.html"> next </A>|</P>
+</BODY>
+</HTML>

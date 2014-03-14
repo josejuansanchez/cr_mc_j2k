@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_family_src::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$y_src__open__2.html"> prev </A>||<A HREF="jp2$y_src__close.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_family_src::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_family_src.Open</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="jp2$y_src__open__1.html">1</A>,
+<A HREF="jp2$y_src__open__2.html">2</A>,
+3</B></P>
+<P CLASS="function-text">virtual <B>void</B> open(
+<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*&nbsp;cache)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open(
+Kdu_cache&nbsp;cache)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$y_src.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+With this form of the overloaded 
+<A HREF="jp2$y_src__open__1.html">open</A> function, the JP2 source data is recovered from the
+supplied caching data source. In this case, 
+<A HREF="jp2$t_box.html">jp2_input_box</A> objects opened directly or indirectly using the present
+object may have contents which grow dynamically as
+the cache contents expand. Moreover, in this case the
+<A HREF="jp2$t_box__get$abilities.html">jp2_input_box::get_capabilities</A> function associated with any open contiguous code-stream
+box will advertise the 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A> attribute, while all other box types will advertise
+<A HREF="globals.html#KDU_SOURCE_CAP_SEQUENTIAL">KDU_SOURCE_CAP_SEQUENTIAL</A> and 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="cache">cache</A> [<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$y_src__open__2.html"> prev </A>||<A HREF="jp2$y_src__close.html"> next </A>|</P>
+</BODY>
+</HTML>

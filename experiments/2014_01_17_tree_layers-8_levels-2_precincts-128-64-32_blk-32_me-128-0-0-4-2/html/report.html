@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="experiment-2014-01-17">Experiment: 2014-01-17</h1>
+<h2 id="secuencia">Secuencia</h2>
+<ul>
+<li><em>tree</em></li>
+</ul>
+<h2 id="descripción">Descripción</h2>
+<ul>
+<li>Se ha simulado una transimisión de las <strong>10</strong> primeras imágenes de la secuencia <em>tree</em> de 1280x768.</li>
+<li>Este experimento compara cómo sería la transmisión siguiendo el algoritmo <strong>cr+me</strong> frente a una transmisión Motion JPEG2000.</li>
+<li><strong>cr+me</strong>: Para nuestro algoritmo sólo se transmite <strong>la primera capa de calidad completa de cada precinto</strong>.</li>
+<li><strong>mj2</strong>: Se trunca el <em>code-stream</em> a un determinado bitrate para simular una transmisión Motion JPEG2000.</li>
+<li>Parámetros de <strong>kdu_compress</strong>:</li>
+</ul>
+<pre><code>    CLAYERS=8
+    CLEVELS=2
+    CPRECINCTS=&quot;{128,128},{64,64},{32,32}&quot;
+    CBLK=&quot;{32,32}&quot;</code></pre>
+<ul>
+<li>Parámetros de <strong>me</strong>:</li>
+</ul>
+<pre><code>    B=128   # block size
+    A=0     # subpixel accuracy = sub-pixel accuracy of the motion estimation
+    D=0     # border size = size of the border of the blocks in the motion estimation process
+    S=4     # search range = size of the searching area of the motion estimation
+    V=2     # overlapping</code></pre>
+<h2 id="reconstructed-images">Reconstructed images</h2>
+<table border="1">
+    <tr>
+        <td>
+bytes
+</td>
+        <td>
+cr+me
+</td>
+        <td>
+trunc
+</td>
+    </tr>
+    <tr>
+        <td>
+1K
+</td>
+        <td>
+<img src="images/blocks.1000.png" alt="cr+me 1K" />
+</td>
+        <td>
+<img src="images/trunc.1000.png" alt="trunc 1K" />
+</td>
+    </tr>
+    <tr>
+        <td>
+11K
+</td>        
+        <td>
+<img src="images/blocks.11000.png" alt="cr+me 11K" />
+</td>
+        <td>
+<img src="images/trunc.11000.png" alt="trunc 11K" />
+</td>
+    </tr>
+    <tr>
+        <td>
+21K
+</td>        
+        <td>
+<img src="images/blocks.21000.png" alt="cr+me 11K" />
+</td>
+        <td>
+<img src="images/trunc.21000.png" alt="trunc 11K" />
+</td>
+    </tr>    
+    <tr>
+        <td>
+31K
+</td>        
+        <td>
+<img src="images/blocks.31000.png" alt="cr+me 1K" />
+</td>
+        <td>
+<img src="images/trunc.31000.png" alt="trunc 1K" />
+</td>
+    </tr>
+    <tr>
+        <td>
+41K
+</td>        
+        <td>
+<img src="images/blocks.41000.png" alt="cr+me 1K" />
+</td>
+        <td>
+<img src="images/trunc.41000.png" alt="trunc 1K" />
+</td>
+    </tr>    
+    <tr>
+        <td>
+51K
+</td>        
+        <td>
+<img src="images/blocks.51000.png" alt="cr+me 1K" />
+</td>
+        <td>
+<img src="images/trunc.51000.png" alt="trunc 1K" />
+</td>
+    </tr>
+</table>
+
+
+<h1 id="psnr-and-ssim">PSNR and SSIM</h1>
+<h3 id="psnr">PSNR</h3>
+<div class="figure">
+<img src="images/psnr_type2.png" /><p class="caption"></p>
+</div>
+<p>A partir de 51K ya se ha transmitido la primera capa de calidad completa de todos los precintos, por eso a partir de este punto ya no seguimos evaluando porque ya no estaríamos reutilizando los datos que tenemos de la imagen anterior.</p>
+<h3 id="ssim">SSIM</h3>
+<div class="figure">
+<img src="images/ssim_type2.png" /><p class="caption"></p>
+</div>
+<p>A partir de 21K ya empezamos a tener valores muy similares de SSIM.</p>
+<h1 id="structural-similarity-ssim">Structural SIMilarity (SSIM)</h1>
+<ul>
+<li><a href="http://www.cns.nyu.edu/~lcv/ssim/">The SSIM Index for Image Quality Assessment</a>.</li>
+<li><a href="http://www.cns.nyu.edu/pub/eero/wang03-reprint.pdf">Image Quality Assessment: From Error Visibility to Structural Similarity</a>. IEEE Transactions on Image Processing, vol. 13, no. 4, Apr. 2004.</li>
+<li><a href="https://ece.uwaterloo.ca/~z70wang/publications/SPM09.pdf">Mean squared error: love it or leave it? - A new look at signal fidelity measures</a>. IEEE Signal Processing Magazine, vol. 26, no. 1, pp. 98-117, Jan. 2009.</li>
+</ul>
+</body>
+</html>

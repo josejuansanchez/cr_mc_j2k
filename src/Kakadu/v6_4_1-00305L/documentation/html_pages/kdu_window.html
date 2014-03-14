@@ -1,0 +1,288 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_window [struct]</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_window</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure defines the elements which can be used
+to identify a spatial region of interest, an image
+resolution of interest and image components of interest,
+in a manner which does not depend upon the coordinate
+system used by any particular JPEG2000 code-stream.
+Together, we refer to these parameters as identifying
+a "window" into the full image.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_window__kdu_window__1.html">kdu_window</A> <EM>(2 forms)</EM> {<U>Java:</U> Kdu_window}
+</P>
+<P><A HREF="kdu_window__operator=.html">operator=</A></P>
+<P><A HREF="kdu_window__~kdu_window.html">~kdu_window</A> {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu_window__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="kdu_window__is_empty.html">is_empty</A> {<U>Java:</U> Is_empty}
+</P>
+<P><A HREF="kdu_window__copy_from.html">copy_from</A> {<U>Java:</U> Copy_from}
+</P>
+<P><A HREF="kdu_window__cop$req_from.html">copy_metareq_from</A> {<U>Java:</U> Copy_metareq_from}
+</P>
+<P><A HREF="kdu_window__met$contains.html">metareq_contains</A> {<U>Java:</U> Metareq_contains}
+</P>
+<P><A HREF="kdu_window__ima$contains.html">imagery_contains</A> {<U>Java:</U> Imagery_contains}
+</P>
+<P><A HREF="kdu_window__contains.html">contains</A> {<U>Java:</U> Contains}
+</P>
+<P><A HREF="kdu_window__ima$y_equals.html">imagery_equals</A> {<U>Java:</U> Imagery_equals}
+</P>
+<P><A HREF="kdu_window__equals.html">equals</A> {<U>Java:</U> Equals}
+</P>
+<P><A HREF="kdu_window__get$solution.html">get_resolution</A> {<U>Java:</U> Get_resolution}
+</P>
+<P><A HREF="kdu_window__set$solution.html">set_resolution</A> {<U>Java:</U> Set_resolution}
+</P>
+<P><A HREF="kdu_window__get$irection.html">get_round_direction</A> {<U>Java:</U> Get_round_direction}
+</P>
+<P><A HREF="kdu_window__set$irection.html">set_round_direction</A> {<U>Java:</U> Set_round_direction}
+</P>
+<P><A HREF="kdu_window__get_region.html">get_region</A> {<U>Java:</U> Get_region}
+</P>
+<P><A HREF="kdu_window__set_region.html">set_region</A> {<U>Java:</U> Set_region}
+</P>
+<P><A HREF="kdu_window__acc$mponents.html">access_components</A> {<U>Java:</U> Access_components}
+</P>
+<P><A HREF="kdu_window__acc$estreams.html">access_codestreams</A> {<U>Java:</U> Access_codestreams}
+</P>
+<P><A HREF="kdu_window__acc$contexts.html">access_contexts</A> {<U>Java:</U> Access_contexts}
+</P>
+<P><A HREF="kdu_window__cre$xpansion.html">create_context_expansion</A> {<U>Java:</U> Create_context_expansion}
+</P>
+<P><A HREF="kdu_window__acc$xpansion.html">access_context_expansion</A> {<U>Java:</U> Access_context_expansion}
+</P>
+<P><A HREF="kdu_window__par$_context.html">parse_context</A> {<U>Java:</U> Parse_context}
+</P>
+<P><A HREF="kdu_window__get$x_layers.html">get_max_layers</A> {<U>Java:</U> Get_max_layers}
+</P>
+<P><A HREF="kdu_window__set$x_layers.html">set_max_layers</A> {<U>Java:</U> Set_max_layers}
+</P>
+<P><A HREF="kdu_window__get$ata_only.html">get_metadata_only</A> {<U>Java:</U> Get_metadata_only}
+</P>
+<P><A HREF="kdu_window__set$ata_only.html">set_metadata_only</A> {<U>Java:</U> Set_metadata_only}
+</P>
+<P><A HREF="kdu_window__get_metareq.html">get_metareq</A> {<U>Java:</U> Get_metareq}
+</P>
+<P><A HREF="kdu_window__ini$_metareq.html">init_metareq</A> {<U>Java:</U> Init_metareq}
+</P>
+<P><A HREF="kdu_window__add_metareq.html">add_metareq</A> {<U>Java:</U> Add_metareq}
+</P>
+<P><A HREF="kdu_window__par$_metareq.html">parse_metareq</A> {<U>Java:</U> Parse_metareq}
+</P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="resolution">resolution</A> [<A HREF ="kdu_coords.html">kdu_coords</A>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_window__get$solution.html">get</A>; <A HREF="kdu_window__set$solution.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Describes the preferred image resolution in terms of
+the width and the height of the full image. In the
+simplest case where no geometric mapping is required,
+the request is serviced by discarding r highest resolution
+levels, where r is chosen so that 
+<A HREF="kdu_coords.html#x">resolution.x</A> and 
+<A HREF="kdu_coords.html#y">resolution.y</A> are as close as possible to ceil(Xsiz/2^r)-ceil(Xoff/2^r)
+and ceil(Ysiz/2^r)-ceil(Yoff/2^r), where the sense
+of "close" is determined by the 
+<A HREF="kdu_window.html#round_direction">round_direction</A> member. Xsiz and Ysiz, Xoff and Yoff are the dimensions
+recorded in the codestream's SIZ marker segment.
+</P><P>
+ Where geometric mapping information is provided via
+codestream 
+<A HREF="kdu_window.html#contexts">contexts</A>, additional transformations are applied to match the
+resolution of each codestream to the resolution of
+the composited result which is identified by the present
+member.
+</P><P>
+ If both 
+<A HREF="kdu_coords.html#x">resolution.x</A> and 
+<A HREF="kdu_coords.html#y">resolution.y</A> are 0, no compressed image data is being requested.
+Such a request requires the server to send only the
+essential marker segments from main codestream headers,
+plus any metadata which is required for correct rendering.
+Such a request might be sent by a client when it first
+connects to the server, but would not normally be issued
+explicitly at the application levels.
+</P>
+</DIV>
+<H4><A NAME="round_direction">round_direction</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_window__get$irection.html">get</A>; <A HREF="kdu_window__set$irection.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Indicates the preferred direction for converting the
+<A HREF="kdu_window.html#resolution">resolution</A> size to the size of an actual available image resolution
+in each codestream. The available resolutions for each
+codestream are found by starting with the image size
+on the codestream's high resolution canvas, and dividing
+down by multiples of 2, following the usual rounding
+conventions of the JPEG2000 canvas coordinate system.
+Thus, the available image dimensions correspond essentially
+to the codestream image dimensions obtained by discarding
+a whole number of highest resolution levels, except
+that the number of discarded DWT levels is not necessarily
+limited by the number of DWT levels used in each relevant
+tile component.
+</P><UL><LI>
+A value of 0 means that rounding is to the nearest
+available codestream image resolution, in the sense
+of area. Specifically, the actual codestream image
+resolution's dimensions, X and Y, should minimize |XY
+- xy| where x and y are the values of 
+<A HREF="kdu_coords.html#x">resolution.x</A> and 
+<A HREF="kdu_coords.html#y">resolution.y</A>.
+</LI><LI>
+A positive value means that the requested resolution
+should be rounded up to the nearest actual available
+codestream resolution. That is, the actual selected
+dimensions, X and Y, must satisfy X &gt;= 
+<A HREF="kdu_coords.html#x">resolution.x</A> and Y &gt;= 
+<A HREF="kdu_coords.html#y">resolution.y</A>, if possible.
+</LI><LI>
+A negative value means that the requested resolution
+should be rounded down to the nearest actual available
+codestream resolution. That is, the actual selected
+dimensions, X and Y, must satisfy X &lt;= 
+<A HREF="kdu_coords.html#x">resolution.x</A> and Y &lt;= 
+<A HREF="kdu_coords.html#y">resolution.y</A>, if possible. Note: this is the default value set
+by 
+<A HREF="kdu_window__init.html">init</A>.
+</LI></UL>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_window__get_region.html">get</A>; <A HREF="kdu_window__set_region.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Describes a spatial region, expressed relative to the
+image resolution defined by the 
+<A HREF="kdu_window.html#resolution">resolution</A> member.
+</P>
+</DIV>
+<H4><A NAME="components">components</A> [<A HREF ="kdu$e_set.html">kdu_range_set</A>]</H4><DIV CLASS="indented-text">
+<P>
+Set of image components which belong to the window.
+If this member is empty (
+<A HREF="kdu$e_set__is_empty.html">components.is_empty</A> returns true), the window includes all possible image
+components. You should avoid adding ranges to a 
+<A HREF="kdu_window.html#components">components</A> member whose 
+<A HREF="kdu$range.html#step">kdu_sampled_range::step</A> member is anything other than 1.
+</P>
+</DIV>
+<H4><A NAME="codestreams">codestreams</A> [<A HREF ="kdu$e_set.html">kdu_range_set</A>]</H4><DIV CLASS="indented-text">
+<P>
+Set of codestreams which belong to the window. If this
+member is empty, no particular restriction is imposed
+on the components being accessed. If no information
+is provided by any other members (e.g., 
+<B>compositing_layers</B>) from which codestreams of interest may be deduced,
+the default behaviour depends on the type of image
+being served.
+</P>
+</DIV>
+<H4><A NAME="contexts">contexts</A> [<A HREF ="kdu$e_set.html">kdu_range_set</A>]</H4><DIV CLASS="indented-text">
+<P>
+This member is used to identify a collection of codestream
+contexts which a server is expected to expand into
+a collection of codestreams. Currently, there are only
+two defined context types: JPX compositing layers;
+and MJ2 tracks. Accordingly, each 
+<A HREF="kdu$range.html">kdu_sampled_range</A> element in the 
+<A HREF="kdu_window.html#contexts">contexts</A> object must have a non-zero 
+<A HREF="kdu$range.html#context_type">kdu_sampled_range::context_type</A> member, which must match one of the macros 
+<A HREF="globals.html#KDU_JPIP_CONTEXT_JPXL">KDU_JPIP_CONTEXT_JPXL</A> or 
+<A HREF="globals.html#KDU_JPIP_CONTEXT_MJ2T">KDU_JPIP_CONTEXT_MJ2T</A>.
+</P>
+</DIV>
+<H4><A NAME="max_layers">max_layers</A> [<B>int</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_window__get$x_layers.html">get</A>; <A HREF="kdu_window__set$x_layers.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+Identifies the maximum number of code-stream quality
+layers which are to be considered as belonging to the
+window. If this is zero, or any value larger than the
+actual number of layers in the code-stream, the window
+is considered to embody all available quality layers.
+</P>
+</DIV>
+<H4><A NAME="metadata_only">metadata_only</A> [<B>bool</B>] -- <U>Exported Property</U>&nbsp;{ <A HREF="kdu_window__get$ata_only.html">get</A>; <A HREF="kdu_window__set$ata_only.html">set</A>; }</H4><DIV CLASS="indented-text">
+<P>
+If this flag is true, the client is not interested
+in receiving anything other than the metadata which
+would be returned in response to the requested window.
+No compressed imagery, or even image headers should
+be sent. Note that setting this member to true may
+have no effect unless a non-empty 
+<A HREF="kdu_window.html#metareq">metareq</A> list is also provided (e.g. by calls to 
+<A HREF="kdu_window__add_metareq.html">add_metareq</A>).
+</P>
+</DIV>
+<H4><A NAME="metareq">metareq</A> [<A HREF ="kdu$tareq.html">kdu_metareq</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Points to a linked list of 
+<A HREF="kdu$tareq.html">kdu_metareq</A> objects. If NULL, the client is interested in all
+metadata the server deems to be important, delivered
+in the order the server chooses. If non-NULL only those
+items identified by this list are of interest to the
+client, unless items are omitted which the server deems
+to be essential for the client to correctly interpret
+the requested imagery.
+</P><P>
+ Do not add to this list manually. Instead, use the
+<A HREF="kdu_window__add_metareq.html">add_metareq</A> function to build a list of 
+<A HREF="kdu$tareq.html">kdu_metareq</A> objects. Note that the 
+<A HREF="kdu_window__init.html">init</A> function resets the 
+<A HREF="kdu_window.html#metareq">metareq</A> list to empty (NULL).
+</P>
+</DIV>
+<H4><A NAME="have_metareq_all">have_metareq_all</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provided to facilitate efficient searching, this member
+is true if any only if the 
+<A HREF="kdu_window.html#metareq">metareq</A> list contains at least one entry whose 
+<A HREF="kdu$tareq.html#qualifier">kdu_metareq::qualifier</A> member contains the 
+<A HREF="globals.html#KDU_MRQ_ALL">KDU_MRQ_ALL</A> flag.
+</P>
+</DIV>
+<H4><A NAME="have_metareq_global">have_metareq_global</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provided to facilitate efficient searching, this member
+is true if any only if the 
+<A HREF="kdu_window.html#metareq">metareq</A> list contains at least one entry whose 
+<A HREF="kdu$tareq.html#qualifier">kdu_metareq::qualifier</A> member contains the 
+<A HREF="globals.html#KDU_MRQ_GLOBAL">KDU_MRQ_GLOBAL</A> flag.
+</P>
+</DIV>
+<H4><A NAME="have_metareq_stream">have_metareq_stream</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provided to facilitate efficient searching, this member
+is true if any only if the 
+<A HREF="kdu_window.html#metareq">metareq</A> list contains at least one entry whose 
+<A HREF="kdu$tareq.html#qualifier">kdu_metareq::qualifier</A> member contains the 
+<A HREF="globals.html#KDU_MRQ_STREAM">KDU_MRQ_STREAM</A> flag.
+</P>
+</DIV>
+<H4><A NAME="have_metareq_window">have_metareq_window</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provided to facilitate efficient searching, this member
+is true if any only if the 
+<A HREF="kdu_window.html#metareq">metareq</A> list contains at least one entry whose 
+<A HREF="kdu$tareq.html#qualifier">kdu_metareq::qualifier</A> member contains the 
+<A HREF="globals.html#KDU_MRQ_WINDOW">KDU_MRQ_WINDOW</A> flag.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

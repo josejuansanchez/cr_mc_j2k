@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_meta_manager::insert_node) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$nager__enu$e_matches.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_meta_manager::insert_node</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_meta_manager.Insert_node</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> insert_node(
+<B>int</B>&nbsp;num_codestreams,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;codestream_indices,
+<B>int</B>&nbsp;num_compositing_layers,
+const&nbsp;<B>int</B>&nbsp;*&nbsp;layer_indices,
+<B>bool</B>&nbsp;applies_to_rendered_result,
+<B>int</B>&nbsp;num_regions,
+const&nbsp;<A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;*&nbsp;regions)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Insert_node(
+int&nbsp;num_codestreams,
+int[]&nbsp;codestream_indices,
+int&nbsp;num_compositing_layers,
+int[]&nbsp;layer_indices,
+boolean&nbsp;applies_to_rendered_result,
+int&nbsp;num_regions,
+Jpx_roi&nbsp;regions)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$nager.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides an especially convenient mechanism
+for creating new metadata nodes. Although it is possible
+to create the nodes directly using functions such as
+<A HREF="jpx$anode__add_numlist.html">jpx_metanode::add_numlist</A> and 
+<A HREF="jpx$anode__add_regions.html">jpx_metanode::add_regions</A>, multiple function calls may be needed to determine
+whether an appropriate association context has already
+been created.
+</P><P>
+ The present function does all the work for you. It
+analyzes the existing metadata tree to see if it already
+contains a node which is associated with exactly the
+same set of image entities (codestreams, compositing
+layers or the rendered result). If so, the function
+returns a reference to that node or, if 
+<A HREF="jpx$nager__insert_node.html#num_regions">num_regions</A> &gt; 0, it returns a reference to a newly created
+ROI description node which is added as a descendant
+to that node.
+</P><P>
+ If necessary, the function creates new entries in
+the metadata tree to hold a number list representing
+the image entities specified via the first five arguments
+and the image regions specified via the last two arguments,
+returning a reference to the relevant node.
+</P><P>
+ If 
+<A HREF="jpx$nager__insert_node.html#num_regions">num_regions</A> is 0, the returned node lies in a context which does
+not associated it with any image region. Otherwise,
+there must be at least one codestream specified, since
+ROI description boxes are meaningless unless associated
+with codestreams. If 
+<A HREF="jpx$nager__insert_node.html#num_regions">num_regions</A> is non-zero, the function always creates a new ROI
+description node, even if an identical one already
+exists with the same image entity associations. This
+saves us the overhead of tracking down unlikely events.
+</P><P>
+ If 
+<A HREF="jpx$nager__insert_node.html#num_codestreams">num_codestreams</A> and 
+<A HREF="jpx$nager__insert_node.html#num_compositing_layers">num_compositing_layers</A> are 0 and 
+<A HREF="jpx$nager__insert_node.html#applies_to_rendered_result">applies_to_rendered_result</A> is false, the returned node lies in a context which
+does not associate it with any number list.
+</P><P>
+ If both of the above sets of conditions apply, the
+function simply returns the root of the metadata tree.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_codestreams">num_codestreams</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of codestreams with which the returned node
+must be associated. It should be associated with no
+more and no fewer.
+</P>
+</DIV>
+<H4><A NAME="codestream_indices">codestream_indices</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx$nager__insert_node.html#num_codestreams">num_codestreams</A> entries containing the indices of the codestreams
+with which the returned node must be associated. All
+indices start from 0, which represents the first codestream
+in the file.
+</P>
+</DIV>
+<H4><A NAME="num_compositing_layers">num_compositing_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of compositing layers with which the returned
+node must be associated. It should be associated with
+no more and no fewer.
+</P>
+</DIV>
+<H4><A NAME="layer_indices">layer_indices</A> [const&nbsp;<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx$nager__insert_node.html#num_compositing_layers">num_compositing_layers</A> entries containing the indices of the compositing
+layers with which the returned node must be associated.
+All indices start from 0, which represents the first
+compositing layer in the file.
+</P>
+</DIV>
+<H4><A NAME="applies_to_rendered_result">applies_to_rendered_result</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+True if the returned node is to be associated with
+the "rendered result"; otherwise it is not to be associated
+with the rendered result.
+</P>
+</DIV>
+<H4><A NAME="num_regions">num_regions</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of elements in the 
+<A HREF="jpx$nager__insert_node.html#regions">regions</A> array. If this is non-zero, the 
+<A HREF="jpx$nager__insert_node.html#num_codestreams">num_codestreams</A> argument must also be non-zero, since the contents
+of an ROI description box are meaningful primarily
+when its regions are associated with some code-stream.
+In the future, we may remove this restriction, since
+the JPX file format does allow for the possibility
+of unassociated ROI description boxes, which are interpreted
+as belonging to the rendered result. For the purpose
+of creating JPX metadata from scratch, however, it
+is unlikely that any flexibility is sacrificed by forcing
+the application to describe regions with respect to
+a codestream coordinate system.
+</P><P>
+ If this argument is zero, the returned node is not
+to be associated with any image regions through ROI
+description boxes.
+</P>
+</DIV>
+<H4><A NAME="regions">regions</A> [const&nbsp;<A HREF ="jpx_roi.html">jpx_roi</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="jpx$nager__insert_node.html#num_regions">num_regions</A> entries, holding the collection of image regions which
+are to be recorded in an ROI description box with which
+the returned node is to be associated.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$nager__enu$e_matches.html"> prev </A>|</P>
+</BODY>
+</HTML>

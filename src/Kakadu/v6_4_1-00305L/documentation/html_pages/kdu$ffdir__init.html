@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_tiffdir::init) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__operator!.html"> prev </A>||<A HREF="kdu$ffdir__opendir.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_tiffdir::init</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_tiffdir.Init</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> init(
+<B>bool</B>&nbsp;littlendian,
+<B>bool</B>&nbsp;bigtiff=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Init(
+boolean&nbsp;littlendian,
+boolean&nbsp;bigtiff)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+image+kdu_tiff+h.html">"../apps/image/kdu_tiff.h"</A>]</P><P><A HREF="kdu$ffdir.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to create a new TIFF directory, discarding
+any existing contents &mdash; the function implicitly
+calls 
+<A HREF="kdu$ffdir__close.html">close</A> first.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="littlendian">littlendian</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the byte order for the new TIFF directory
+is little-endian (i.e., low order bytes come before
+high order bytes in multi-byte numeric quantities).
+Otherwise, the byte order is big-endian.
+</P><P>
+ If you are unsure what the native byte order on your
+machine is, you can call the 
+<A HREF="kdu$ffdir__is_$1ttlendian.html">is_native_littlendian</A> member function. Note, however, that the 
+<A HREF="kdu$ffdir__read_tag__1.html">read_tag</A> and 
+<A HREF="kdu$ffdir__write_tag__1.html">write_tag</A> functions automatically perform all required byte
+order conversions.
+</P>
+</DIV>
+<H4><A NAME="bigtiff">bigtiff</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the file will be written using the BigTIFF
+format, which has a 16-byte header (instead of 8 bytes),
+20-byte tags (instead of 12 bytes), a slightly different
+directory header/trailer, and allows 64-bit integer
+data types to be used for StripOffsets, StripByteCounts,
+TileOffsets and TileByteCounts.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ffdir__operator!.html"> prev </A>||<A HREF="kdu$ffdir__opendir.html"> next </A>|</P>
+</BODY>
+</HTML>

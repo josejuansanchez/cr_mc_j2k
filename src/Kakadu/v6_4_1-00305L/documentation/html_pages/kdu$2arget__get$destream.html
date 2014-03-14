@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve_target::get_context_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__get$_members.html"> prev </A>||<A HREF="kdu$2arget__get$mponents.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_serve_target::get_context_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve_target.Get_context_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> get_context_codestream(
+<B>int</B>&nbsp;context_type,
+<B>int</B>&nbsp;context_idx,
+<B>int</B>&nbsp;remapping_ids[],
+<B>int</B>&nbsp;member_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_context_codestream(
+int&nbsp;context_type,
+int&nbsp;context_idx,
+int[]&nbsp;remapping_ids,
+int&nbsp;member_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu$2arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+See 
+<A HREF="kdu$2arget__get$_members.html">get_num_context_members</A> for a general introduction. The 
+<A HREF="kdu$2arget__get$destream.html#context_type">context_type</A>, 
+<A HREF="kdu$2arget__get$destream.html#context_idx">context_idx</A> and 
+<A HREF="kdu$2arget__get$destream.html#remapping_ids">remapping_ids</A> arguments have the same interpretation as in that
+function. The 
+<A HREF="kdu$2arget__get$destream.html#member_idx">member_idx</A> argument is used to enumerate the individual codestreams
+which belong to the context. It runs from 0 to the
+value returned by 
+<A HREF="kdu$2arget__get$_members.html">get_num_context_members</A> less 1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The index of the codestream associated with the indicated
+member of the codestream context. If the object is
+unable to translate this context, it should return
+-1.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="context_type">context_type</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="context_idx">context_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="remapping_ids">remapping_ids[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="member_idx">member_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$2arget__get$_members.html"> prev </A>||<A HREF="kdu$2arget__get$mponents.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::get_label) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get_box_type.html"> prev </A>||<A HREF="jpx$anode__get_uuid.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::get_label</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Get_label</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>const char *</B> get_label(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Get_label(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns non-NULL if and only if 
+<A HREF="jpx$anode__get_box_type.html">get_box_type</A> returns 
+<A HREF="globals.html#jp2_label_4cc">jp2_label_4cc</A> &mdash; i.e., the 
+<B>lbl </B> box type code. The body of all label boxes is stored
+explicitly by the internal machinery and the null-terminated
+text string is returned here.
+</P><P>
+ Both intermediate and leaf nodes may be represented
+by labels. If an intermediate node is represented by
+a label, all of the node's descendants are semantically
+associated with the label.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__get_box_type.html"> prev </A>||<A HREF="jpx$anode__get_uuid.html"> next </A>|</P>
+</BODY>
+</HTML>

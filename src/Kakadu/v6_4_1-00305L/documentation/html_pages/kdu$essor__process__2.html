@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::process) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__1.html"> prev </A>||<A HREF="kdu$essor__process__3.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::process</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$essor__process__1.html">1</A>,
+2,
+<A HREF="kdu$essor__process__3.html">3</A>,
+<A HREF="kdu$essor__process__4.html">4</A>,
+<A HREF="kdu$essor__process__5.html">5</A>,
+<A HREF="kdu$essor__process__6.html">6</A>,
+<A HREF="kdu$essor__process__7.html">7</A></B></P>
+<P CLASS="function-text"><B>bool</B> process(
+<B>kdu_uint16</B>&nbsp;**&nbsp;channel_bufs,
+<B>bool</B>&nbsp;expand_monochrome,
+<B>int</B>&nbsp;pixel_gap,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;buffer_origin,
+<B>int</B>&nbsp;row_gap,
+<B>int</B>&nbsp;suggested_increment,
+<B>int</B>&nbsp;max_region_pixels,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;incomplete_region,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;new_region,
+<B>int</B>&nbsp;precision_bits=16,
+<B>bool</B>&nbsp;measure_row_gap_in_pixels=true)</P>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the first form of the overloaded 
+<A HREF="kdu$essor__process__1.html">process</A> function, except that the channel buffers each hold
+16-bit unsigned quantities. As before, the 
+<A HREF="kdu$essor__process__2.html#precision_bits">precision_bits</A> argument is used to control the representation written
+into each output sample. If it is 0, default precisions
+are obtained, either from the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object or from the codestream, as appropriate, and
+these defaults might also cause the 16-bit output samples
+to hold 2's complement signed quantities. Also, as
+before, the precision requested explicitly or implicitly
+(via 
+<A HREF="kdu$essor__process__2.html#precision_bits">precision_bits</A>=0) may exceed 16. In each case, the most natural truncation
+procedures are employed for out-of-range values, following
+the general strategy outlined in the comments accompanying
+the 
+<A HREF="kdu$essor__process__2.html#precision_bits">precision_bits</A> argument in the first form of the 
+<A HREF="kdu$essor__process__1.html">process</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="channel_bufs">channel_bufs</A> [<B>kdu_uint16</B>&nbsp;**]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expand_monochrome">expand_monochrome</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="pixel_gap">pixel_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buffer_origin">buffer_origin</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="row_gap">row_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="suggested_increment">suggested_increment</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_region_pixels">max_region_pixels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="incomplete_region">incomplete_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="new_region">new_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="precision_bits">precision_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="measure_row_gap_in_pixels">measure_row_gap_in_pixels</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__1.html"> prev </A>||<A HREF="kdu$essor__process__3.html"> next </A>|</P>
+</BODY>
+</HTML>

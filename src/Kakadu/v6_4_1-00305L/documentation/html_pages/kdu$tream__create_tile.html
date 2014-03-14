@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::create_tile) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__open_tile.html"> prev </A>||<A HREF="kdu$tream__get_comment.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::create_tile</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Create_tile</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> create_tile(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;tile_idx,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Create_tile(
+Kdu_coords&nbsp;tile_idx,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to opening and then closing a tile immediately,
+but with less overhead. This can be useful for input
+codestreams because it causes the tiles first tile-part
+header to be read and parsed for any marker segments
+which may be specific to the tile. After this you can
+access the relevant information within the parameter
+sub-system (accessible via 
+<A HREF="kdu$tream__access_siz.html">access_siz</A>). It is safe to call this function on a tile which
+is already created (even one which is already open).
+Even though the function does generally instantiate
+resources, those resources are usually internally unloadable,
+meaning that creating/opening another tile may cause
+this tile's resources to be unloaded from memory.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tile_idx">tile_idx</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__open_tile.html"> prev </A>||<A HREF="kdu$tream__get_comment.html"> next </A>|</P>
+</BODY>
+</HTML>

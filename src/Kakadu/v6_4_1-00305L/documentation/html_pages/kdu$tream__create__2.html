@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create__1.html"> prev </A>||<A HREF="kdu$tream__create__3.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::create</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Create</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$tream__create__1.html">1</A>,
+2,
+<A HREF="kdu$tream__create__3.html">3</A></B></P>
+<P CLASS="function-text"><B>void</B> create(
+<A HREF ="kdu$ource.html">kdu_compressed_source</A>&nbsp;*&nbsp;source,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Create(
+Kdu_compressed_source&nbsp;source,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Constructs the internal code-stream management machinery,
+to be accessed via the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface and its close relatives, 
+<A HREF="kdu_tile.html">kdu_tile</A>, 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A>, 
+<A HREF="kdu$ution.html">kdu_resolution</A>, 
+<A HREF="kdu$bband.html">kdu_subband</A>, 
+<A HREF="kdu$cinct.html">kdu_precinct</A> and 
+<A HREF="kdu_block.html">kdu_block</A>.
+</P><P>
+ We refer to the machinery created by this particular
+version of the overloaded 
+<A HREF="kdu$tream__create__1.html">create</A> function as an 
+<B>input codestream</B>, for want of more appropriate terminology. The function
+prepares the internal machinery for use in unpacking
+or decompressing an existing JPEG2000 code-stream,
+which is retrieved via the supplied 
+<A HREF="kdu$tream__create__2.html#source">source</A> object on an as-needed basis.
+</P><P>
+ For the same reasons mentioned in connection with
+the first version of the overloaded 
+<A HREF="kdu$tream__create__1.html">create</A> function, the function is deliberately not implemented
+as a constructor and cannot be used unless (or until)
+the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface is empty, meaning that its 
+<A HREF="kdu$tream__exists.html">exists</A> function returns false.
+</P><P>
+ The function reads the main header of the JPEG2000
+code-stream, up to but not including the first tile-part
+header. Further code-stream reading occurs on a strictly
+as-needed basis, as tile, precinct and code-block data
+is requested by the application, or the sample data
+processing machinery.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="source">source</A> [<A HREF ="kdu$ource.html">kdu_compressed_source</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Points to the object which supplies the actual JPEG2000
+code-stream data. The capabilities of this object can
+have a substantial impact on the behaviour of the internal
+machinery. For example, if the 
+<A HREF="kdu$tream__create__2.html#source">source</A> object supports seeking, the internal machinery may
+be able to avoid buffering substantial amounts of compressed
+data, regardless of the order in which decompressed
+image data is required.
+</P><P>
+ If the source provides its own compressed data cache,
+asynchonously loaded from a remote server, the internal
+code-stream management machinery will deliberately
+avoid caching parsed segments of compressed data, since
+this would prevent it from responding to changes in
+the state of the 
+<A HREF="kdu$tream__create__2.html#source">source</A> object's cache.
+</P><P>
+ The interested reader, should consult the descriptions
+provided for the 
+<A HREF="kdu$ource.html">kdu_compressed_source</A> class and its member functions, as well as some of
+the more advanced derived classes such as 
+<A HREF="kdu_cache.html">kdu_cache</A>, 
+<A HREF="kdu_client.html">kdu_client</A> or 
+<A HREF="jp2_source.html">jp2_source</A>.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Because this function must read some data from the
+<A HREF="kdu$tream__create__2.html#source">source</A>, it is possible that multiple threads will interfere
+with each other, if another codestream is simultaneously
+reading from the same, or a related source. This avoid
+this, the simplest solution is to supply a non-NULL
+<A HREF="kdu$tream__create__2.html#env">env</A> argument so that the 
+<B>KD_THREADLOCK_GENERAL</B> mutex will be locked during reads. If you know that
+this cannot happen, there is no need to supply an 
+<A HREF="kdu$tream__create__2.html#env">env</A> argument, even if you are performing multi-threaded
+processing.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__create__1.html"> prev </A>||<A HREF="kdu$tream__create__3.html"> next </A>|</P>
+</BODY>
+</HTML>

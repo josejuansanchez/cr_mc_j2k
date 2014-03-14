@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::get_frame_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rev_frame.html"> prev </A>||<A HREF="jpx$ition__get$ent_frame.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::get_frame_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Get_frame_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> get_frame_info(
+<B>jx_frame</B>&nbsp;*&nbsp;frame_ref,
+<B>int</B>&nbsp;&amp;&nbsp;num_instructions,
+<B>int</B>&nbsp;&amp;&nbsp;duration,
+<B>int</B>&nbsp;&amp;&nbsp;repeat_count,
+<B>bool</B>&nbsp;&amp;&nbsp;is_persistent)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Get_frame_info(
+long&nbsp;frame_ref,
+int[]&nbsp;num_instructions,
+int[]&nbsp;duration,
+int[]&nbsp;repeat_count,
+boolean[]&nbsp;is_persistent)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns overview information concerning a single frame.
+The opaque 
+<A HREF="jpx$ition__get$rame_info.html#frame_ref">frame_ref</A> pointer may have been obtained by a previous call
+to 
+<A HREF="jpx$ition__get$ext_frame.html">get_next_frame</A>, 
+<A HREF="jpx$ition__get$rev_frame.html">get_prev_frame</A>, or 
+<A HREF="jpx$ition__get$ent_frame.html">get_last_persistent_frame</A>. It may not be NULL.
+</P><P>
+ Each frame may need to be repeated some number of
+times, as returned via the 
+<A HREF="jpx$ition__get$rame_info.html#repeat_count">repeat_count</A> argument, before moving to the next frame. Repetition
+does not mean that exactly the same composited image
+is played over and over again. Instead, the actual
+layer indices associated with compositing instructions
+in the frame may need to be incremented between repeated
+frames.
+</P><P>
+ Each frame consists of a sequence of compositing instructions
+which must be performed in order to build up a single
+composited image. Consecutive frames represent distinct
+composited images to be displayed at distinct time
+instants.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame_ref">frame_ref</A> [<B>jx_frame</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_instructions">num_instructions</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of compositing instructions
+used to compose the current frame. Use 
+<A HREF="jpx$ition__get$struction.html">get_instruction</A> to examine the details of each instruction.
+</P>
+</DIV>
+<H4><A NAME="duration">duration</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of milliseconds between this
+frame and the next. This value cannot be zero, except
+possibly in the last frame &mdash; this should only
+be possible when the global looping count is 1, but
+some crazy content creator could do something weird.
+</P>
+</DIV>
+<H4><A NAME="repeat_count">repeat_count</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of times (in addition to
+the first time) which the frame should be repeated.
+If 0, the frame is not repeated. If negative, the frame
+is repeated indefinitely. Repeated frames are separated
+by 
+<A HREF="jpx$ition__get$rame_info.html#duration">duration</A> milliseconds. Repeated frames do not necessarily use
+the same compositing layers in their instructions.
+See 
+<A HREF="jpx$ition__get$struction.html">get_instruction</A> for more on the adjustment of compositing layer indices
+between repeatitions of a frame.
+</P>
+</DIV>
+<H4><A NAME="is_persistent">is_persistent</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an indication of whether or not the
+effects of compositing this frame should be used as
+a background for all future composition operations.
+To render any given frame, one must compose all preceding
+persistent frames in sequence, followed by the frame
+of interest.
+</P><P>
+ Although this seems like a simple idea, in some circumstances
+(e.g., dynamic region-of-interest rendering) it can
+create an enormous amount of work. For this reason,
+persistent frames are best avoided. The 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object goes to a lot of effort to figure out which
+persistent frames are actually visible (i.e., not completely
+covered by new opaque layers) so as to avoid composing
+hundreds or thousands of layers together where frame
+persistence has been misused. Unfortunately, the visibility
+of persistent frames in later frames cannot properly
+be figured out within the 
+<B>kdu_composition</B> object, since composition information (e.g., to figure
+out which layers are needed) may be required before
+the opacity of compositing layers has become available
+from a dynamic cache.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rev_frame.html"> prev </A>||<A HREF="jpx$ition__get$ent_frame.html"> next </A>|</P>
+</BODY>
+</HTML>

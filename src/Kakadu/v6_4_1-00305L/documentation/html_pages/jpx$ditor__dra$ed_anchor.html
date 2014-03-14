@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::drag_selected_anchor) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__sel$ct_anchor.html"> prev </A>||<A HREF="jpx$ditor__can$ed_anchor.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::drag_selected_anchor</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Drag_selected_anchor</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> drag_selected_anchor(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;new_point)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Drag_selected_anchor(
+Kdu_coords&nbsp;new_point)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Modifies the internal state of the object to reflect
+the potential effects of moving the selected anchor
+point to 
+<A HREF="jpx$ditor__dra$ed_anchor.html#new_point">new_point</A>, so that calls to 
+<A HREF="jpx$ditor__get_edge.html">get_edge</A> and 
+<A HREF="jpx$ditor__get_anchor.html">get_anchor</A> which specify 
+<B>dragging</B>=true will retrieve information about the locations
+of the anchor point and edges affected by such a potential
+move operation.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A region large enough to include all points and edges
+affected by the change &mdash; this includes existing
+drag vertices and edges and new drag vertices and edges.
+If there is no change, this region is empty.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="new_point">new_point</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__sel$ct_anchor.html"> prev </A>||<A HREF="jpx$ditor__can$ed_anchor.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_message_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_message_queue</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_message_queue</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$1ssage.html">kdu_thread_safe_message</A></P>
+<DIR><P>Derives from <A HREF ="kdu$ssage.html">kdu_message</A></P>
+</DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object provides a very convenient base on which
+to construct highly robust message handling systems,
+primarily aimed at the handling of 
+<A HREF="kdu_error.html">kdu_error</A> and/or 
+<A HREF="kdu$rning.html">kdu_warning</A> messages which might arrive on different threads,
+but can only robustly be displayed within a single
+specific thread. This sort of situation comes up frequently
+when implementing GUI-based applications on a variety
+of operating systems.
+</P><P>
+ You can also use this object as a convenient way of
+buffering up messages, even if you don't need queueing
+or multi-threading capabilities specifically.
+</P><P>
+ To derive from this object, you normally need only
+to override the 
+<A HREF="kdu$queue__pop_message.html">pop_message</A> function. If you are happy to manually pop messages
+from the queue, you may not even need to derive a new
+object; this is the case if all you want to do is use
+the object to buffer messages produced by any source
+which delivers data to a 
+<A HREF="kdu$ssage.html">kdu_message</A> interface.
+</P><P>
+ When using this object to buffer messages, you need
+to remember to call 
+<A HREF="kdu$ssage__sta$t_message.html">kdu_message::start_message</A> to start each message and 
+<A HREF="kdu$ssage__flush.html">kdu_message::flush</A> (with 
+<B>end_of_message</B>=true) to finish each message. Otherwise, no message
+text will appear in the queue. This is done automatically
+for you if you are using the object to implement an
+error or warning service (to handle messages generated
+through 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A>).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$queue__kdu$age_queue.html">kdu_message_queue</A> {<U>Java:</U> Kdu_message_queue}
+</P>
+<P><A HREF="kdu$queue__~kd$age_queue.html">~kdu_message_queue</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$queue__configure.html">configure</A> {<U>Java:</U> Configure}
+</P>
+<P><A HREF="kdu$queue__put_text__1.html">put_text</A> [virtual] <EM>(2 forms)</EM> {<U>Java:</U> Put_text}
+</P>
+<P><A HREF="kdu$queue__sta$t_message.html">start_message</A> [virtual] {<U>Java:</U> Start_message}
+</P>
+<P><A HREF="kdu$queue__flush.html">flush</A> [virtual] {<U>Java:</U> Flush}
+</P>
+<P><A HREF="kdu$queue__pop_message.html">pop_message</A> [virtual] {<U>Java:</U> Pop_message}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

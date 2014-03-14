@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::init) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__init__1.html"> prev </A>||<A HREF="kdu$rnels__is_$eversible.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::init</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$rnels__init__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>void</B> init(
+<B>int</B>&nbsp;num_steps,
+const&nbsp;<A HREF ="kdu$_info.html">kdu_kernel_step_info</A>&nbsp;*&nbsp;info,
+const&nbsp;<B>float</B>&nbsp;*&nbsp;coefficients,
+<B>bool</B>&nbsp;symmetric,
+<B>bool</B>&nbsp;symmetric_extension,
+<B>bool</B>&nbsp;reversible)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this form of the 
+<A HREF="kdu$rnels__init__1.html">init</A> function to initialize an arbitrary transform kernel,
+as recorded in an ATK marker segment. The 
+<B>info[0].support_length</B> coefficients associated with the first analysis lifting
+step appear first in the 
+<A HREF="kdu$rnels__init__2.html#coefficients">coefficients</A> array, followed by the 
+<B>info[1].support_length</B> coefficients of the second lifting step, and so forth.
+In the case of reversible transforms, the floating-point
+coefficients must be multiplied by 2 to the power of
+the corresponding 
+<A HREF="kdu$_info.html#downshift">kdu_kernel_step_info::downshift</A>, in order to recover the integer-valued coefficients
+which are actually used in a reversible implementation.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_steps">num_steps</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="info">info</A> [const&nbsp;<A HREF ="kdu$_info.html">kdu_kernel_step_info</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="coefficients">coefficients</A> [const&nbsp;<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="symmetric">symmetric</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="symmetric_extension">symmetric_extension</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="reversible">reversible</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__init__1.html"> prev </A>||<A HREF="kdu$rnels__is_$eversible.html"> next </A>|</P>
+</BODY>
+</HTML>

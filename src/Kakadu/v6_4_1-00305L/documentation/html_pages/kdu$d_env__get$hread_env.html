@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_env::get_current_thread_env) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$d_env__get_state.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_thread_env::get_current_thread_env</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_env.Get_current_thread_env</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;* get_current_thread_env(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_thread_env Get_current_thread_env(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$d_env.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the base object's 
+<A HREF="kdu$ntity__get$ad_entity.html">kdu_thread_entity::get_current_thread_entity</A> function, except that it returns a pointer to the
+calling thread's derived 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> class, rather than the base class, 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A>. The function may be invoked from the 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> object belonging to any thread in the same group.
+If the caller does not have any membership of this
+thread group, the function returns NULL.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$d_env__get_state.html"> prev </A>|</P>
+</BODY>
+</HTML>

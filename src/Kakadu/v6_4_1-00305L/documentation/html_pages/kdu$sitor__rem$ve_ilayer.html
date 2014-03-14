@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::remove_ilayer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__add$ve_ilayer.html"> prev </A>||<A HREF="kdu$sitor__cul$e_ilayers.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::remove_ilayer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Remove_ilayer</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> remove_ilayer(
+<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>&nbsp;ilayer_ref,
+<B>bool</B>&nbsp;permanent)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Remove_ilayer(
+Kdu_ilayer_ref&nbsp;ilayer_ref,
+boolean&nbsp;permanent)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to remove imagery layers from the
+current composition and/or to permanently destroy the
+resources allocated to layers. You can simultaneously
+remove all layers by passing in a null 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> instance &mdash; i.e., one whose 
+<A HREF="kdu$r_ref__is_null.html">kdu_ilayer_ref::is_null</A> function returns true. The 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> object's default constructor creates such an instance.
+</P><P>
+ Unused ilayers can also be implicitly removed in the
+process of adding new ilayers, by using the 
+<A HREF="kdu$sitor__set_frame.html">set_frame</A> function.
+</P><P>
+ As with any of the functions which change the composition,
+you should be sure at least to call 
+<A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> after invoking this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if anything was removed permanently or any active
+layer was moved to the inactive list.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ilayer_ref">ilayer_ref</A> [<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>]</H4><DIV CLASS="indented-text">
+<P>
+If this is a null 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> instance (i.e., if 
+<A HREF="kdu$r_ref__is_null.html">ilayer_ref.is_null</A> reports true), all ilayers are simultaneously removed.
+Otherwise, only the ilayer (if any) which matches 
+<A HREF="kdu$sitor__rem$ve_ilayer.html#ilayer_ref">ilayer_ref</A> is affected. It is OK to supply an 
+<A HREF="kdu$sitor__rem$ve_ilayer.html#ilayer_ref">ilayer_ref</A> which no longer corresponds to an active or inactive
+imagery layer, in which case the function does nothing.
+</P>
+</DIV>
+<H4><A NAME="permanent">permanent</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the ilayer is permanently destroyed, cleaning
+up its internal resources (they may be substantial).
+</P><P>
+ Otherwise, the ilayer is moved onto an inactive list,
+from which it may be retrieved later with the 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A> function (or indirectly using 
+<A HREF="kdu$sitor__set_frame.html">set_frame</A>). The ilayer may later be permanently removed from
+the inactive list by calling the present function at
+any time, with 
+<A HREF="kdu$sitor__rem$ve_ilayer.html#permanent">permanent</A> set to true. In addition, layers which have been inactive
+for some time may be destroyed by calling 
+<A HREF="kdu$sitor__cul$e_ilayers.html">cull_inactive_ilayers</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__add$ve_ilayer.html"> prev </A>||<A HREF="kdu$sitor__cul$e_ilayers.html"> next </A>|</P>
+</BODY>
+</HTML>

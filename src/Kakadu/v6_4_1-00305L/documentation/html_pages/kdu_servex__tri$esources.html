@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_servex::trim_resources) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_servex__close.html"> prev </A>||<A HREF="kdu_servex__get$m_ranges.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_servex::trim_resources</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_servex.Trim_resources</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> trim_resources(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Trim_resources(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$r+kdu_servex+h.html">"../apps/kdu_server/kdu_servex.h"</A>]</P><P><A HREF="kdu_servex.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The application should call this function whenever
+the number of threads which might be using this object
+decreases. This is because this the number of internal
+<A HREF="kdu_event.html">kdu_event</A> objects created to facilitate efficient implementation
+of the 
+<A HREF="kdu_servex__loc$estreams.html">lock_codestreams</A> and 
+<A HREF="kdu_servex__rel$estreams.html">release_codestreams</A> functions may grow until it reaches the minimum of
+the number of threads concurrently trying to lock codestreams
+and the number of codestreams in the source. When these
+synchronization objects are not in use, they are kept
+on a free list. In an application where there are a
+large number of source processing threads and a large
+number of sources, the number of synchronization objects
+in the system may grow to reach the product of the
+number of source threads and sources (unlikely, but
+conceivable). To avoid this happening, and ensure that
+the number of synchronization objects does not grow
+beyond the total number of source threads, each source
+thread should call the present function when it stops
+using the source (typically when it is closing a client
+connection).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_servex__close.html"> prev </A>||<A HREF="kdu_servex__get$m_ranges.html"> next </A>|</P>
+</BODY>
+</HTML>

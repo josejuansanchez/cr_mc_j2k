@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source::get_pos) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ource__seek.html"> prev </A>||<A HREF="kdu$ource__acc$ss_memory.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source::get_pos</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_source.Get_pos</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_pos(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_pos(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the location of the next byte to be read, relative
+to the current seek origin.
+</P><P>
+ For non-caching sources, the seek origin is the start
+of the code-stream, regardless of whether or not the
+code-stream appears at the start of its containing
+file.
+</P><P>
+ For sources supporting 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A>, the seek origin is the start of the code-stream only
+until such point as the first call to 
+<A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> or 
+<B>set_tile_header_scope</B> is called. After that, the seek origin is the first
+byte of the relevant precinct or tile-header (excluding
+the SOT marker segment).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Non-seekable sources may return a negative value (actually
+any value should be OK); seekable sources, however,
+must implement this function correctly.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ource__seek.html"> prev </A>||<A HREF="kdu$ource__acc$ss_memory.html"> next </A>|</P>
+</BODY>
+</HTML>

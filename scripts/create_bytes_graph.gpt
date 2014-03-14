@@ -1,0 +1,12 @@
+#set terminal fig textspecial color
+set terminal png
+set output "bytes.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'Bytes'
+
+#set yrange [0:60]
+set key bottom
+
+plot "paste.txt" using 1:2 with lines title 'Frame - Bytes' axes x1y1

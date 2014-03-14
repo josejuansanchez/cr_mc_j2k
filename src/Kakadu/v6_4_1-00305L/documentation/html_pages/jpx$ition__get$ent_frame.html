@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::get_last_persistent_frame) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rame_info.html"> prev </A>||<A HREF="jpx$ition__get$struction.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::get_last_persistent_frame</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Get_last_persistent_frame</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>jx_frame</B>&nbsp;* get_last_persistent_frame(
+<B>jx_frame</B>&nbsp;*&nbsp;frame_ref)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_last_persistent_frame(
+long&nbsp;frame_ref)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a reference to the most recent frame, preceding
+that referenced by the opaque 
+<A HREF="jpx$ition__get$ent_frame.html#frame_ref">frame_ref</A> pointer, which is marked as persistent. By following
+last persistent frame links, it is possible to walk
+backwards through the list of frames which must notionally
+be composed onto the composition surface prior to the
+current frame. Invoking 
+<A HREF="jpx$ition__get$rame_info.html">get_frame_info</A> on each of these frames will cause the supplied 
+<B>is_persistent</B> argument to be set to true.
+</P><P>
+ This function enables dynamic renderers such as that
+embodied by 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> to efficiently scan through the compositing dependencies,
+stopping as soon as it encounters a complete opaque
+background.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="frame_ref">frame_ref</A> [<B>jx_frame</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$rame_info.html"> prev </A>||<A HREF="jpx$ition__get$struction.html"> next </A>|</P>
+</BODY>
+</HTML>

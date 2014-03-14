@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::get_safe_expansion_factors) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__~kd$ompressor.html"> prev </A>||<A HREF="kdu$essor__fin$nder_dims.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::get_safe_expansion_factors</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Get_safe_expansion_factors</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> get_safe_expansion_factors(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*&nbsp;mapping,
+<B>int</B>&nbsp;single_component,
+<B>int</B>&nbsp;discard_levels,
+<B>double</B>&nbsp;&amp;&nbsp;min_prod,
+<B>double</B>&nbsp;&amp;&nbsp;max_x,
+<B>double</B>&nbsp;&amp;&nbsp;max_y,
+<B>kdu_component_access_mode</B>&nbsp;access_mode=KDU_WANT_OUTPUT_COMPONENTS)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Get_safe_expansion_factors(
+Kdu_codestream&nbsp;codestream,
+Kdu_channel_mapping&nbsp;mapping,
+int&nbsp;single_component,
+int&nbsp;discard_levels,
+double[]&nbsp;min_prod,
+double[]&nbsp;max_x,
+double[]&nbsp;max_y,
+int&nbsp;access_mode)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+As explained in connection with the 
+<A HREF="kdu$essor__start.html">start</A> function, the internal implementation is unable to
+handle truly massive resolution reductions. This function
+may be used to discover a safe lower bound for the
+amount of expansion (
+<B>expand_numerator</B> / 
+<B>expand_denominator</B>) passed to 
+<A HREF="kdu$essor__start.html">start</A>. This lower bound is returned via 
+<A HREF="kdu$essor__get$n_factors.html#min_prod">min_prod</A>, which holds a safe minimum value for the product
+of (
+<B>expand_numerator.x</B> * 
+<B>expand_numerator.y</B>) / (
+<B>expand_denominator.x</B> * 
+<B>expand_denominator.y</B>) in a subsequent call to 
+<A HREF="kdu$essor__start.html">start</A> or 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A>. The bound is quite conservative, leaving a large
+margin for error in the approximation of real scaling
+factors by rational numbers (numerator / denominator).
+</P><P>
+ It is also possible that the 
+<B>expand_numerator</B> and 
+<B>expand_denominator</B> parameters supplied to 
+<A HREF="kdu$essor__start.html">start</A> or 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A> represent too large an expansion factor, so that one
+or both dimensions approach or exceed 2^31. The internal
+coordinate management logic and resampling algorithm
+can fail under these circumstances. The 
+<A HREF="kdu$essor__get$n_factors.html#max_x">max_x</A> and 
+<A HREF="kdu$essor__get$n_factors.html#max_y">max_y</A> parameter are used to return safe upper bounds on
+the rational expansion factor represented by the 
+<B>expand_numerator</B> and 
+<B>expand_denominator</B> parameters passed to 
+<A HREF="kdu$essor__start.html">start</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="mapping">mapping</A> [<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="single_component">single_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="discard_levels">discard_levels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="min_prod">min_prod</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_x">max_x</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_y">max_y</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="access_mode">access_mode</A> [<B>kdu_component_access_mode</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__~kd$ompressor.html"> prev </A>||<A HREF="kdu$essor__fin$nder_dims.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_composition::add_frame) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$inal_iset.html"> prev </A>||<A HREF="jpx$ition__add$struction.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_composition::add_frame</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_composition.Add_frame</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>jx_frame</B>&nbsp;* add_frame(
+<B>int</B>&nbsp;duration,
+<B>int</B>&nbsp;repeat_count,
+<B>bool</B>&nbsp;is_persistent)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Add_frame(
+int&nbsp;duration,
+int&nbsp;repeat_count,
+boolean&nbsp;is_persistent)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ition.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a frame, specifying the number
+of milliseconds (
+<A HREF="jpx$ition__add_frame.html#duration">duration</A>) until the next frame (if any) is to be started. You
+must call this function at least once to cause a composition
+box to be written into the JPX file being generated
+by the 
+<A HREF="jpx_target.html">jpx_target</A> object which supplied the present interface.
+</P><P>
+ Each frame can be repeated to create simple animations
+or movies. To make more sophisticated animations, you
+may need to explicitly add multiple frames. Where a
+frame is repeated, the layer indices associated with
+the compositing layers within each frame may either
+remain fixed, or be advanced in a regular fashion.
+For more on this, see 
+<A HREF="jpx$ition__add$struction.html">add_instruction</A>.
+</P><P>
+ You must add at least one instruction to each new
+frame which you create.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The an opaque pointer which should be passed to 
+<A HREF="jpx$ition__add$struction.html">add_instruction</A> to define the individual compositing layers which
+will constitute the frame.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="duration">duration</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Time between this frame and the next, measured in milliseconds.
+If the frame is repeated, this is the time between
+the repetitions and the time between the last repetition
+and any frame which follows. You should not specify
+a zero-valued duration, except possibly for the last
+frame in the sequence. The duration of the last frame
+is completely irrelevant.
+</P>
+</DIV>
+<H4><A NAME="repeat_count">repeat_count</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If 0, the frame is not repeated. Otherwise, this is
+the number of times the frame is to be repeated. A
+negative value means that the frame should be repeated
+indefinitely. This only makes sense for the last frame
+to be added.
+</P>
+</DIV>
+<H4><A NAME="is_persistent">is_persistent</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the compositing instructions in this frame
+contribute to a background composition which is to
+be used by all subsequent frames. Otherwise, the instructions
+in this frame contribute only to the rendering of the
+frame itself.
+</P><P>
+ Although persistent frames sound like a good idea,
+you should try to avoid them. One reason for this is
+that they make it difficult for a player to start from
+an arbitrary frame in the sequence. Another more insidious
+reason is that persistent frames make it difficult
+to implement quality progressive compositions or dynamic
+rendering of regions of interest within a large composed
+image which cannot be fully stored in a buffer. The
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object goes to a lot of effort to figure out which
+persistent frames can be ignored in such a rendering
+process, but it is far better as a content creator
+to simply avoid the use of persistent frames, or to
+use only a single persistent background frame.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ition__get$inal_iset.html"> prev </A>||<A HREF="jpx$ition__add$struction.html"> next </A>|</P>
+</BODY>
+</HTML>

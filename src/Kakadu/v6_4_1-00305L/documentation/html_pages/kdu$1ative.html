@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_target_nonnative) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_target_nonnative</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_compressed_target_nonnative</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$arget.html">kdu_compressed_target</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This alternate base class is provided explicitly for
+binding to non-native languages. The 
+<A HREF="kdu$arget.html">kdu_compressed_target</A> class cannot be directly inherited by Java, C# or
+other non-native languages because it contains a pure
+virtual function 
+<B>write</B>, which cannot be safely implemented across language
+boundaries. The reason for this is that the 
+<B>write</B> function accepts an unsafe memory buffer (i.e., an
+array without explicit dimensions) from which the data
+is supposed to be extracted by the implementing class.
+</P><P>
+ The present class gets around that problem by providing
+an implementation for 
+<B>write</B> which invokes a 
+<A HREF="kdu$1ative__post_write.html">post_write</A> member function that is inheritable. The 
+<A HREF="kdu$1ative__post_write.html">post_write</A> function's implementation in the derived class should
+invoke 
+<A HREF="kdu$1ative__pull_data.html">pull_data</A> to bring the data into the foreign language implementation
+via an explicitly dimensioned array. Consult the relevant
+function descriptions for more on this.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$1ative__kdu$onnative.html">kdu_compressed_target_nonnative</A> {<U>Java:</U> Kdu_compressed_target_nonnative}
+</P>
+<P><A HREF="kdu$1ative__sta$_rewrite.html">start_rewrite</A> [CALLBACK, virtual] {<U>Java:</U> Start_rewrite}
+</P>
+<P><A HREF="kdu$1ative__end_rewrite.html">end_rewrite</A> [CALLBACK, virtual] {<U>Java:</U> End_rewrite}
+</P>
+<P><A HREF="kdu$1ative__set$get_size.html">set_target_size</A> [CALLBACK, virtual] {<U>Java:</U> Set_target_size}
+</P>
+<P><A HREF="kdu$1ative__post_write.html">post_write</A> [CALLBACK, virtual] {<U>Java:</U> Post_write}
+</P>
+<P><A HREF="kdu$1ative__pull_data.html">pull_data</A> {<U>Java:</U> Pull_data}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

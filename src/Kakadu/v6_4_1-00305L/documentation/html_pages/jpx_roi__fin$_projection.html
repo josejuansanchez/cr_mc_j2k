@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::find_boundary_projection) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__contains.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_roi::find_boundary_projection</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Find_boundary_projection</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> find_boundary_projection(
+<B>double</B>&nbsp;x0,
+<B>double</B>&nbsp;y0,
+<B>double</B>&nbsp;&amp;&nbsp;xp,
+<B>double</B>&nbsp;&amp;&nbsp;yp,
+<B>double</B>&nbsp;max_distance,
+<B>double</B>&nbsp;tolerance=0.01)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Find_boundary_projection(
+double&nbsp;x0,
+double&nbsp;y0,
+double[]&nbsp;xp,
+double[]&nbsp;yp,
+double&nbsp;max_distance,
+double&nbsp;tolerance)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This is quite a sophisticated function. It's objective
+is to find the Euclidean projection of point (
+<A HREF="jpx_roi__fin$_projection.html#x0">x0</A>,
+<A HREF="jpx_roi__fin$_projection.html#y0">y0</A>), onto the boundary of the region, identifying the
+edge on which the projection is found and returning
+the projected point's coordinates via 
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A> and 
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A>. The function also compares the Euclidean distance
+between (
+<A HREF="jpx_roi__fin$_projection.html#x0">x0</A>,
+<A HREF="jpx_roi__fin$_projection.html#y0">y0</A>) and the nearest point on the region with the supplied
+value of 
+<A HREF="jpx_roi__fin$_projection.html#max_distance">max_distance</A>. If this distance is exceeded, the function returns
+-1 and the 
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A>, 
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A> values are undefined. This is useful on a number of
+levels, but especially helps to improve efficiency,
+since it the iterative elliptical projection algorithm
+to be terminated early if we are sure that the distance
+will turn out to exceed 
+<A HREF="jpx_roi__fin$_projection.html#max_distance">max_distance</A>.
+</P><P>
+ For elliptical regions, the problem solved here is
+not trivial and the algorithm could potentially be
+more efficient. For quadrilateral regions, the function
+projects onto each edge in turn, determining the location
+which is closest to (
+<A HREF="jpx_roi__fin$_projection.html#x0">x0</A>,
+<A HREF="jpx_roi__fin$_projection.html#y0">y0</A>).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The function return -1 if the 
+<A HREF="jpx_roi__fin$_projection.html#max_distance">max_distance</A> threshold is exceeded. Otherwise, it returns a value
+in the range 0 to 3, identifying the edge on which
+(
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A>,
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A>) is located.
+</P><P>
+ For quadrilateral regions, the returned edge index
+has the same interpretation as it does in the 
+<A HREF="jpx_roi__che$ntersection.html">check_edge_intersection</A> function. Specifically, edge p runs from vertex p
+to vertex (p+1) mod 4.
+</P><P>
+ For simple rectangular regions, the function does
+the same thing as for general quadrilaterals, treating
+the top-left corner as vertex 0, the top right hand
+corner as vertex 1 and so forth in the usual clockwise
+order.
+</P><P>
+ For elliptical regions, there is only one (curved)
+edge, whose index is 0.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="x0">x0</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="y0">y0</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="xp">xp</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="yp">yp</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_distance">max_distance</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="tolerance">tolerance</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+<P>
+Tolerance of the iterative projection algorithm used
+for elliptical regions. The tolerance can be precisely
+interpreted as follows. The returned (
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A>,
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A>) location is the closest point (in the Euclidean sense)
+to (
+<A HREF="jpx_roi__fin$_projection.html#x0">x0</A>,
+<A HREF="jpx_roi__fin$_projection.html#y0">y0</A>) on a potentially scaled version of the true elliptical
+boundary, where the scaling factor is so close to 1
+that (
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A>,
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A>) is guaranteed to be within a distance of 
+<A HREF="jpx_roi__fin$_projection.html#tolerance">tolerance</A> (horizontally and vertically) of a point on the boundary
+of the true ellipse. For very small values of 
+<A HREF="jpx_roi__fin$_projection.html#tolerance">tolerance</A> this is essentially the same as a tolerance on the
+Euclidean distance between (
+<A HREF="jpx_roi__fin$_projection.html#xp">xp</A>,
+<A HREF="jpx_roi__fin$_projection.html#yp">yp</A>) and the true projection onto the elliptical boundary.
+</P><P>
+ This argument has no effect for non-elliptical regions.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__contains.html"> prev </A>|</P>
+</BODY>
+</HTML>

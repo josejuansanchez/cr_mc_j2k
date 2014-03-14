@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::get_ellipse) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__get$adrilateral.html"> prev </A>||<A HREF="jpx_roi__get_ellipse__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi::get_ellipse</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Get_ellipse</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jpx_roi__get_ellipse__2.html">2</A></B></P>
+<P CLASS="function-text"><B>bool</B> get_ellipse(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;centre,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;extent,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;skew)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_ellipse(
+Kdu_coords&nbsp;centre,
+Kdu_coords&nbsp;extent,
+Kdu_coords&nbsp;skew)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the region of interest is an ellipse;
+otherwise, the parameters are not touched. The parameters
+have the same interpretation as they do in the first
+version of the 
+<A HREF="jpx_roi__init_ellipse__1.html">init_ellipse</A> function. Note that 
+<A HREF="kdu_coords.html#x">extent.x</A> and 
+<A HREF="kdu_coords.html#y">extent.y</A> are the Ho and Vo values discussed in connection with
+that function. If the 
+<A HREF="jpx_roi__get_ellipse__1.html#skew">skew</A> vector is (0,0), the region is a simple non-oriented
+ellipse, defined by (x-Cx)^2/Wo^2 + (y-Cy)^2/Ho^2 =
+1.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="centre">centre</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="extent">extent</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="skew">skew</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_roi__get$adrilateral.html"> prev </A>||<A HREF="jpx_roi__get_ellipse__2.html"> next </A>|</P>
+</BODY>
+</HTML>

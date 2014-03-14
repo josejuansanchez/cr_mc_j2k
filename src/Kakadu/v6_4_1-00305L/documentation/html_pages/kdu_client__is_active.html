@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::is_active) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__add_queue.html"> prev </A>||<A HREF="kdu_client__is_alive.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::is_active</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Is_active</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> is_active(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_active(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true from the point at which 
+<A HREF="kdu_client__connect.html">connect</A> is called until the 
+<A HREF="kdu_client__close.html">close</A> function is called. This means that the function may
+return true before a network connection with the server
+has actually been established, and it may return true
+after the network connection has been closed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu_client__add_queue.html"> prev </A>||<A HREF="kdu_client__is_alive.html"> next </A>|</P>
+</BODY>
+</HTML>

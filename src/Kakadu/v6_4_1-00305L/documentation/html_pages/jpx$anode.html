@@ -1,0 +1,294 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jpx_metanode</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jpx_metanode</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object is used to interact with an internal metadata
+tree, which is created to reflect the associations
+between metadata in a JPX file. By metadata, here we
+mean all of the box types described in connection with
+the 
+<A HREF="jpx$nager__set$ox_filter.html">jpx_meta_manager::set_box_filter</A> function, plus any association (
+<B>asoc</B>) boxes and the first sub-box of any association box.
+Boxes which are not represented by this object are
+those which are directly related to rendering the compressed
+imagery. Typical examples of boxes managed by the object
+are XML boxes, number list boxes, label boxes, ROI
+description boxes, UUID boxes, IP-rights boxes and
+Cross-Reference boxes.
+</P><P>
+ Each intermediate node in the tree (i.e. everything
+other than the root and the leaves) corresponds to
+an association relationship, which could be represented
+using a JPX association (
+<B>asoc</B>) box. In some cases, the relationship might be represented
+by some other means, such as inclusion of the relevant
+metadata within a codestream header or compositing
+layer header box, but it is easiest to understand the
+tree structure by assuming that each intermediate node
+corresponds to exactly one association box. The first
+sub-box of an association box plays a special role,
+describing an entity to which all subsequent sub-boxes
+are to be associated. These subsequent sub-boxes are
+represented by the node's descendants (branches in
+the tree), while the contents of the first box are
+considered to belong to the node itself.
+</P><P>
+ In cases where the first sub-box of an association
+is itself an association box, it is unclear exactly
+what association was intended. For this reason, we
+do not include the first sub-box of an association
+amongst the descendants of a node. All other sub-boxes
+are treated as descendants (branches) whose nodes may
+be further split if they contain association boxes.
+</P><P>
+ There are two important cases for the first sub-box
+of an association box, as follows:
+</P><UL><LI>
+If the first sub-box of an association is a number
+list (
+<B>nlst</B>) box, all descendants of the node are associated with
+the image entities listed in the number list box. These
+entities may be codestreams, compositing layers, or
+the entire composited image.
+</LI><LI>
+If the first sub-box of an association is an ROI description
+(
+<B>roid</B>) box, all descendants of the node are associated with
+the rectangular and/or elliptical regions described
+by that box.
+</LI></UL><P>
+ The above two special cases are represented explicitly
+and the association parameters may be explicitly created
+and retrieved via the various member functions offered
+by the 
+<A HREF="jpx$anode.html">jpx_metanode</A> interface.
+</P><P>
+ As mentioned previously, the associations embodied
+by an intermediate node in the metadata tree might
+not necessarily arise from the appearance of an 
+<B>asoc</B> box within the JPX file. In particular, wherever any
+of the metadata boxes mentioned above appears within
+a codestream header or a compositing layer header box,
+the metadata will be treated as though it had been
+contained within an 
+<B>asoc</B> box whose first sub-box was a number list box which
+referenced the relevant codestream or compositing layer.
+When the information in a 
+<A HREF="jpx$anode.html">jpx_metanode</A> tree is used to write a new JPX file, however, all
+associations will be formed using 
+<B>asoc</B> boxes, rather than by inclusion within codestream
+header or compositing layer header boxes.
+</P><P>
+ Leaves in the tree have no descendants. A leaf node
+represents a single JP2 box, which is not further divided
+through the use of 
+<B>asoc</B> boxes.
+</P><P>
+ In the above, we have described intermediate nodes
+and leaf nodes. The one additional type of node is
+the tree root, to which access is granted using 
+<A HREF="jpx$nager__access_root.html">jpx_meta_manager::access_root</A>. All descendants of the root node correspond to metadata
+which (at least notionally) resides at the top level
+of the file. Whereas intermediate nodes have their
+own box, which corresponds to the first sub-box of
+an association box (whether real or implied), the root
+node has no box of its own; it has only descendants
+and its box-type is returned as 0.
+</P><P>
+ The 
+<A HREF="jpx$anode.html">jpx_metanode</A> interface is designed to meet the needs of file readers
+and file writers, including incremental file parsers,
+which may be accessing a JPX data source which is being
+supplied by a dynamic cache whose contents are written
+in some arbitrary order by a remote JPIP server. Both
+reading and writing functions may be used together
+to interactively edit an existing metadata tree. For
+this reason, provision is made to read boxes which
+are described by any of the methods allowed during
+writing, including boxes which are described by reference
+to an existing node (possibly in another metadata tree)
+and boxes which are described by placeholders which
+are used to defer box generation until the file is
+actually being written.
+</P><P>
+ For the added convenience of incremental readers,
+editors and other interesting applications which may
+interact with JP2/JPX metadata, the 
+<A HREF="jpx$nager.html">jpx_meta_manager</A> object provides methods for retrieving metanodes based
+on the file address of their constituent boxes, for
+enumerating metanodes based on their association with
+image entities and/or regions of interest, and for
+efficiently scanning through metanodes which have been
+recently parsed from the data source or changed by
+editing operations. Furthermore, the 
+<A HREF="jpx$anode.html">jpx_metanode</A> interface provides methods for identifying whether
+a node has been changed by editing operations and for
+saving an application-defined pointer (usually a pointer
+into some data structure maintained by the application).
+Together, these features can be used to efficiently
+track changes in the metadata structure due to editing
+or incremental reading of a data source (typically,
+as it becomes available from a dynamic cache).
+</P><P>
+ From version 6.2, Kakadu also provides extensive support
+for discovery, creating, copying and writing metadata
+links. A metadata link is represented in the JPX file
+using a cross-reference box, which points to the contents
+of another box. Cross-reference boxes may potentially
+be used for many things and in many ways, but Kakadu
+exploits them to represent links between nodes in the
+metadata tree, allowing for the construction of arbitrary
+graphs. The most natural interpretation of a cross-reference
+box which points to another box is that the referenced
+box should be treated as though it appeared in place
+of the cross-reference box. Keeping this in mind, if
+a cross-reference box points to an 
+<B>asoc</B> box, Kakadu treats the cross-reference as a link to
+the entire sub-tree embedded within that asoc box &mdash;
+such links are termed "Alternate Child" links and assigned
+a 
+<B>jpx_metanode_link_type</B> of 
+<A HREF="globals.html#JPX_ALTERNATE_CHILD_LINK">JPX_ALTERNATE_CHILD_LINK</A>. Cross-references which point to leaves in the metadata
+tree (i.e., to non-asoc boxes which are not the first
+sub-box of an asoc box) are also interpreted as "Alternate
+Child" links. Applications may choose to follow alternate
+child links to the 
+<A HREF="jpx$anode.html">jpx_metanode</A> to which they point, interpreting that node and all
+its descendants as though they were additional descendants
+of the node in which the link (i.e., the cross-reference)
+is found.
+</P><P>
+ Kakadu also defines two other types of cross-reference
+linking relationships, known as "Grouping links" and
+"Alternate Parent" links, whose semantics are useful
+in constructing metadata graphs. Although the interpretation
+of internal cross-references is not made clear in the
+standard itself, Kakadu's interpretations and usage
+are natural and intuitive. For more information on
+links and link types, see the 
+<A HREF="jpx$anode__get_link.html">get_link</A> and 
+<A HREF="jpx$anode__add_link.html">add_link</A> member functions, as well as the powerful graph parsing
+function, 
+<A HREF="jpx$anode__find_path_to.html">find_path_to</A>.
+</P><P>
+ Note carefully that objects of the 
+<A HREF="jpx$anode.html">jpx_metanode</A> class are merely interfaces to an internal object,
+which cannot be directly created by an application.
+Use the member functions offered by 
+<A HREF="jpx$nager.html">jpx_meta_manager</A> to obtain a non-empty interface.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jpx$anode__jpx_metanode__1.html">jpx_metanode</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jpx$anode__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jpx$anode__operator!.html">operator!</A></P>
+<P><A HREF="jpx$anode__operator==.html">operator==</A></P>
+<P><A HREF="jpx$anode__operator!=.html">operator!=</A></P>
+<P><A HREF="jpx$anode__get$list_info.html">get_numlist_info</A> {<U>Java:</U> Get_numlist_info}
+</P>
+<P><A HREF="jpx$anode__get$destreams.html">get_numlist_codestreams</A> {<U>Java:</U> Get_numlist_codestreams}
+</P>
+<P><A HREF="jpx$anode__get$st_layers.html">get_numlist_layers</A> {<U>Java:</U> Get_numlist_layers}
+</P>
+<P><A HREF="jpx$anode__get$odestream.html">get_numlist_codestream</A> {<U>Java:</U> Get_numlist_codestream}
+</P>
+<P><A HREF="jpx$anode__get$ist_layer.html">get_numlist_layer</A> {<U>Java:</U> Get_numlist_layer}
+</P>
+<P><A HREF="jpx$anode__test_numlist.html">test_numlist</A> {<U>Java:</U> Test_numlist}
+</P>
+<P><A HREF="jpx$anode__get$m_regions.html">get_num_regions</A> {<U>Java:</U> Get_num_regions}
+</P>
+<P><A HREF="jpx$anode__get_regions.html">get_regions</A></P>
+<P><A HREF="jpx$anode__get_region.html">get_region</A> {<U>Java:</U> Get_region}
+</P>
+<P><A HREF="jpx$anode__get_width.html">get_width</A> {<U>Java:</U> Get_width}
+</P>
+<P><A HREF="jpx$anode__get$nding_box.html">get_bounding_box</A> {<U>Java:</U> Get_bounding_box}
+</P>
+<P><A HREF="jpx$anode__test_region.html">test_region</A> {<U>Java:</U> Test_region}
+</P>
+<P><A HREF="jpx$anode__get_box_type.html">get_box_type</A> {<U>Java:</U> Get_box_type}
+</P>
+<P><A HREF="jpx$anode__get_label.html">get_label</A> {<U>Java:</U> Get_label}
+</P>
+<P><A HREF="jpx$anode__get_uuid.html">get_uuid</A> {<U>Java:</U> Get_uuid}
+</P>
+<P><A HREF="jpx$anode__get$reference.html">get_cross_reference</A> {<U>Java:</U> Get_cross_reference}
+</P>
+<P><A HREF="jpx$anode__get_link.html">get_link</A> {<U>Java:</U> Get_link}
+</P>
+<P><A HREF="jpx$anode__enum_linkers.html">enum_linkers</A> {<U>Java:</U> Enum_linkers}
+</P>
+<P><A HREF="jpx$anode__get_existing.html">get_existing</A></P>
+<P><A HREF="jpx$anode__ope$_existing.html">open_existing</A> {<U>Java:</U> Open_existing}
+</P>
+<P><A HREF="jpx$anode__get_delayed.html">get_delayed</A></P>
+<P><A HREF="jpx$anode__cou$scendants.html">count_descendants</A> {<U>Java:</U> Count_descendants}
+</P>
+<P><A HREF="jpx$anode__get$escendant.html">get_descendant</A> {<U>Java:</U> Get_descendant}
+</P>
+<P><A HREF="jpx$anode__fin$t_by_type.html">find_descendant_by_type</A> {<U>Java:</U> Find_descendant_by_type}
+</P>
+<P><A HREF="jpx$anode__che$_complete.html">check_descendants_complete</A> {<U>Java:</U> Check_descendants_complete}
+</P>
+<P><A HREF="jpx$anode__get$nce_index.html">get_sequence_index</A> {<U>Java:</U> Get_sequence_index}
+</P>
+<P><A HREF="jpx$anode__get_parent.html">get_parent</A> {<U>Java:</U> Get_parent}
+</P>
+<P><A HREF="jpx$anode__find_path_to.html">find_path_to</A> {<U>Java:</U> Find_path_to}
+</P>
+<P><A HREF="jpx$anode__cha$ge_parent.html">change_parent</A> {<U>Java:</U> Change_parent}
+</P>
+<P><A HREF="jpx$anode__add_numlist.html">add_numlist</A> {<U>Java:</U> Add_numlist}
+</P>
+<P><A HREF="jpx$anode__add_regions.html">add_regions</A> {<U>Java:</U> Add_regions}
+</P>
+<P><A HREF="jpx$anode__add_label.html">add_label</A> {<U>Java:</U> Add_label}
+</P>
+<P><A HREF="jpx$anode__cha$_to_label.html">change_to_label</A> {<U>Java:</U> Change_to_label}
+</P>
+<P><A HREF="jpx$anode__add_delayed.html">add_delayed</A></P>
+<P><A HREF="jpx$anode__cha$o_delayed.html">change_to_delayed</A></P>
+<P><A HREF="jpx$anode__add_link.html">add_link</A> {<U>Java:</U> Add_link}
+</P>
+<P><A HREF="jpx$anode__cha$e_to_link.html">change_to_link</A> {<U>Java:</U> Change_to_link}
+</P>
+<P><A HREF="jpx$anode__add_copy.html">add_copy</A> {<U>Java:</U> Add_copy}
+</P>
+<P><A HREF="jpx$anode__delete_node.html">delete_node</A> {<U>Java:</U> Delete_node}
+</P>
+<P><A HREF="jpx$anode__is_changed.html">is_changed</A> {<U>Java:</U> Is_changed}
+</P>
+<P><A HREF="jpx$anode__anc$r_changed.html">ancestor_changed</A> {<U>Java:</U> Ancestor_changed}
+</P>
+<P><A HREF="jpx$anode__is_deleted.html">is_deleted</A> {<U>Java:</U> Is_deleted}
+</P>
+<P><A HREF="jpx$anode__touch.html">touch</A> {<U>Java:</U> Touch}
+</P>
+<P><A HREF="jpx$anode__set$state_ref.html">set_state_ref</A></P>
+<P><A HREF="jpx$anode__get$state_ref.html">get_state_ref</A> {<U>Java:</U> Get_state_ref}
+</P>
+<P><A HREF="jpx$anode__gen$e_metareq.html">generate_metareq</A> {<U>Java:</U> Generate_metareq}
+</P>
+<P><A HREF="jpx$anode__gen$k_metareq.html">generate_link_metareq</A> {<U>Java:</U> Generate_link_metareq}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_header::read) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_header__~jp2_header.html"> prev </A>||<A HREF="jp2_header__write.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_header::read</A></H1>
+<P CLASS="function-text"><B>bool</B> read(
+<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*&nbsp;input)</P>
+<P>[Declared in <A HREF="++++apps+jp2+jp2_shared+h.html">"../apps/jp2/jp2_shared.h"</A>]</P><P><A HREF="jp2_header.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Parses information from an open JP2 Header box. The
+supplied 
+<A HREF="jp2_header__read.html#input">input</A> box must already have a type code equal to 
+<A HREF="globals.html#jp2_header_4cc">jp2_header_4cc</A>. Generates an error (through 
+<A HREF="kdu_error.html">kdu_error</A>) if a parsing error occurs.
+</P><P>
+ Upon successful completion, the function automatically
+closes the open 
+<A HREF="jp2_header__read.html#input">input</A> box which is received on entry and returns true.
+</P><P>
+ If the 
+<A HREF="jp2_header__read.html#input">input</A> box derives its information from a 
+<B>kdu_cache2</B> object, one or more of the required sub-boxes might
+not yet be available from the cache. In this event,
+the function returns false, leaving the 
+<A HREF="jp2_header__read.html#input">input</A> box open. In this case, you may call the function
+again, with the same open 
+<A HREF="jp2_header__read.html#input">input</A> box, not altering its state in any way, once more
+information is available in the cache. You may continue
+calling the function in this way, until it returns
+true, or a parsing error is encountered, causing a
+message to be delivered through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="input">input</A> [<A HREF ="jp2$t_box.html">jp2_input_box</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_header__~jp2_header.html"> prev </A>||<A HREF="jp2_header__write.html"> next </A>|</P>
+</BODY>
+</HTML>

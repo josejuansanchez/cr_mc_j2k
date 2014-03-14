@@ -1,0 +1,20 @@
+set term pngcairo dashed
+set output "ssim.png"
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'SSIM'
+
+set key out bottom
+
+plot "paste_1000.txt" using 1:5 with lines lt 1 lc 1 title 'cr+mc 1K'  axes x1y1, \
+	 "paste_1000.txt" using 1:6 with lines lt 12 lc 1 title 'trunc 1K'  axes x1y1, \
+	 "paste_11000.txt" using 1:5 with lines lt 1 lc 2 title 'cr+mc 11K' axes x1y1, \
+	 "paste_11000.txt" using 1:6 with lines lt 2 lc 2 title 'trunc 11K' axes x1y1, \
+	 "paste_21000.txt" using 1:5 with lines lt 1 lc 3 title 'cr+mc 21K' axes x1y1, \
+	 "paste_21000.txt" using 1:6 with lines lt 2 lc 3 title 'trunc 21K' axes x1y1, \
+	 "paste_31000.txt" using 1:5 with lines lt 1 lc 4 title 'cr+mc 31K' axes x1y1, \
+	 "paste_31000.txt" using 1:6 with lines lt 2 lc 4 title 'trunc 31K' axes x1y1, \
+	 "paste_41000.txt" using 1:5 with lines lt 1 lc 5 title 'cr+mc 41K' axes x1y1, \
+	 "paste_41000.txt" using 1:6 with lines lt 2 lc 5 title 'trunc 41K' axes x1y1, \
+	 "paste_51000.txt" using 1:5 with lines lt 1 lc 8 title 'cr+mc 51K' axes x1y1, \
+	 "paste_51000.txt" using 1:6 with lines lt 2 lc 8 title 'trunc 51K' axes x1y1	 

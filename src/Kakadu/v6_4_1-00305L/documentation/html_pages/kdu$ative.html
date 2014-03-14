@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source_nonnative) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source_nonnative</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_compressed_source_nonnative</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu$ource.html">kdu_compressed_source</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This alternate base class is provided explicitly for
+binding to non-native languages. The 
+<A HREF="kdu$ource.html">kdu_compressed_source</A> class cannot be directly inherited by Java, C# or
+other non-native languages because it contains a pure
+virtual function 
+<B>read</B>, which cannot be safely implemented across language
+boundaries. The reason for this is that the 
+<B>read</B> function accepts an unsafe memory buffer (i.e., an
+array without explicit dimensions) into which the data
+is supposed to be written by the implementing class.
+</P><P>
+ The present class gets around that problem by providing
+an implementation for 
+<B>read</B> which invokes a 
+<A HREF="kdu$ative__post_read.html">post_read</A> member function that is inheritable. The 
+<A HREF="kdu$ative__post_read.html">post_read</A> function's implementation in the derived class should
+invoke 
+<A HREF="kdu$ative__push_data.html">push_data</A> to pass the requested data down into the native code
+via an explicitly dimensioned array. Consult the relevant
+function descriptions for more on this.
+</P><P>
+ Do not forget that your derived class must override
+the 
+<A HREF="kdu$ative__get$abilities.html">get_capabilities</A> function, which returns an otherwise illegal value
+of 0 unless overridden.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ative__kdu$nonnative.html">kdu_compressed_source_nonnative</A> {<U>Java:</U> Kdu_compressed_source_nonnative}
+</P>
+<P><A HREF="kdu$ative__get$abilities.html">get_capabilities</A> [CALLBACK, virtual] {<U>Java:</U> Get_capabilities}
+</P>
+<P><A HREF="kdu$ative__seek.html">seek</A> [CALLBACK, virtual] {<U>Java:</U> Seek}
+</P>
+<P><A HREF="kdu$ative__get_pos.html">get_pos</A> [CALLBACK, virtual] {<U>Java:</U> Get_pos}
+</P>
+<P><A HREF="kdu$ative__set$der_scope.html">set_tileheader_scope</A> [CALLBACK, virtual] {<U>Java:</U> Set_tileheader_scope}
+</P>
+<P><A HREF="kdu$ative__set$nct_scope.html">set_precinct_scope</A> [CALLBACK, virtual] {<U>Java:</U> Set_precinct_scope}
+</P>
+<P><A HREF="kdu$ative__post_read.html">post_read</A> [CALLBACK, virtual] {<U>Java:</U> Post_read}
+</P>
+<P><A HREF="kdu$ative__push_data.html">push_data</A> {<U>Java:</U> Push_data}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

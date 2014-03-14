@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::get_istream_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__acc$odestream.html"> prev </A>||<A HREF="kdu$sitor__get$ayer_info.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::get_istream_info</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Get_istream_info</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_istream_info(
+<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>&nbsp;istream_ref,
+<B>int</B>&nbsp;&amp;&nbsp;codestream_idx,
+<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>&nbsp;*&nbsp;ilayer_ref=NULL,
+<B>int</B>&nbsp;components_in_use[]=NULL,
+<B>int</B>&nbsp;max_components_in_use=4,
+<B>int</B>&nbsp;*&nbsp;principle_component_idx=NULL,
+<B>float</B>&nbsp;*&nbsp;principle_component_scale_x=NULL,
+<B>float</B>&nbsp;*&nbsp;principle_component_scale_y=NULL,
+<B>bool</B>&nbsp;*&nbsp;transpose=NULL,
+<B>bool</B>&nbsp;*&nbsp;vflip=NULL,
+<B>bool</B>&nbsp;*&nbsp;hflip=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_istream_info(
+Kdu_istream_ref&nbsp;istream_ref,
+int[]&nbsp;codestream_idx,
+Kdu_ilayer_ref&nbsp;ilayer_ref,
+int[]&nbsp;components_in_use,
+int&nbsp;max_components_in_use,
+int[]&nbsp;principle_component_idx,
+float[]&nbsp;principle_component_scale_x,
+float[]&nbsp;principle_component_scale_y,
+boolean[]&nbsp;transpose,
+boolean[]&nbsp;vflip,
+boolean[]&nbsp;hflip)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function with the 
+<A HREF="kdu$m_ref.html">kdu_istream_ref</A> instance returned by a previous call to 
+<A HREF="kdu$sitor__get$t_istream.html">get_next_istream</A>, or any other function which returns an istream reference,
+to obtain information concerning the associated codestream,
+within the context of its containing imagery layer.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if 
+<A HREF="kdu$sitor__get$ream_info.html#istream_ref">istream_ref</A> fails to identify any valid istream, or if it identifies
+an istream which is not currently active, in the sense
+identified by 
+<A HREF="kdu$sitor__get$t_istream.html">get_next_istream</A>. The only thing you can do with inactive istreams
+is invoke 
+<A HREF="kdu$sitor__acc$odestream.html">access_codestream</A> to learn about the inactive codestream resource.
+</P><P>
+ Otherwise, the function returns an integer N (or -N
+&mdash; see below), where N is the number of distinct
+image components from this codestream which are used
+by the istream. In the special case where the underlying
+istream is being accessed directly (must have been
+created using 
+<A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A>) and its image components are being rendered directly
+as "codestream components", as opposed to "output image
+components", this function returns a -ve integer -N.
+Output image components are those obtained after application
+of any inverse multi-component transform, corresponding
+to a 
+<B>kdu_component_access_mode</B> value of 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>, as passed to 
+<A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A>, while codestream image components correspond to the
+value 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A>. In most cases, applications will be using output
+image components.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="istream_ref">istream_ref</A> [<A HREF ="kdu$m_ref.html">kdu_istream_ref</A>]</H4><DIV CLASS="indented-text">
+<P>
+If this is a "null" instance or is not found to correspond
+to any active istream, the function returns false and
+does not modify any of the arguments.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the absolute index of the JPEG2000 code-stream
+associated with this layer codestream, as it appears
+within its data source.
+</P>
+</DIV>
+<H4><A NAME="ilayer_ref">ilayer_ref</A> [<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an instance of the 
+<A HREF="kdu$sitor__get$ream_info.html#ilayer_ref">ilayer_ref</A> class which identifies the imagery layer to which
+this istream belongs. Each and every istream is associated
+with exactly one ilayer. You can discover more information
+about the istream by querying its ilayer via the 
+<A HREF="kdu$sitor__get$ayer_info.html">get_ilayer_info</A> function.
+</P>
+</DIV>
+<H4><A NAME="components_in_use">components_in_use[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument must point to an array with
+at least 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A> entries. The array's entries are filled out with the
+the zero-based indices of the image components which
+are actually being used within this code-stream.
+</P><P>
+ If the function returns a positive integer N, the
+first N array entries will be filled out with N distinct
+non-negative integers, identifying the indices of the
+output image components which are in use &mdash; note,
+however, that at most 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A> etries will actually be written, even if N is larger.
+If N is smaller than 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A>, the last 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A>-N entries in the array will be set to -1.
+</P><P>
+ If the function returns a negative integer -N, the
+first N array entries will be filled out with N distinct
+non-negative integers, identifying the indices of the
+codestream image components which are in use. Again,
+the number of written entries will not exceed 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A> and if N is smaller than 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A>, the final 
+<A HREF="kdu$sitor__get$ream_info.html#max_components_in_use">max_components_in_use</A>-N entries will be set to -1.
+</P><P>
+ To understand the distinction between output components
+and codestream components (the ones produced by inverse
+spatial wavelet transformation), see the description
+of the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> function. It suffices here to note that the set of
+output components which are being used may be larger
+or smaller than the corresponding set of codestream
+image components. If 
+<A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A> was used to create this istream and it was supplied
+with an 
+<B>access_mode</B> argument of 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A>, the imagery is rendered directly using one or more
+codestream image components; otherwise, the components
+in question are output image components.
+</P>
+</DIV>
+<H4><A NAME="max_components_in_use">max_components_in_use</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Provides the size of the array supplied to the 
+<A HREF="kdu$sitor__get$ream_info.html#components_in_use">components_in_use</A> argument. The current implementation will never need
+a value greater than 4 to return all relevant information,
+since at most 3 colour channels and 1 opacity channel
+are employed. However, in the future, it is possible
+that separate opacity channels might be supported.
+</P>
+</DIV>
+<H4><A NAME="principle_component_idx">principle_component_idx</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the index
+of the image component of this codestream whose dimensions
+form the basis of scaling decisions for rendering purposes.
+If there are multiple components being used, this will
+generally be the component which is used to generate
+the first colour channel supplied to any colour mapping
+process. The interpretation of this component index
+is identical to that of the component indices returned
+via the 
+<A HREF="kdu$sitor__get$ream_info.html#components_in_use">components_in_use</A> argument (depends on whether the function return value
+is +ve or -ve).
+</P>
+</DIV>
+<H4><A NAME="principle_component_scale_x">principle_component_scale_x</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the amount
+by which the principle image component is horizontally
+scaled to obtain its contributions to the composited
+result, assuming that 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> is called with a 
+<B>scale</B> value of 1.0. The actual component scaling factor
+can be deduced by multiplying the returned value by
+the global scaling factor supplied to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>. The value returned here does not rely upon a successful
+call to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> ever having been made and is independent of any geometric
+transformations requested in a call to 
+<A HREF="kdu$sitor__set_scale.html">set_scale</A>. Thus, if you are really rendering (or intending to
+render) the surface in a transposed fashion, you should
+swap the horizontal and vertical scales returned by
+this function in order to obtain scaling factors which
+are appropriate for your intended rendering orientation.
+</P>
+</DIV>
+<H4><A NAME="principle_component_scale_y">principle_component_scale_y</A> [<B>float</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Same as 
+<A HREF="kdu$sitor__get$ream_info.html#principle_component_scale_x">principle_component_scale_x</A>, but used to return the vertical scaling factor associated
+with the principle image component.
+</P>
+</DIV>
+<H4><A NAME="transpose">transpose</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+As for 
+<A HREF="kdu$sitor__get$ream_info.html#principle_component_scale_x">principle_component_scale_x</A>, this argument (if non-NULL) is used to return an
+indication of whether the codestream would be subjected
+to transposition, in the event that 
+<B>scale</B> is called without any additional transposition or
+flipping &mdash; i.e., nominal scale and geometry.
+This is the same value which was passed in for the
+<A HREF="kdu$sitor__get$ream_info.html#transpose">transpose</A> argument of 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A> if the istream and its ilayer were created directly
+using that function.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+As for 
+<A HREF="kdu$sitor__get$ream_info.html#transpose">transpose</A>, but this argument (if non-NULL) returns information
+about vertical flipping at the nominal composition
+scale and geometry &mdash; this is the same value which
+was passed in for the 
+<A HREF="kdu$sitor__get$ream_info.html#vflip">vflip</A> argument to 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A> if the istream and its ilayer were created directly
+using that function.
+</P>
+</DIV>
+<H4><A NAME="hflip">hflip</A> [<B>bool</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+As for 
+<A HREF="kdu$sitor__get$ream_info.html#transpose">transpose</A>, but this argument (if non-NULL) returns information
+about horizontal flipping at the nominal composition
+scale and geometry &mdash; this is the same value which
+was passed in for the 
+<A HREF="kdu$sitor__get$ream_info.html#hflip">hflip</A> argument to 
+<A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A> if the istream and its ilayer were created directly
+using that function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__acc$odestream.html"> prev </A>||<A HREF="kdu$sitor__get$ayer_info.html"> next </A>|</P>
+</BODY>
+</HTML>

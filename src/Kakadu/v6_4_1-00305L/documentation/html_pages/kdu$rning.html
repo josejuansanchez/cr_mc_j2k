@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_warning) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_warning</A></H1>
+<DIR><P>Derives from <A HREF ="kdu$ssage.html">kdu_message</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class are used in a similar manner
+to 
+<A HREF="kdu_error.html">kdu_error</A> objects, except that the destructor does not terminate
+the currently executing process. Note, however, that
+even warning handlers may conceivably throw exceptions
+or terminate the process themselves. The warning handler
+is configured using 
+<A HREF="globals__kdu$ze_warnings.html">kdu_customize_warnings</A>. For this reason, 
+<A HREF="kdu$rning.html">kdu_warning</A> objects should never be created on the heap.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$rning__kdu_warning__1.html">kdu_warning</A> <EM>(3 forms)</EM></P>
+<P><A HREF="kdu$rning__~kdu_warning.html">~kdu_warning</A> [virtual]</P>
+<P><A HREF="kdu$rning__put_text__1.html">put_text</A> [virtual] <EM>(2 forms)</EM></P>
+<P><A HREF="kdu$rning__flush.html">flush</A> [virtual]</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

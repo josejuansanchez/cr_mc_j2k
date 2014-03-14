@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_target::start_rewrite) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arget__close.html"> prev </A>||<A HREF="kdu$arget__end_rewrite.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_target::start_rewrite</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_target.Start_rewrite</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> start_rewrite(
+<B>kdu_long</B>&nbsp;backtrack)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Start_rewrite(
+long&nbsp;backtrack)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Together with 
+<A HREF="kdu$arget__end_rewrite.html">end_rewrite</A>, this function provides access to repositioning capabilities
+which may be offered by the compressed target. Repositioning
+is required if the code-stream generation machinery
+is to write TLM (tile-length main header) marker segments,
+for example, since these must be written in the main
+header, but their contents cannot generally be efficiently
+determined until after the tile data has been written;
+in fact, even the number of non-empty tile-parts cannot
+generally be known until the code-stream has been written,
+since we may need to create extra tile-parts on demand
+for incremental flushing.
+</P><P>
+ Regardless of how this function may be used by the
+code-stream generation machinery, or by any other Kakadu
+objects (e.g., 
+<A HREF="jp2$y_tgt.html">jp2_family_tgt</A>) which may write to 
+<A HREF="kdu$arget.html">kdu_compressed_target</A> objects, the purpose of this function is to allow
+the caller to overwrite some previously written data.
+It is not a general repositioning function. Also, rewriting
+is not recursive (no nested rewrites). Having written
+N bytes of data, you may start rewriting from position
+B, where N-B is the 
+<A HREF="kdu$arget__sta$t_rewrite.html#backtrack">backtrack</A> value. You may not then write any more than N-B bytes
+before calling 
+<A HREF="kdu$arget__end_rewrite.html">end_rewrite</A>, which restores the write pointer to position N. Attempting
+to write more data than this will result in a false
+return from 
+<A HREF="kdu$arget__write.html">write</A>.
+</P><P>
+ Compressed data targets do not have to offer the rewrite
+capability. In this case, the present function must
+return false. An application can test whether or not
+the rewrite capability is offered by invoking 
+<A HREF="kdu$arget__sta$t_rewrite.html">start_rewrite</A> with 
+<A HREF="kdu$arget__sta$t_rewrite.html#backtrack">backtrack</A>=0, followed by a call to 
+<A HREF="kdu$arget__end_rewrite.html">end_rewrite</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if any of the following apply:
+</P><UL><LI>
+The target does not support rewriting;
+</LI><LI>
+The 
+<A HREF="kdu$arget__sta$t_rewrite.html#backtrack">backtrack</A> value would position the write pointer at an illegal
+position, either beyond the current write pointer or
+before the start of the logical target device; or
+</LI><LI>
+The target object is already in a rewrite section (i.e.,
+<A HREF="kdu$arget__sta$t_rewrite.html">start_rewrite</A> has previously been called without a matching call
+to 
+<A HREF="kdu$arget__end_rewrite.html">end_rewrite</A>).
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="backtrack">backtrack</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Amount by which to backtrack from the current write
+position, to get to the portion of the target stream
+you wish to overwrite. Any attempt to write more than
+<A HREF="kdu$arget__sta$t_rewrite.html#backtrack">backtrack</A> bytes before a subsequent call to 
+<A HREF="kdu$arget__end_rewrite.html">end_rewrite</A> should result in a false return from the 
+<A HREF="kdu$arget__write.html">write</A> function. If 
+<A HREF="kdu$arget__sta$t_rewrite.html#backtrack">backtrack</A> is less than 0, or greater than the current number
+of bytes which have been written, the function should
+return 0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arget__close.html"> prev </A>||<A HREF="kdu$arget__end_rewrite.html"> next </A>|</P>
+</BODY>
+</HTML>

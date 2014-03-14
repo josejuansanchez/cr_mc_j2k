@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mco_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">mco_params</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Mco_params</H3></DIR></DIR>
+<DIR><P>Derives from <A HREF ="kdu_params.html">kdu_params</A></P>
+</DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages the information associated with a JPEG2000
+<B>MCO</B> (Multi-Component transform stage Order) marker segment.
+MCO marker segments are ultimately responsible for
+controlling the multi-component transform, by defining
+the transform stages which are to be applied within
+any given tile. This is done via the 
+<A HREF="globals.html#Mstages">Mstages</A> attribute, which provides the instance indices of
+each stage in the inverse (synthesis) transform in
+sequence. These instance indices are applied to the
+<A HREF="globals.html#Mstage_inputs">Mstage_inputs</A>, 
+<A HREF="globals.html#Mstage_outputs">Mstage_outputs</A>, 
+<A HREF="globals.html#Mstage_blocks">Mstage_blocks</A> and 
+<A HREF="globals.html#Mstage_xforms">Mstage_xforms</A> attributes to recover all relevant details of the
+transformation process. described by an 
+<A HREF="atk_params.html">atk_params</A> (Arbitrary Transform Kernels) object.
+</P><P>
+ As with 
+<A HREF="mct_params.html">mct_params</A> and 
+<A HREF="mcc_params.html">mcc_params</A>, tile-specific forms of this object are allowed. For
+obvious reasons, component-specific and instance-specific
+forms of this object cannot exist.
+</P><P>
+ The cluster name is "MCO", but you are recommended
+to use the macro 
+<A HREF="globals.html#MCO_params">MCO_params</A>, in functions which take a cluster name like 
+<A HREF="kdu_params__acc$_cluster__1.html">kdu_params::access_cluster</A>.
+</P><P>
+ The following attributes are defined. For an explanation
+of pattern strings, consult the comments appearing
+with 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>.
+</P><UL><LI>
+Macro = 
+<A HREF="globals.html#Mnum_stages">Mnum_stages</A>; Pattern = "I" &mdash; Identifies the number of stages
+in the multi-component transform to be applied to this
+tile, or (for main header attributes) as a default
+for tiles which do not specify the 
+<A HREF="globals.html#Mnum_stages">Mnum_stages</A> attribute. If this value is 0, the spatially transformed
+codestream components associated with the relevant
+tile are mapped directly to the output components specified
+via the global 
+<A HREF="globals.html#Mcomponents">Mcomponents</A>, 
+<A HREF="globals.html#Msigned">Msigned</A> and 
+<A HREF="globals.html#Mprecision">Mprecision</A> attributes. If 
+<A HREF="globals.html#Mcomponents">Mcomponents</A> is larger than 
+<A HREF="globals.html#Scomponents">Scomponents</A>, some final components are automatically set to 0.
+Where the number of stages is 0, codestream components
+which are identified as unsigned by the 
+<A HREF="globals.html#Ssigned">Ssigned</A> attribute are first offset (at least nominally) by
+half their dynamic range, in the usual fashion. If,
+on the other hand, 
+<A HREF="globals.html#Mnum_stages">Mnum_stages</A> specifies a non-zero number of transform stages, component
+offsets must be provided by the multi-component transform
+stages themselves. This parameter defaults to 0 if
+no value is set in the main header, and a non-zero
+<A HREF="globals.html#Mcomponents">Mcomponents</A> value exists.
+</LI><LI>
+Macro = 
+<A HREF="globals.html#Mstages">Mstages</A>; Pattern = "I", [MULTI_RECORD] &mdash; Holds one entry
+for each stage in the multi-component transform for
+the tile in question. Each entry must lie in the range
+0 to 255, being the instance index of a corresponding
+<A HREF="mcc_params.html">mcc_params</A> object whose 
+<A HREF="globals.html#Mstage_inputs">Mstage_inputs</A>, 
+<A HREF="globals.html#Mstage_outputs">Mstage_outputs</A>, 
+<A HREF="globals.html#Mstage_blocks">Mstage_blocks</A> and 
+<A HREF="globals.html#Mstage_xforms">Mstage_xforms</A> attributes fully describe the transform stage.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="mco_params__mco_params.html">mco_params</A> {<U>Java:</U> Mco_params}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

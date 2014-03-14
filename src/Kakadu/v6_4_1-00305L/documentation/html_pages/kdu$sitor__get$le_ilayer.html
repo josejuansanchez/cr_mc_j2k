@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::get_next_visible_ilayer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$t_istream.html"> prev </A>||<A HREF="kdu$sitor__acc$odestream.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::get_next_visible_ilayer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Get_next_visible_ilayer</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A> get_next_visible_ilayer(
+<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>&nbsp;last_ilayer_ref,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_ilayer_ref Get_next_visible_ilayer(
+Kdu_ilayer_ref&nbsp;last_ilayer_ref,
+Kdu_dims&nbsp;region)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Similar to 
+<A HREF="kdu$sitor__get$xt_ilayer.html">get_next_ilayer</A>, you may use this function to walk through the various
+ilayers which are currently open within the object.
+In this case, however, only those codestreams which
+contribute to the reconstruction of the supplied 
+<A HREF="kdu$sitor__get$le_ilayer.html#region">region</A> are visited and returned.
+</P><P>
+ If no scale has been successfully installed using
+<A HREF="kdu$sitor__set_scale.html">set_scale</A> (i.e., if 
+<A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> returns false), no ilayer can possibly be visible
+within the supplied 
+<A HREF="kdu$sitor__get$le_ilayer.html#region">region</A>, since a rendering coordinate system has not yet been
+established &mdash; in such a case, the function must
+return a "null" instance of the 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> class.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Opaque ilayer reference which may be passed to various
+other member functions, including 
+<A HREF="kdu$sitor__get$ayer_info.html">get_ilayer_info</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="last_ilayer_ref">last_ilayer_ref</A> [<A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A>]</H4><DIV CLASS="indented-text">
+<P>
+If 
+<A HREF="kdu$r_ref__is_null.html">last_ilayer_ref.is_null</A> is true, the function finds the top-most ilayer that
+is visible within 
+<A HREF="kdu$sitor__get$le_ilayer.html#region">region</A>. You can readily instantiate such a "null" instance
+of the 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> class using its default constructor.
+</P><P>
+ Otherwise, the function looks for the top-most ilayer
+which lies below the ilayer identified by 
+<A HREF="kdu$sitor__get$le_ilayer.html#last_ilayer_ref">last_ilayer_ref</A> and is visible within 
+<A HREF="kdu$sitor__get$le_ilayer.html#region">region</A>. If none exists (or if 
+<A HREF="kdu$sitor__get$le_ilayer.html#last_ilayer_ref">last_ilayer_ref</A> does not correspond to an existing ilayer, the function
+returns a "null" ilayer reference.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Region within which visibility is to be assessed, described
+with respect to the same rendering coordinate system
+as that used by 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$t_istream.html"> prev </A>||<A HREF="kdu$sitor__acc$odestream.html"> next </A>|</P>
+</BODY>
+</HTML>

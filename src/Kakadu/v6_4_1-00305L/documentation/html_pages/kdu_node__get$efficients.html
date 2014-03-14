@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_node::get_kernel_coefficients) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__get$ernel_info.html"> prev </A>||<A HREF="kdu_node__get$bibo_gains.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_node::get_kernel_coefficients</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_node.Get_kernel_coefficients</EM></H3></DIR></DIR>
+<P CLASS="function-text">const&nbsp;<B>float</B>&nbsp;* get_kernel_coefficients(
+<B>bool</B>&nbsp;vertical)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_kernel_coefficients(
+boolean&nbsp;vertical)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu_node.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns the actual lifting step coefficients
+associated with the lifting steps described by 
+<A HREF="kdu_node__get$ernel_info.html">get_kernel_info</A>. The coefficients associated with the first lifting
+step all preceed those for the second lifting step,
+and so forth. The actual number of coefficients for
+each lifting step is determined from the 
+<A HREF="kdu$_info.html#support_length">kdu_kernel_step_info::support_length</A> values.
+</P><P>
+ As with 
+<A HREF="kdu_node__get$ernel_info.html">get_kernel_info</A>, this function returns information for the vertical
+decomposition kernel if 
+<A HREF="kdu_node__get$efficients.html#vertical">vertical</A> is true, else for the horizontal kernel. There will
+be a difference only if different horizontal and vertical
+flipping values were supplied in the most recent call
+to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A> and the kernel is not symmetric.
+</P><P>
+ The coefficients returned here are in exactly the
+form required by 
+<A HREF="kdu$rnels__init__1.html">kdu_kernels::init</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="vertical">vertical</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_node__get$ernel_info.html"> prev </A>||<A HREF="kdu_node__get$bibo_gains.html"> next </A>|</P>
+</BODY>
+</HTML>

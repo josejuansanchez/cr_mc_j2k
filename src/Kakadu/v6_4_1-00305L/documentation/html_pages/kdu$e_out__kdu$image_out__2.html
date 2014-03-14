@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_out::kdu_image_out) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_out__kdu$image_out__1.html"> prev </A>||<A HREF="kdu$e_out__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_out::kdu_image_out</A></H1>
+<P>Overload navigation: <B><A HREF="kdu$e_out__kdu$image_out__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"> kdu_image_out(
+<B>const char *</B>&nbsp;fname,
+<A HREF ="kdu$_dims.html">kdu_image_dims</A>&nbsp;&amp;&nbsp;dims,
+<B>int</B>&nbsp;&amp;&nbsp;next_comp_idx,
+<B>bool</B>&nbsp;&amp;&nbsp;vflip,
+<B>bool</B>&nbsp;quiet=false)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$e_out.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Attempts to open a file with the indicated name, generating
+an error message (through 
+<A HREF="kdu_error.html">kdu_error</A>) if unsuccessful. It automatically creates and installs
+an appropriate internal file writing object, based
+on the file suffix.
+</P><P>
+ Component indices for the image components represented
+by the file start from the value supplied via the 
+<A HREF="kdu$e_out__kdu$image_out__2.html#next_comp_idx">next_comp_idx</A> argument. These component indices are used to recover
+dimensions and other properties from 
+<A HREF="kdu$e_out__kdu$image_out__2.html#dims">dims</A>.
+</P><P>
+ The dimensions of the image components, along with
+their bit-depths and signed/unsigned characteristics
+are all deduced from the 
+<A HREF="kdu$e_out__kdu$image_out__2.html#dims">dims</A> argument. This object may also be used to recover
+resolution information which may potentially be available.
+Note the difference between the methods used to pass
+dimensions to/from the 
+<A HREF="kdu$ge_in.html">kdu_image_in</A> object and the 
+<A HREF="kdu$e_out.html">kdu_image_out</A> object. The former needs to take advantage of the
+rich capabilities offered by the 
+<A HREF="siz_params.html">siz_params</A> class to extrapolated limited information which may
+be present concerning dimensions (e.g., for raw files),
+while the present object is not constructed until all
+dimensional information is already available from a
+JPEG2000 code-stream.
+</P><P>
+ Also, when compressing image data, all original image
+components must be available from files, while decompressors
+may choose to decompress only a limited set of image
+components, or may need to map components through expansive
+palettes, introducing fundamental differences between
+the information represented by the code-stream SIZ
+marker segment and the dimensions of generated image
+files.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="fname">fname</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Relative path name of the image file to be opened.
+</P>
+</DIV>
+<H4><A NAME="dims">dims</A> [<A HREF ="kdu$_dims.html">kdu_image_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+If this object contains insufficient information, a
+terminal error is generated through 
+<A HREF="kdu_error.html">kdu_error</A>. be recorded (if they can be determined).
+</P>
+</DIV>
+<H4><A NAME="next_comp_idx">next_comp_idx</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the component index assigned to the first
+image component (starting from 0) in the file. Upon
+return, the value of this argument is augmented by
+the number of image components available from the file.
+</P>
+</DIV>
+<H4><A NAME="vflip">vflip</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+This argument is provided to support bottom-up image
+file formats, such as the well-known BMP format. The
+value of 
+<A HREF="kdu$e_out__kdu$image_out__2.html#vflip">vflip</A> is set to true if the image lines must be supplied
+in bottom-up fashion. To see how a decompressor can
+do this efficiently, see 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>.
+</P>
+</DIV>
+<H4><A NAME="quiet">quiet</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Suppresses reporting of special image features which
+might be encountered.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_out__kdu$image_out__1.html"> prev </A>||<A HREF="kdu$e_out__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

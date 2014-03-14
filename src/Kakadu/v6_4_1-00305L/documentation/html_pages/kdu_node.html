@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_node) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_node</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_node</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class are only interfaces, having the
+size of a single pointer. Copying the object has no
+effect on the underlying state information, but simply
+serves to provide another interface (or reference)
+to it. There is no destructor, because destroying an
+interface has no impact on the underlying state.
+</P><P>
+ To obtain a valid 
+<A HREF="kdu_node.html">kdu_node</A> interface into the internal code-stream management
+machinery, you may call 
+<A HREF="kdu$ution__access_node.html">kdu_resolution::access_node</A>.
+</P><P>
+ Nodes are used to represent complex DWT decomposition
+structures. To that end, it is helpful to identify
+three types of nodes:
+</P><UL><LI>
+Primary nodes are associated with image resolutions.
+Each image resolution has its own node, which may be
+accessed via 
+<B>kdu_resolution::node</B>. The 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> child of a primary node is the primary node of the
+next lower resolution. The subbands which belong to
+a resolution are all descended from its primary node,
+via its other children. The lowest resolution level
+is a bit different, since its primary node contains
+only an 
+<A HREF="globals.html#LL_BAND">LL_BAND</A> child and that child is a leaf node (a subband) rather
+than a primary node.
+</LI></UL><P>
+Leaf nodes have no children. They are associated with
+coded subbands. The subband associated with a leaf
+node may be accessed via the 
+<A HREF="kdu_node__acc$ss_subband.html">access_subband</A> method.
+</P><P>
+Intermediate nodes are neither primary nodes nor leaf
+nodes. They appear only in wavelet packet decomposition
+structures, where detail subbands produced by the primary
+node are further decomposed into smaller subbands.
+Part-1 of the JPEG2000 standard does not support packet
+decomposition structures, while Part-2 allows for structures
+with up to 2 levels of intermediate nodes within each
+resolution level.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu_node__kdu_node__1.html">kdu_node</A> <EM>(2 forms)</EM></P>
+<P><A HREF="kdu_node__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu_node__operator!.html">operator!</A></P>
+<P><A HREF="kdu_node__compare.html">compare</A> {<U>Java:</U> Compare}
+</P>
+<P><A HREF="kdu_node__operator==.html">operator==</A></P>
+<P><A HREF="kdu_node__operator!=.html">operator!=</A></P>
+<P><A HREF="kdu_node__access_child.html">access_child</A> {<U>Java:</U> Access_child}
+</P>
+<P><A HREF="kdu_node__get$directions.html">get_directions</A> {<U>Java:</U> Get_directions}
+</P>
+<P><A HREF="kdu_node__get$escendants.html">get_num_descendants</A> {<U>Java:</U> Get_num_descendants}
+</P>
+<P><A HREF="kdu_node__acc$ss_subband.html">access_subband</A> {<U>Java:</U> Access_subband}
+</P>
+<P><A HREF="kdu_node__acc$resolution.html">access_resolution</A> {<U>Java:</U> Access_resolution}
+</P>
+<P><A HREF="kdu_node__get_dims.html">get_dims</A> {<U>Java:</U> Get_dims}
+</P>
+<P><A HREF="kdu_node__get_kernel_id.html">get_kernel_id</A> {<U>Java:</U> Get_kernel_id}
+</P>
+<P><A HREF="kdu_node__get$ernel_info.html">get_kernel_info</A></P>
+<P><A HREF="kdu_node__get$efficients.html">get_kernel_coefficients</A> {<U>Java:</U> Get_kernel_coefficients}
+</P>
+<P><A HREF="kdu_node__get$bibo_gains.html">get_bibo_gains</A> {<U>Java:</U> Get_bibo_gains}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

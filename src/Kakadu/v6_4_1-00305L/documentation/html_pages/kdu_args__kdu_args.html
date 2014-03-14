@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_args::kdu_args) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_args__~kdu_args.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_args::kdu_args</A></H1>
+<P CLASS="function-text"> kdu_args(
+<B>int</B>&nbsp;argc,
+<B>char *</B>&nbsp;argv[],
+<B>const char *</B>&nbsp;switch_pattern=NULL)</P>
+<P>[Declared in <A HREF="++++apps+args+kdu_args+h.html">"../apps/args/kdu_args.h"</A>]</P><P><A HREF="kdu_args.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Transfers command-line arguments into the internal
+representation. The 
+<A HREF="kdu_args__kdu_args.html#argc">argc</A> and 
+<A HREF="kdu_args__kdu_args.html#argv">argv</A> arguments have identical interpretations to the usual
+arguments supplied to the "C" or "C++" 
+<B>main</B> function. Note that local copies are made for all
+of the argument strings in the 
+<A HREF="kdu_args__kdu_args.html#argv">argv</A> array.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="argc">argc</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Total number of elements in the 
+<A HREF="kdu_args__kdu_args.html#argv">argv</A> array.
+</P>
+</DIV>
+<H4><A NAME="argv">argv[]</A> [<B>char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array of character strings. The first string (argv[0])
+is expected to hold the program name, while subsequent
+strings correspond to successive arguments.
+</P>
+</DIV>
+<H4><A NAME="switch_pattern">switch_pattern</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+May be used to identify a particular argument string
+(usually "-s", for "switch") which will be recognized
+as a request to recover additional arguments from a
+file. If this pattern is found in the list of command
+line arguments, the next argument will be interpreted
+as the file name and each token in the file becomes
+a new argument, where tokens are delimited by white
+space characters (spaces, new-lines, tabs and carriage
+returns).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_args__~kdu_args.html"> next </A>|</P>
+</BODY>
+</HTML>

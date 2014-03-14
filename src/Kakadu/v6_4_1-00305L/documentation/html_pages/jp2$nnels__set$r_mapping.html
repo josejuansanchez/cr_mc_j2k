@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_channels::set_colour_mapping) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__init.html"> prev </A>||<A HREF="jp2$nnels__set$y_mapping.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_channels::set_colour_mapping</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_channels.Set_colour_mapping</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_colour_mapping(
+<B>int</B>&nbsp;colour_idx,
+<B>int</B>&nbsp;codestream_component,
+<B>int</B>&nbsp;lut_idx=-1,
+<B>int</B>&nbsp;codestream_idx=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_colour_mapping(
+int&nbsp;colour_idx,
+int&nbsp;codestream_component,
+int&nbsp;lut_idx,
+int&nbsp;codestream_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$nnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used, together with 
+<A HREF="jp2$nnels__set$y_mapping.html">set_opacity_mapping</A> and 
+<A HREF="jp2$nnels__set$t_mapping.html">set_premult_mapping</A>, to establish the relationship, if any, between code-stream
+image components and the reproduction functions of
+colour intensity, opacity and pre-multiplied opacity.
+The present function is most important, establishing
+the source of colour intensity information.
+</P><P>
+ Each colour's intensity may be directly assigned to
+some code-stream image component. Alternatively, it
+may be associated with the output of a palette lookup
+table (LUT), together with a code-stream image component
+which provides indices into the LUT.
+</P><P>
+ The 
+<A HREF="jp2$nnels__set$r_mapping.html#colour_idx">colour_idx</A> argument identifies the particular intensity channel
+whose mapping is being defined. A complete 
+<A HREF="jp2$nnels.html">jp2_channels</A> object must have an intensity mapping for each colour
+channel. However, the 
+<A HREF="jp2$nnels__init.html">init</A> function automatically installs a default mapping
+which directly associates the first 
+<B>num_colours</B> code-stream components of code-stream 0 with the 
+<B>num_colours</B> intensity channels. If this is what you want, there
+is no need to explicitly call the present function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="colour_idx">colour_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+The meaning of this argument depends upon the colour
+space. Some common examples are:
+</P><UL><LI>
+For monochrome (greyscale) imagery, the only legal
+value is 0.
+</LI><LI>
+For RGB spaces, a colour index of 0 means red, 1 means
+green and 2 mean blue.
+</LI><LI>
+For CMYK, 0 means cyan, 1 means magenta, 2 means yellow
+and 3 means black.
+</LI></UL>
+</DIV>
+<H4><A NAME="codestream_component">codestream_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the image component (starting from 0) of
+the code-stream identified by 
+<A HREF="jp2$nnels__set$r_mapping.html#codestream_idx">codestream_idx</A> which is used to create the relevant colour intensity
+channel, either by direct assignment or after mapping
+through a palette LUT.
+</P>
+</DIV>
+<H4><A NAME="lut_idx">lut_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Set to -1 (the default) if the code-stream image component
+is to be assigned directly to the relevant colour intensity
+channel. Otherwise, the code-stream component samples
+are indices to a lookup table, where 
+<A HREF="jp2$nnels__set$r_mapping.html#lut_idx">lut_idx</A> gives the index of the lookup table (starting from
+0), as it appears in the 
+<A HREF="jp2$lette.html">jp2_palette</A> object.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Index of the code-stream whose components and palette
+lookup tables (if required) are used to generate this
+colour intensity channel. The meaning of the index
+for various file formats is as follows:
+</P><UL><LI>
+For JP2 files, there is only one code-stream which
+can be interpreted by the file reader and it must have
+index 0.
+</LI><LI>
+For JPX files, index 0 refers to the first code-stream
+(first contiguous code-stream or fragment table) and
+the first code-stream header box (if any) in the file.
+Subsequent code-stream / code-stream header box pairs
+are identified by consecutive integers. Note that the
+same code-stream may be used to define intensity channels
+in different JPX compositing layers.
+</LI><LI>
+For MJ2 files, all code-streams must have the same
+reproduction rules and the index used here must be
+0.
+</LI></UL>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__init.html"> prev </A>||<A HREF="jp2$nnels__set$y_mapping.html"> next </A>|</P>
+</BODY>
+</HTML>

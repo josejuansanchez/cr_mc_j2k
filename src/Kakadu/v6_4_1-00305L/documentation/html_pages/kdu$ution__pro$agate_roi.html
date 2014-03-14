@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_resolution::propagate_roi) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ution__get$eversible.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_resolution::propagate_roi</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_resolution.Propagate_roi</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> propagate_roi(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Propagate_roi(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ution.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns false if there is no need to
+propagate ROI mask information from this resolution
+level into its derived subbands. The function always
+returns false if invoked on an input or interchange
+codestream). For output codestreams (those created
+using the first form of the overloaded 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> function), the function's return value depends on
+the 
+<A HREF="globals.html#Rlevels">Rlevels</A> attribute of the relevant 
+<B>roi_params</B> parameter object set up during content creation.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$ution__get$eversible.html"> prev </A>|</P>
+</BODY>
+</HTML>

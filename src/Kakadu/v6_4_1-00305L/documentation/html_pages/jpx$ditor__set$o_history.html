@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::set_max_undo_history) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__~jp$oi_editor.html"> prev </A>||<A HREF="jpx$ditor__is_empty.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::set_max_undo_history</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Set_max_undo_history</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_max_undo_history(
+<B>int</B>&nbsp;history)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_max_undo_history(
+int&nbsp;history)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this to set up or change the undo history properties
+of the object. By default, no undo capability is provided.
+By supplying a 
+<A HREF="jpx$ditor__set$o_history.html#history">history</A> value greater than 0, you can provide for the maintainance
+of an undo list with this maximum size. The undo list
+augments each time a successful call to 
+<A HREF="jpx$ditor__mov$ed_anchor.html">move_selected_anchor</A> occurs. If a later call to this function reduces the
+<A HREF="jpx$ditor__set$o_history.html#history">history</A> length, least recent edits will be discarded as necessary
+to accommodate the new value.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="history">history</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__~jp$oi_editor.html"> prev </A>||<A HREF="jpx$ditor__is_empty.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::finalize) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__cus$ze_field.html"> prev </A>||<A HREF="kdu_params__fin$lize_all__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_params::finalize</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Finalize</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> finalize(
+<B>bool</B>&nbsp;after_reading=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Finalize(
+boolean&nbsp;after_reading)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is generally invoked through the 
+<A HREF="kdu_params__fin$lize_all__1.html">finalize_all</A> function. Although it can usually be invoked quite
+safely when code-stream marker segments are used to
+recover attributes, it is intended primarily for use
+when attributes are derived by parsing text strings
+supplied as command-line arguments. Since the information
+provided in this manner is quite sparse, it is frequently
+necessary to fill in default values or convert summary
+quantities into a more complete set of attribute values,
+as required to generate a valid set of marker segments
+or to perform compression.
+</P><P>
+ The implementation in the base object does nothing
+at all; it should be overridden in any derived class
+where finalization processing is required. Most of
+the derived parameter classes do this.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="after_reading">after_reading</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__cus$ze_field.html"> prev </A>||<A HREF="kdu_params__fin$lize_all__1.html"> next </A>|</P>
+</BODY>
+</HTML>

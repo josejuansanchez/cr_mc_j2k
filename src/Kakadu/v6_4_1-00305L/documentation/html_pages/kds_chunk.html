@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kds_chunk) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kds_chunk [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure manages a contiguous chunk of memory
+into which a whole number of data tranfer messages
+are packed by the 
+<A HREF="kdu_serve__gen$ncrements.html">kdu_serve::generate_increments</A> function. In some cases, the chunk may be identified
+with a single network packet, but applications and
+communication protocols may assign any desired interpretation.
+</P><P>
+ For more information, see the 
+<A HREF="kdu_serve__gen$ncrements.html">kdu_serve::generate_increments</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="max_bytes">max_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Maximum number of bytes which can be recorded in the
+<A HREF="kds_chunk.html#data">data</A> array, including 
+<A HREF="kds_chunk.html#prefix_bytes">prefix_bytes</A>. The value of the 
+<A HREF="kds_chunk.html#num_bytes">num_bytes</A> member is bounded by 
+<A HREF="kds_chunk.html#max_bytes">max_bytes</A>. The value of 
+<A HREF="kds_chunk.html#max_bytes">max_bytes</A> must not be modified by applications, but it may be
+accessed to determine the legal range of indices which
+may be applied to the 
+<A HREF="kds_chunk.html#data">data</A> array.
+</P>
+</DIV>
+<H4><A NAME="prefix_bytes">prefix_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This member indicates the number of initial bytes in
+the 
+<A HREF="kds_chunk.html#data">data</A> buffer which have been reserved by the application.
+The compressed data is stored in the remaining 
+<A HREF="kds_chunk.html#num_bytes">num_bytes</A>-
+<A HREF="kds_chunk.html#prefix_bytes">prefix_bytes</A> elements of the array. The number of prefix bytes
+to be reserved in each chunk is configured in the call
+to 
+<A HREF="kdu_serve__initialize.html">kdu_serve::initialize</A>.
+</P>
+</DIV>
+<H4><A NAME="num_bytes">num_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This member indicates the total number of valid bytes
+in the 
+<A HREF="kds_chunk.html#data">data</A> buffer, including the initial 
+<A HREF="kds_chunk.html#prefix_bytes">prefix_bytes</A> reserved for use by the application.
+</P>
+</DIV>
+<H4><A NAME="data">data</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Buffer used to store chunk data. The first 
+<A HREF="kds_chunk.html#prefix_bytes">prefix_bytes</A> are reserved for use by the application. The total
+number of valid bytes in the buffer, including the
+prefix bytes and all bytes written by the 
+<A HREF="kdu_serve__gen$ncrements.html">kdu_serve::generate_increments</A> function is 
+<A HREF="kds_chunk.html#num_bytes">num_bytes</A>.
+</P><P>
+ Note that the 
+<A HREF="kds_chunk.html#data">data</A> pointer is guaranteed to be aligned on an 8-byte boundary.
+In practice, it will probably point into the same block
+of memory which is allocated to hold the 
+<A HREF="kds_chunk.html">kds_chunk</A> structure.
+</P>
+</DIV>
+<H4><A NAME="abandoned">abandoned</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+This member is used by the 
+<A HREF="kdu_serve__rel$se_chunks.html">kdu_serve::release_chunks</A> function if its 
+<B>check_abandoned</B> argument is set to true. See the comments appearing
+with that function for an explanation.
+</P>
+</DIV>
+<H4><A NAME="next">next</A> [<A HREF ="kds_chunk.html">kds_chunk</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Used to build a linked list of chunks.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

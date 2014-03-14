@@ -1,0 +1,23 @@
+#set terminal fig textspecial color
+set terminal png
+set output "psnr.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'PSNR [dB]'
+
+#set yrange [0:60]
+set key out right
+
+plot "type1_5000.txt" using 1:3 with linespoints ls 2 title 'T1. cr + me (5000 Bytes)' axes x1y1, \
+     "type1_10000.txt" using 1:3 with linespoints ls 3 title 'T1. cr + me (10000 Bytes)' axes x1y1, \
+     "type1_15000.txt" using 1:3 with linespoints ls 4 title 'T1. cr + me (15000 Bytes)' axes x1y1, \
+     "type1_20000.txt" using 1:3 with linespoints ls 5 title 'T1. cr + me (20000 Bytes)' axes x1y1, \
+     "type1_25000.txt" using 1:3 with linespoints ls 6 title 'T1. cr + me (25000 Bytes)' axes x1y1, \
+     "type1_30000.txt" using 1:3 with linespoints ls 7 title 'T1. cr + me (30000 Bytes)' axes x1y1, \
+     "type2_5000.txt" using 1:3 with lines title 'T2. cr + me (5000 Bytes)' axes x1y1, \
+     "type2_10000.txt" using 1:3 with lines title 'T2. cr + me (10000 Bytes)' axes x1y1, \
+     "type2_15000.txt" using 1:3 with lines title 'T2. cr + me (15000 Bytes)' axes x1y1, \
+     "type2_21000.txt" using 1:3 with lines title 'T2. cr + me (20000 Bytes)' axes x1y1, \
+     "type2_25000.txt" using 1:3 with lines title 'T2. cr + me (25000 Bytes)' axes x1y1, \
+     "type2_30000.txt" using 1:3 with lines title 'T2. cr + me (30000 Bytes)' axes x1y1     

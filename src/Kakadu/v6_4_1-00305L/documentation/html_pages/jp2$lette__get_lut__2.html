@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_palette::get_lut) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lette__get_lut__1.html"> prev </A>|</P>
+<H1><A NAME="ToP">jp2_palette::get_lut</A></H1>
+<P>Overload navigation: <B><A HREF="jp2$lette__get_lut__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>void</B> get_lut(
+<B>int</B>&nbsp;lut_idx,
+<A HREF ="kdu$ple16.html">kdu_sample16</A>&nbsp;lut[])</P>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$lette.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Offsets and normalizes the original information for
+the indicated palette lookup table, writing the result
+to the supplied 
+<A HREF="jp2$lette__get_lut__2.html#lut">lut</A> array. The 
+<A HREF="jp2$lette__get_lut__2.html#lut">lut</A> entries are filled out as signed, normalized quantities
+in the range -2^{KDU_FIX_POINT-1} to +2^{KDU_FIX_POINT-1}.
+The selection of this particular representation is
+intended to facilitate interaction with the sample
+data processing operations conducted by the objects
+defined in "kdu_sample_processing.h". See 
+<A HREF="kdu$e_buf.html">kdu_line_buf</A> and 
+<A HREF="globals__kdu$_ycc_to_rgb.html">kdu_convert_ycc_to_rgb</A> for example.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="lut_idx">lut_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be in the range 0 through 
+<B>num_luts</B>-1, where 
+<B>num_luts</B> is the value returned by 
+<A HREF="jp2$lette__get_num_luts.html">get_num_luts</A>.
+</P>
+</DIV>
+<H4><A NAME="lut">lut[]</A> [<A HREF ="kdu$ple16.html">kdu_sample16</A>]</H4><DIV CLASS="indented-text">
+<P>
+Regardless of whether 
+<A HREF="jp2$lette__get_signed.html">get_signed</A> returns true or false, the entries in this array are
+filled out with signed data, normalized to the range
+-2^{KDU_FIX_POINT-1} to +2^{KDU_FIX_POINT-1}. The normalization
+is such that the lower bound here corresponds to an
+actual LUT value of -2^{B-1} and the upper bound corresponds
+to an actual LUT value of +2^{B-1}, where B is the
+bit-depth returned by 
+<A HREF="jp2$lette__get$bit_depth.html">get_bit_depth</A>; unsigned LUT outputs may be obtained by adding 2^{KDU_FIX_POINT-1}
+to each entry.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$lette__get_lut__1.html"> prev </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::waiting_for_stream_headers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__set_frame.html"> prev </A>||<A HREF="kdu$sitor__set_scale.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::waiting_for_stream_headers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Waiting_for_stream_headers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> waiting_for_stream_headers(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Waiting_for_stream_headers(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is provided primarily because the 
+<A HREF="kdu$sitor__set_frame.html">set_frame</A> function is able to succeed even if the relevant codestream
+headers are not yet available (when the ultimate source
+of compressed data is a compressed cache). This is
+because the size of the composited frame is determined
+separately from the dimensions of the individual compositing
+layers and codestreams. However, if the codestream
+headers are not yet available, some other functions
+provided by the object may not be able to compute the
+required information &mdash; e.g., 
+<A HREF="kdu$sitor__map_region.html">map_region</A> and 
+<A HREF="kdu$sitor__inv$ap_region.html">inverse_map_region</A>.
+</P><P>
+ If the present function returns false, you can be
+sure that all stream headers are loaded and sufficient
+information is available to map regions, access the
+codestreams and so forth. If not, you will have to
+wait until more information arrives in the cache and
+invoke 
+<A HREF="kdu$sitor__refresh.html">refresh</A>, after which the stream headers may be available,
+so that this function may be able to return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$sitor__set_frame.html"> prev </A>||<A HREF="kdu$sitor__set_scale.html"> next </A>|</P>
+</BODY>
+</HTML>

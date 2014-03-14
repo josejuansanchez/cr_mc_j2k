@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_out::put) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_out__operator!.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_image_out::put</A></H1>
+<P CLASS="function-text"><B>void</B> put(
+<B>int</B>&nbsp;comp_idx,
+<A HREF ="kdu$e_buf.html">kdu_line_buf</A>&nbsp;&amp;&nbsp;line,
+<B>int</B>&nbsp;x_tnum)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$e_out.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Writes a new tile-line to the image component identified
+by 
+<A HREF="kdu$e_out__put.html#comp_idx">comp_idx</A>, generating an error through 
+<A HREF="kdu_error.html">kdu_error</A> if the component is exhausted.
+</P><P>
+ 
+<A HREF="kdu$e_out__put.html#x_tnum">x_tnum</A> must hold the horizontal tile index (starting from
+0). This is used to determine how much of each line
+has already been written and so control internal line
+buffering. We leave line buffering to the image writing
+object itself, since it knows the smallest amount of
+memory which can actually be buffered; however, to
+simplify line buffering, we insist on the following
+rules which should not prove burdensome:
+</P><UL><LI>
+For each line, tiles should be written from left to
+right;
+</LI><LI>
+The number of tiles written to earlier lines should
+be at least as large as the number of tiles written
+to later lines;
+</LI><LI>
+When multiple components are managed by the same object,
+all components should be written for a given tile within
+a given line before moving to the next tile of that
+line and the components should be written in order.
+</LI><LI>
+It can happen that some tiles have no samples whatsoever.
+For safety, these tiles should still be delivered to
+the 
+<A HREF="kdu$e_out__put.html">put</A> function.
+</LI></UL><P>
+ Sample values in the 
+<A HREF="kdu$e_out__put.html#line">line</A> buffer are always signed quantities. For normalized
+(floating or fixed point) sample values, the nominal
+range is from -0.5 to 0.5, while for absolute integer
+values, the range is from -2^{B-1} to 2^{B-1}, where
+B is the bit-depth. The function takes care of renormalizing,
+truncating, rounding and conversion between signed
+and unsigned data types.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must lie within the range of valid component indices
+for this object. This range runs consecutively from
+the value of the 
+<B>next_comp_idx</B> argument passed to the constructor, 
+<A HREF="kdu$e_out__kdu$image_out__1.html">kdu_image_out::kdu_image_out</A>.
+</P>
+</DIV>
+<H4><A NAME="line">line</A> [<A HREF ="kdu$e_buf.html">kdu_line_buf</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="kdu$e_buf__get_buf16.html">line.get_buf16</A> or 
+<A HREF="kdu$e_buf__get_buf32.html">line.get_buf32</A> function is used to access the line's internal buffer
+with the samples to be written. The actual number of
+samples associated with the tile-line being delivered
+is recovered using the 
+<A HREF="kdu$e_buf__get_width.html">line.get_width</A> function.
+</P>
+</DIV>
+<H4><A NAME="x_tnum">x_tnum</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Horizontal tile index associated with the current tile
+line. Tile indices start from 0 &mdash; see above.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$e_out__operator!.html"> prev </A>|</P>
+</BODY>
+</HTML>

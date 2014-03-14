@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source::read) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ource__get$abilities.html"> prev </A>||<A HREF="kdu$ource__seek.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source::read</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_compressed_source.Read</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> read(
+<B>kdu_byte</B>&nbsp;*&nbsp;buf,
+<B>int</B>&nbsp;num_bytes)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Read(
+byte[]&nbsp;buf,
+int&nbsp;num_bytes)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function must be implemented in every derived
+class. It performs a sequential read operation, within
+the current read scope, transferring the next 
+<A HREF="kdu$ource__read.html#num_bytes">num_bytes</A> bytes from the scope into the supplied buffer. The
+function must return the actual number of bytes recovered,
+which will be less than 
+<A HREF="kdu$ource__read.html#num_bytes">num_bytes</A> only if the read scope is exhausted.
+</P><P>
+ The default read scope is the entire code-stream,
+although the source may support tile header and precinct
+scopes (see 
+<A HREF="kdu$ource__set$der_scope.html">set_tileheader_scope</A> and 
+<A HREF="kdu$ource__set$nct_scope.html">set_precinct_scope</A> functions below).
+</P><P>
+ The system provides its own internal temporary buffering
+of compressed data to maximize internal access efficiency.
+For this reason, the virtual 
+<A HREF="kdu$ource__read.html">read</A> function defined here will usually be called to transfer
+quite a few bytes at a time.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Actual number of bytes written into the buffer.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buf">buf</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Pointer to a buffer large enough to accept the requested
+bytes.
+</P>
+</DIV>
+<H4><A NAME="num_bytes">num_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of bytes to be read, unless the read scope is
+exhausted first.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ource__get$abilities.html"> prev </A>||<A HREF="kdu$ource__seek.html"> next </A>|</P>
+</BODY>
+</HTML>

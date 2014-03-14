@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::destroy) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ntity__create.html"> prev </A>||<A HREF="kdu$ntity__get$m_threads.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::destroy</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Destroy</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> destroy(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Destroy(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function does nothing unless the object has been
+created. In that case, it returns it to the non-created
+state, allowing 
+<A HREF="kdu$ntity__create.html">create</A> to be called again if desired. The function essentially
+calls 
+<A HREF="kdu$ntity__terminate.html">terminate</A> after first invoking 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> to force termination as quickly as possible, then
+it destroys all worker threads and ultimately the common
+group resources.
+</P><P>
+ Only the group owner may call 
+<A HREF="kdu$ntity__destroy.html">destroy</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if any thread in the group failed (through 
+<A HREF="kdu_error.html">kdu_error</A>), throwing an exception prior to the call to 
+<A HREF="kdu$ntity__destroy.html">destroy</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$ntity__create.html"> prev </A>||<A HREF="kdu$ntity__get$m_threads.html"> next </A>|</P>
+</BODY>
+</HTML>

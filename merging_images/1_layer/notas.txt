@@ -1,0 +1,231 @@
+1 Layers
+--------
+kdu_compress -i tree.pgm -o tree.j2c Cuse_sop=yes Corder=LRCP Clayers=1 Clevels=2 Cprecincts="{128,128},{64,64},{32,32}" Cblk="{32,32}" Creversible=yes
+
+kdu_compress -i stockholm.pgm -o stockholm.j2c Cuse_sop=yes Corder=LRCP Clayers=1 Clevels=2 Cprecincts="{128,128},{64,64},{32,32}" Cblk="{32,32}" Creversible=yes
+
+
+Pasos
+-----
+1) ./sh_compress.sh
+
+2) ./sh_extract_packets_from_j2c.sh images_j2c/stockholm.j2c packets_stockholm > sh_stockholm.sh
+
+3) chmod +x sh_stockholm.sh
+
+4) ./sh_stockholm.sh
+
+5) ./sh_extract_packets_from_j2c.sh images_j2c/tree.j2c packets_tree > sh_tree.sh
+
+6) chmod +x sh_tree.sh
+
+7) ./sh_tree.sh
+
+
+Consultamos cuántos bytes ocupa la cabecera de cada imagen
+----------------------------------------------------------
+8) less sh_stockholm.sh 
+
+
+J2C Headers (1 Layer)
+----------------------
+9) (dd if=images_j2c/tree.j2c of=tree_header.j2c bs=201 count=1 2>&1) > /dev/null
+10) (dd if=images_j2c/stockholm.j2c of=stockholm_header.j2c bs=201 count=1 2>&1) > /dev/null
+
+
+Distribución de precintos y paquetes para el caso de 1 capa
+------------------------------------------------------------
+Precinct: 0 	 Packets: 0 
+Precinct: 1 	 Packets: 1 
+Precinct: 2 	 Packets: 2 
+Precinct: 3 	 Packets: 3 
+Precinct: 4 	 Packets: 4 
+Precinct: 5 	 Packets: 5 
+Precinct: 6 	 Packets: 6 
+Precinct: 7 	 Packets: 7 
+Precinct: 8 	 Packets: 8 
+Precinct: 9 	 Packets: 9 
+Precinct: 10 	 Packets: 10 
+Precinct: 11 	 Packets: 11 
+Precinct: 12 	 Packets: 12 
+Precinct: 13 	 Packets: 13 
+Precinct: 14 	 Packets: 14 
+Precinct: 15 	 Packets: 15 
+Precinct: 16 	 Packets: 16 
+Precinct: 17 	 Packets: 17 
+Precinct: 18 	 Packets: 18 
+Precinct: 19 	 Packets: 19 
+Precinct: 20 	 Packets: 20 
+Precinct: 21 	 Packets: 21 
+Precinct: 22 	 Packets: 22 
+Precinct: 23 	 Packets: 23 
+Precinct: 24 	 Packets: 24 
+Precinct: 25 	 Packets: 25 
+Precinct: 26 	 Packets: 26 
+Precinct: 27 	 Packets: 27 
+Precinct: 28 	 Packets: 28 
+Precinct: 29 	 Packets: 29 
+Precinct: 30 	 Packets: 30 
+Precinct: 31 	 Packets: 31 
+Precinct: 32 	 Packets: 32 
+Precinct: 33 	 Packets: 33 
+Precinct: 34 	 Packets: 34 
+Precinct: 35 	 Packets: 35 
+Precinct: 36 	 Packets: 36 
+Precinct: 37 	 Packets: 37 
+Precinct: 38 	 Packets: 38 
+Precinct: 39 	 Packets: 39 
+Precinct: 40 	 Packets: 40 
+Precinct: 41 	 Packets: 41 
+Precinct: 42 	 Packets: 42 
+Precinct: 43 	 Packets: 43 
+Precinct: 44 	 Packets: 44 
+Precinct: 45 	 Packets: 45 
+Precinct: 46 	 Packets: 46 
+Precinct: 47 	 Packets: 47 
+Precinct: 48 	 Packets: 48 
+Precinct: 49 	 Packets: 49 
+Precinct: 50 	 Packets: 50 
+Precinct: 51 	 Packets: 51 
+Precinct: 52 	 Packets: 52 
+Precinct: 53 	 Packets: 53 
+Precinct: 54 	 Packets: 54 
+Precinct: 55 	 Packets: 55 
+Precinct: 56 	 Packets: 56 
+Precinct: 57 	 Packets: 57 
+Precinct: 58 	 Packets: 58 
+Precinct: 59 	 Packets: 59 
+Precinct: 60 	 Packets: 60 
+Precinct: 61 	 Packets: 61 
+Precinct: 62 	 Packets: 62 
+Precinct: 63 	 Packets: 63 
+Precinct: 64 	 Packets: 64 
+Precinct: 65 	 Packets: 65 
+Precinct: 66 	 Packets: 66 
+Precinct: 67 	 Packets: 67 
+Precinct: 68 	 Packets: 68 
+Precinct: 69 	 Packets: 69 
+Precinct: 70 	 Packets: 70 
+Precinct: 71 	 Packets: 71 
+Precinct: 72 	 Packets: 72 
+Precinct: 73 	 Packets: 73 
+Precinct: 74 	 Packets: 74 
+Precinct: 75 	 Packets: 75 
+Precinct: 76 	 Packets: 76 
+Precinct: 77 	 Packets: 77 
+Precinct: 78 	 Packets: 78 
+Precinct: 79 	 Packets: 79 
+Precinct: 80 	 Packets: 80 
+Precinct: 81 	 Packets: 81 
+Precinct: 82 	 Packets: 82 
+Precinct: 83 	 Packets: 83 
+Precinct: 84 	 Packets: 84 
+Precinct: 85 	 Packets: 85 
+Precinct: 86 	 Packets: 86 
+Precinct: 87 	 Packets: 87 
+Precinct: 88 	 Packets: 88 
+Precinct: 89 	 Packets: 89 
+Precinct: 90 	 Packets: 90 
+Precinct: 91 	 Packets: 91 
+Precinct: 92 	 Packets: 92 
+Precinct: 93 	 Packets: 93 
+Precinct: 94 	 Packets: 94 
+Precinct: 95 	 Packets: 95 
+Precinct: 96 	 Packets: 96 
+Precinct: 97 	 Packets: 97 
+Precinct: 98 	 Packets: 98 
+Precinct: 99 	 Packets: 99 
+Precinct: 100 	 Packets: 100 
+Precinct: 101 	 Packets: 101 
+Precinct: 102 	 Packets: 102 
+Precinct: 103 	 Packets: 103 
+Precinct: 104 	 Packets: 104 
+Precinct: 105 	 Packets: 105 
+Precinct: 106 	 Packets: 106 
+Precinct: 107 	 Packets: 107 
+Precinct: 108 	 Packets: 108 
+Precinct: 109 	 Packets: 109 
+Precinct: 110 	 Packets: 110 
+Precinct: 111 	 Packets: 111 
+Precinct: 112 	 Packets: 112 
+Precinct: 113 	 Packets: 113 
+Precinct: 114 	 Packets: 114 
+Precinct: 115 	 Packets: 115 
+Precinct: 116 	 Packets: 116 
+Precinct: 117 	 Packets: 117 
+Precinct: 118 	 Packets: 118 
+Precinct: 119 	 Packets: 119 
+Precinct: 120 	 Packets: 120 
+Precinct: 121 	 Packets: 121 
+Precinct: 122 	 Packets: 122 
+Precinct: 123 	 Packets: 123 
+Precinct: 124 	 Packets: 124 
+Precinct: 125 	 Packets: 125 
+Precinct: 126 	 Packets: 126 
+Precinct: 127 	 Packets: 127 
+Precinct: 128 	 Packets: 128 
+Precinct: 129 	 Packets: 129 
+Precinct: 130 	 Packets: 130 
+Precinct: 131 	 Packets: 131 
+Precinct: 132 	 Packets: 132 
+Precinct: 133 	 Packets: 133 
+Precinct: 134 	 Packets: 134 
+Precinct: 135 	 Packets: 135 
+Precinct: 136 	 Packets: 136 
+Precinct: 137 	 Packets: 137 
+Precinct: 138 	 Packets: 138 
+Precinct: 139 	 Packets: 139 
+Precinct: 140 	 Packets: 140 
+Precinct: 141 	 Packets: 141 
+Precinct: 142 	 Packets: 142 
+Precinct: 143 	 Packets: 143 
+Precinct: 144 	 Packets: 144 
+Precinct: 145 	 Packets: 145 
+Precinct: 146 	 Packets: 146 
+Precinct: 147 	 Packets: 147 
+Precinct: 148 	 Packets: 148 
+Precinct: 149 	 Packets: 149 
+Precinct: 150 	 Packets: 150 
+Precinct: 151 	 Packets: 151 
+Precinct: 152 	 Packets: 152 
+Precinct: 153 	 Packets: 153 
+Precinct: 154 	 Packets: 154 
+Precinct: 155 	 Packets: 155 
+Precinct: 156 	 Packets: 156 
+Precinct: 157 	 Packets: 157 
+Precinct: 158 	 Packets: 158 
+Precinct: 159 	 Packets: 159 
+Precinct: 160 	 Packets: 160 
+Precinct: 161 	 Packets: 161 
+Precinct: 162 	 Packets: 162 
+Precinct: 163 	 Packets: 163 
+Precinct: 164 	 Packets: 164 
+Precinct: 165 	 Packets: 165 
+Precinct: 166 	 Packets: 166 
+Precinct: 167 	 Packets: 167 
+Precinct: 168 	 Packets: 168 
+Precinct: 169 	 Packets: 169 
+Precinct: 170 	 Packets: 170 
+Precinct: 171 	 Packets: 171 
+Precinct: 172 	 Packets: 172 
+Precinct: 173 	 Packets: 173 
+Precinct: 174 	 Packets: 174 
+Precinct: 175 	 Packets: 175 
+Precinct: 176 	 Packets: 176 
+Precinct: 177 	 Packets: 177 
+Precinct: 178 	 Packets: 178 
+Precinct: 179 	 Packets: 179 
+
+Realizamos pruebas mezclando paquetes de ambas imágenes. Por ejemplo:
+---------------------------------------------------------------------
+cp packets_tree/* packets_tree_stock/
+
+./create_empty_packet 90
+
+mv 90.j2c packets_tree_stock/
+
+./sh_mix_packets.sh 
+
+cat tree_header.j2c out.j2c > temp.j2c 
+
+wine kdu_show temp.j2c

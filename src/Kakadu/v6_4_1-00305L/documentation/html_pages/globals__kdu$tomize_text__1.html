@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_customize_text) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$mize_errors.html"> prev </A>||<A HREF="globals__kdu$tomize_text__2.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_customize_text</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> static Kdu_global.Kdu_customize_text</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="globals__kdu$tomize_text__2.html">2</A></B></P>
+<P CLASS="function-text"><B>void</B> kdu_customize_text(
+<B>const char *</B>&nbsp;context,
+<B>kdu_uint32</B>&nbsp;id,
+<B>const char *</B>&nbsp;lead_in,
+<B>const char *</B>&nbsp;text)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native static void Kdu_customize_text(
+String&nbsp;context,
+long&nbsp;id,
+String&nbsp;lead_in,
+String&nbsp;text)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used to register text (usually for
+internalization purposes) to be rendered by 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A> when constructed with the 
+<A HREF="globals__kdu$tomize_text__1.html#context">context</A>/
+<A HREF="globals__kdu$tomize_text__1.html#id">id</A> pair supplied here.
+</P><P>
+ Note that there is a second (overloaded) form of this
+function which you can use to register unicode text.
+If you invoke either of these functions multiple times
+with the same 
+<A HREF="globals__kdu$tomize_text__1.html#context">context</A> and 
+<A HREF="globals__kdu$tomize_text__1.html#id">id</A> values, the effects of all but the last invocation
+will be lost.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="context">context</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+String which is matched against a corresponding string
+which may be supplied in the constructor for 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A>. Note carefully that the string must be a constant
+resource. Only its address will be registered; the
+string itself will not be copied.
+</P>
+</DIV>
+<H4><A NAME="id">id</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Integer identifier which is matched against the value
+supplied in the constructor for 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A>.
+</P>
+</DIV>
+<H4><A NAME="lead_in">lead_in</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Holds the lead-in string to be printed first. All other
+text is printed only in response to interface functions
+invoked on the 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A> object, as appropriate.
+</P>
+</DIV>
+<H4><A NAME="text">text</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+Holds one or more text strings which are to replace
+instances of a special 3-character PATTERN, when it
+is supplied to 
+<A HREF="kdu_error__put_text__1.html">kdu_error::put_text</A> or 
+<A HREF="kdu$rning__put_text__1.html">kdu_warning::put_text</A>, as appropriate. The special PATTERN consists of a
+"#" character, surrounded by "&lt;" and "&gt;" delimiters.
+Most applications of 
+<A HREF="kdu_error.html">kdu_error</A> or 
+<A HREF="kdu$rning.html">kdu_warning</A> involve only a single string, which means that a single
+instance of the 3-character PATTERN will be translated.
+However, multiple translations may be required. In
+general, if there are N instances of the pattern, 
+<A HREF="globals__kdu$tomize_text__1.html#text">text</A> is assumed to point to N null-terminated strings concatenated
+together. If any of these strings is found to be empty,
+no further parsing into the 
+<A HREF="globals__kdu$tomize_text__1.html#text">text</A> array will occur, meaning that no further instances
+of the 3-character PATTERN will be replaced. This means
+that you can avoid the risk of accidentally reading
+past the end of a 
+<A HREF="globals__kdu$tomize_text__1.html#text">text</A> array, by terminating the last string in the array
+by two null ('\0') characters. However, there is no
+requirement for you to do this.
+</P><P>
+ In practice, the special 3-character PATTERNs and
+the 
+<A HREF="globals__kdu$tomize_text__1.html#text">text</A> strings themselves are generated with the aid of macros
+(these have the names 
+<B>KDU_ERROR</B>, 
+<B>KDU_WARNING</B>, 
+<B>KDU_ERROR_DEV</B> and 
+<B>KDU_WARNING_DEV</B> in the licensed Kakadu source files), together with
+a processing tool named "kdu_text_extractor".
+</P><P>
+ Although many programs might assume that 
+<A HREF="globals__kdu$tomize_text__1.html#text">text</A> is an ASCII text string, it might also be a UTF-8
+encoding of unicode characters. Where possible, application
+message handlers should be capable of handling UTF-8
+rather than just ASCII.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$mize_errors.html"> prev </A>||<A HREF="globals__kdu$tomize_text__2.html"> next </A>|</P>
+</BODY>
+</HTML>

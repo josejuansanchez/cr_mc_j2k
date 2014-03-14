@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::get_forced_precision) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__set$precision.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::get_forced_precision</A></H1>
+<P CLASS="function-text"><B>int</B> get_forced_precision(
+<B>int</B>&nbsp;comp_idx,
+<B>bool</B>&nbsp;&amp;&nbsp;align_lsbs)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns 0 if no forced precision information
+is available (i.e., 
+<A HREF="kdu$_dims__set$precision.html">set_forced_precision</A> has not been called). Otherwise, it returns the forced
+precision associated with the indicated component,
+replicating the last component for which a forced precision
+has been set, if required. Note that a value of 0 means
+do nothing; such a value may have been explicitly set
+in a call to 
+<A HREF="kdu$_dims__set$precision.html">set_forced_precision</A>.
+</P><P>
+ If an image file reader supports precision forcing,
+it should interpret a non-zero value returned by this
+function as the bit-depth of the sample values which
+should be supplied in response to a call to 
+<A HREF="kdu$ge_in__get.html">kdu_image_in::get</A>. When the image reader is initialized, it may use
+the value returned by 
+<A HREF="kdu$_dims__get$bit_depth.html">get_bit_depth</A> if required, to determine the precision of the data
+samples recorded in the file (this is only needed for
+raw files). However, it should explicitly change this
+value (via 
+<A HREF="kdu$_dims__set$bit_depth.html">set_bit_depth</A>) to the forced precision. The 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> value identifies two possible precision forcing modes
+as follows:
+</P><UL><LI>
+If 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> is true, the sample values read from the image file
+are forced to fit into the identified precision without
+any scaling. This means that a value of 1 in the original
+file will remain 1 after precision forcing. Values
+which exceed the range which can be represented by
+the forced precision should be clipped &mdash; as opposed
+to just ignoring the most significant bits.
+</LI><LI>
+If 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> is false, the sample values read from the image file
+are scaled by a power of 2, such that the most significant
+bit in the original representation corresponds to the
+most significant bit in the representation produced
+by precision forcing. If this involves the synthesis
+of additional LSB's, they should be set to 0; if it
+involves the elimination of original LSB's, rounding
+to the nearest representable value should be employed.
+</LI></UL><P>
+ If an image file writer supports precision forcing,
+it should interpret a non-zero value returned by this
+function as the bit-depth of the samples to be recorded
+in the output file. In this case, the value returned
+by 
+<A HREF="kdu$_dims__get$bit_depth.html">get_bit_depth</A> represents the actual precision of the data supplied
+via the 
+<A HREF="kdu$e_out__put.html">kdu_image_out::put</A> function. Again, the behaviour of the file writer
+depends upon the 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> value, as follows:
+</P><UL><LI>
+If 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> is true, the sample values written to the output file
+are not scaled, meaning that a value of 1 (with respect
+to the 
+<A HREF="kdu$_dims__get$bit_depth.html">get_bit_depth</A> precision) should be written as a 1 (with respect
+to the forced precision used in the output file). If
+the 
+<A HREF="kdu$_dims__get$bit_depth.html">get_bit_depth</A> value is larger than the forced precision, some values
+may need to be clipped to the range which can be accommodated
+by the 
+<B>forced_precision</B>.
+</LI><LI>
+If 
+<A HREF="kdu$_dims__get$precision.html#align_lsbs">align_lsbs</A> is false, the sample values written to the output
+file are scaled, so that the most significant bit of
+the representation used to supply data via 
+<A HREF="kdu$e_out__put.html">kdu_image_out::put</A> is aligned with the most significant bit of the forced
+precision used to actually write the data. Such scaling
+is always by a power of 2; rounding to the nearest
+representable value should be employed if LSB's are
+discarded during the shifting process.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="align_lsbs">align_lsbs</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__set$precision.html"> prev </A>|</P>
+</BODY>
+</HTML>

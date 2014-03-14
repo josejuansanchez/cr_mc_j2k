@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi::check_geometry) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_roi__operator!=.html"> prev </A>||<A HREF="jpx_roi__che$ntersection.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi::check_geometry</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi.Check_geometry</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> check_geometry(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Check_geometry(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_roi.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function first verifies that all locations in
+the region lie within the range 0 to 2^31-1 and that
+the region has positive dimensions (at least 1). For
+elliptical regions, it then checks that 
+<B>region.size.x</B> and 
+<B>region.size.y</B> are odd and that the 
+<A HREF="jpx_roi.html#elliptical_skew">elliptical_skew</A> parameters are legal. If the object represents a general
+quadrilateral, the function then explicitly checks
+that the vertices appear in a clock-wise order and
+that no two edges cross through each other, returning
+true if both conditions are satisfied.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx_roi__operator!=.html"> prev </A>||<A HREF="jpx_roi__che$ntersection.html"> next </A>|</P>
+</BODY>
+</HTML>

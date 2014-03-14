@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::is_idle) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__is_alive.html"> prev </A>||<A HREF="kdu_client__disconnect.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::is_idle</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Is_idle</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>bool</B> is_idle(
+<B>int</B>&nbsp;queue_id=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Is_idle(
+int&nbsp;queue_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the server has finished responding
+to all pending window requests on the indicated request
+queue and the 
+<A HREF="kdu_client__is_alive.html">is_alive</A> function would return true if passed the same 
+<A HREF="kdu_client__is_idle.html#queue_id">queue_id</A>.
+</P><P>
+ The state of this function reverts to false immediately
+after any call to 
+<A HREF="kdu_client__post_window.html">post_window</A> which returns true (i.e., any call which would cause
+a request to be sent to the server). See that function
+for more information.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if 
+<A HREF="kdu_client__is_alive.html">is_alive</A> would return true with the same 
+<A HREF="kdu_client__is_idle.html#queue_id">queue_id</A> argument and if the identified request queue (or all
+request queues, if 
+<A HREF="kdu_client__is_idle.html#queue_id">queue_id</A> &lt; 0) is idle.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="queue_id">queue_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of the identifiers returned by 
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A>, or else a negative integer. If a negative value is
+supplied, the function returns true if there is at
+least one communication channel still alive and ALL
+of the communication channels are currently idle (i.e.,
+connected, with no outstanding data to be delivered
+for any request queue).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__is_alive.html"> prev </A>||<A HREF="kdu_client__disconnect.html"> next </A>|</P>
+</BODY>
+</HTML>

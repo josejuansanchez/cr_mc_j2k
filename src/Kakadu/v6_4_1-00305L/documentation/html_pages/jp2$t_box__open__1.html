@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_input_box::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__operator!.html"> prev </A>||<A HREF="jp2$t_box__open__2.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_input_box::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_input_box.Open</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="jp2$t_box__open__2.html">2</A></B></P>
+<P CLASS="function-text">virtual <B>bool</B> open(
+<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*&nbsp;src,
+<A HREF ="jp2$cator.html">jp2_locator</A>&nbsp;locator=jp2_locator())</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Open(
+Jp2_family_src&nbsp;src,
+Jp2_locator&nbsp;locator)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Opens the box to read from the 
+<A HREF="jp2$t_box__open__1.html#src">src</A> object. If 
+<A HREF="jp2$t_box__open__1.html#src">src</A> was opened using a seekable file, seekable compressed
+data source, or a dynamic cache (
+<A HREF="kdu_cache.html">kdu_cache</A>) object, multiple boxes may be simultaneously opened
+using the same 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object. Moreover, they may be read in any order, or
+in interleaved fashion. The internal machinery maintains
+information about the current read state and manages
+all required context switching, but for multi-threaded
+applications you should consider supplying implementing
+the synchronization funcions, 
+<A HREF="jp2$y_src__acquire_lock.html">jp2_family_src::acquire_lock</A> and 
+<A HREF="jp2$y_src__release_lock.html">jp2_family_src::release_lock</A> in a class derived from 
+<A HREF="jp2$y_src.html">jp2_family_src</A>.
+</P><P>
+ Every open box has a unique 
+<A HREF="jp2$t_box__open__1.html#locator">locator</A> value. If you have visited a box before (e.g., during
+an initial pass through the file), you may open the
+box again using the locator you found at that time
+by invoking 
+<A HREF="jp2$t_box__get_locator.html">jp2_input_box::get_locator</A>. Using a locator, you may open any box using this
+function, not just top level boxes. You may think of
+the 
+<A HREF="jp2$t_box__open__1.html#locator">locator</A> as the address of the box within its file, even though
+the information source might be a 
+<A HREF="kdu_cache.html">kdu_cache</A> object which has no linear file structure. Even in
+this case, a mechanism is provided (behind the scenes)
+for maintaining the association between each JP2 box
+and a location in an original file. These locations
+are managed by the 
+<A HREF="jp2$cator__get_file_pos.html">jp2_locator::get_file_pos</A> and 
+<A HREF="jp2$cator__set_file_pos.html">jp2_locator::set_file_pos</A> functions.
+</P><P>
+ An error may be generated through 
+<A HREF="kdu_error.html">kdu_error</A> if a fundamental problem is detected. If the 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object is using a cache as its data source, however,
+it is possible that the cache may not yet have sufficient
+information to open the box. In this case, the function
+returns false, leaving the box closed (
+<A HREF="jp2$t_box__exists.html">exists</A> remains false). Any of the following conditions may
+cause this to happen:
+</P><UL><LI>
+All or part of the box's header might not yet have
+been loaded into the cache.
+</LI><LI>
+The cache might not contain sufficient information
+to determine the cache data-bin to which the box belongs.
+This may happen if the supplied 
+<A HREF="jp2$t_box__open__1.html#locator">locator</A> object identifies only an original file location (set
+using 
+<A HREF="jp2$cator__set_file_pos.html">jp2_locator::set_file_pos</A>), in which case it may be necessary to walk through
+multiple data-bins to determine where the dynamic representation
+of that box will be; and some of the intermediate bins
+might not yet be available.
+</LI><LI>
+The box might be represented by a placeholder box,
+whose contents are not yet fully available &mdash;
+the placeholder box's contents must be read before
+the actual location of the box's contents can be determined.
+</LI></UL><P>
+ If any of the above occurs, the function returns false
+with the box still closed. Trying again later, however,
+once the cache contents have been augmented, may result
+in success (
+<A HREF="jp2$t_box__exists.html">exists</A> becomes true).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if a new box was opened, else false.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Must point to an open 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object, which must not be closed until after the present
+object is closed (or destroyed).
+</P>
+</DIV>
+<H4><A NAME="locator">locator</A> [<A HREF ="jp2$cator.html">jp2_locator</A>]</H4><DIV CLASS="indented-text">
+<P>
+To open the very first box in the JP2 source, you may
+supply the empty (or null) locator, which is created
+by the 
+<A HREF="jp2$cator.html">jp2_locator</A> object's constructor. Other values for this argument
+may be obtained by invoking 
+<A HREF="jp2$t_box__get_locator.html">get_locator</A> on this or another 
+<A HREF="jp2$t_box.html">jp2_input_box</A> object, or by using 
+<A HREF="jp2$cator__set_file_pos.html">jp2_locator::set_file_pos</A>. The same box (or sub-box) may be opened as often
+as desired, by different 
+<A HREF="jp2$t_box.html">jp2_input_box</A> objects if you like, simply by passing the relevant
+locator to this function.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$t_box__operator!.html"> prev </A>||<A HREF="jp2$t_box__open__2.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,173 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_codestream</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_codestream</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Objects of this class are only interfaces, having the
+size of a single pointer (memory address). Copying
+the object has no effect on the underlying state information,
+but simply serves to provide another interface (or
+reference) to it.
+</P><P>
+ There is no destructor, because destroying an interface
+has no impact on the underlying state. Unlike the other
+interface classes provided for accessing Kakadu's code-stream
+management sub-system (
+<A HREF="kdu_tile.html">kdu_tile</A>, 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A>, 
+<A HREF="kdu$ution.html">kdu_resolution</A>, 
+<A HREF="kdu$bband.html">kdu_subband</A>, and so on), this one does have a creation function.
+The creation function is used to build the internal
+machinery to which the interface classes provide access.
+</P><P>
+ The internal machinery manages the various entities
+associated with a JPEG2000 code-stream: tiles, tile-components,
+resolutions, subbands, precincts and code-blocks. These
+internal entities are accessed indirectly through the
+public 
+<A HREF="kdu_tile.html">kdu_tile</A>, 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A>, 
+<A HREF="kdu$ution.html">kdu_resolution</A>, 
+<A HREF="kdu$bband.html">kdu_subband</A>, 
+<A HREF="kdu$cinct.html">kdu_precinct</A> and 
+<A HREF="kdu_block.html">kdu_block</A> interface classes. The indirection serves to protect
+applications from changes in the implementation of
+the internal machinery and vice-versa.
+</P><P>
+ Perhaps even more importantly, indirect access to
+the internal code-stream management machinery through
+these interface classes allows a rotated, flipped,
+zoomed or spatially restricted view of the actual compressed
+image to be presented to the application. The application
+can manipulate the geometry and the spatial region
+of interest (i.e., a viewport) through various member
+functions provided by the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface. The information transferred to or from
+the application via the various interface classes documented
+in this header file is transparently massaged so as
+to give the impression that the geometry of the application's
+viewport and that of the compressed image are identical.
+</P><P>
+ Be sure to read the descriptions of the 
+<A HREF="kdu$tream__create__1.html">create</A>, 
+<A HREF="kdu$tream__destroy.html">destroy</A> and 
+<A HREF="kdu$tream__access_siz.html">access_siz</A> functions carefully.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$tream__kdu$odestream.html">kdu_codestream</A></P>
+<P><A HREF="kdu$tream__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$tream__operator!.html">operator!</A></P>
+<P><A HREF="kdu$tream__create__1.html">create</A> <EM>(3 forms)</EM> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$tream__restart__1.html">restart</A> <EM>(2 forms)</EM> {<U>Java:</U> Restart}
+</P>
+<P><A HREF="kdu$tream__sha$buffering.html">share_buffering</A> {<U>Java:</U> Share_buffering}
+</P>
+<P><A HREF="kdu$tream__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$tream__ena$e_restart.html">enable_restart</A> {<U>Java:</U> Enable_restart}
+</P>
+<P><A HREF="kdu$tream__set$ersistent.html">set_persistent</A> {<U>Java:</U> Set_persistent}
+</P>
+<P><A HREF="kdu$tream__aug$threshold.html">augment_cache_threshold</A> {<U>Java:</U> Augment_cache_threshold}
+</P>
+<P><A HREF="kdu$tream__set$threshold.html">set_tile_unloading_threshold</A> {<U>Java:</U> Set_tile_unloading_threshold}
+</P>
+<P><A HREF="kdu$tream__is_$_fragment.html">is_last_fragment</A> {<U>Java:</U> Is_last_fragment}
+</P>
+<P><A HREF="kdu$tream__access_siz.html">access_siz</A> {<U>Java:</U> Access_siz}
+</P>
+<P><A HREF="kdu$tream__get$omponents.html">get_num_components</A> {<U>Java:</U> Get_num_components}
+</P>
+<P><A HREF="kdu$tream__get$bit_depth.html">get_bit_depth</A> {<U>Java:</U> Get_bit_depth}
+</P>
+<P><A HREF="kdu$tream__get_signed.html">get_signed</A> {<U>Java:</U> Get_signed}
+</P>
+<P><A HREF="kdu$tream__get$bsampling.html">get_subsampling</A> {<U>Java:</U> Get_subsampling}
+</P>
+<P><A HREF="kdu$tream__get$istration.html">get_registration</A> {<U>Java:</U> Get_registration}
+</P>
+<P><A HREF="kdu$tream__get$1istration.html">get_relative_registration</A> {<U>Java:</U> Get_relative_registration}
+</P>
+<P><A HREF="kdu$tream__get_dims.html">get_dims</A> {<U>Java:</U> Get_dims}
+</P>
+<P><A HREF="kdu$tream__get$partition.html">get_tile_partition</A> {<U>Java:</U> Get_tile_partition}
+</P>
+<P><A HREF="kdu$tream__get$lid_tiles.html">get_valid_tiles</A> {<U>Java:</U> Get_valid_tiles}
+</P>
+<P><A HREF="kdu$tream__find_tile.html">find_tile</A> {<U>Java:</U> Find_tile}
+</P>
+<P><A HREF="kdu$tream__get$tile_dims.html">get_tile_dims</A> {<U>Java:</U> Get_tile_dims}
+</P>
+<P><A HREF="kdu$tream__get$le_layers.html">get_max_tile_layers</A> {<U>Java:</U> Get_max_tile_layers}
+</P>
+<P><A HREF="kdu$tream__get$wt_levels.html">get_min_dwt_levels</A> {<U>Java:</U> Get_min_dwt_levels}
+</P>
+<P><A HREF="kdu$tream__can_flip.html">can_flip</A> {<U>Java:</U> Can_flip}
+</P>
+<P><A HREF="kdu$tream__map_region.html">map_region</A> {<U>Java:</U> Map_region}
+</P>
+<P><A HREF="kdu$tream__set$alization.html">set_textualization</A> {<U>Java:</U> Set_textualization}
+</P>
+<P><A HREF="kdu$tream__set$max_bytes.html">set_max_bytes</A> {<U>Java:</U> Set_max_bytes}
+</P>
+<P><A HREF="kdu$tream__set$1threshold.html">set_min_slope_threshold</A> {<U>Java:</U> Set_min_slope_threshold}
+</P>
+<P><A HREF="kdu$tream__set$resilient.html">set_resilient</A> {<U>Java:</U> Set_resilient}
+</P>
+<P><A HREF="kdu$tream__set_fussy.html">set_fussy</A> {<U>Java:</U> Set_fussy}
+</P>
+<P><A HREF="kdu$tream__set_fast.html">set_fast</A> {<U>Java:</U> Set_fast}
+</P>
+<P><A HREF="kdu$tream__app$trictions__1.html">apply_input_restrictions</A> <EM>(2 forms)</EM> {<U>Java:</U> Apply_input_restrictions}
+</P>
+<P><A HREF="kdu$tream__cha$ppearance.html">change_appearance</A> {<U>Java:</U> Change_appearance}
+</P>
+<P><A HREF="kdu$tream__set$runcation.html">set_block_truncation</A> {<U>Java:</U> Set_block_truncation}
+</P>
+<P><A HREF="kdu$tream__open_tile.html">open_tile</A> {<U>Java:</U> Open_tile}
+</P>
+<P><A HREF="kdu$tream__create_tile.html">create_tile</A> {<U>Java:</U> Create_tile}
+</P>
+<P><A HREF="kdu$tream__get_comment.html">get_comment</A> {<U>Java:</U> Get_comment}
+</P>
+<P><A HREF="kdu$tream__add_comment.html">add_comment</A> {<U>Java:</U> Add_comment}
+</P>
+<P><A HREF="kdu$tream__flush.html">flush</A> {<U>Java:</U> Flush}
+</P>
+<P><A HREF="kdu$tream__trans_out.html">trans_out</A> {<U>Java:</U> Trans_out}
+</P>
+<P><A HREF="kdu$tream__rea$for_flush.html">ready_for_flush</A> {<U>Java:</U> Ready_for_flush}
+</P>
+<P><A HREF="kdu$tream__get$tal_bytes.html">get_total_bytes</A> {<U>Java:</U> Get_total_bytes}
+</P>
+<P><A HREF="kdu$tream__get$um_tparts.html">get_num_tparts</A> {<U>Java:</U> Get_num_tparts}
+</P>
+<P><A HREF="kdu$tream__col$ing_stats.html">collect_timing_stats</A> {<U>Java:</U> Collect_timing_stats}
+</P>
+<P><A HREF="kdu$tream__get$ing_stats.html">get_timing_stats</A> {<U>Java:</U> Get_timing_stats}
+</P>
+<P><A HREF="kdu$tream__get$ta_memory.html">get_compressed_data_memory</A> {<U>Java:</U> Get_compressed_data_memory}
+</P>
+<P><A HREF="kdu$tream__get$te_memory.html">get_compressed_state_memory</A> {<U>Java:</U> Get_compressed_state_memory}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

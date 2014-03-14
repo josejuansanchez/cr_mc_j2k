@@ -1,0 +1,13 @@
+#set terminal fig textspecial color
+set terminal png
+set output "psnr.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'PSNR [dB]'
+
+#set yrange [0:60]
+set key bottom
+
+plot "paste.txt" using 1:3 with lines title 'me + cr' axes x1y1,\
+	 "paste.txt" using 1:4 with lines title 'trunc' axes x1y1

@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::augment_cache_threshold) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__set$ersistent.html"> prev </A>||<A HREF="kdu$tream__set$threshold.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::augment_cache_threshold</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Augment_cache_threshold</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_long</B> augment_cache_threshold(
+<B>int</B>&nbsp;extra_bytes)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Augment_cache_threshold(
+int&nbsp;extra_bytes)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function plays an important role in managing the
+memory consumption and data access overhead associated
+with persistent input codestreams. In particular, it
+controls the conditions under which certain reloadable
+elements may be unloaded from memory. These elements
+are as follows:
+</P><UL><LI>
+Whole precincts, including their code-block state structure
+and compressed data, may be unloaded from memory so
+long as the following conditions are satisfied: 1)
+the compressed data source's 
+<B>kdu_compressed_data_source::get_capabilities</B> function must advertise one of 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A> or 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A>; 2) sufficient information must be available (PLT
+marker segments or 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A>) to support random access into the JPEG2000 packet
+data; and 3) all packets of any given precinct must
+appear consecutively (in the code-stream, or in a data
+source which advertises 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A>). These conditions are enough to ensure that unloaded
+precincts can be reloaded on-demand. Precincts become
+candidates for unloading if they do not contribute
+to the current region of interest within a currently
+open tile.
+</LI><LI>
+Whole tiles, including all structural state information
+and compressed data, may be unloaded from memory, so
+long as the compressed data source's 
+<B>kdu_compressed_data_source::get_capabilities</B> function advertises one of the 
+<A HREF="globals.html#KDU_SOURCE_CAP_SEEKABLE">KDU_SOURCE_CAP_SEEKABLE</A> or 
+<A HREF="globals.html#KDU_SOURCE_CAP_CACHED">KDU_SOURCE_CAP_CACHED</A> capabilities. Tiles become candidates for unloading
+if they are not currently open. However, once unloading
+is triggered, the system attempts to unload those which
+do not intersect with the current region of interest
+first. Since the search for tiles which do not belong
+to the current region of interest has a complexity
+which grows with the number of potentially unloadable
+tiles, this number is limited. You can change the limit
+using the 
+<A HREF="kdu$tream__set$threshold.html">set_tile_unloading_threshold</A> function.
+</LI></UL><P>
+ By default, tiles and precincts are unloaded from
+memory as soon as possible, based on the criteria set
+out above. While this policy minimizes internal memory
+consumption, it can result in quite large access overheads,
+if elements of the codestream need to be frequently
+re-loaded from disk and reparsed.
+</P><P>
+ To minimize this access burden, the internal machinery
+provides two caching thresholds which you can set.
+The threshold set using the present function refers
+to the total amount of memory currently being consumed
+by loaded precincts and tiles, including both the compressed
+data and the associated structural and addressing information.
+Once a precinct or a tile becomes a candidate for unloading,
+it is entered on an internal list, from which it is
+unloaded only if the cache threshold is exceeded. Unloading
+of old precincts is contemplated immediately before
+new precincts (or their packets) are loaded, while
+unloading of tiles is contemplated immediately before
+new tile-parts are loaded from the code-stream. Since
+unloading is considered only at these points, the cache
+threshold may be crossed substantially if a new precinct
+or tile-part is very large, or if the application's
+data access patterns are not amenable to resource recycling.
+</P><P>
+ The cache threshold associated with this function
+starts out at 0 (meaning, unload all unloadable elements
+before loading new ones) but may be augmented as required
+by calling this function any number of times.
+</P><P>
+ If 
+<A HREF="kdu$tream__sha$buffering.html">share_buffering</A> has been used to share buffer resources with other
+codestream management machines, this function controls
+the caching threshold for all participating entities.
+</P><P>
+ This function is not strictly thread safe, only in
+the sense that if multiple threads attempt to modify
+the cache threshold simultaneously, the resulting threshold
+might be unpredictable. This is not expected to present
+any practical difficulties.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The new size of the threshold, which is 
+<A HREF="kdu$tream__aug$threshold.html#extra_bytes">extra_bytes</A> larger than the previous value. It is legal to call
+this function with 
+<A HREF="kdu$tream__aug$threshold.html#extra_bytes">extra_bytes</A>=0 to find out the current threshold.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="extra_bytes">extra_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$tream__set$ersistent.html"> prev </A>||<A HREF="kdu$tream__set$threshold.html"> next </A>|</P>
+</BODY>
+</HTML>

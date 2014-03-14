@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::get_num_layer_codestreams) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$ss_layer.html"> prev </A>||<A HREF="jpx_source__get$tream_id.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::get_num_layer_codestreams</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Get_num_layer_codestreams</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_num_layer_codestreams(
+<B>int</B>&nbsp;which_layer)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_num_layer_codestreams(
+int&nbsp;which_layer)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is equivalent to calling 
+<A HREF="jpx_source__acc$ss_layer.html">access_layer</A>, followed by 
+<A HREF="jpx$1ource__get$estreams.html">jpx_layer_source::get_num_codestreams</A> with one exception &mdash; if the layer cannot yet
+be opened due to the unavailability of some header
+box or the relevant codestream main headers, the present
+function may still succeed in reporting the actual
+number of codestreams used by the compositing layer.
+This is useful when the image is being served by a
+JPIP server which needs to be informed of the codestreams
+which are required before it will supply their main
+headers required to access the compositing layer via
+<A HREF="jpx_source__acc$ss_layer.html">access_layer</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if the layer does not exist or if insufficient information
+is currently available concerning the layer's codestreams.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="which_layer">which_layer</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__acc$ss_layer.html"> prev </A>||<A HREF="jpx_source__get$tream_id.html"> next </A>|</P>
+</BODY>
+</HTML>

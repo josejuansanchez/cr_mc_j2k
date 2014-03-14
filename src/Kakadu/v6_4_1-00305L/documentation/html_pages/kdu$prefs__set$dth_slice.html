@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs::set_bandwidth_slice) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__set$bandwidth.html"> prev </A>||<A HREF="kdu$prefs__get$_priority.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs::set_bandwidth_slice</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_prefs.Set_bandwidth_slice</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_bandwidth_slice(
+<B>kdu_uint32</B>&nbsp;bw_slice,
+<B>bool</B>&nbsp;make_required=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_bandwidth_slice(
+long&nbsp;bw_slice,
+boolean&nbsp;make_required)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$prefs.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to set up a bandwidth slice preference,
+rather than explicitly setting the object's data members.
+The 
+<A HREF="kdu$prefs__set$dth_slice.html#bw_slice">bw_slice</A> member identifies a relative slice of the total available
+bandwidth to be assigned to a specific JPIP channel.
+As with 
+<A HREF="kdu$prefs__set_pref.html">set_pref</A>, this function ensures that only one of 
+<A HREF="kdu$prefs.html#preferred">preferred</A> or 
+<A HREF="kdu$prefs.html#required">required</A> signals the preference. However, you are advised against
+making the preference required.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="bw_slice">bw_slice</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="make_required">make_required</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__set$bandwidth.html"> prev </A>||<A HREF="kdu$prefs__get$_priority.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::add_source_metadata) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get$lour_info.html"> prev </A>||<A HREF="kdu$_dims__get$_metadata.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::add_source_metadata</A></H1>
+<P CLASS="function-text"><A HREF ="jp2$1t_box.html">jp2_output_box</A>&nbsp;* add_source_metadata(
+<B>kdu_uint32</B>&nbsp;box_type)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+When reading the header of a rich image file format,
+such as TIFF, additional meta-data may be discovered
+which could be passed to a JP2/JPX compressed image.
+This may be done by calling this function to create
+a new open 
+<A HREF="jp2$1t_box.html">jp2_output_box</A> into which the reader can write box contents.
+</P><P>
+ Be sure not to invoke 
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A>, since that will destroy the box's contents.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="box_type">box_type</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__get$lour_info.html"> prev </A>||<A HREF="kdu$_dims__get$_metadata.html"> next </A>|</P>
+</BODY>
+</HTML>

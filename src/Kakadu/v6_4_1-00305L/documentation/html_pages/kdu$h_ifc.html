@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_push_ifc) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_push_ifc</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_push_ifc</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$e_processing+h.html">"../coresys/common/kdu_sample_processing.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu$lysis.html">kdu_analysis</A></LI>
+<LI><A HREF="kdu$3coder.html">kdu_encoder</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+All classes which support 
+<A HREF="kdu$h_ifc__push__1.html">push</A> calls derive from this class so that the caller may
+remain ignorant of the specific type of object to which
+samples are being delivered. The purpose of derivation
+is usually just to introduce the correct constructor.
+The objects are actually just interfaces to an appropriate
+object created by the relevant derived class's constructor.
+The interface directs 
+<A HREF="kdu$h_ifc__push__1.html">push</A> calls to the internal object in a manner which should
+incur no cost.
+</P><P>
+ The interface objects may be copied at will; the internal
+object will not be destroyed when an interface goes
+out of scope. Consequently, the interface objects do
+not have meaningful destructors. Instead, to destroy
+the internal object, the 
+<A HREF="kdu$h_ifc__destroy.html">destroy</A> member function must be called explicitly.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$h_ifc__kdu_push_ifc.html">kdu_push_ifc</A> {<U>Java:</U> Kdu_push_ifc}
+</P>
+<P><A HREF="kdu$h_ifc__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$h_ifc__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$h_ifc__operator!.html">operator!</A></P>
+<P><A HREF="kdu$h_ifc__operator=__1.html">operator=</A> <EM>(2 forms)</EM></P>
+<P><A HREF="kdu$h_ifc__push__1.html">push</A> <EM>(2 forms)</EM> {<U>Java:</U> Push}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

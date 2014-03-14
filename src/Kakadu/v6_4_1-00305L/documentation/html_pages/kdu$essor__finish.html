@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::finish) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__7.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::finish</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Finish</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> finish(
+<B>kdu_exception</B>&nbsp;*&nbsp;failure_exception=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Finish(
+int[]&nbsp;failure_exception)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Every call to 
+<A HREF="kdu$essor__start.html">start</A> must be matched by a call to 
+<A HREF="kdu$essor__finish.html">finish</A>; however, you may call 
+<A HREF="kdu$essor__finish.html">finish</A> prematurely. This allows processing to be terminated
+on a region whose intersection with a display window
+has become too small to justify the effort.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+If the function returns false, a fatal error has occurred
+in the underlying codestream management machinery and
+you must destroy the codestream object (use 
+<A HREF="kdu$tream__destroy.html">kdu_codestream::destroy</A>). You will probably also have to close the relevant
+compressed data source (e.g., using 
+<A HREF="kdu$ource__close.html">kdu_compressed_source::close</A>). This should clean up all the resources correctly,
+in preparation for subsequently opening a new code-stream
+for further decompression and rendering work.
+</P><P>
+ Otherwise, if the 
+<A HREF="kdu$essor__process__1.html">process</A> function returned false leaving a non-empty incompletely
+processed region, one of two non-fatal errors has occurred:
+</P><UL><LI>
+The number of 
+<B>discard_levels</B> supplied to 
+<A HREF="kdu$essor__start.html">start</A> has been found to exceed the number of DWT levels
+offered by some tile.
+</LI><LI>
+The codestream was configured to flip the image geometry,
+but a Part-2 packet wavelet decomposition structure
+has been employed in some tile which is fundamentally
+non-flippable (only some of the Part-2 packet decomposition
+styles have this property).
+</LI></UL><P>
+ The correct response to either of these events is
+documented in the description of the return value from
+<A HREF="kdu$essor__process__1.html">process</A>. Note that the 
+<A HREF="kdu$essor__start.html">start</A> function may always be re-invoked with a smaller number
+of 
+<B>discard_levels</B> and a larger value of 
+<B>expand_denominator</B>, to synthesize the required resolution.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="failure_exception">failure_exception</A> [<B>kdu_exception</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL and the function returns false, this argument
+is used to return a copy of the Kakadu exception which
+was caught (probably during an earlier call to 
+<A HREF="kdu$essor__process__1.html">process</A>). In addition to exceptions of type 
+<B>kdu_exception</B>, exceptions of type 
+<B>std::bad_alloc</B> are also caught and converted into the special value,
+<A HREF="globals.html#KDU_MEMORY_EXCEPTION">KDU_MEMORY_EXCEPTION</A>, so that they can be passed across this interface.
+If your code rethrows the exception, it may be best
+to test for this special value and rethrow such exceptions
+as 
+<B>std::bad_alloc()</B>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__7.html"> prev </A>|</P>
+</BODY>
+</HTML>

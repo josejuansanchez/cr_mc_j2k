@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_event::operator!) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_event__exists.html"> prev </A>||<A HREF="kdu_event__create.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_event::operator!</A></H1>
+<P CLASS="function-text"><B>bool</B> operator!(
+)</P>
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P><A HREF="kdu_event.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Opposite of 
+<A HREF="kdu_event__exists.html">exists</A>. You must explicitly call 
+<A HREF="kdu_event__create.html">create</A> and 
+<A HREF="kdu_event__destroy.html">destroy</A>. The constructor and and destructor for the 
+<A HREF="kdu_event.html">kdu_event</A> object do not create or destroy the underlying synchronization
+primitive itself.
+</P><P>
+ If 
+<B>manual_reset</B> is true, the event object remains set from the point
+at which 
+<A HREF="kdu_event__set.html">set</A> is called, until 
+<A HREF="kdu_event__reset.html">reset</A> is called. During this interval, multiple waiting
+threads may be woken up &mdash; depending on whether
+a waiting thread invokes 
+<A HREF="kdu_event__reset.html">reset</A> before another waiting thread is woken.
+</P><P>
+ If 
+<B>manual_reset</B> is false, the event is automatically reset once any
+thread's call to 
+<A HREF="kdu_event__wait.html">wait</A> succeeds. If there are other threads which are also
+waiting for the event, they will not be woken up until
+the 
+<A HREF="kdu_event__set.html">set</A> function is called again.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if event creation is not supported on the current
+platform or if the operating system is unwilling to
+allocate any more synchronization primitives to the
+process. The former problem may be resolved by creating
+the appropriate definitions in "kdu_elementary.h".
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_event__exists.html"> prev </A>||<A HREF="kdu_event__create.html"> next </A>|</P>
+</BODY>
+</HTML>

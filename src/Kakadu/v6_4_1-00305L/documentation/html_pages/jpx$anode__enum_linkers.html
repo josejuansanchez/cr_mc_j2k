@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::enum_linkers) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get_link.html"> prev </A>||<A HREF="jpx$anode__get_existing.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::enum_linkers</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Enum_linkers</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> enum_linkers(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;last_linker=jpx_metanode())</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Enum_linkers(
+Jpx_metanode&nbsp;last_linker)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to enumerate the metanodes
+which are linked to the present node, in the sense
+defined by the 
+<A HREF="jpx$anode__get_link.html">get_link</A> function. Call this function with an empty 
+<A HREF="jpx$anode__enum_linkers.html#last_linker">last_linker</A> argument to get the first linking node, if any. Thereafter,
+pass in the last returned metanode as the 
+<A HREF="jpx$anode__enum_linkers.html#last_linker">last_linker</A> argument, to get the next linker. Returns an empty
+interface if there are no more linking nodes.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="last_linker">last_linker</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__get_link.html"> prev </A>||<A HREF="jpx$anode__get_existing.html"> next </A>|</P>
+</BODY>
+</HTML>

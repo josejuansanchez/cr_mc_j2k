@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_channels) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jp2_channels</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jp2_channels</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Provides a uniform, simplified interface to the information
+associated with the JP2 "Component Mapping" and "Channel
+Definition" boxes, the JPX "Opacity" box and, to a
+limited extent, the JPX "Codestream Registration" box,
+as well as implementing the default bindings which
+apply where one or more of these boxes is missing.
+Together, this information serves to identify the relationship
+between each "colour" reproduction channel of a JP2
+image (or a JPX compositing layer) and the underlying
+code-stream image components which generate it.
+</P><P>
+ Reproduction channels may be grouped into the following
+three categories:
+</P><UL><LI>
+Colour intensity channels, the number of which depends
+upon the colour space: 1 for monochrome; 3 for RGB
+and related colour spaces; 4 for CMYK; etc.
+</LI><LI>
+Opacity channels, often called alpha channels. A separate
+opacity channel may be defined for each colour intensity
+channel, although they will often all be the same.
+</LI><LI>
+Pre-multiplied opacity channels (sometimes called pre-multiplied
+alpha). Again, each colour intensity channel may have
+its own distinct pre-multiplied opacity channels.
+</LI></UL><P>
+ The actual interpretation of the colour intensity
+channels in terms of a specific colour space is provided
+by "Colour Specification" boxes, whose contents are
+managed by the 
+<A HREF="jp2_colour.html">jp2_colour</A> interface.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Creation and destruction of the internal
+object, as well as saving and reading of the associated
+JP2 boxes are capabilities reserved for the internal
+machinery associated with the file format manager which
+provides the interface.
+</P><P>
+ Objects which can provide a non-empty 
+<A HREF="jp2$nnels.html">jp2_channels</A> interface include 
+<A HREF="jp2_source.html">jp2_source</A>, 
+<A HREF="jp2_target.html">jp2_target</A>, 
+<A HREF="jpx$1ource.html">jpx_layer_source</A>, 
+<A HREF="jpx$1arget.html">jpx_layer_target</A>, 
+<A HREF="mj2$ource.html">mj2_video_source</A> and 
+<A HREF="mj2$arget.html">mj2_video_target</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jp2$nnels__jp2_channels__1.html">jp2_channels</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jp2$nnels__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jp2$nnels__operator!.html">operator!</A></P>
+<P><A HREF="jp2$nnels__copy.html">copy</A> {<U>Java:</U> Copy}
+</P>
+<P><A HREF="jp2$nnels__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> {<U>Java:</U> Set_colour_mapping}
+</P>
+<P><A HREF="jp2$nnels__set$y_mapping.html">set_opacity_mapping</A> {<U>Java:</U> Set_opacity_mapping}
+</P>
+<P><A HREF="jp2$nnels__set$t_mapping.html">set_premult_mapping</A> {<U>Java:</U> Set_premult_mapping}
+</P>
+<P><A HREF="jp2$nnels__set$hroma_key.html">set_chroma_key</A> {<U>Java:</U> Set_chroma_key}
+</P>
+<P><A HREF="jp2$nnels__get$m_colours.html">get_num_colours</A> {<U>Java:</U> Get_num_colours}
+</P>
+<P><A HREF="jp2$nnels__get$r_mapping.html">get_colour_mapping</A> {<U>Java:</U> Get_colour_mapping}
+</P>
+<P><A HREF="jp2$nnels__get$y_mapping.html">get_opacity_mapping</A> {<U>Java:</U> Get_opacity_mapping}
+</P>
+<P><A HREF="jp2$nnels__get$t_mapping.html">get_premult_mapping</A> {<U>Java:</U> Get_premult_mapping}
+</P>
+<P><A HREF="jp2$nnels__get$hroma_key.html">get_chroma_key</A> {<U>Java:</U> Get_chroma_key}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

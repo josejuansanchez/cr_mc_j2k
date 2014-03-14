@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernel_step_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+<H1><A NAME="ToP">kdu_kernel_step_info [struct]</A></H1>
+
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This structure is used by 
+<A HREF="kdu$rnels__get$step_info.html">kdu_kernels::get_step_info</A> to return a description of each lifting step, excluding
+the coefficient values themselves.
+</P><P>
+ Let Cs[n] denote the coefficients for lifting step
+s and let Ls denote the corresponding length. The lifting
+step is implemented as follows:
+</P><UL><LI>
+X_s[2k+1-p] = sum_{Ns &lt;= n &lt;= Ps} Cs[n] * X_{s-1}[2k+p+2n]
+</LI></UL><P>
+ Here, p = (s & 1) is the parity of the lifting step.
+Even lifting steps update the odd indexed subsequence
+based on the even indexed subsequence (vice-versa for
+odd lifting steps). The first analysis lifting step
+is always assigned an index of s=0.
+</P><P>
+ The coefficient indices run from Ns to Ps, where Ls
+= Ps+1-Ns.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$_info__kdu$step_info.html">kdu_kernel_step_info</A></P>
+</DIV>
+<H2><A NAME="VarS">Public Variables</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="support_length">support_length</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Value of Ls &mdash; see above description.
+</P>
+</DIV>
+<H4><A NAME="support_min">support_min</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Value of Ns (usually &lt;= 0) &mdash; see above description.
+</P>
+</DIV>
+<H4><A NAME="downshift">downshift</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Value of the downshift to be applied for reversible
+transforms. This value is also returned by 
+<B>get_lifting_downshift</B>. The value is guaranteed to be non-negative.
+</P>
+</DIV>
+<H4><A NAME="rounding_offset">rounding_offset</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Value of the rounding offset to be added prior to downshifting
+using the 
+<A HREF="kdu$_info.html#downshift">downshift</A> value &mdash; relevant only for reversible transforms.
+</P>
+</DIV>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>||<A HREF="#VarS"> variables </A>|</P>
+</BODY>
+</HTML>

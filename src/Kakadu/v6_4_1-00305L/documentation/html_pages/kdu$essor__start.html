@@ -1,0 +1,388 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::start) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__set$behaviour.html"> prev </A>||<A HREF="kdu$essor__process__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::start</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Start</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> start(
+<A HREF ="kdu$tream.html">kdu_codestream</A>&nbsp;codestream,
+<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*&nbsp;mapping,
+<B>int</B>&nbsp;single_component,
+<B>int</B>&nbsp;discard_levels,
+<B>int</B>&nbsp;max_layers,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expand_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;expand_denominator=kdu_coords(1,
+<B>bool</B>&nbsp;precise=false,
+<B>kdu_component_access_mode</B>&nbsp;access_mode=KDU_WANT_OUTPUT_COMPONENTS,
+<B>bool</B>&nbsp;fastest=false,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;env_queue=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Start(
+Kdu_codestream&nbsp;codestream,
+Kdu_channel_mapping&nbsp;mapping,
+int&nbsp;single_component,
+int&nbsp;discard_levels,
+int&nbsp;max_layers,
+Kdu_dims&nbsp;region,
+Kdu_coords&nbsp;expand_numerator,
+Kdu_coords&nbsp;expand_denominator,
+boolean&nbsp;precise,
+int&nbsp;access_mode,
+boolean&nbsp;fastest,
+Kdu_thread_env&nbsp;env,
+long&nbsp;env_queue)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Prepares to decompress a new region of interest. The
+actual decompression work is performed incrementally
+through successive calls to 
+<A HREF="kdu$essor__process__1.html">process</A> and terminated by a call to 
+<A HREF="kdu$essor__finish.html">finish</A>. This incremental processing strategy allows the decompression
+work to be interleaved with other tasks, e.g. to preserve
+the responsiveness of an interactive application. There
+is no need to process the entire region of interest
+established by the present function call; 
+<A HREF="kdu$essor__finish.html">finish</A> may be called at any time, and processing restarted
+with a new region of interest. This is particularly
+helpful in interactive applications, where an impatient
+user's interests may change before processing of an
+outstanding region is complete.
+</P><P>
+ If 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> is NULL, a single image component is to be decompressed,
+whose index is identified by 
+<A HREF="kdu$essor__start.html#single_component">single_component</A>. Otherwise, one or more image components must be decompressed
+and subjected to potentially quite complex mapping
+rules to generate channels for display; the relevant
+components and mapping rules are identified by the
+<A HREF="kdu$essor__start.html#mapping">mapping</A> object.
+</P><P>
+ The 
+<A HREF="kdu$essor__start.html#region">region</A> argument identifies the image region which is to be
+decompressed. This region is defined with respect to
+a 
+<B>rendering canvas</B>. The rendering canvas might be identical to the high
+resolution canvas associated with the code-stream,
+but it is often different &mdash; see below.
+</P><P>
+ The 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> and 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A> arguments identify the amount by which the first channel
+described by 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> (or the single image component if 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> is NULL) should be expanded to obtain its representation
+on the rendering canvas. To be more precise, let Cr
+be the index of the reference image component (the
+first one identified by 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> or the single image component if 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> is NULL). Also, let (Px,Py) and (Sx,Sy) denote the
+upper left hand corner and the dimensions, respectively,
+of the region returned by 
+<A HREF="kdu$tream__get_dims.html">kdu_codestream::get_dims</A>, for component Cr. Note that these dimensions take
+into account the effects of the 
+<A HREF="kdu$essor__start.html#discard_levels">discard_levels</A> argument, as well as any orientation adjustments created
+by calls to 
+<A HREF="kdu$tream__cha$ppearance.html">kdu_codestream::change_appearance</A>. The location and dimensions of the image on the rendering
+canvas are then given by ( ceil(Px*Nx/Dx-Hx), ceil(Py*Ny/Dy-Hy)
+) and ( ceil((Px+Sx)*Nx/Dx-Hx)-ceil(Px*Nx/Dx-Hx), ceil((Py+Sy)*Ny/Dy-Hy)-ceil(Py*Ny/Dy-Hy)
+) respectively, where (Nx,Ny) are found in 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A>, (Dx,Dy) are found in 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A>, and (Hx,Hy) are intended to represent approximately
+"half pixel" offsets. Specifically, Hx=floor((Nx-1)/2)/Dx
+and Hy=floor((Ny-1)/2)/Dy. Since the above formulae
+can be tricky to reproduce precisely, the 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A> function is provided to learn the exact location and
+dimensions of the image on the rendering canvas. Moreover,
+since you may wish to provide corresponding transformations
+for other purposes (e.g., finding the locations on
+the rendering grid of regions of interest expressed
+in codestream canvas coordinates, or vice-versa), the
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A> function is provided for general use, along with related
+functions 
+<A HREF="kdu$essor__fin$eam_point.html">find_codestream_point</A> and 
+<A HREF="kdu$essor__fin$der_point.html">find_render_point</A>.
+</P><P>
+ You are required to ensure only that the 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> and 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A> coordinates are strictly positive. From Kakadu version
+6.2.2 it is no longer necessary to ensure that the
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> coordinates are at least as large as 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A>. In fact, you can use these parameters to implement
+almost any amount of expansion or reduction, but as
+a result you should use 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A> first to verify that you are not reducing the image
+down to nothing.
+</P><P>
+ In the extreme case, if you select 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A> values which are vastly larger than the 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A>, an error may be generated through 
+<A HREF="kdu_error.html">kdu_error</A>. For example, if the product of the x and y members
+of 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A> exceeds the product of the 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> x and y values by more than 2^24, an error is likely
+to be generated. This is because such massive reduction
+factors may exceed the dynamic range of the internal
+implementation. The actual limit on the amount of resolution
+reduction which can be realized depends upon factors
+such as the relative sub-sampling of the various image
+components required to construct colour channels.
+</P><P>
+ As of Kakadu version 6.2.2, expansion and reduction
+are implemented in a disciplined manner, using aliasing
+suppressing interpolation kernels, designed using rigorous
+criteria. We no longer use pixel replication or bilinear
+interpolation, which produce poor image quality. However,
+we do allow you to configure some aspects of the interpolation
+process using the 
+<A HREF="kdu$essor__set$behaviour.html">set_interpolation_behaviour</A> function &mdash; this allows you to suppress ringing
+artifacts which can be noticeable around step edges,
+especially under large expansion factors.
+</P><P>
+ Note carefully that this function calls the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> function, which will destroy any restrictions you
+may previously have imposed. This may also alter the
+current component access mode interpretation. For this
+reason, the function provides you with a separate 
+<A HREF="kdu$essor__start.html#access_mode">access_mode</A> argument which you can set to one of 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A> or 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A>, to control the way in which image component indices
+should be interpreted and whether or not multi-component
+transformations defined at the level of the code-stream
+should be performed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if a fatal error occurred and an exception (usually
+generated from within the error handler associated
+with 
+<A HREF="kdu_error.html">kdu_error</A>) was caught. In this case, you need not call 
+<A HREF="kdu$essor__finish.html">finish</A>, but you should generally destroy the codestream interface
+passed in here.
+</P><P>
+ You can avoid errors which might be generated by inappropriate
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A>/
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> parameters by first calling 
+<A HREF="kdu$essor__get$n_factors.html">get_safe_expansion_factors</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream">codestream</A> [<A HREF ="kdu$tream.html">kdu_codestream</A>]</H4><DIV CLASS="indented-text">
+<P>
+Interface to the internal code-stream management machinery.
+Must have been created (see 
+<A HREF="kdu$tream__create__1.html">codestream.create</A>) for input.
+</P>
+</DIV>
+<H4><A NAME="mapping">mapping</A> [<A HREF ="kdu$pping.html">kdu_channel_mapping</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Points to a structure whose contents identify the relationship
+between image components and the channels to be rendered.
+The interpretation of these image components depends
+upon the 
+<A HREF="kdu$essor__start.html#access_mode">access_mode</A> argument. Any or all of the image components may be
+involved in rendering channels; these might be subjected
+to a palette lookup operation and/or specific colour
+space transformations. The channels need not all represent
+colour, but the initial 
+<A HREF="kdu$pping.html#num_colour_channels">mapping&rarr;num_colour_channels</A> channels do represent the colour of a pixel.
+</P><P>
+ If the 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> pointer is NULL, only one image component is to be
+rendered, as a monochrome image; the relevant component's
+index is supplied via the 
+<A HREF="kdu$essor__start.html#single_component">single_component</A> argument.
+</P>
+</DIV>
+<H4><A NAME="single_component">single_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored, unless 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> is NULL, in which case this argument identifies the
+image component (starting from 0) which is to be rendered
+as a monochrome image. The interpretation of this image
+component index depends upon the 
+<A HREF="kdu$essor__start.html#access_mode">access_mode</A> argument.
+</P>
+</DIV>
+<H4><A NAME="discard_levels">discard_levels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Indicates the number of highest resolution levels to
+be discarded from each image component's DWT. Each
+discarded level typically halves the dimensions of
+each image component, although note that JPEG2000 Part-2
+supports downsampling factor styles in which only one
+of the two dimensions might be halved between levels.
+Recall that the rendering canvas is determined by applying
+the expansion factors represented by 
+<A HREF="kdu$essor__start.html#expand_numerator">expand_numerator</A> and 
+<A HREF="kdu$essor__start.html#expand_denominator">expand_denominator</A> to the dimensions of the reference image component,
+as it appears after taking the number of discarded
+resolution levels (and any appearance changes) into
+account. Thus, each additional discarded resolution
+level serves to reduce the dimensions of the entire
+image as it would appear on the rendering canvas.
+</P>
+</DIV>
+<H4><A NAME="max_layers">max_layers</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Maximum number of quality layers to use when decompressing
+code-stream image components for rendering. The actual
+number of layers which are available might be smaller
+or larger than this limit and may vary from tile to
+tile.
+</P>
+</DIV>
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+<P>
+Location and dimensions of the new region of interest,
+expressed on the rendering canvas. This region should
+be located within the region returned by 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A>.
+</P>
+</DIV>
+<H4><A NAME="expand_numerator">expand_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Numerator of the rational expansion factors which are
+applied to the reference image component.
+</P>
+</DIV>
+<H4><A NAME="expand_denominator">expand_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Denominator of the rational expansion factors which
+are applied to the reference image component.
+</P>
+</DIV>
+<H4><A NAME="precise">precise</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Setting this argument to true encourages the implementation
+to use higher precision internal representations when
+decompressing image components. The precision of the
+internal representation is not directly coupled to
+the particular version of the overloaded 
+<A HREF="kdu$essor__process__1.html">process</A> function which is to be used. The lower precision
+<A HREF="kdu$essor__process__1.html">process</A> functions may be used with higher precision internal
+computations, or vice-versa, although it is natural
+to couple higher precision computations with calls
+to a higher precision 
+<A HREF="kdu$essor__process__1.html">process</A> function.
+</P><P>
+ Note that a higher precision internal representation
+may be adopted even if 
+<A HREF="kdu$essor__start.html#precise">precise</A> is false, if it is deemed to be necessary for correct
+decompression of some particular image component. Note
+also that higher precision can be maintained throughout
+the entire process, only for channels whose contents
+are taken directly from decompressed image components.
+If any palette lookup, or colour space conversion operations
+are required, the internal precision for those channels
+will be reduced (at the point of conversion) to 16-bit
+fixed-point with 
+<A HREF="globals.html#KDU_FIX_POINT">KDU_FIX_POINT</A> fraction bits &mdash; due to current limitations in
+the 
+<A HREF="jp2$erter.html">jp2_colour_converter</A> object.
+</P><P>
+ Of course, most developers may remain blissfully ignorant
+of such subtleties, since they relate only to internal
+representations and approximations.
+</P>
+</DIV>
+<H4><A NAME="access_mode">access_mode</A> [<B>kdu_component_access_mode</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument is passed directly through to the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> function. It thus affects the way in which image components
+are interpreted, as found in the 
+<B>single_component_idx</B> and 
+<A HREF="kdu$essor__start.html#mapping">mapping</A> arguments. For a detailed discussion of image component
+interpretations, consult the second form of the 
+<A HREF="kdu$tream__app$trictions__1.html">kdu_codestream::apply_input_restrictions</A> function. It suffices here to mention that this argument
+must take one of the values 
+<A HREF="globals.html#KDU_WANT_CODESTREAM_COMPONENTS">KDU_WANT_CODESTREAM_COMPONENTS</A> or 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A> &mdash; for more applications the most appropriate
+value is 
+<A HREF="globals.html#KDU_WANT_OUTPUT_COMPONENTS">KDU_WANT_OUTPUT_COMPONENTS</A> since these correspond to the declared intentions
+of the original codestream creator.
+</P>
+</DIV>
+<H4><A NAME="fastest">fastest</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Setting this argument to true encourages the implementation
+to use lower precision internal representations when
+decompressing image components, even if this results
+in the loss of image quality. The argument is ignored
+unless 
+<A HREF="kdu$essor__start.html#precise">precise</A> is false. The argument is essentially passed directly
+to 
+<A HREF="kdu$hesis__create.html">kdu_multi_synthesis::create</A>, along with the 
+<B>precises</B> argument, as that function's 
+<B>want_fastest</B> and 
+<B>force_precise</B> arguments, respectively.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is used to establish multi-threaded processing.
+For a discussion of the multi-threaded processing features
+offered by the present object, see the introductory
+comments to 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A>. We remind you here, however, that all calls to 
+<A HREF="kdu$essor__start.html">start</A>, 
+<A HREF="kdu$essor__process__1.html">process</A> and 
+<A HREF="kdu$essor__finish.html">finish</A> must be executed from the same thread, which is identified
+only in this function. For the single-threaded processing
+model used prior to Kakadu version 5.1, set this argument
+to NULL.
+</P>
+</DIV>
+<H4><A NAME="env_queue">env_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+This argument is ignored unless 
+<A HREF="kdu$essor__start.html#env">env</A> is non-NULL, in which case a non-NULL 
+<A HREF="kdu$essor__start.html#env_queue">env_queue</A> means that all multi-threaded processing queues created
+inside the present object, by calls to 
+<A HREF="kdu$essor__process__1.html">process</A>, should be created as sub-queues of the identified
+<A HREF="kdu$essor__start.html#env_queue">env_queue</A>.
+</P><P>
+ One application for a non-NULL 
+<A HREF="kdu$essor__start.html#env_queue">env_queue</A> might be one which processes two frames of a video
+sequence in parallel. There can be some benefit to
+doing this, since it can avoid the small amount of
+thread idle time which often appears at the end of
+the last call to the 
+<A HREF="kdu$essor__process__1.html">process</A> function prior to 
+<A HREF="kdu$essor__finish.html">finish</A>. In this case, each concurrent frame would have its
+own 
+<A HREF="kdu$essor__start.html#env_queue">env_queue</A>, and its own 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> object. Moreover, the 
+<A HREF="kdu$essor__start.html#env_queue">env_queue</A> associated with a given 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> object can be used to run a job which invokes the
+<A HREF="kdu$essor__start.html">start</A>, 
+<A HREF="kdu$essor__process__1.html">process</A> and 
+<A HREF="kdu$essor__finish.html">finish</A> member functions. In this case, however, it is particularly
+important that the 
+<A HREF="kdu$essor__start.html">start</A>, 
+<A HREF="kdu$essor__process__1.html">process</A> and 
+<A HREF="kdu$essor__finish.html">finish</A> functions all be called from within the execution
+of a single job, since otherwise there is no guarantee
+that they would all be executed from the same thread,
+whose importance has already been stated above.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__set$behaviour.html"> prev </A>||<A HREF="kdu$essor__process__1.html"> next </A>|</P>
+</BODY>
+</HTML>

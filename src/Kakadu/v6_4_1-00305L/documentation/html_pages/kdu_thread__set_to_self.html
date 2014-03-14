@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread::set_to_self) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_thread__operator!=.html"> prev </A>||<A HREF="kdu_thread__create.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread::set_to_self</A></H1>
+<P CLASS="function-text"><B>bool</B> set_to_self(
+)</P>
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P><A HREF="kdu_thread.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You can use this function to create a reference to
+the caller's own thread. The resulting object can be
+passed to 
+<A HREF="kdu_thread__equals.html">equals</A>, 
+<A HREF="kdu_thread__get$priority.html">get_priority</A>, 
+<A HREF="kdu_thread__set$priority.html">set_priority</A> and 
+<A HREF="kdu_thread__set$affinity.html">set_cpu_affinity</A>. Do not invoke the 
+<A HREF="kdu_thread__destroy.html">destroy</A> function on a 
+<A HREF="kdu_thread.html">kdu_thread</A> object created in this way.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if thread functionality is not supported on the
+current platform. This problem can usually be resolved
+by creating the appropriate definitions in "kdu_elementary.h".
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_thread__operator!=.html"> prev </A>||<A HREF="kdu_thread__create.html"> next </A>|</P>
+</BODY>
+</HTML>

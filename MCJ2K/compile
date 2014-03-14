@@ -1,0 +1,8 @@
+#!/bin/bash
+set -x
+
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
+fi
+
+make -C src

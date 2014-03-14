@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_target::open_codestream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_target__wri$e_header.html"> prev </A>||<A HREF="jp2_target__acc$mensions.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_target::open_codestream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_target.Open_codestream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> open_codestream(
+<B>bool</B>&nbsp;rubber_length=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Open_codestream(
+boolean&nbsp;rubber_length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2_target.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Call this function after 
+<A HREF="jp2_target__wri$e_header.html">write_header</A>. Optionally, you may open and write some of your own
+boxes, being sure to close them again, before you call
+the present function. This function opens a contiguous
+code-stream box, after which you may invoke 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A> on the 
+<A HREF="kdu$tream.html">kdu_codestream</A> object into whose 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> function the present object was passed. To close the
+contiguous code-stream box, you must explicitly call
+the 
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A> function (it is a virtual function).
+</P><P>
+ The 
+<A HREF="jp2_target__ope$destream.html#rubber_length">rubber_length</A> argument indicates whether or not you want the length
+of the contiguous code-stream box to be written explicitly.
+If the box has a rubber length, its length field will
+be set to 0 and the box is expected to continue to
+the end of the file. Otherwise, the box's contents
+must be buffered internally, which might take a lot
+of memory, so setting 
+<A HREF="jp2_target__ope$destream.html#rubber_length">rubber_length</A> to true is usually the best approach.
+</P><P>
+ It is possible to write multiple code-streams to the
+file. To do this, close the first code-stream (
+<A HREF="jp2$1t_box__close.html">jp2_output_box::close</A>) and then call the present function a second time,
+and so forth. However, note carefully that only the
+last code-stream box may have a rubber length.
+</P><P>
+ It is possible to open other boxes after the code-stream,
+using the base object's 
+<A HREF="jp2$1t_box__open_next.html">jp2_output_box::open_next</A> function. Again, note that this is only possible if
+the code-stream box had a rubber length.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="rubber_length">rubber_length</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_target__wri$e_header.html"> prev </A>||<A HREF="jp2_target__acc$mensions.html"> next </A>|</P>
+</BODY>
+</HTML>

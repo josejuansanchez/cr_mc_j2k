@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_multi_analysis::exchange_line) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__get_size.html"> prev </A>||<A HREF="kdu$1lysis__is_$_precise.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_multi_analysis::exchange_line</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_multi_analysis.Exchange_line</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$e_buf.html">kdu_line_buf</A>&nbsp;* exchange_line(
+<B>int</B>&nbsp;comp_idx,
+<A HREF ="kdu$e_buf.html">kdu_line_buf</A>&nbsp;*&nbsp;written,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_line_buf Exchange_line(
+int&nbsp;comp_idx,
+Kdu_line_buf&nbsp;written,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$e_processing+h.html">"../coresys/common/kdu_sample_processing.h"</A>]</P><P><A HREF="kdu$1lysis.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to exchange image data with the processing
+engine. If 
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> is NULL, you are only asking for access to a line
+buffer, into which to write a new line of image data
+for the component in question. Once you have written
+to the supplied line buffer, you pass it back as the
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> argument in a subsequent call to this function. Regardless
+of whether 
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> is NULL, the function returns a pointer to the single
+internal line buffer which it maintains for each original
+image component, if and only if that line buffer is
+currently available for writing. It will not be available
+if the internal machinery is waiting for a line of
+another component before it can process the data which
+has already been supplied. Thus, if a newly written
+line can be processed immediately, the function will
+return a non-NULL pointer even in the call with 
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> non-NULL. If it must wait for other component lines
+to arrive, however, it will return NULL. Once returning
+non-NULL, the function will continue to return the
+same line buffer at least until the next call which
+supplies a non-NULL 
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> argument. This is because the current line number
+is incremented only by calls which supply a non-NULL
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> argument.
+</P><P>
+ Note that all lines processed by this function should
+have a signed representation, regardless of whether
+or not 
+<A HREF="kdu$tream__get_signed.html">kdu_codestream::get_signed</A> reports that they the components are signed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Non-NULL if a line is available for writing. That same
+line should be passed back to the function as its 
+<A HREF="kdu$1lysis__exc$nge_line.html#written">written</A> argument in a subsequent call to the function (not
+necessarily the next one) in order to advance to a
+new line. If the function returns NULL, you may have
+reached the end of the tile (you should know this),
+or else the object may be waiting for you to supply
+new lines for other image components which must be
+processed together with this one.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="comp_idx">comp_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Index of the component for which a line is being written
+or requested. This index must lie in the range 0 to
+Cs-1, where Cs is the 
+<B>num_source_components</B> value supplied to 
+<A HREF="kdu$1lysis__create.html">create</A>.
+</P>
+</DIV>
+<H4><A NAME="written">written</A> [<A HREF ="kdu$e_buf.html">kdu_line_buf</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument must be identical to the
+line buffer which was previously returned by the function,
+using the same 
+<A HREF="kdu$1lysis__exc$nge_line.html#comp_idx">comp_idx</A> value. In this case, the line is deemed to contain
+valid image data and the internal line counter for
+this component will be incremented before the function
+returns. Otherwise, you are just asking the function
+to give you access to the internal line buffer so that
+you can write to it.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Must be non-NULL if and only if a non-NULL 
+<A HREF="kdu$1lysis__exc$nge_line.html#env">env</A> argument was passed into 
+<A HREF="kdu$1lysis__create.html">create</A>. Any non-NULL 
+<A HREF="kdu$1lysis__exc$nge_line.html#env">env</A> argument must identify the calling thread, which need
+not necessarily be the one used to create the object
+in the first place.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$1lysis__get_size.html"> prev </A>||<A HREF="kdu$1lysis__is_$_precise.html"> next </A>|</P>
+</BODY>
+</HTML>

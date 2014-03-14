@@ -1,0 +1,229 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
+#
+# extract.py
+#
+# Extrae un número de capas de calidad de un vídeo codificado con más
+# de una capa de calidad. El resultado es el mismo que haber
+# especificado menos capas de calidad (a través de sus
+# correspondientes "slopes") en el comando "compress".
+#
+# Secuencia típica de comandos:
+#
+# > mctf compress --slopes="44000,43500,43000"
+# > mctf extract --layers=2
+# > mctf expand
+
+# Nota: SOC = 0xFF4F
+#       EOC = 0xFFD9
+
+# La opción de extraer las imágenes, transcodificarlas
+# independientemente y volverlas a unir parece no funcionar. Probar
+# opción parsear stream .mj2 directamente, dejando de copiar a la
+# salida aquellos datos que pertenecen a capas de calidad que no deben
+# ser extraídas. Además, esta opción es más eficiente y puede ser
+# aplicada sobre pipes.
+import sys
+import getopt
+import os
+import array
+import display
+import string
+
+HIGH = "high"
+LOW = "low"
+
+layers = 1
+pictures = 33
+pixels_in_x = 352
+pixels_in_y = 288
+temporal_levels = 6
+
+def usage():
+    sys.stderr.write("+--------------+\n")
+    sys.stderr.write("| MCTF extract |\n")
+    sys.stderr.write("+--------------+\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("  Description:\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("   Extracts a number of quality layers.\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("  Parameters:\n")
+    sys.stderr.write("\n")
+    sys.stderr.write("   -[-l]ayers=number of extracted quality layers (\"%d\")\n" % layers)
+    sys.stderr.write("   -[-p]ictures=number of images to process (%d)\n" % pictures)
+    sys.stderr.write("   -[-]pixels_in_[x]=size of the X dimension of the pictures (%d)\n" %  pixels_in_x)
+    sys.stderr.write("   -[-]pixels_in_[y]=size of the Y dimension of the pictures (%d)\n" %  pixels_in_y)
+    sys.stderr.write("   -[-t]emporal_levels=number of iterations of the temporal transform + 1 (%d)\n" % temporal_levels)
+    sys.stderr.write("\n")
+
+opts = ""
+
+
+
+try:
+    opts, extraparams = getopt.getopt(sys.argv[1:],"l:p:x:y:t:h",
+                                      ["layers=",
+                                       "pictures=",
+                                       "pixels_in_x=",
+                                       "pixels_in_y=",
+                                       "temporal_levels=",
+                                       "help"
+                                       ])
+except getopt.GetoptError, exc:
+    sys.stderr.write(sys.argv[0] + ": " + exc.msg + "\n")
+    sys.exit(2)
+    
+params = ""
+    
+for o, a in opts:
+    if o in ("-l", "--layers"):
+        layers = int(a)
+        
+    if o in ("-p", "--pictures"):
+        pictures = int(a)
+        
+    if o in ("-x", "--pixels_in_x"):
+        pixels_in_x = int(a)
+        
+    if o in ("-y", "--pixels_in_y"):
+        pixels_in_y = int(a)
+        
+    if o in ("-t", "--temporal_levels"):
+        temporal_levels = int(a)
+        
+    if o in ("-h", "--help"):
+	usage()
+	sys.exit()
+
+subband = 1
+
+command = "mkdir extract"
+
+os.system(command)
+
+# Procesamos las subbandas de alta frecuencia.
+while subband < temporal_levels:
+
+    
+
+    # Nombre del fichero entrada.
+    entrada = HIGH + "_" + str(subband) + ".mj2"
+
+    # Nombre del fichero de salida.
+    salida = "extract/" + entrada
+
+    # Copiamos la cabecera del fichero .mj2.
+    command = "dd if=" + entrada + " of=" + salida + " skip=0 ibs=1 count=20"
+    
+    os.system(command)
+
+    # Abrimos el fichero de entrada, ahora para buscar el EOC (0xFFD9)
+    # de cada imagen
+    f = open(entrada, "r")
+
+    # Saltamos los 20 bytes de la cabecera .mj2
+    startImage = 20
+    f.seek(startImage, 0)
+
+    # Comanzamos la extracción de bytes:
+    byte = f.read(1)
+    while byte != '':
+        if byte == '\xff':
+            byte = f.read(1)
+            if byte == '\xd9':
+                endImage = f.tell()
+
+                # Extraemos la imagen.
+                command = "dd if=" + entrada + " of=image_Aux.j2c skip=" + str(startImage) + " ibs=1 count=" + str(endImage - startImage)
+                
+                os.system(command)
+
+                # Extraemos la(s) primera(s) capa(s) de calidad.
+                command = "kdu_transcode -i image_Aux.j2c -o image_Out.j2c Clayers=" + str(layers)
+                
+                os.system(command)
+
+                # Añadimos la imagen generada.
+                command = "cat image_Out.j2c >> " + salida
+                
+                os.system(command)
+            
+                # Concatenamos 0x0000179A al final de "salida"
+                command = "dd if=" + entrada + " of=/tmp/extract.tmp skip=" + str(endImage) + " bs=1 count=4" 
+                
+                os.system(command)
+                command = "cat /tmp/extract.tmp >> " + salida
+                
+                os.system(command)
+
+                # Nos saltamos los 4 últimos bytes de relleno.
+                startImage = endImage + 4
+
+        byte = f.read(1)
+
+    f.close
+
+    subband += 1
+
+subband -= 1
+
+# Procesamos la subbanda de baja frecuencia.
+
+
+# Nombre del fichero entrada.
+entrada = LOW + "_" + str(subband) + ".mj2"
+
+# Nombre del fichero de salida.
+salida = "extract/" + entrada
+
+# Copiamos la cabecera del fichero .mj2.
+command = "dd if=" + entrada + " of=" + salida + " skip=0 ibs=1 count=20"
+
+os.system(command)
+
+# Abrimos el fichero de entrada, ahora para buscar el EOC (0xFFD9)
+# de cada imagen
+f = open(entrada, "r")
+
+# Saltamos los 20 bytes de la cabecera .mj2
+startImage = 20
+f.seek(startImage, 0)
+
+# Comanzamos la extracción de bytes:
+byte = f.read(1)
+while byte != '':
+    if byte == '\xff':
+        byte = f.read(1)
+        if byte == '\xd9':
+            endImage = f.tell()
+
+            # Extraemos la imagen.
+            command = "dd if=" + entrada + " of=image_Aux.j2c skip=" + str(startImage) + " ibs=1 count=" + str(endImage - startImage)
+            
+            os.system(command)
+
+            # Extraemos la(s) primera(s) capa(s) de calidad.
+            command = "kdu_transcode -i image_Aux.j2c -o image_Out.j2c Clayers=" + str(layers)
+            
+            os.system(command)
+
+            # Añadimos la imagen generada.
+            command = "cat image_Out.j2c >> " + salida
+            
+            os.system(command)
+
+            # Concatenamos 0x0000179A al final de "salida"
+            command = "dd if=" + entrada + " of=/tmp/extract.tmp skip=" + str(endImage) + " bs=1 count=4" 
+            
+            os.system(command)
+            command = "cat /tmp/extract.tmp >> " + salida
+            
+            os.system(command)
+
+            # Nos saltamos los 4 últimos bytes de relleno.
+            startImage = endImage + 4
+
+    byte = f.read(1)
+
+f.close

@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_codestream::access_siz) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__is_$_fragment.html"> prev </A>||<A HREF="kdu$tream__get$omponents.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_codestream::access_siz</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_codestream.Access_siz</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="siz_params.html">siz_params</A>&nbsp;* access_siz(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Siz_params Access_siz(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$tream.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Associated with the internal code-stream management
+machinery (and hence with every non-empty 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface) is a unique 
+<A HREF="siz_params.html">siz_params</A> object, which is the head (or root) of the entire
+network of coding parameters associated with the relevant
+code-stream. These concepts are discussed in the description
+of the 
+<A HREF="kdu_params.html">kdu_params</A> object.
+</P><P>
+ Because the returned object provides access to the
+entire network of 
+<A HREF="kdu_params.html">kdu_params</A>-derived objects relevant to the code-stream, the caller
+may use the returned pointer to parse command-line
+arguments (see 
+<A HREF="kdu_params__par$e_string__1.html">kdu_params::parse_string</A>), copy parameters between code-streams (see 
+<B>kdu_params::copy_with_xforms</B>) and to explicitly set or retrieve individual parameter
+values (see 
+<A HREF="kdu_params__set__1.html">kdu_params::set</A> and 
+<A HREF="kdu_params__get__1.html">kdu_params::get</A>), as they appear in code-stream marker segments.
+</P><P>
+ Be careful to note that the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface and its immediate relatives, 
+<A HREF="kdu_tile.html">kdu_tile</A>, 
+<A HREF="kdu$_comp.html">kdu_tile_comp</A>, 
+<A HREF="kdu$ution.html">kdu_resolution</A>, etc., support geometrically transformed views of
+the underlying compressed image representation. These
+transformed views are not reflected in the explicit
+parameter values which might be retrieved or configured
+directly using the various member functions offered
+by 
+<A HREF="kdu_params.html">kdu_params</A>. The same principle applies to codestream fragments,
+which you might be generating if you have supplied
+a non-NULL 
+<B>fragment_region</B> argument to 
+<A HREF="kdu$tream__create__1.html">create</A>. For these reasons, you are generally advised to work
+only with the 
+<A HREF="kdu$tream.html">kdu_codestream</A> functions and those of the related interfaces described
+here, except where new parameters must be explicitly
+configured for compression, or modified in a transcoding
+application.
+</P><P>
+ If you are generating a new output codestream, you
+will generally want to invoke this function immediately
+after 
+<A HREF="kdu$tream__create__1.html">create</A> so as to configure parameters of interest. Thereafter,
+you should use 
+<A HREF="kdu_params__fin$lize_all__1.html">kdu_params::finalize_all</A> to finalize your coding parameters. As explained in
+the comments accompanying the output for of the 
+<A HREF="kdu$tream__create__1.html">create</A> function, these things are best done before invoking
+any other member functions of this object, but at least
+prior to calling the 
+<A HREF="kdu$tream__open_tile.html">open_tile</A>, 
+<A HREF="kdu$tream__get_dims.html">get_dims</A>, 
+<A HREF="kdu$tream__get$tile_dims.html">get_tile_dims</A>, 
+<A HREF="kdu$tream__get$bsampling.html">get_subsampling</A> or 
+<A HREF="kdu$tream__get$istration.html">get_registration</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$tream__is_$_fragment.html"> prev </A>||<A HREF="kdu$tream__get$omponents.html"> next </A>|</P>
+</BODY>
+</HTML>

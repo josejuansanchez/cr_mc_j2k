@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_video_target::set_graphics_mode) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$arget__set$ing_order.html"> prev </A>||<A HREF="mj2$arget__acc$ss_colour.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_video_target::set_graphics_mode</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_video_target.Set_graphics_mode</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_graphics_mode(
+<B>kdu_int16</B>&nbsp;graphics_mode,
+<B>kdu_int16</B>&nbsp;op_red=0,
+<B>kdu_int16</B>&nbsp;op_green=0,
+<B>kdu_int16</B>&nbsp;op_blue=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_graphics_mode(
+short&nbsp;graphics_mode,
+short&nbsp;op_red,
+short&nbsp;op_green,
+short&nbsp;op_blue)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Indicates the raster operations which should be used
+to combine this track with others on the display. Tracks
+are added in the compositing order established by 
+<A HREF="mj2$arget__set$ing_order.html">set_compositing_order</A>. By default, compositing involves a direct copy; however,
+this function may be used to set other blending strategies.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="graphics_mode">graphics_mode</A> [<B>kdu_int16</B>]</H4><DIV CLASS="indented-text">
+<P>
+May take any of the following values:
+</P><UL><LI>
+<A HREF="globals.html#MJ2_GRAPHICS_COPY">MJ2_GRAPHICS_COPY</A> &rarr; copy. Note that in this case, any opacity channels
+specified via the 
+<A HREF="jp2$nnels.html">jp2_channels</A> object returned via 
+<A HREF="mj2$arget__acc$_channels.html">access_channels</A> will be ignored.
+</LI><LI>
+<A HREF="globals.html#MJ2_GRAPHICS_BLUE_SCREEN">MJ2_GRAPHICS_BLUE_SCREEN</A> &rarr; blue screen the image using the supplied op-colour.
+As above, any opacity channels specified via the 
+<A HREF="jp2$nnels.html">jp2_channels</A> object returned via 
+<A HREF="mj2$arget__acc$_channels.html">access_channels</A> will be ignored.
+</LI><LI>
+<A HREF="globals.html#MJ2_GRAPHICS_ALPHA">MJ2_GRAPHICS_ALPHA</A> &rarr; alpha blend with existing contents. The alpha
+channel must be specified by invoking the 
+<A HREF="jp2$nnels__set$y_mapping.html">jp2_channels::set_opacity_mapping</A> function on the object returned via 
+<A HREF="mj2$arget__acc$_channels.html">access_channels</A>.
+</LI><LI>
+<A HREF="globals.html#MJ2_GRAPHICS_PREMULT_ALPHA">MJ2_GRAPHICS_PREMULT_ALPHA</A> &rarr; alpha blend, where compressed data has already
+been blended with black. The premultiplied alpha blending
+channel must be specified by invoking the 
+<A HREF="jp2$nnels__set$t_mapping.html">jp2_channels::set_premult_mapping</A> function on the object returned via 
+<A HREF="mj2$arget__acc$_channels.html">access_channels</A>.
+</LI><LI>
+<A HREF="globals.html#MJ2_GRAPHICS_COMPONENT_ALPHA">MJ2_GRAPHICS_COMPONENT_ALPHA</A> &rarr; alpha blend for all cases other than that in
+which a single alpha channel is applied to all intensity
+channels uniformly. This includes the case in which
+multiple alpha channels are used, or a single alpha
+channel is applied to only some of the intensity channels.
+The 
+<A HREF="jp2$nnels.html">jp2_channels</A> object returned by 
+<A HREF="mj2$arget__acc$_channels.html">access_channels</A> provides details of the actual alpha blending which
+is required.
+</LI></UL>
+</DIV>
+<H4><A NAME="op_red">op_red</A> [<B>kdu_int16</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="op_green">op_green</A> [<B>kdu_int16</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="op_blue">op_blue</A> [<B>kdu_int16</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$arget__set$ing_order.html"> prev </A>||<A HREF="mj2$arget__acc$ss_colour.html"> next </A>|</P>
+</BODY>
+</HTML>

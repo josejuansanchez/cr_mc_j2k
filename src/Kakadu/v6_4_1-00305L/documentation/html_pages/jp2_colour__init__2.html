@@ -1,0 +1,267 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_colour::init) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__init__1.html"> prev </A>||<A HREF="jp2_colour__init__3.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_colour::init</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_colour.Init</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="jp2_colour__init__1.html">1</A>,
+2,
+<A HREF="jp2_colour__init__3.html">3</A>,
+<A HREF="jp2_colour__init__4.html">4</A>,
+<A HREF="jp2_colour__init__5.html">5</A>,
+<A HREF="jp2_colour__init__6.html">6</A></B></P>
+<P CLASS="function-text"><B>void</B> init(
+<B>jp2_colour_space</B>&nbsp;space,
+<B>int</B>&nbsp;Lrange,
+<B>int</B>&nbsp;Loff,
+<B>int</B>&nbsp;Lbits,
+<B>int</B>&nbsp;Arange,
+<B>int</B>&nbsp;Aoff,
+<B>int</B>&nbsp;Abits,
+<B>int</B>&nbsp;Brange,
+<B>int</B>&nbsp;Boff,
+<B>int</B>&nbsp;Bbits,
+<B>kdu_uint32</B>&nbsp;illuminant=JP2_CIE_D50,
+<B>kdu_uint16</B>&nbsp;temperature=5000)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Init(
+int&nbsp;space,
+int&nbsp;Lrange,
+int&nbsp;Loff,
+int&nbsp;Lbits,
+int&nbsp;Arange,
+int&nbsp;Aoff,
+int&nbsp;Abits,
+int&nbsp;Brange,
+int&nbsp;Boff,
+int&nbsp;Bbits,
+long&nbsp;illuminant,
+int&nbsp;temperature)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2_colour.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to initialize the 
+<A HREF="jp2_colour.html">jp2_colour</A> object with a 
+<B>JP2_CIELab_SPACE</B> or 
+<B>JP2_CIEJab_SPACE</B> colour space description which has non-default parameters.
+</P><P>
+ To understand the role of the various range and offset
+parameters we will start by describing CIE Lab. The
+CIE equations for this colour space start by defining
+a collection of normalized linear primaries, X'=X/X0,
+Y'=Y/Y0 and Z'=Z/Z0, all in the range 0 to 1, where
+X0, Y0 and Z0 are the whitepoint tri-stimulus responses
+for the relevant illuminant. These are subjected to
+gamma correction, with a gamma value of 3.0 and beta=0.16.
+Then L, a* and b* coordinates are formed from
+</P><UL><LI>
+L = 100*Y' &mdash; has a nominal range from 0 to 100;
+</LI><LI>
+a* = 431*(X'-Y') &mdash; has a nominal range from -85
+to +85;
+</LI><LI>
+b* = 172.4*(Y'-Z') &mdash; has a nominal range from
+-75 to +125
+</LI></UL><P>
+ To represent these quantities digitally, we define
+scaled and offset coordinates L', a' and b', each of
+which has a nominal range from 0 to 1. To represent
+these quantities as n-bit numbers, we simply multiply
+by (2^n-1). Specifically, we write
+</P><UL><LI>
+L' = L / 
+<A HREF="jp2_colour__init__2.html#Lrange">Lrange</A> + 
+<A HREF="jp2_colour__init__2.html#Loff">Loff</A>/(2^
+<A HREF="jp2_colour__init__2.html#Lbits">Lbits</A>-1)
+</LI><LI>
+a' = a* / 
+<A HREF="jp2_colour__init__2.html#Arange">Arange</A> + 
+<A HREF="jp2_colour__init__2.html#Aoff">Aoff</A>/(2^
+<A HREF="jp2_colour__init__2.html#Abits">Abits</A>-1)
+</LI><LI>
+a' = a* / 
+<A HREF="jp2_colour__init__2.html#Brange">Brange</A> + 
+<A HREF="jp2_colour__init__2.html#Boff">Boff</A>/(2^
+<A HREF="jp2_colour__init__2.html#Bbits">Bbits</A>-1)
+</LI></UL><P>
+ In the above, 
+<A HREF="jp2_colour__init__2.html#Lbits">Lbits</A>, 
+<A HREF="jp2_colour__init__2.html#Abits">Abits</A> and 
+<A HREF="jp2_colour__init__2.html#Bbits">Bbits</A> are the actual precision, as reported by the 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object, which is associated with each of the 3 colour
+channels.
+</P><P>
+ The weakness of this representation is obvious, since
+the offset terms should have been recorded as real-valued
+ratios, rather than integers whose meaning depends
+on the bit-depth. The bit-depth is not recorded with
+colour descriptions, so the meaning of a colour description
+is not self contained &mdash; a most regrettable oversight
+on the part of JPX!!
+</P><P>
+ Unlike other JP2/JPX design weaknesses which we have
+been able to hide through the design of appropriate
+Kakadu interfaces, this one cannot safely be concealed.
+We force the application to supply both the integer-valued
+offets and the bit-depths of each component here. The
+bit-depths will be automatically checked against those
+identified by the 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object, after untangling the various interconnections
+between colour channels and code-stream components,
+and any inconsistency will result in an error being
+generated (through 
+<A HREF="kdu_error.html">kdu_error</A>) when the relevant file header is being written.
+</P><P>
+ We turn now to the Jab space. This colour space is
+based on CIECAM97, which actually describes a colour
+appearance model rather than a colour space. Jab is
+an encoding of 3 of the parameters from this colour
+appearance model, from which any of the other parameters
+may be recovered if desired. Unfortunately, CIECAM97
+may be subject to major revision, so it is not sure
+how stable any Jab image encoding can be expected to
+be. A revised CIECAM97 proposal by Mark Fairchild in
+2000 describes various choices which could be used
+for the a and b coordinates. For these reasons, we
+do not commit ourselves to a more thorough explanation
+here and we do not implement an colour transforms based
+on CIEJab.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="space">space</A> [<B>jp2_colour_space</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be one of 
+<B>JP2_CIELab_SPACE</B> or 
+<B>JP2_CIEJab_SPACE</B>.
+</P>
+</DIV>
+<H4><A NAME="Lrange">Lrange</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Range of luminance (L or J) coordinate. Default value
+is 100.
+</P>
+</DIV>
+<H4><A NAME="Loff">Loff</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Works together with 
+<A HREF="jp2_colour__init__2.html#Lbits">Lbits</A> to identify an offset for the luminance (L or J) coordinate.
+Default is 0.
+</P>
+</DIV>
+<H4><A NAME="Lbits">Lbits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Precision of the sample values used to represent the
+luminance channel. This value must agree with the actual
+value returned by the relevant 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object's 
+<A HREF="jp2$sions__get$bit_depth.html">jp2_dimensions::get_bit_depth</A> function. The need to include a value here is the
+result of poor design in the JPX file format.
+</P>
+</DIV>
+<H4><A NAME="Arange">Arange</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Range of the a* coordinate. Default value is 170 for
+Lab and 255 for Jab.
+</P>
+</DIV>
+<H4><A NAME="Aoff">Aoff</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Works together with 
+<A HREF="jp2_colour__init__2.html#Abits">Abits</A> to identify an offset for the a* coordinate. Default
+is 2^{
+<A HREF="jp2_colour__init__2.html#Abits">Abits</A>-1}.
+</P>
+</DIV>
+<H4><A NAME="Abits">Abits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Precision of the sample values used to represent the
+a* channel. This value must agree with the actual value
+returned by the relevant 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object's 
+<A HREF="jp2$sions__get$bit_depth.html">jp2_dimensions::get_bit_depth</A> function. The need to include a value here is the
+result of poor design in the JPX file format.
+</P>
+</DIV>
+<H4><A NAME="Brange">Brange</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Range of the b* coordinate. Default value is 200 for
+Lab and 255 for Jab.
+</P>
+</DIV>
+<H4><A NAME="Boff">Boff</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Works together with 
+<A HREF="jp2_colour__init__2.html#Bbits">Bbits</A> to identify an offset for the a* coordinate. Default
+is 0.75*2^{
+<A HREF="jp2_colour__init__2.html#Bbits">Bbits</A>-1} for Lab and 2^{
+<A HREF="jp2_colour__init__2.html#Bbits">Bbits</A>-1} for Jab.
+</P>
+</DIV>
+<H4><A NAME="Bbits">Bbits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Precision of the sample values used to represent the
+b* channel. This value must agree with the actual value
+returned by the relevant 
+<A HREF="jp2$sions.html">jp2_dimensions</A> object's 
+<A HREF="jp2$sions__get$bit_depth.html">jp2_dimensions::get_bit_depth</A> function. The need to include a value here is the
+result of poor design in the JPX file format.
+</P>
+</DIV>
+<H4><A NAME="illuminant">illuminant</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the illuminant for the 
+<B>JP2_CIELab_SPACE</B>. This argument is ignored if 
+<A HREF="jp2_colour__init__2.html#space">space</A>=
+<B>JP2_CIEJab_SPACE</B>. Rather than specifying the illuminant through its
+chromaticity coordinates, an enumeration is used. The
+possible values are as follows:
+</P><UL><LI>
+<B>JP2_CIE_DAY</B> &mdash; CIE daylight, qualified by 
+<A HREF="jp2_colour__init__2.html#temperature">temperature</A></LI><LI>
+<A HREF="globals.html#JP2_CIE_D50">JP2_CIE_D50</A> &mdash; CIE standard daylight at 5000K
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_D65">JP2_CIE_D65</A> &mdash; CIE standard daylight at 6500K
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_D75">JP2_CIE_D75</A> &mdash; CIE standard daylight at 7500K
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_SA">JP2_CIE_SA</A> &mdash; CIE standard illuminant A (tungsten)
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_SC">JP2_CIE_SC</A> &mdash; CIE standard illuminant C (??)
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_F2">JP2_CIE_F2</A> &mdash; CIE standard fluorescent F2
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_F7">JP2_CIE_F7</A> &mdash; CIE standard fluorescent F7
+</LI><LI>
+<A HREF="globals.html#JP2_CIE_F11">JP2_CIE_F11</A> &mdash; CIE standard fluorescent F11
+</LI></UL>
+</DIV>
+<H4><A NAME="temperature">temperature</A> [<B>kdu_uint16</B>]</H4><DIV CLASS="indented-text">
+<P>
+Ignored unless 
+<A HREF="jp2_colour__init__2.html#space">space</A> = 
+<B>JP2_CIELab_SPACE</B> and 
+<A HREF="jp2_colour__init__2.html#illuminant">illuminant</A> = 
+<B>JP2_CIE_DAY</B>. Gives the colour temperature for a CIE standard daylight
+(these are all defined by three power spectral basis
+functions and an equation which converts the temperature
+to weights on these three basis functions), measured
+in degrees Kelvin.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2_colour__init__1.html"> prev </A>||<A HREF="jp2_colour__init__3.html"> next </A>|</P>
+</BODY>
+</HTML>

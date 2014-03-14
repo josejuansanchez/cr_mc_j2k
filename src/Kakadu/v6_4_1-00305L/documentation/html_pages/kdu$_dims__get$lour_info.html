@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::get_colour_info) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__set$lour_info.html"> prev </A>||<A HREF="kdu$_dims__add$_metadata.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::get_colour_info</A></H1>
+<P CLASS="function-text"><B>int</B> get_colour_info(
+<B>bool</B>&nbsp;&amp;&nbsp;has_premultiplied_alpha,
+<B>bool</B>&nbsp;&amp;&nbsp;has_unassociated_alpha,
+<B>int</B>&nbsp;&amp;&nbsp;colour_space_confidence,
+<B>jp2_colour_space</B>&nbsp;&amp;&nbsp;colour_space)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to retrieve any knowledge
+which might be available concerning the colour space
+and/or presence of alpha components.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+0 if nothing is known about the colour or alpha properties
+of the image component samples. Otherwise, the returned
+value represents the number of colour channels.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="has_premultiplied_alpha">has_premultiplied_alpha</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an indication of whether or not there
+is a pre-multiplied alpha channel. See 
+<A HREF="kdu$_dims__set$lour_info.html">set_colour_info</A> for an explanation.
+</P>
+</DIV>
+<H4><A NAME="has_unassociated_alpha">has_unassociated_alpha</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an indication of whether or not there
+is an unassociated alpha channel. See 
+<A HREF="kdu$_dims__set$lour_info.html">set_colour_info</A> for an explanation.
+</P>
+</DIV>
+<H4><A NAME="colour_space_confidence">colour_space_confidence</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the colour space confidence. See 
+<A HREF="kdu$_dims__set$lour_info.html">set_colour_info</A> for an explanation.
+</P>
+</DIV>
+<H4><A NAME="colour_space">colour_space</A> [<B>jp2_colour_space</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+The value returned here is meaningful only if the 
+<A HREF="kdu$_dims__get$lour_info.html#colour_space_confidence">colour_space_confidence</A> value is greater than 0.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__set$lour_info.html"> prev </A>||<A HREF="kdu$_dims__add$_metadata.html"> next </A>|</P>
+</BODY>
+</HTML>

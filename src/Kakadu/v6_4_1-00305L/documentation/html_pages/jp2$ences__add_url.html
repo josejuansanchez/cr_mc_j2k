@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_data_references::add_url) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$ences__operator!.html"> prev </A>||<A HREF="jp2$ences__add_file_url.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_data_references::add_url</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_data_references.Add_url</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> add_url(
+<B>const char *</B>&nbsp;url,
+<B>int</B>&nbsp;url_idx=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Add_url(
+String&nbsp;url,
+int&nbsp;url_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$ences.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a new URL to the list maintained
+by the data reference object. If 
+<A HREF="jp2$ences__add_url.html#url_idx">url_idx</A>=0, a URL index is assigned automatically. In this
+case, if the URL is not unique, the returned index
+may refer to an existing entry. Also, in this case,
+if 
+<A HREF="jp2$ences__add_url.html#url">url</A> is NULL or holds an empty string, the URL is considered
+to refer to the file which contains the data references
+box, and so the returned index will be 0.
+</P><P>
+ If the supplied 
+<A HREF="jp2$ences__add_url.html#url_idx">url_idx</A> argument is greater than 0, the function adds the
+URL as having this index, regardless of whether it
+is NULL, an empty string, or non-unique. This may cause
+overwriting of an existing URL which was previously
+added with the same index.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="url">url</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, the entry refers to the current file. Otherwise,
+any string supplied here will be recorded as-is in
+the relevant data-references box (
+<B>dtbl</B> or 
+<B>dref</B>), without any attempt to verify that it is a valid
+URL. For URL's which refer to the local file system,
+you are advised to use the 
+<A HREF="jp2$ences__add_file_url.html">add_file_url</A> function instead, since it always creates valid URL's
+conforming to RFC2396.
+</P>
+</DIV>
+<H4><A NAME="url_idx">url_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$ences__operator!.html"> prev </A>||<A HREF="jp2$ences__add_file_url.html"> next </A>|</P>
+</BODY>
+</HTML>

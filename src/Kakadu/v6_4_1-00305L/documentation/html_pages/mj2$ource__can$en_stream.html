@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_video_source::can_open_stream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__open_stream.html"> prev </A>||<A HREF="mj2$ource__get$timescale.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_video_source::can_open_stream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_video_source.Can_open_stream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> can_open_stream(
+<B>int</B>&nbsp;field_idx,
+<B>bool</B>&nbsp;need_main_header=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Can_open_stream(
+int&nbsp;field_idx,
+boolean&nbsp;need_main_header)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function returns true if a call to 
+<A HREF="mj2$ource__open_stream.html">open_stream</A> with the same 
+<A HREF="mj2$ource__can$en_stream.html#field_idx">field_idx</A> argument would succeed and any required main codestream
+header can be read. The function is provided for applications
+which may need to deal with caching data sources. Specifically,
+if the ultimate 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object from which data is being sourced is a dynamic
+cache, it is possible that insufficient information
+currently exists to locate the codestream required
+for the requested field. It is also possible that the
+codestream can be referenced, but its main header is
+not yet fully available in the cache. If 
+<A HREF="mj2$ource__can$en_stream.html#need_main_header">need_main_header</A> is false, the function returns true so long as the
+codestream can be accessed, regardless of whether its
+main header is fully available yet.
+</P><P>
+ For non-cacheing data sources, the function will always
+return true unless the requested field does not exist.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="field_idx">field_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="need_main_header">need_main_header</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$ource__open_stream.html"> prev </A>||<A HREF="mj2$ource__get$timescale.html"> next </A>|</P>
+</BODY>
+</HTML>

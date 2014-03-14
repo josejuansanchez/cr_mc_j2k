@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_model::init) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__clear.html"> prev </A>||<A HREF="kdu$model__init__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_model::init</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_model.Init</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$model__init__2.html">2</A></B></P>
+<P CLASS="function-text"><B>void</B> init(
+<B>bool</B>&nbsp;stateless)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Init(
+boolean&nbsp;stateless)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$model.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Almost the same as calling 
+<A HREF="kdu$model__clear.html">clear</A>, except that the function also sets the object's 
+<A HREF="kdu$model__init__1.html#stateless">stateless</A> attribute. Use this function if you wish to return
+the object to an empty state, correctly reporting its
+statelessness via 
+<A HREF="kdu$model__is_stateless.html">is_stateless</A>, but you do not yet need to add any cache model instructions.
+Use the second form of 
+<A HREF="kdu$model__init__1.html">init</A> if you need to add cache model instructions. Either
+of the 
+<A HREF="kdu$model__init__1.html">init</A> functions may be called as often as you like.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="stateless">stateless</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__clear.html"> prev </A>||<A HREF="kdu$model__init__2.html"> next </A>|</P>
+</BODY>
+</HTML>

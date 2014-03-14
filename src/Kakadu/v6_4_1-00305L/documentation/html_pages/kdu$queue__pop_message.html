@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_message_queue::pop_message) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$queue__flush.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_message_queue::pop_message</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_message_queue.Pop_message</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>const char *</B> pop_message(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native String Pop_message(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P><A HREF="kdu$queue.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Overriding this function is most likely the only thing
+you need to do to make a useful message handling object
+for multi-threaded GUI-based environments.
+</P><P>
+ The base function retrieves the first message from
+the queue as a UTF-8 character string, returning NULL
+only if there is no complete message on the queue.
+If a non-NULL string is returned, the queue is advanced,
+but you can be sure that the internal buffer will not
+be overwritten, at least until this function is called
+again. You should generally call this function from
+only one thread to avoid this risk, although the internal
+implementation will at least work correctly when invoked
+from any thread. It is expected that the function will
+be called from a context in which the internal mutex
+is not locked. In particular, you should not call the
+function from any overrides of the 
+<A HREF="kdu$queue__put_text__1.html">put_text</A> function, nor from any override of 
+<A HREF="kdu$queue__flush.html">flush</A> at least until that override invokes the base 
+<A HREF="kdu$1ssage__flush.html">kdu_thread_safe_message::flush</A> function. However, you should not normally need to
+concern yourself with these details because none of
+those functions normally need to be overridden at all.
+</P><P>
+ In a typical implementation, you provide an override
+of this function alone, which first checks to see if
+it is being called from the thread you in which you
+want to do all your message displaying &mdash; typically
+the one running a window message loop. If not, the
+overriding function should return NULL after taking
+steps to encourage the message displaying thread to
+call this function itself at some point in the future.
+If the function is being called form the message displaying
+thread, it should invoke the base function, whose behaviour
+is described in the previous paragraph, rendering any
+returned UTF-8 string in an appropriate way, and returning
+once the string is no longer required (e.g., when a
+user closes a window which is displaying the message).
+It is up to you whether or not you block the function
+until a user closes a message window (not that your
+implementation has to use message windows), but this
+is probably the most appropriate behaviour for an error
+message handler at least. In any case, your overriding
+function should return NULL once it has no more messages
+to display.
+</P><P>
+ In a typical GUI-based application, the message displaying
+thread is the thread which runs the message loop for
+the window system and you define a custom message which
+causes this message thread to invoke the present function
+repeatedly until it returns NULL. This custom message
+is delivered if this function is invoked from any other
+thread. In this way, you can be sure that messages
+are displayed as soon as reasonably practicable regardless
+of what thread they arrive on.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$queue__flush.html"> prev </A>|</P>
+</BODY>
+</HTML>

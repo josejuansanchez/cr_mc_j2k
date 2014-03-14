@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::set_target_size) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__set$r_length.html"> prev </A>||<A HREF="jp2$1t_box__wri$der_last.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::set_target_size</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Set_target_size</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> set_target_size(
+<B>kdu_long</B>&nbsp;num_bytes)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_target_size(
+long&nbsp;num_bytes)</EM></P></DIR></DIR>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$arget__set$rget_size.html">kdu_compressed_target::set_target_size</A></H3></DIV>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Implements 
+<B>kdu_compresssed_target::set_target_size</B>, flushing any buffered box contents immediately after
+writing the header, using the indicated length.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="num_bytes">num_bytes</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Total number of bytes in the box contents (not including
+the header). Some or all of these may already have
+been written. If the box has been assigned a rubber
+length, so that the header has already been written,
+this function has no effect.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__set$r_length.html"> prev </A>||<A HREF="jp2$1t_box__wri$der_last.html"> next </A>|</P>
+</BODY>
+</HTML>

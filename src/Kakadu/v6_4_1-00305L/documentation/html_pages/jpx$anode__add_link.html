@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::add_link) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$o_delayed.html"> prev </A>||<A HREF="jpx$anode__cha$e_to_link.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::add_link</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Add_link</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="jpx$anode.html">jpx_metanode</A> add_link(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;target,
+<B>jpx_metanode_link_type</B>&nbsp;link_type,
+<B>bool</B>&nbsp;avoid_duplicates=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Jpx_metanode Add_link(
+Jpx_metanode&nbsp;target,
+int&nbsp;link_type,
+boolean&nbsp;avoid_duplicates)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add a descendant to the present
+node, assigning the descendant to represent a cross-reference
+box which will be configured to reference the box associated
+with the 
+<A HREF="jpx$anode__add_link.html#target">target</A> node when file writing occurs. After calling this
+function, the newly added node's 
+<A HREF="jpx$anode__get_link.html">get_link</A> function can be used to re-discover the 
+<A HREF="jpx$anode__add_link.html#target">target</A> node.
+</P><P>
+ The node referenced by 
+<A HREF="jpx$anode__add_link.html#target">target</A> may not itself be a link node unless the target node
+has link-type 
+<B>JPX_GROUPLING_LINK</B> and the 
+<A HREF="jpx$anode__add_link.html#link_type">link_type</A> argument to the present function is 
+<A HREF="globals.html#JPX_ALTERNATE_CHILD_LINK">JPX_ALTERNATE_CHILD_LINK</A>. Under these circumstances, the cross-reference box
+will point to an 
+<B>asoc</B> box, which is legal. Under all other conditions, if
+<A HREF="jpx$anode__add_link.html#target">target</A> is a link node, this function will generate a suitable
+error through 
+<A HREF="kdu_error.html">kdu_error</A>.
+</P><P>
+ The present function does not check for self-referential
+cycles, since there is nothing illegal about such things.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="target">target</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="link_type">link_type</A> [<B>jpx_metanode_link_type</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of 
+<A HREF="globals.html#JPX_ALTERNATE_CHILD_LINK">JPX_ALTERNATE_CHILD_LINK</A>, 
+<A HREF="globals.html#JPX_ALTERNATE_PARENT_LINK">JPX_ALTERNATE_PARENT_LINK</A> or 
+<A HREF="globals.html#JPX_GROUPING_LINK">JPX_GROUPING_LINK</A>. For an explanation of link-types, see the description
+of the 
+<A HREF="jpx$anode__get_link.html">get_link</A> function.
+</P>
+</DIV>
+<H4><A NAME="avoid_duplicates">avoid_duplicates</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true (the default), the function checks to see if
+there is already a link (of the same type) to the 
+<A HREF="jpx$anode__add_link.html#target">target</A> node. If so, it returns a reference to the existing
+link, rather than creating a new one.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__cha$o_delayed.html"> prev </A>||<A HREF="jpx$anode__cha$e_to_link.html"> next </A>|</P>
+</BODY>
+</HTML>

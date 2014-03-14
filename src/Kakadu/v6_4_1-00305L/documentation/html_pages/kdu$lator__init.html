@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client_translator::init) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lator__~kd$ranslator.html"> prev </A>||<A HREF="kdu$lator__close.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client_translator::init</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client_translator.Init</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>void</B> init(
+<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*&nbsp;main_cache)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Init(
+Kdu_cache&nbsp;main_cache)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu$lator.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function first calls 
+<A HREF="kdu$lator__close.html">close</A> and then attaches the internal auxiliary 
+<A HREF="kdu_cache.html">kdu_cache</A> object to the 
+<A HREF="kdu$lator__init.html#main_cache">main_cache</A> so that meta data-bins can be asynchronously read
+by the implementation. You may need to override this
+function to perform additional initialization steps.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="main_cache">main_cache</A> [<A HREF ="kdu_cache.html">kdu_cache</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lator__~kd$ranslator.html"> prev </A>||<A HREF="kdu$lator__close.html"> next </A>|</P>
+</BODY>
+</HTML>

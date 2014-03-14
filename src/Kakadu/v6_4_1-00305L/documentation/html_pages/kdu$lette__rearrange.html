@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_rgb8_palette::rearrange) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lette__is_$onochrome.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_rgb8_palette::rearrange</A></H1>
+<P CLASS="function-text"><B>void</B> rearrange(
+<B>kdu_byte</B>&nbsp;*&nbsp;map)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$lette.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Searches for a permutation of the palette entries which
+will optimize neighbourhood properties. Specifically,
+tries to minimize the sum of the distances between
+adjacent palette entries where distance is assessed
+as the sum of the absolute values of the colour component
+differences.
+</P><P>
+ The task is nothing other than the well-known travelling
+salesman problem, which is known to be NP-complete.
+Consequently, the solution will generally be sub-optimal.
+The algorithm deliberately starts with the original
+palette order and tries to incrementally improve upon
+it, so that in the event that the palette already has
+good neighbourhood properties (e.g., a previously optimized
+palette, a "heat" map or something like that), the
+function will execute quickly and without damaging
+the original palette's neighbourhood properties.
+</P><P>
+ The permutation is written into the supplied 
+<A HREF="kdu$lette__rearrange.html#map">map</A> array, which is understood as a lookup table whose
+inputs are the original palette indices and whose outputs
+are the new palette indices.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="map">map</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lette__is_$onochrome.html"> prev </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::allocate_buffer) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__cus$t_overlay.html"> prev </A>||<A HREF="kdu$sitor__del$te_buffer.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::allocate_buffer</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Allocate_buffer</EM></H3></DIR></DIR>
+<DIR><DIR><DIR><H3><U>CALLBACK:</U> Your implementation of this function in Java, C# or another foreign language will be called from the internal implementation of this object.  See "java-and_managed-interfaces.pdf" for more on CALLBACK functions.</H3>
+<P CLASS="function-text">virtual <A HREF ="kdu$r_buf.html">kdu_compositor_buf</A>&nbsp;* allocate_buffer(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;min_size,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;&nbsp;actual_size,
+<B>bool</B>&nbsp;read_access_required)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_compositor_buf Allocate_buffer(
+Kdu_coords&nbsp;min_size,
+Kdu_coords&nbsp;actual_size,
+boolean&nbsp;read_access_required)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Override this function to provide your own image buffer
+allocation. For example, you may want to allocate the
+image buffer as part of a system resource from which
+rendering to a display can be accomplished more easily
+or efficiently.
+</P><P>
+ Alternatively, you might want to allocate buffers
+with floating-point samples instead of 32-bit integer
+pixels, using the 
+<A HREF="kdu$r_buf__init_float.html">kdu_compositor_buf::init_float</A> function. This is a particularly important reason
+for overriding this function. As of Kakadu version
+6.3, all of the 
+<A HREF="kdu$sitor.html">kdu_region_compositor</A> object's internal machinery supports floating-point
+precision buffers, in addition to the original 8-bit/sample
+representation associated with 32-bit/pixel buffers.
+The way to access this functionality is by overriding
+the present function and consistently allocating floating-point
+buffers.
+</P><P>
+ You may, if you like, allocate a larger buffer than
+the one requested, returning the actual buffer size
+via the 
+<A HREF="kdu$sitor__all$te_buffer.html#actual_size">actual_size</A> argument. This reduces the likelihood that reallocation
+will be necessary during interactive viewing.
+</P><P>
+ The 
+<A HREF="kdu$sitor__all$te_buffer.html#read_access_required">read_access_required</A> argument is provided to support efficient use of special
+purpose memory resources which might only support writing.
+If the internal machinery only intends to write to
+the buffer, it sets this flag to false. It can happen
+that a buffer which was originally allocated as write-only
+must later be given read access, due to unforeseen
+changes. For example, a compositing layer which was
+originally rendered directly onto the frame might later
+need to be composed with other compositing layers (due
+to changes in the frame contents) for which read access
+is required. Whenever the access type changes, 
+<A HREF="kdu$r_buf__set$ssibility.html">kdu_compositor_buf::set_read_accessibility</A> will be called. The buffer manager has the option
+to allocate memory in a different way whenever the
+access type changes; it also has the option to instruct
+the internal machinery to regenerate the buffer when
+this happens, as explained in the description accompanying
+<A HREF="kdu$r_buf__set$ssibility.html">kdu_compositor_buf::set_read_accessibility</A>.
+</P><P>
+ For maximum memory access efficiency, when overriding
+this function, you should attempt to allocate 
+<A HREF="kdu$r_buf.html">kdu_compositor_buf</A> objects whose referenced memory buffer is aligned
+on a 16-byte boundary. For example, you might allocate
+a buffer which is somewhat larger than required, so
+that the 
+<B>kdu_compositor_buf::buf</B> member can be rounded up to the nearest 16-byte boundary.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+If you do not intend to allocate the buffer yourself,
+the function should return NULL (this is what the default
+implementation does), in which case the buffer will
+be internally allocated and internally deleted, without
+any call to 
+<A HREF="kdu$sitor__del$te_buffer.html">delete_buffer</A>.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="min_size">min_size</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="actual_size">actual_size</A> [<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="read_access_required">read_access_required</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__cus$t_overlay.html"> prev </A>||<A HREF="kdu$sitor__del$te_buffer.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_compressed_source::access_memory) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ource__get_pos.html"> prev </A>||<A HREF="kdu$ource__set$der_scope.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_compressed_source::access_memory</A></H1>
+<P CLASS="function-text">virtual <B>kdu_byte</B>&nbsp;* access_memory(
+<B>kdu_long</B>&nbsp;&amp;&nbsp;pos,
+<B>kdu_byte</B>&nbsp;*&nbsp;&amp;&nbsp;lim)</P>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$ource.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function should return NULL except for in-memory
+sources (i.e., sources which advertise the 
+<A HREF="globals.html#KDU_SOURCE_CAP_IN_MEMORY">KDU_SOURCE_CAP_IN_MEMORY</A> capability). For in-memory sources, the function should
+return a pointer to the next location in memory that
+would be read by a call to 
+<A HREF="kdu$ource__read.html">read</A>. The variable referenced by the 
+<A HREF="kdu$ource__acc$ss_memory.html#pos">pos</A> argument should be set to the absolute location of
+the returned memory address, expressed relative to
+the start of the source memory block. The variable
+referenced by the 
+<A HREF="kdu$ource__acc$ss_memory.html#lim">lim</A> argument should be set to the address immediately
+beyond the source memory block. This means that you
+can legally access locations 
+<B>ptr[idx]</B>, where 
+<B>ptr</B> is the address returned by the function and 
+<B>idx</B> lies in the range -
+<A HREF="kdu$ource__acc$ss_memory.html#pos">pos</A> &lt;= 
+<B>idx</B> &lt; 
+<A HREF="kdu$ource__acc$ss_memory.html#lim">lim</A>-
+<B>ptr</B>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pos">pos</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="lim">lim</A> [<B>kdu_byte</B>&nbsp;*&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ource__get_pos.html"> prev </A>||<A HREF="kdu$ource__set$der_scope.html"> next </A>|</P>
+</BODY>
+</HTML>

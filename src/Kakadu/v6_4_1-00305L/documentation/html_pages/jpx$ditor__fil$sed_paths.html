@@ -1,0 +1,127 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_roi_editor::fill_closed_paths) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__set$thickness.html"> prev </A>||<A HREF="jpx$ditor__undo.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_roi_editor::fill_closed_paths</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_roi_editor.Fill_closed_paths</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_dims.html">kdu_dims</A> fill_closed_paths(
+<B>bool</B>&nbsp;&amp;&nbsp;success,
+<B>int</B>&nbsp;required_member_idx=-1)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Fill_closed_paths(
+boolean[]&nbsp;success,
+int&nbsp;required_member_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ditor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This powerful function is essentially used to convert
+paths into filled polygon regions. The principle intent
+is to allow an interactive user to map out the boundary
+of a polygon region by drawing a path around it &mdash;
+usually done in the 
+<A HREF="globals.html#JPX_EDITOR_PATH_MODE">JPX_EDITOR_PATH_MODE</A> editing mode &mdash; and then convert the path into
+a filled polygon. As described under 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>, a "path" is defined by a collection of connected
+"path segments", where each path segment arises from
+a quadrilateral region with simple connectivity.
+</P><P>
+ This function uses 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A> internally to enumerate all the paths associated with
+the current configuration. It considers only closed
+paths (those whose 
+<B>path_start</B> and 
+<B>path_end</B> coordinates are identical, as returned via 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>). If 
+<A HREF="jpx$ditor__fil$sed_paths.html#required_member_idx">required_member_idx</A> is -ve, the function fills all closed paths. Otherwise,
+it fills only the closed path (if any) which includes
+<A HREF="jpx$ditor__fil$sed_paths.html#required_member_idx">required_member_idx</A> amongst its members (as returned via the 
+<B>path_members</B> array passed to 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>).
+</P><P>
+ For each filled path, the function effectively deletes
+all the path bricks for that path (these are the quadrilateral
+regions whose indices are returned via the 
+<B>path_members</B> array passed to 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A>) and replaces them with new quadrilateral regions
+which fully partition the region contained within the
+external edges of the original path bricks. Several
+things are worth noting here:
+</P><UL><LI>
+The filled region fully covers all the original path
+bricks which comprised the path, rather than stopping
+at the path segments themselves, which run down the
+middle of their path bricks.
+</LI><LI>
+The filled region is partitioned into quadrilaterals,
+meaning that the filling quadrilaterals do not overlap.
+</LI><LI>
+The filling quadrilaterals meet one another at their
+vertices. No vertex of one filling quadrilateral lies
+meets an edge of another filling quadrilateral at an
+intermediate position.
+</LI><LI>
+Connected path bricks either share a common edge or
+else the edge mid-points which define their respective
+path segments are identical. This second condition
+means that the path bricks which define the boundary
+of the filled region are not necessarily joined at
+their vertices. Nevertheless, the filling quadrilaterals
+which span these path bricks and the entire interior
+of the closed path do join at their vertices.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A region large enough to include all points and edges
+affected by the change. This region will be empty if
+the function does nothing at all, because there are
+no appropriate paths to fill.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="success">success</A> [<B>bool</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return an indication of whether or not the
+function ran to completion. The value may be set to
+false, even if the function has a non-empty return
+region, if the number of regions required to complete
+the filling procedure exceeds the internal storage
+capacity, in which case the maximum complexity would
+definitely be exceeded by the requested operation.
+It may be a good ideal to call 
+<A HREF="jpx$ditor__mea$omplexity.html">measure_complexity</A> anyway after this function returns, if you want to
+be sure that the filled polygons can be completely
+saved in a JPX ROI description box, since internal
+storage is usually sufficient to exceed the maximum
+allowable complexity of a JPX ROI description box.
+</P>
+</DIV>
+<H4><A NAME="required_member_idx">required_member_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If non-negative, the function only processes closed
+paths which include, as one of their members, the region
+with index 
+<A HREF="jpx$ditor__fil$sed_paths.html#required_member_idx">required_member_idx</A> &mdash; there can be at most one of these, since separate
+invocations of 
+<A HREF="jpx$ditor__enum_paths.html">enum_paths</A> return disjoint collections of path members. This
+index may, for example, be the index of a currently
+selected region, as returned by 
+<A HREF="jpx$ditor__get$selection.html">get_selection</A>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$ditor__set$thickness.html"> prev </A>||<A HREF="jpx$ditor__undo.html"> next </A>|</P>
+</BODY>
+</HTML>

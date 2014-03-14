@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::add_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_client__che$nnection.html"> prev </A>||<A HREF="kdu_client__is_active.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client::add_queue</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Add_queue</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> add_queue(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Add_queue(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+In non-interactive mode or if there are no more alive
+connections to the server (i.e. if 
+<A HREF="kdu_client__is_$eractive.html">is_interactive</A> returns false), this function fails to create a new
+queue, returning -1. Otherwise, the function creates
+a new request queue, returning the identifier you can
+use to post requests, disconnect and otherwise utilize
+the new queue. If the server supports multiple JPIP
+channels and communication is not stateless, request
+queues may wind up being associated with distinct JPIP
+channels; this is generally the most efficient approach.
+Otherwise, the client machinery takes care of interleaving
+requests onto an existing stateful or stateless communication
+channel.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+A non-negative request queue identifier, or else -1,
+indicating that a new queue cannot be created. This
+happens only under the following conditions:
+</P><UL><LI>
+The 
+<A HREF="kdu_client__connect.html">connect</A> function has not yet been called.
+</LI><LI>
+All connections have been dropped, by a call to 
+<A HREF="kdu_client__close.html">close</A>, 
+<A HREF="kdu_client__disconnect.html">disconnect</A>, or for some other reason (e.g., the server may have
+dropped the connection); this condition can be checked
+by calling 
+<A HREF="kdu_client__is_alive.html">is_alive</A> with a -ve 
+<B>queue_id</B> argument.
+</LI><LI>
+The original call to 
+<A HREF="kdu_client__connect.html">connect</A> configured the client for non-interactive communications
+&mdash; i.e., 
+<A HREF="kdu_client__is_$_request.html">is_one_time_request</A> should be returning true and 
+<A HREF="kdu_client__is_$eractive.html">is_interactive</A> should be returning false.
+</LI></UL>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_client__che$nnection.html"> prev </A>||<A HREF="kdu_client__is_active.html"> next </A>|</P>
+</BODY>
+</HTML>

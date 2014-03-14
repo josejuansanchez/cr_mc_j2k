@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_in) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_image_in</A></H1>
+
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Support for reading a wide range of image file formats
+is NOT a significant objective for the Kakadu tools.
+Although the present object is easily extended to work
+with any number of different file formats, we realize
+that most application developers will prefer to use
+their own (probably much more sophisticated) tools
+for interacting with image files &mdash; some applications
+might not need to work with uncompressed image files
+at all.
+</P><P>
+ This class provides a uniform interface to any number
+of image readers, supporting different image file formats.
+Specific file format readers are selected and created
+by the constructor and destroyed using the explicit
+<A HREF="kdu$ge_in__destroy.html">destroy</A> function. The 
+<A HREF="kdu$ge_in.html">kdu_image_in</A> object itself contains only a pointer to the internal
+reader object. Copying a 
+<A HREF="kdu$ge_in.html">kdu_image_in</A> object has no impact on the internal image reader,
+but simply serves to provide another interface to it.
+</P><P>
+ An individual image file may provide one or more image
+components. When multiple components are available,
+each component may be accessed independently, reading
+lines one by one. The object manages any buffering
+required to cater for applications which read the components
+at different rates, although this is not recommended.
+It is also possible to access image component lines
+in disjoint segments, known as tile-lines. This capability
+is provided to assist tile-based compression configurations.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ge_in__kdu_image_in__1.html">kdu_image_in</A> <EM>(2 forms)</EM></P>
+<P><A HREF="kdu$ge_in__destroy.html">destroy</A></P>
+<P><A HREF="kdu$ge_in__exists.html">exists</A></P>
+<P><A HREF="kdu$ge_in__operator!.html">operator!</A></P>
+<P><A HREF="kdu$ge_in__get.html">get</A></P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

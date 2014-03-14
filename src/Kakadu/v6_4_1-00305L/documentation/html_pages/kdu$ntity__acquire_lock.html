@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::acquire_lock) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__han$exception.html"> prev </A>||<A HREF="kdu$ntity__try_lock.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::acquire_lock</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Acquire_lock</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> acquire_lock(
+<B>int</B>&nbsp;lock_id,
+<B>bool</B>&nbsp;allow_exceptions=true)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Acquire_lock(
+int&nbsp;lock_id,
+boolean&nbsp;allow_exceptions)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used by the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface and its descendants. You will not normally
+invoke it directly from an application.
+</P><P>
+ The mutexes which are locked by this function are
+fast, non-recursive mutexes. You must not try to acquire
+the same lock a second time, without first releasing
+it.
+</P><P>
+ Note that this function may throw an exception of
+type 
+<B>kdu_exception</B> or 
+<B>std::bad_alloc</B> (converted from 
+<A HREF="globals.html#KDU_MEMORY_EXCEPTION">KDU_MEMORY_EXCEPTION</A>), if any other thread in the group terminates unexpectedly,
+invoking its 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> function. To avoid this (e.g., when performing cleanup
+operations after an exception has already been thrown),
+set the 
+<A HREF="kdu$ntity__acquire_lock.html#allow_exceptions">allow_exceptions</A> argument to false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="lock_id">lock_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be in the range 0 to L-1, where L is the value
+returned by 
+<A HREF="kdu$ntity__get$num_locks.html">get_num_locks</A>.
+</P>
+</DIV>
+<H4><A NAME="allow_exceptions">allow_exceptions</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, an exception will be thrown if the thread
+group is found to have failed somewhere. This behaviour
+ensures that all participating threads in the group
+will eventually throw exceptions.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__han$exception.html"> prev </A>||<A HREF="kdu$ntity__try_lock.html"> next </A>|</P>
+</BODY>
+</HTML>

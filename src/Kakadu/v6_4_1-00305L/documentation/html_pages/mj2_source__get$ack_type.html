@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_source::get_track_type) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2_source__get$xt_track.html"> prev </A>||<A HREF="mj2_source__acc$eo_track.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_source::get_track_type</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_source.Get_track_type</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_track_type(
+<B>kdu_uint32</B>&nbsp;track_idx)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_track_type(
+long&nbsp;track_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to determine the existence
+and nature of a Motion JPEG2000 track, before actually
+attempting to access it. The function is also useful
+when working with cacheing data sources, since it allows
+the caller to determine whether or not the track might
+still be encountered if more data were added to the
+cache.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The following return types are defined:
+</P><UL><LI>
+<A HREF="globals.html#MJ2_TRACK_IS_VIDEO">MJ2_TRACK_IS_VIDEO</A> &mdash; in this case, 
+<A HREF="mj2_source__acc$eo_track.html">access_video_track</A> will succeed.
+</LI><LI>
+<A HREF="globals.html#MJ2_TRACK_IS_OTHER">MJ2_TRACK_IS_OTHER</A> &mdash; in this case, the track exists but does not
+have one of the defined types. The set of defined types
+may increase as the implementation of this object becomes
+more comprehensive in the future.
+</LI><LI>
+<A HREF="globals.html#MJ2_TRACK_NON_EXISTENT">MJ2_TRACK_NON_EXISTENT</A> &mdash; this return value means that the track definitely
+does not exist.
+</LI><LI>
+<A HREF="globals.html#MJ2_TRACK_MAY_EXIST">MJ2_TRACK_MAY_EXIST</A> &mdash; this return value means that the track has
+not yet been encountered, but not enough data is yet
+available from a cacheing data source to determine
+the identity of all tracks.
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="track_idx">track_idx</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2_source__get$xt_track.html"> prev </A>||<A HREF="mj2_source__acc$eo_track.html"> next </A>|</P>
+</BODY>
+</HTML>

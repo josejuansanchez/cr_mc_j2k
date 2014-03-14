@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_channels::set_opacity_mapping) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$r_mapping.html"> prev </A>||<A HREF="jp2$nnels__set$t_mapping.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_channels::set_opacity_mapping</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_channels.Set_opacity_mapping</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_opacity_mapping(
+<B>int</B>&nbsp;colour_idx,
+<B>int</B>&nbsp;codestream_component,
+<B>int</B>&nbsp;lut_idx=-1,
+<B>int</B>&nbsp;codestream_idx=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_opacity_mapping(
+int&nbsp;colour_idx,
+int&nbsp;codestream_component,
+int&nbsp;lut_idx,
+int&nbsp;codestream_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$nnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is used, together with 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> and 
+<A HREF="jp2$nnels__set$t_mapping.html">set_premult_mapping</A>, to establish the relationship, if any, between the
+code-stream image components and the reproduction functions
+of colour intensity, opacity and pre-multiplied opacity.
+The present function may be used to provide opacity
+definitions. There is no obligation to provide opacity
+mappings; indeed, the default configuration created
+by 
+<A HREF="jp2$nnels__init.html">init</A> provides no opacity information.
+</P><P>
+ Each opacity channel (there can be one for each colour)
+may be directly assigned to some code-stream component.
+Alternatively, it may be associated with the output
+of a palette lookup table (LUT), together with a code-stream
+image component which provides indices into the LUT.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="colour_idx">colour_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the colour intensity channel whose opacity
+is being described. The meaning of this argument is
+identical to that explained in connection with the
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> function.
+</P>
+</DIV>
+<H4><A NAME="codestream_component">codestream_component</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifies the code-stream image component (starting
+from 0) which is used to create the relevant opacity
+channel, either by direct assignment or after mapping
+through a palette LUT.
+</P>
+</DIV>
+<H4><A NAME="lut_idx">lut_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Set to -1 (the default) if the code-stream image component
+is to be assigned directly to the opacity channel.
+Otherwise, the code-stream component samples are indices
+to a lookup table, where 
+<A HREF="jp2$nnels__set$y_mapping.html#lut_idx">lut_idx</A> gives the index of the lookup table (starting from
+0), as it appears in the 
+<A HREF="jp2$lette.html">jp2_palette</A> object.
+</P>
+</DIV>
+<H4><A NAME="codestream_idx">codestream_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Index of the code-stream whose components and palette
+lookup tables (if required) are used to generate this
+opacity channel. See the discussion which accompanies
+the 
+<A HREF="jp2$nnels__set$r_mapping.html">set_colour_mapping</A> function for more details on the meaning of this index
+and how it should be used with different file formats.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$nnels__set$r_mapping.html"> prev </A>||<A HREF="jp2$nnels__set$t_mapping.html"> next </A>|</P>
+</BODY>
+</HTML>

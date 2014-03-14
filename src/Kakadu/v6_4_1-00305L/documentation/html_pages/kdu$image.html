@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_roi_image) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_roi_image</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_roi_image</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$i_processing+h.html">"../coresys/common/kdu_roi_processing.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu$phics.html">kdu_roi_graphics</A></LI>
+<LI><A HREF="kdu$_rect.html">kdu_roi_rect</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This abstract base class is not derived by any class
+defined by the Kakadu core system. To use ROI features,
+the application must supply a suitable derivation.
+Some useful examples are provided with the "kdu_compress"
+application. The derived object might obtain ROI information
+interactively from a user (e.g., in a clinical application).
+</P><P>
+ However the ROI information is obtained, the derived
+object must be able to supply a suitably derived 
+<A HREF="kdu$_node.html">kdu_roi_node</A> object, which is capable of delivering the ROI information
+for any given image component and any given tile region.
+The present base class only defines the formal mechanisms
+to be used to accessing these derived 
+<A HREF="kdu$_node.html">kdu_roi_node</A> objects.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$image__~kd$roi_image.html">~kdu_roi_image</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$image__acquire_node.html">acquire_node</A> [virtual] {<U>Java:</U> Acquire_node}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

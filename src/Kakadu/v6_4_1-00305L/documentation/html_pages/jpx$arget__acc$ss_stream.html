@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_codestream_target::access_stream) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$arget__open_stream.html"> prev </A>|</P>
+<H1><A NAME="ToP">jpx_codestream_target::access_stream</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_codestream_target.Access_stream</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$arget.html">kdu_compressed_target</A>&nbsp;* access_stream(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_compressed_target Access_stream(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns a pointer to the same internal 
+<A HREF="jp2$1t_box.html">jp2_output_box</A> object which will be returned by 
+<A HREF="jpx$arget__open_stream.html">open_stream</A>, but does not actually open any box. This function
+may be called at any time at all, enabling you to pass
+the returned interface to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> before opening an output box. This can be quite important,
+since it allows you to use the created 
+<A HREF="kdu$tream.html">kdu_codestream</A> object to initialize 
+<A HREF="jp2$sions.html">jp2_dimensions</A> and even to start compressing the imagery before actually
+writing the JPX file header. Note, however, that you
+will have to call 
+<A HREF="jpx$arget__open_stream.html">open_stream</A> at some point before invoking 
+<A HREF="kdu$tream__flush.html">kdu_codestream::flush</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Pointer to the internal 
+<A HREF="jp2$1t_box.html">jp2_output_box</A> object, which is deliberately cast to the base of
+its derivation hierarchy (
+<A HREF="kdu$arget.html">kdu_compressed_target</A>) so as to discourage you from using it for anything
+other than passing to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>. Note that the returned object cannot be written to
+until after 
+<A HREF="jpx$arget__open_stream.html">open_stream</A> has been called, but this does not stop you from passing
+it to 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="jpx$arget__open_stream.html"> prev </A>|</P>
+</BODY>
+</HTML>

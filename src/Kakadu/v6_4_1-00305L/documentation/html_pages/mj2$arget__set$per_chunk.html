@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (mj2_video_target::set_max_frames_per_chunk) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$arget__set$eld_order.html"> prev </A>||<A HREF="mj2$arget__set$me_period.html"> next </A>|</P>
+<H1><A NAME="ToP">mj2_video_target::set_max_frames_per_chunk</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Mj2_video_target.Set_max_frames_per_chunk</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> set_max_frames_per_chunk(
+<B>kdu_uint32</B>&nbsp;max_frames)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Set_max_frames_per_chunk(
+long&nbsp;max_frames)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+mj2+h.html">"../apps/compressed_io/mj2.h"</A>]</P><P><A HREF="mj2$arget.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Sets an upper bound for the number of frames which
+can be stored in a single chunk within the Motion JPEG2000
+file. The internal machinery may well select a smaller
+chunk size to satisfy constraints on the maximum duration
+of a chunk, and any other internal resource constraints.
+</P><P>
+ The chunk size determines the granularity with which
+tracks are interleaved, which affects the efficiency
+or memory requirements associated with simultaneous
+track playback. By default, the maximum chunk size
+is set to 1 frame.
+</P><P>
+ Note that interlaced frames each consist of two fields,
+in which case the maximum number of fields per chunk
+is twice the value of 
+<A HREF="mj2$arget__set$per_chunk.html#max_frames">max_frames</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="max_frames">max_frames</A> [<B>kdu_uint32</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="mj2$arget__set$eld_order.html"> prev </A>||<A HREF="mj2$arget__set$me_period.html"> next </A>|</P>
+</BODY>
+</HTML>

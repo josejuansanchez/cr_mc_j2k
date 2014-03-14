@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_symmetric_extension) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rnels__is_$eversible.html"> prev </A>||<A HREF="kdu$rnels__is_symmetric.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_symmetric_extension</A></H1>
+<P CLASS="function-text"><B>bool</B> get_symmetric_extension(
+)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the symmetric boundary extension policy
+is to be used at image boundaries within each lifting
+step. The centre of symmetry in this case is the boundary
+sample location within an interleaved representation
+in which low-pass samples occupy the even indexed locations
+and high-pass samples occupy the odd indexed locations.
+</P><P>
+ If the function returns false, the sample-replication
+is to be used at the boundaries within each lifting
+step.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rnels__is_$eversible.html"> prev </A>||<A HREF="kdu$rnels__is_symmetric.html"> next </A>|</P>
+</BODY>
+</HTML>

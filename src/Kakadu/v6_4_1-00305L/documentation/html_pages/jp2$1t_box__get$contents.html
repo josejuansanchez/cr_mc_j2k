@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::get_contents) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__get$r_length.html"> prev </A>||<A HREF="jp2$1t_box__set$r_length.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::get_contents</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Get_contents</EM></H3></DIR></DIR>
+<P CLASS="function-text">const&nbsp;<B>kdu_byte</B>&nbsp;* get_contents(
+<B>kdu_long</B>&nbsp;&amp;&nbsp;contents_length)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_contents(
+long[]&nbsp;contents_length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used to gain READ-ONLY access
+to the current contents of a box which is being generated.
+If any of the box contents have been written already,
+or the box is not open, the function returns NULL.
+Also, you should generally consider the returned buffer
+to be invalid (and inaccessible) after any subsequent
+operation on the box, including subsequent calls to
+<A HREF="jp2$1t_box__write__1.html">write</A>, 
+<A HREF="jp2$1t_box__set$r_length.html">set_rubber_length</A> or 
+<A HREF="jp2$1t_box__set$get_size.html">set_target_size</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+NULL if the box is closed, or if any of the box contents
+have already been written to a target or super-box.
+Otherwise, the function returns a pointer to the first
+byte of the box contents which have been buffered up
+internally. You may read from this buffer, but you
+should not write to it.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="contents_length">contents_length</A> [<B>kdu_long</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the total number of bytes which can
+be read from the returned buffer. This is the number
+of bytes which have been written to the box so far,
+including the contents of any sub-boxes, which have
+been fully written.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jp2$1t_box__get$r_length.html"> prev </A>||<A HREF="jp2$1t_box__set$r_length.html"> next </A>|</P>
+</BODY>
+</HTML>

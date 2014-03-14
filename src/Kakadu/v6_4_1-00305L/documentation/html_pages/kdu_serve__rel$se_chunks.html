@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve::release_chunks) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__gen$ncrements.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_serve::release_chunks</A></H1>
+<P CLASS="function-text"><B>void</B> release_chunks(
+<A HREF ="kds_chunk.html">kds_chunk</A>&nbsp;*&nbsp;chunks,
+<B>bool</B>&nbsp;check_abandoned=false)</P>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu_serve.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Recycles the resources returned by 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>. The 
+<A HREF="kdu_serve__rel$se_chunks.html#check_abandoned">check_abandoned</A> argument is provided for the benefit of advanced server
+applications which may decide to abandon some of the
+data chunks which have not yet been transmitted to
+a remote client. Abandonment means that the application
+will not transmit these chunks or that it has transmitted
+them, but is not certain whether or not they have been
+or ever will be received correctly, and is not prepared
+to wait to find out. The decision to abandon data chunks
+may be made in response to a substantial change in
+the remote user's window of interest, but this decision
+is the responsibility of the server application, not
+the present object.
+</P><P>
+ If a chunk has been abandoned (and 
+<A HREF="kdu_serve__rel$se_chunks.html#check_abandoned">check_abandoned</A> is true), the function restores its cache model associated
+with all data-bins which contributed to the abandoned
+chunk, so as to reflect the state which they had prior
+to the point at which the 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> function was called (unless they have already been
+restored to an even more primitive state as a result
+of discovering other abandoned chunks). This process
+may leave the cache model in a state where the number
+of cached bytes for some precinct does not correspond
+to a whole number of packets. This is possible because
+packets which are larger than the maximum chunk size
+must be broken down into smaller messages, only some
+of which may belong to abandoned chunks.
+</P><P>
+ In the event that a fatal error occurs, successful
+cleanup of all resources does not necessitate that
+outstanding buffers be released using this function.
+The internal chunk server keeps track of all resources
+which it has allocated and destroys them automatically
+when 
+<A HREF="kdu_serve.html">kdu_serve</A> is destroyed. Note, however, that this means you should
+clean up any objects which may access 
+<A HREF="kds_chunk.html">kds_chunk</A> objects before destroying the 
+<A HREF="kdu_serve.html">kdu_serve</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="chunks">chunks</A> [<A HREF ="kds_chunk.html">kds_chunk</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="check_abandoned">check_abandoned</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__gen$ncrements.html"> prev </A>|</P>
+</BODY>
+</HTML>

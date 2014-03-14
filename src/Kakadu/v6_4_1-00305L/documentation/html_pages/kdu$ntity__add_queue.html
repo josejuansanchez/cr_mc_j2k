@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity::add_queue) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__add_thread.html"> prev </A>||<A HREF="kdu$ntity__add_jobs.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity::add_queue</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_thread_entity.Add_queue</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>kdu_thread_queue</B>&nbsp;* add_queue(
+<A HREF ="kdu_worker.html">kdu_worker</A>&nbsp;*&nbsp;worker,
+<B>kdu_thread_queue</B>&nbsp;*&nbsp;super_queue,
+<B>const char *</B>&nbsp;name=NULL,
+<B>kdu_long</B>&nbsp;queue_bank_idx=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Add_queue(
+Kdu_worker&nbsp;worker,
+long&nbsp;super_queue,
+String&nbsp;name,
+long&nbsp;queue_bank_idx)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P><A HREF="kdu$ntity.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Creates a new job queue, returning an opaque handle
+to the created queue. You cannot directly access any
+members of the job queue, but you can pass it to 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A>, or as a super-queue in further calls to 
+<A HREF="kdu$ntity__add_queue.html">add_queue</A>, or as a synchronization or termination handle to
+<A HREF="kdu$ntity__synchronize.html">synchronize</A>, 
+<A HREF="kdu$ntity__terminate.html">terminate</A> or 
+<A HREF="kdu$ntity__reg$nized_job.html">register_synchronized_job</A>.
+</P><P>
+ The association between jobs and queues is foundational
+to the thread scheduling algorithm implemented internally.
+You should create one queue for each distinct block
+of memory in which workers might be required to perform
+jobs. The scheduler will then attempt to keep threads
+working in blocks of memory (queues) which they have
+used before, while also keeping all threads occupied
+whenever there is work to be done.
+</P><P>
+ The provision of a non-NULL 
+<A HREF="kdu$ntity__add_queue.html#super_queue">super_queue</A> argument means that the newly added queue is to be
+considered a "sub-queue". If the scheduling algorithm
+cannot keep a thread working within the same queue,
+it attempts to keep it working within the same super-queue,
+or that queue's super-queue, and so forth. Thus, the
+use of super-queues provides the scheduler with more
+clues regarding jobs which are likely to involve closely
+related resources. The use of super-queues has three
+important additional advantages:
+</P><UL><LI>
+Where a large number of queues is involved, partitioning
+them hierarchically into super-queues can reduce the
+number of queues which the scheduler must search to
+find a free one.
+</LI><LI>
+It is possible to selectively wait for and terminate
+just those queues which belong to a given super-queue.
+</LI><LI>
+It is possible to schedule special "synchronized jobs"
+to be run within a super-queue, whenever its sub-queues
+reach a declared state. By providing multiple super-queues,
+it is possible to have multiple outstanding synchronized
+jobs simultaneously.
+</LI></UL><P>
+ A typical way to use super-queues in the Kakadu environment
+is as follows: 1) each tile processor may be associated
+with a single top-level queue; 2) each tile-component
+processor may be associated with a sub-queue of the
+corresponding tile queue; and 3) each subband may be
+associated with a sub-queue of the corresponding tile-component
+queue. In this context, code-blocks are processed within
+the leaf queues.
+</P><P>
+ To make the best use of multiple physical processors,
+you should have at least one queue for each thread,
+with at least one thread for each processor.
+</P><P>
+ It is worth noting that any thread may create queues,
+not just the group owner.
+</P><P>
+ From Kakadu version 5.2.4, queues can be additionally
+organized into so-called "queue banks". Queue banks
+allow for the deferral of all jobs on some queues until
+the system can be reasonably sure that threads about
+to become permanently idle. The idea is that banks
+should be processed as sequentially as possible while
+keeping all threads active as much of the time as possible.
+</P><P>
+ The system uses the information provided in calls
+to the 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A> function to determine when the system is likely to
+be "under-utilized," meaning that there are less working
+leaf queues in the queue hierarchy than the number
+of threads. A working leaf queue is any queue to which
+jobs can still be added, which has no working descendants.
+For more on working queues, see the 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A> function. The system also maintains a list of "dormant"
+queue banks. Once the system becomes under-utilized,
+dormant banks are moved onto the active list until
+full utilization can be achieved. If the system is
+under-utilized when a new queue is added, that queue
+(and its bank) are immediately made active.
+</P><P>
+ If any queue belongs to a particular bank, all of
+its sub-queues must belong to the same bank. For this
+reason, the 
+<A HREF="kdu$ntity__add_queue.html#queue_bank_idx">queue_bank_idx</A> argument is ignored whenever 
+<A HREF="kdu$ntity__add_queue.html#super_queue">super_queue</A> is non-NULL. When super-queue is non-NULL, however,
+the 
+<A HREF="kdu$ntity__add_queue.html#queue_bank_idx">queue_bank_idx</A> argument is used to determine whether or not new banks
+need to be created.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="worker">worker</A> [<A HREF ="kdu_worker.html">kdu_worker</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Pointer to a 
+<A HREF="kdu_worker.html">kdu_worker</A> object whose 
+<A HREF="kdu_worker__do_job.html">kdu_worker::do_job</A> function is used to process jobs for this queue. This
+argument can be NULL if you do not intend to add jobs
+to this queue &mdash; in this case, the queue is being
+used only to organize sub-queues in the overall queue
+hierarchy. A working queue is one which has a non-NULL
+<A HREF="kdu$ntity__add_queue.html#worker">worker</A>, for which not all potential jobs have yet been processed.
+The 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A> function informs the system of the point beyond which
+no more jobs will be added to a queue, so that its
+working status can readily be determined.
+</P>
+</DIV>
+<H4><A NAME="super_queue">super_queue</A> [<B>kdu_thread_queue</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If NULL, a new top-level queue is created. Otherwise,
+a new sub-queue is added to the supplied super-queue.
+The queue hierarchy may extend to any desired number
+of levels. See the comments above for a discussion
+of the merits of queue hierarchies.
+</P>
+</DIV>
+<H4><A NAME="name">name</A> [<B>const char *</B>]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument must point to a constant
+text string whose contents will not change over the
+life of the queue. The name is currently only used
+for internal debugging purposes.
+</P>
+</DIV>
+<H4><A NAME="queue_bank_idx">queue_bank_idx</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+If you don't want any dormant banks, it is best to
+leave this argument set to 0. Otherwise, you can use
+it to add queues to initially dormant banks, which
+become active only once the system becomes under-utilized.
+A typical example of queue banks would be to use one
+bank for each frame in a video sequence. This allows
+you to add queues (and add jobs to the queues) for
+frames which are not currently being processed, confident
+in the fact that these will not start to consume processing
+resources until the system becomes under-utilized,
+which means that the processing of the current frame
+(or codestream) is nearing completion.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$ntity__add_thread.html"> prev </A>||<A HREF="kdu$ntity__add_jobs.html"> next </A>|</P>
+</BODY>
+</HTML>

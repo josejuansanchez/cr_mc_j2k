@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_model::add_instruction) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__set$m_context.html"> prev </A>||<A HREF="kdu$model__add$struction__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_model::add_instruction</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_model.Add_instruction</EM></H3></DIR></DIR>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$model__add$struction__2.html">2</A></B></P>
+<P CLASS="function-text"><B>void</B> add_instruction(
+<B>int</B>&nbsp;databin_class,
+<B>kdu_long</B>&nbsp;bin_id,
+<B>int</B>&nbsp;flags,
+<B>int</B>&nbsp;limit)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Add_instruction(
+int&nbsp;databin_class,
+long&nbsp;bin_id,
+int&nbsp;flags,
+int&nbsp;limit)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$model.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Use this function to add an "explicit" cache model
+instruction to the internal record. Explicit instructions
+identify the relevant data-bin by its absolute 
+<A HREF="kdu$model__add$struction__1.html#bin_id">bin_id</A>, together with its 
+<A HREF="kdu$model__add$struction__1.html#databin_class">databin_class</A>. You must call the second form of the 
+<A HREF="kdu$model__init__1.html">init</A> function before adding any cache model instructions.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Should be one of 
+<B>KDU_MAIN_HEADER_DATABIN</B>, 
+<B>KDU_TILE_HEADER_DATABIN</B>, 
+<B>KDU_PRECINCT_DATABIN</B>, 
+<B>KDU_TILE_DATABIN</B> or 
+<B>KDU_META_DATABIN</B>.
+</P>
+</DIV>
+<H4><A NAME="bin_id">bin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+Unique identifier of the data-bin within its class.
+All valid data-bin ID's are non-negative, but you can
+specify a negative value here, meaning ALL data-bins
+within the class (and current codestream context).
+The -ve value is equivalent to "*" in the JPIP request
+syntax. Note that instructions added using this function
+are atomic only if 
+<A HREF="kdu$model__add$struction__1.html#bin_id">bin_id</A> is non-negative and the codestream context consists
+of a single codestream (see 
+<A HREF="kdu$model__set$m_context.html">set_codestream_context</A>).
+</P>
+</DIV>
+<H4><A NAME="flags">flags</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Logical OR of zero or more of the following options:
+</P><UL><LI>
+<A HREF="globals.html#KDU_WINDOW_MODEL_LAYERS">KDU_WINDOW_MODEL_LAYERS</A> &mdash; if this flag is present, the 
+<A HREF="kdu$model__add$struction__1.html#limit">limit</A> argument is to be interpreted as a quality layer limit,
+as opposed to a byte limit. This flag is ignored unless
+the 
+<A HREF="kdu$model__add$struction__1.html#databin_class">databin_class</A> is 
+<B>KDU_PRECINCT_DATABIN</B>.
+</LI><LI>
+<A HREF="globals.html#KDU_WINDOW_MODEL_SUBTRACTIVE">KDU_WINDOW_MODEL_SUBTRACTIVE</A> &mdash; if this flag is present, the 
+<A HREF="kdu$model__add$struction__1.html#limit">limit</A> argument expresses an upper bound on the cache contents,
+as opposed to a lower bound.
+</LI></UL>
+</DIV>
+<H4><A NAME="limit">limit</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Either an inclusive upper bound on the number of quality
+layers or bytes for the indicated data-bin, or an inclusive
+lower bound, depending on the presence or absence of
+the 
+<A HREF="globals.html#KDU_WINDOW_MODEL_LAYERS">KDU_WINDOW_MODEL_LAYERS</A> and 
+<A HREF="globals.html#KDU_WINDOW_MODEL_SUBTRACTIVE">KDU_WINDOW_MODEL_SUBTRACTIVE</A> flags.
+</P><P>
+ For additive instructions (those without the 
+<A HREF="globals.html#KDU_WINDOW_MODEL_SUBTRACTIVE">KDU_WINDOW_MODEL_SUBTRACTIVE</A>) flag, a -ve 
+<A HREF="kdu$model__add$struction__1.html#limit">limit</A> value may be used to declare that the client's cache
+model is complete for the data-bin(s) in question.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$model__set$m_context.html"> prev </A>||<A HREF="kdu$model__add$struction__2.html"> next </A>|</P>
+</BODY>
+</HTML>

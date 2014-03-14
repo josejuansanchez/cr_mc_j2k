@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kds_id_encoder::encode_id) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kds$coder__decouple.html"> prev </A>|</P>
+<H1><A NAME="ToP">kds_id_encoder::encode_id</A></H1>
+<P CLASS="function-text">virtual <B>int</B> encode_id(
+<B>kdu_byte</B>&nbsp;*&nbsp;dest,
+<B>int</B>&nbsp;databin_class,
+<B>int</B>&nbsp;stream_id,
+<B>kdu_long</B>&nbsp;bin_id,
+<B>bool</B>&nbsp;is_final,
+<B>bool</B>&nbsp;extended=false)</P>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kds$coder.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Encodes the indicated data-bin identifier for the indicated
+data-bin class into a whole number of bytes which are
+recorded in the 
+<A HREF="kds$coder__encode_id.html#dest">dest</A> buffer. If 
+<A HREF="kds$coder__encode_id.html#dest">dest</A> is NULL, the function only simulates the process,
+returning the total number of bytes which would have
+been written. Since the ID encoding rules can be state
+dependent (as in JPIP), we note that simulation does
+not have any impact on state, so the results might
+only be valid when simulating the encoding of a data-bin
+ID for the first message following a fully encoded
+message.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The actual number of bytes occupied by the data-bin
+identifier written to the 
+<A HREF="kds$coder__encode_id.html#dest">dest</A> array. This number of bytes includes the number of
+bytes required to represent the databin class, the
+codestream-id value, and the value of the 
+<A HREF="kds$coder__encode_id.html#is_final">is_final</A> flag. It does not include the cost of encoding auxiliary
+information associated with 
+<A HREF="kds$coder__encode_id.html#extended">extended</A> headers.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="dest">dest</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="databin_class">databin_class</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Currently one of 
+<B>KDU_MAIN_HEADER_DATABIN</B>, 
+<B>KDU_TILE_HEADER_DATABIN</B>, 
+<B>KDU_PRECINCT_DATABIN</B>, 
+<B>KDU_TILE_DATABIN</B> or 
+<B>KDU_META_DATABIN</B>, although new classes might be created in the future.
+</P>
+</DIV>
+<H4><A NAME="stream_id">stream_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Identifier of the code-stream to which the data-bin
+belongs. Must be non-negative. As a general rule, use
+0 unless the target object you are transporting has
+multiple code-streams to distinguish.
+</P>
+</DIV>
+<H4><A NAME="bin_id">bin_id</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+<P>
+See the description of 
+<A HREF="kdu_serve__gen$ncrements.html">kdu_serve::generate_increments</A> for a discussion of the identifiers which can be supplied
+for each data-bin class.
+</P>
+</DIV>
+<H4><A NAME="is_final">is_final</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the data-bin identifier is being used to signal
+the final contribution to that data-bin. This fact
+must be encoded into the identifier itself, at least
+for message headers defined by the JPIP standard.
+</P>
+</DIV>
+<H4><A NAME="extended">extended</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, this message header has an extended form.
+For the JPIP standard, this means that an extra VBAS
+(see general introduction to the present 
+<A HREF="kds$coder.html">kds_id_encoder</A> object) appears at the end of the header. The extended
+VBAS is not encoded by this function, but the class
+code will be adjusted to reflect the presence of the
+extended VBAS if this flag is set to true. The general
+policy, at least for JPIP, is that extended message
+headers contain additional information which is not
+strictly required for correct interpretation of the
+message contents, but may be useful to some clients.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kds$coder__decouple.html"> prev </A>|</P>
+</BODY>
+</HTML>

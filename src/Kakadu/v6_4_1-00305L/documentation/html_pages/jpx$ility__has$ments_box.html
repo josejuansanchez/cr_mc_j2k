@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_compatibility::has_reader_requirements_box) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ility__is_$1ompatible.html"> prev </A>||<A HREF="jpx$ility__che$d_feature.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_compatibility::has_reader_requirements_box</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_compatibility.Has_reader_requirements_box</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> has_reader_requirements_box(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Has_reader_requirements_box(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$ility.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns true if the file contains a reader-requirements
+box or a reader requirements box will be written. Strictly
+speaking, every JPX or JPX-compatible file must contains
+a reader requirements box, but early JPX files were
+sometimes written by other implementors without the
+reader requirements box. For this reason, we adopt
+a more lenient position here. If no reader requirements
+box is available, the 
+<A HREF="jpx$ility__che$d_feature.html">check_standard_feature</A>, 
+<A HREF="jpx$ility__che$r_feature.html">check_vendor_feature</A> and other related functions will all return false.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$ility__is_$1ompatible.html"> prev </A>||<A HREF="jpx$ility__che$d_feature.html"> next </A>|</P>
+</BODY>
+</HTML>

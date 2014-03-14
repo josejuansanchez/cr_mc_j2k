@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::find_render_cover_dims) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$der_point.html"> prev </A>||<A HREF="kdu$essor__fin$1over_dims.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::find_render_cover_dims</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Find_render_cover_dims</EM></H3></DIR></DIR>
+<P CLASS="function-text">static <A HREF ="kdu_dims.html">kdu_dims</A> find_render_cover_dims(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;codestream_dims,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_subs,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_denominator)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Find_render_cover_dims(
+Kdu_dims&nbsp;codestream_dims,
+Kdu_coords&nbsp;ref_comp_subs,
+Kdu_coords&nbsp;ref_comp_expand_numerator,
+Kdu_coords&nbsp;ref_comp_expand_denominator)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the smallest region on the rendering grid which
+includes the locations which would be returned by 
+<A HREF="kdu$essor__fin$der_point.html">find_render_point</A> when invoked with every location within 
+<A HREF="kdu$essor__fin$over_dims.html#codestream_dims">codestream_dims</A>. This is almost, but not quite exactly identical to
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A>. The difference is subtle but important. The 
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A> function has the property that disjoint regions on
+the high resolution codestream canvas produce disjoint
+regions on the rendering grid. Unfortunately, though,
+this necessarily means that some individual points
+on the high resolution canvas may occupy an empty region
+on the rendering grid (this must be the case whenever
+the reference subsampling factors given by 
+<A HREF="kdu$essor__fin$over_dims.html#ref_comp_subs">ref_comp_subs</A> are greater than 1). However, the 
+<A HREF="kdu$essor__fin$der_point.html">find_render_point</A> function necessarily returns a rendering grid point
+for every point on the high resolution codestream canvas.
+Where an application needs to be sure that all such
+points are included within a region on the rendering
+grid, this function should be used in preference to
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A>. On the other hand, the preservation of disjoint regions
+by 
+<A HREF="kdu$essor__fin$nder_dims.html">find_render_dims</A> is considered an important attribute for sizing rendered
+content within the 
+<A HREF="kdu$essor__start.html">start</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream_dims">codestream_dims</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_subs">ref_comp_subs</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_numerator">ref_comp_expand_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_denominator">ref_comp_expand_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__fin$der_point.html"> prev </A>||<A HREF="kdu$essor__fin$1over_dims.html"> next </A>|</P>
+</BODY>
+</HTML>

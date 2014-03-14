@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_window_prefs::set_pref) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__write_prefs.html"> prev </A>||<A HREF="kdu$prefs__set$bandwidth.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_window_prefs::set_pref</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_window_prefs.Set_pref</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> set_pref(
+<B>int</B>&nbsp;pref_flag,
+<B>bool</B>&nbsp;make_required=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Set_pref(
+int&nbsp;pref_flag,
+boolean&nbsp;make_required)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$lient_window+h.html">"../apps/compressed_io/kdu_client_window.h"</A>]</P><P><A HREF="kdu$prefs.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides all the support you need for
+configuring simple preferences &mdash; those which
+do not require auxiliary parameters. It is much better
+to use this function than to directly manipulate the
+<A HREF="kdu$prefs.html#preferred">preferred</A> and 
+<A HREF="kdu$prefs.html#required">required</A> members. The function takes care to ensure that mutually
+exclusive preferences are avoided. For example, if
+<A HREF="kdu$prefs__set_pref.html#pref_flag">pref_flag</A> is equal to 
+<A HREF="globals.html#KDU_WINDOW_PREF_FULL">KDU_WINDOW_PREF_FULL</A>, and 
+<A HREF="globals.html#KDU_WINDOW_PREF_PROGRESSIVE">KDU_WINDOW_PREF_PROGRESSIVE</A> flag will be cleared from the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> and 
+<A HREF="kdu$prefs.html#required">required</A> members. The function also ensures that each preference
+appears only in one of the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> and 
+<A HREF="kdu$prefs.html#required">required</A> members. If you specify 
+<A HREF="kdu$prefs__set_pref.html#make_required">make_required</A>=true, the preference is added to the 
+<A HREF="kdu$prefs.html#required">required</A> member and cleared from the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> member. Similarly, if 
+<A HREF="kdu$prefs__set_pref.html#make_required">make_required</A> is false, the preference is added to the 
+<A HREF="kdu$prefs.html#preferred">preferred</A> member and cleared from the 
+<A HREF="kdu$prefs.html#required">required</A> member.
+</P><P>
+ As a general rule, you should try to avoid requiring
+preferences as JPIP servers are required to issue an
+error response if they do not support a required preference
+and this could adversely interfere with ongoing communication.
+For this reason, the 
+<A HREF="kdu$prefs__set_pref.html#make_required">make_required</A> argument default to false and is best left that way,
+except where you really know what you are doing.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The function returns false, without making any changes,
+if the 
+<A HREF="kdu$prefs__set_pref.html#pref_flag">pref_flag</A> argument does not correspond to any known simple preference
+&mdash; one which does not require parameters.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="pref_flag">pref_flag</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="make_required">make_required</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$prefs__write_prefs.html"> prev </A>||<A HREF="kdu$prefs__set$bandwidth.html"> next </A>|</P>
+</BODY>
+</HTML>

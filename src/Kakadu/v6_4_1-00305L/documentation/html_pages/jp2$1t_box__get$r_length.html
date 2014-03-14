@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_output_box::get_header_length) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$x_length.html"> prev </A>||<A HREF="jp2$1t_box__get$contents.html"> next </A>|</P>
+<H1><A NAME="ToP">jp2_output_box::get_header_length</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jp2_output_box.Get_header_length</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> get_header_length(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Get_header_length(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P><A HREF="jp2$1t_box.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the number of bytes in the box header. If this
+function is called before all bytes in the box have
+been written, the returned length may be too small,
+sice boxes with size greater than or equal to 2^32
+require 16-byte headers instead of 8-byte headers.
+Usually, you will wait until you are about to close
+he box (or even after you have closed the box) before
+calling this function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jp2$1t_box__get$x_length.html"> prev </A>||<A HREF="jp2$1t_box__get$contents.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::invalidate_rect) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__refresh.html"> prev </A>||<A HREF="kdu$sitor__hal$rocessing.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::invalidate_rect</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Invalidate_rect</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> invalidate_rect(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;region)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Invalidate_rect(
+Kdu_dims&nbsp;region)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Causes 
+<A HREF="kdu$sitor__inv$date_rect.html#region">region</A> to be added to the internal machinery which keeps
+track of rectangular regions which need to be included
+in regions returned by 
+<A HREF="kdu$sitor__process.html">process</A>, before 
+<A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> can return true. The explicit invalidation of regions
+at most causes them to be recomposited onto a compositing
+surface &mdash; this is quite different to 
+<A HREF="kdu$sitor__refresh.html">refresh</A>, which results in complete re-rendering of the content.
+</P><P>
+ The function is provided for the benefit of applications
+which need to repaint some portion of a composition
+to their display buffer, but want the repainting to
+be driven by returns from the 
+<A HREF="kdu$sitor__process.html">process</A> function so that a region whose underlying imagery
+has yet to be decompressed and rendered will not be
+repainted prematurely.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="region">region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__refresh.html"> prev </A>||<A HREF="kdu$sitor__hal$rocessing.html"> next </A>|</P>
+</BODY>
+</HTML>

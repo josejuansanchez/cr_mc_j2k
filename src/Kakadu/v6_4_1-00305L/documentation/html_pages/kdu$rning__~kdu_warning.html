@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_warning::~kdu_warning) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rning__kdu_warning__3.html"> prev </A>||<A HREF="kdu$rning__put_text__1.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_warning::~kdu_warning</A></H1>
+<P CLASS="function-text">virtual  ~kdu_warning(
+)</P>
+<DIV CLASS="indented-text"><H3>Overrides <A HREF="kdu$ssage__~kdu_message.html">kdu_message::~kdu_message</A></H3></DIV>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P><P><A HREF="kdu$rning.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+The destructor will invoke the 
+<A HREF="kdu$ssage__flush.html">kdu_message::flush</A> function of any warning handler installed using 
+<A HREF="globals__kdu$ze_warnings.html">kdu_customize_warnings</A>, supplying an 
+<B>end_of_message</B> argument equal to true. This condition will not occur
+in any context other than the destruction of the 
+<A HREF="kdu$rning.html">kdu_warning</A> object.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="kdu$rning__kdu_warning__3.html"> prev </A>||<A HREF="kdu$rning__put_text__1.html"> next </A>|</P>
+</BODY>
+</HTML>

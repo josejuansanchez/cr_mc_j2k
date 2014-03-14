@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_mutex::create) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_mutex__operator!.html"> prev </A>||<A HREF="kdu_mutex__destroy.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_mutex::create</A></H1>
+<P CLASS="function-text"><B>bool</B> create(
+)</P>
+<P>[Declared in <A HREF="++++coresy$u_elementary+h.html">"../coresys/common/kdu_elementary.h"</A>]</P><P><A HREF="kdu_mutex.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You must explicitly call 
+<A HREF="kdu_mutex__create.html">create</A> and 
+<A HREF="kdu_mutex__destroy.html">destroy</A>. The constructor and and destructor for the 
+<A HREF="kdu_mutex.html">kdu_mutex</A> object do not create or destroy the underlying synchronization
+primitive itself.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if mutex creation is not supported on the current
+platform or if the operating system is unwilling to
+allocate any more synchronization primitives to the
+process. The former problem may be resolved by creating
+the appropriate definitions in "kdu_elementary.h".
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu_mutex__operator!.html"> prev </A>||<A HREF="kdu_mutex__destroy.html"> next </A>|</P>
+</BODY>
+</HTML>

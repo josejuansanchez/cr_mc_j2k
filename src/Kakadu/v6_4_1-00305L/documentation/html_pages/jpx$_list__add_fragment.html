@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_fragment_list::add_fragment) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$_list__operator!.html"> prev </A>||<A HREF="jpx$_list__get$al_length.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_fragment_list::add_fragment</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_fragment_list.Add_fragment</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> add_fragment(
+<B>int</B>&nbsp;url_idx,
+<B>kdu_long</B>&nbsp;offset,
+<B>kdu_long</B>&nbsp;length)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Add_fragment(
+int&nbsp;url_idx,
+long&nbsp;offset,
+long&nbsp;length)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$_list.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Add a new fragment to the end of the list. The 
+<A HREF="jpx$_list__add_fragment.html#url_idx">url_idx</A> may be 0 if the fragment refers to a location in the
+master file which contains the fragment list. Otherwise
+is must be positive. It must be one of the valid indices
+provided by an associated 
+<A HREF="jp2$ences.html">jp2_data_references</A> object.
+</P><P>
+ Actual fragment list boxes can only record fragments
+whose length fits into a 32-bit unsigned word; however,
+this function allows you to add longer fragments. When
+a longer fragment is written out to a fragment list
+box, multiple fragments may need to be written. Similarly,
+multiple contiguous fragments encountered when parsing
+a fragment list box may be collapsed into a single
+longer fragment. These features are provided to overcome
+the lack of foresight in the design of the fragment
+list box. As a result, however, the fragments managed
+by this object might not be in one-to-one correspondence
+with those actually written to or read from the underlying
+fragment list box.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="url_idx">url_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="offset">offset</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="length">length</A> [<B>kdu_long</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$_list__operator!.html"> prev </A>||<A HREF="jpx$_list__get$al_length.html"> next </A>|</P>
+</BODY>
+</HTML>

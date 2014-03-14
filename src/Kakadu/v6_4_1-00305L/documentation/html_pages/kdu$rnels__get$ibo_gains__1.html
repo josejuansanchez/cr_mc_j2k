@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_kernels::get_bibo_gains) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$bibo_gain.html"> prev </A>||<A HREF="kdu$rnels__get$ergy_gain__2.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_kernels::get_bibo_gains</A></H1>
+<P>Overload navigation: <B>1,
+<A HREF="kdu$rnels__get$ibo_gains__2.html">2</A></B></P>
+<P CLASS="function-text"><B>double</B>&nbsp;* get_bibo_gains(
+<B>int</B>&nbsp;initial_lowpass_stages,
+<B>int</B>&nbsp;num_extra_stages,
+<B>bool</B>&nbsp;extra_stage_high[],
+<B>double</B>&nbsp;&amp;&nbsp;low_gain,
+<B>double</B>&nbsp;&amp;&nbsp;high_gain)</P>
+<P>[Declared in <A HREF="++++coresy$+kdu_kernels+h.html">"../coresys/common/kdu_kernels.h"</A>]</P><P><A HREF="kdu$rnels.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Computes the BIBO (Bounded-Input-Bounded-Output) analysis
+gain from a 1D transform's input sequence to the subbands
+and intermediate lifting step results produced in a
+given subband decomposition stage. The stage in question
+is preceded by 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#initial_lowpass_stages">initial_lowpass_stages</A> low-pass filtering and decimation stages and 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#num_extra_stages">num_extra_stages</A> additional stages or low- or high-pass filtering and
+decimation, where the corresponding entries in the
+<A HREF="kdu$rnels__get$ibo_gains__1.html#extra_stage_high">extra_stage_high</A> array indicate whether the low- or high-pass branch
+is taken in each of those extra stages. The stage in
+question, for which the BIBO gains are being explicitly
+calculated, immediate follows those initial low-pass
+stages and extra low- or high-pass stages. Thus, the
+BIBO gain calculations for the first stage in a dyadic
+DWT are obtained by setting 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#initial_lowpass_stages">initial_lowpass_stages</A> and 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#num_extra_stages">num_extra_stages</A> both equal to 0.
+</P><P>
+ The BIBO gain of a linear system is the ratio between
+the maximum absolute value of the output sequence and
+the maximum absolute value of the input sequence. As
+such the BIBO gain figures are useful for determining
+the optimal placement of the binary point in fixed
+point DWT implementations.
+</P><P>
+ Note that beyond a certain number of initial lowpass
+DWT levels, the function does not explicitly calculate
+the analysis vectors and their BIBO gains. Instead,
+it relies upon the fact that the analysis vectors converge
+to samplings of the dual wavelet and scaling functions
+which are continuous. This enables it to accurately
+predict gains for very deep DWT's without expending
+substantial memory resources. For a discussion of these
+properties, see Section 17.3 of the book by Taubman
+and Marcellin.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Pointer to an array with one entry per lifting step,
+whose entries hold the BIBO gain from the input sequence
+through to the output of that lifting step in the subband
+transform stage in question (see above for a discussion
+of the transform stages which precede the one in question).
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="initial_lowpass_stages">initial_lowpass_stages</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be &gt;= 0.
+</P>
+</DIV>
+<H4><A NAME="num_extra_stages">num_extra_stages</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Must be &gt;= 0. This should typically be a small value
+(at most 3 should be sufficient to accommodate all
+the custom decomposition styles supported by Part-2
+of the JPEG2000 standard).
+</P>
+</DIV>
+<H4><A NAME="extra_stage_high">extra_stage_high[]</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+Array with 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#num_extra_stages">num_extra_stages</A> entries. May be NULL only if 
+<A HREF="kdu$rnels__get$ibo_gains__1.html#num_extra_stages">num_extra_stages</A> is 0.
+</P>
+</DIV>
+<H4><A NAME="low_gain">low_gain</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the BIBO gain from the input sequence
+to the low-pass subband produced by the stage in question.
+</P>
+</DIV>
+<H4><A NAME="high_gain">high_gain</A> [<B>double</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the BIBO gain from the input sequence
+to the high-pass subband produced by the stage in question.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$rnels__get$bibo_gain.html"> prev </A>||<A HREF="kdu$rnels__get$ergy_gain__2.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_region_compositor</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+An object of this class provides a complete system
+for managing dynamic decompression, rendering and composition
+of JPEG2000 compressed imagery. This very powerful
+object is the workhorse of the "kdu_show" application,
+abstracting virtually all platform independent functionality.
+</P><P>
+ The object can handle rendering of everything from
+a single component of a single raw code-stream, to
+the composition of multiple compositing layers from
+a JPX file or of multiple video tracks from an MJ2
+(Motion JPEG2000) file. Moreover, it supports efficient
+scaling, rotation and dynamic region-based rendering.
+</P><P>
+ The implementation is built on top of 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> which supports only a single code-stream. Unlike that
+function, however, this object also abstracts all the
+machinery required for dynamic panning of a buffered
+surface over the composited image region.
+</P><P>
+ When working with JPX sources, you may dynamically
+build up a composited image surface by adding and removing
+imagery layers.
+</P><P>
+ When working with MJ2 sources, you may dynamically
+build up a composited movie frame by adding frames
+from individual video tracks. In fact, there is a conceptual
+similarity between video tracks in MJ2 and compositing
+layers in JPX.
+</P><P>
+ The present object's composition rules are not limited
+to those which may apply to MJ2 or JPX. For this reason,
+we will use the general term "imagery layer" (or "ilayer")
+to refer to a layer in the overall composition. The
+composition consists of an ordered collection of ilayers,
+each of which derives its colour channels from one
+or more JPEG2000 codestreams, after possible application
+of any or all of the following operations: cropping,
+scaling, rotation, flipping, and translation.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$sitor__kdu$ompositor__1.html">kdu_region_compositor</A> <EM>(4 forms)</EM> {<U>Java:</U> Kdu_region_compositor}
+</P>
+<P><A HREF="kdu$sitor__~kd$ompositor.html">~kdu_region_compositor</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$sitor__pre_destroy.html">pre_destroy</A> [virtual] {<U>Java:</U> Pre_destroy}
+</P>
+<P><A HREF="kdu$sitor__create__1.html">create</A> <EM>(3 forms)</EM> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$sitor__set$ror_level.html">set_error_level</A> {<U>Java:</U> Set_error_level}
+</P>
+<P><A HREF="kdu$sitor__set$threshold.html">set_process_aggregation_threshold</A> {<U>Java:</U> Set_process_aggregation_threshold}
+</P>
+<P><A HREF="kdu$sitor__set$tion_mode.html">set_surface_initialization_mode</A> {<U>Java:</U> Set_surface_initialization_mode}
+</P>
+<P><A HREF="kdu$sitor__add_ilayer.html">add_ilayer</A> {<U>Java:</U> Add_ilayer}
+</P>
+<P><A HREF="kdu$sitor__cha$yer_frame.html">change_ilayer_frame</A> {<U>Java:</U> Change_ilayer_frame}
+</P>
+<P><A HREF="kdu$sitor__add$ve_ilayer.html">add_primitive_ilayer</A> {<U>Java:</U> Add_primitive_ilayer}
+</P>
+<P><A HREF="kdu$sitor__rem$ve_ilayer.html">remove_ilayer</A> {<U>Java:</U> Remove_ilayer}
+</P>
+<P><A HREF="kdu$sitor__cul$e_ilayers.html">cull_inactive_ilayers</A> {<U>Java:</U> Cull_inactive_ilayers}
+</P>
+<P><A HREF="kdu$sitor__set_frame.html">set_frame</A> {<U>Java:</U> Set_frame}
+</P>
+<P><A HREF="kdu$sitor__wai$m_headers.html">waiting_for_stream_headers</A> {<U>Java:</U> Waiting_for_stream_headers}
+</P>
+<P><A HREF="kdu$sitor__set_scale.html">set_scale</A> {<U>Java:</U> Set_scale}
+</P>
+<P><A HREF="kdu$sitor__fin$mal_scale.html">find_optimal_scale</A> {<U>Java:</U> Find_optimal_scale}
+</P>
+<P><A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A> {<U>Java:</U> Set_buffer_surface}
+</P>
+<P><A HREF="kdu$sitor__che$cale_code.html">check_invalid_scale_code</A> {<U>Java:</U> Check_invalid_scale_code}
+</P>
+<P><A HREF="kdu$sitor__get$tion_dims.html">get_total_composition_dims</A> {<U>Java:</U> Get_total_composition_dims}
+</P>
+<P><A HREF="kdu$sitor__get$on_buffer.html">get_composition_buffer</A> {<U>Java:</U> Get_composition_buffer}
+</P>
+<P><A HREF="kdu$sitor__pus$on_buffer.html">push_composition_buffer</A> {<U>Java:</U> Push_composition_buffer}
+</P>
+<P><A HREF="kdu$sitor__pop$on_buffer.html">pop_composition_buffer</A> {<U>Java:</U> Pop_composition_buffer}
+</P>
+<P><A HREF="kdu$sitor__ins$ion_queue.html">inspect_composition_queue</A> {<U>Java:</U> Inspect_composition_queue}
+</P>
+<P><A HREF="kdu$sitor__flu$ion_queue.html">flush_composition_queue</A> {<U>Java:</U> Flush_composition_queue}
+</P>
+<P><A HREF="kdu$sitor__set$ty_layers.html">set_max_quality_layers</A> {<U>Java:</U> Set_max_quality_layers}
+</P>
+<P><A HREF="kdu$sitor__get$ty_layers.html">get_max_available_quality_layers</A> {<U>Java:</U> Get_max_available_quality_layers}
+</P>
+<P><A HREF="kdu$sitor__set$hread_env.html">set_thread_env</A> [virtual] {<U>Java:</U> Set_thread_env}
+</P>
+<P><A HREF="kdu$sitor__process.html">process</A> [virtual] {<U>Java:</U> Process}
+</P>
+<P><A HREF="kdu$sitor__is_$_complete.html">is_processing_complete</A> {<U>Java:</U> Is_processing_complete}
+</P>
+<P><A HREF="kdu$sitor__is_$1_complete.html">is_codestream_processing_complete</A> {<U>Java:</U> Is_codestream_processing_complete}
+</P>
+<P><A HREF="kdu$sitor__refresh.html">refresh</A> {<U>Java:</U> Refresh}
+</P>
+<P><A HREF="kdu$sitor__inv$date_rect.html">invalidate_rect</A> {<U>Java:</U> Invalidate_rect}
+</P>
+<P><A HREF="kdu$sitor__hal$rocessing.html">halt_processing</A> {<U>Java:</U> Halt_processing}
+</P>
+<P><A HREF="kdu$sitor__get$m_ilayers.html">get_num_ilayers</A> {<U>Java:</U> Get_num_ilayers}
+</P>
+<P><A HREF="kdu$sitor__get$xt_ilayer.html">get_next_ilayer</A> {<U>Java:</U> Get_next_ilayer}
+</P>
+<P><A HREF="kdu$sitor__get$t_istream.html">get_next_istream</A> {<U>Java:</U> Get_next_istream}
+</P>
+<P><A HREF="kdu$sitor__get$le_ilayer.html">get_next_visible_ilayer</A> {<U>Java:</U> Get_next_visible_ilayer}
+</P>
+<P><A HREF="kdu$sitor__acc$odestream.html">access_codestream</A> {<U>Java:</U> Access_codestream}
+</P>
+<P><A HREF="kdu$sitor__get$ream_info.html">get_istream_info</A> {<U>Java:</U> Get_istream_info}
+</P>
+<P><A HREF="kdu$sitor__get$ayer_info.html">get_ilayer_info</A> {<U>Java:</U> Get_ilayer_info}
+</P>
+<P><A HREF="kdu$sitor__get$er_stream.html">get_ilayer_stream</A> {<U>Java:</U> Get_ilayer_stream}
+</P>
+<P><A HREF="kdu$sitor__get$m_packets.html">get_codestream_packets</A> {<U>Java:</U> Get_codestream_packets}
+</P>
+<P><A HREF="kdu$sitor__find_point.html">find_point</A> {<U>Java:</U> Find_point}
+</P>
+<P><A HREF="kdu$sitor__map_region.html">map_region</A> {<U>Java:</U> Map_region}
+</P>
+<P><A HREF="kdu$sitor__inv$ap_region.html">inverse_map_region</A> {<U>Java:</U> Inverse_map_region}
+</P>
+<P><A HREF="kdu$sitor__fin$er_region.html">find_ilayer_region</A> {<U>Java:</U> Find_ilayer_region}
+</P>
+<P><A HREF="kdu$sitor__fin$am_region.html">find_istream_region</A> {<U>Java:</U> Find_istream_region}
+</P>
+<P><A HREF="kdu$sitor__fin$ip_window.html">find_compatible_jpip_window</A> {<U>Java:</U> Find_compatible_jpip_window}
+</P>
+<P><A HREF="kdu$sitor__con$_overlays.html">configure_overlays</A> {<U>Java:</U> Configure_overlays}
+</P>
+<P><A HREF="kdu$sitor__upd$_overlays.html">update_overlays</A> {<U>Java:</U> Update_overlays}
+</P>
+<P><A HREF="kdu$sitor__sea$_overlays.html">search_overlays</A> {<U>Java:</U> Search_overlays}
+</P>
+<P><A HREF="kdu$sitor__get$rlay_info.html">get_overlay_info</A> {<U>Java:</U> Get_overlay_info}
+</P>
+<P><A HREF="kdu$sitor__cus$t_overlay.html">custom_paint_overlay</A> [CALLBACK, virtual] {<U>Java:</U> Custom_paint_overlay}
+</P>
+<P><A HREF="kdu$sitor__all$te_buffer.html">allocate_buffer</A> [CALLBACK, virtual] {<U>Java:</U> Allocate_buffer}
+</P>
+<P><A HREF="kdu$sitor__del$te_buffer.html">delete_buffer</A> [CALLBACK, virtual] {<U>Java:</U> Delete_buffer}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

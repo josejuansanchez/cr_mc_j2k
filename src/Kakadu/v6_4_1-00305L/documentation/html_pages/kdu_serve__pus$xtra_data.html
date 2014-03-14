@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve::push_extra_data) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__get$mage_done.html"> prev </A>||<A HREF="kdu_serve__ret$ta_chunks.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_serve::push_extra_data</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve.Push_extra_data</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>int</B> push_extra_data(
+<B>kdu_byte</B>&nbsp;*&nbsp;data,
+<B>int</B>&nbsp;num_bytes,
+<A HREF ="kds_chunk.html">kds_chunk</A>&nbsp;*&nbsp;chunk_list=NULL,
+<B>int</B>&nbsp;context_id=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Push_extra_data(
+byte[]&nbsp;data,
+int&nbsp;num_bytes)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu_serve.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function may be used by server applications to
+insert additional data into the list of chunks which
+are served by the object's 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> function. As with most functions offered by the object,
+the 
+<A HREF="kdu_serve__pus$xtra_data.html#context_id">context_id</A> argument identifies a specific window context with
+which the extra data is to be associated.
+</P><P>
+ The object maintains an internal queue of outstanding
+data for each window context; this data must be delivered
+prior to any further data-bin increments when 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> is invoked with the same 
+<A HREF="kdu_serve__pus$xtra_data.html#context_id">context_id</A>; when this happens, 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> first pulls data from the head of this outstanding
+data queue; only once it is empty, can data-bin increments
+be generated and included in the list of data chunks
+which it returns. Calling the present function augments
+this internal outstanding data queue.
+</P><P>
+ If the 
+<A HREF="kdu_serve__pus$xtra_data.html#chunk_list">chunk_list</A> argument is non-NULL, the function behaves slightly
+differently, appending the data to the existing list
+of 
+<A HREF="kds_chunk.html">kds_chunk</A> buffers, all of which were previously returned by
+one or more calls to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>, and augmenting this list as necessary. In this case,
+the data is not added to the internal queue of outstanding
+data and the 
+<A HREF="kdu_serve__pus$xtra_data.html#context_id">context_id</A> argument is ignored.
+</P><P>
+ The extra data supplied to this function is always
+written as a single contiguous block, which must be
+contained in a single data chunk. If the data cannot
+be appended to an existing chunk without overflowing,
+a new chunk is created. If the data is too long to
+fit in a single chunk at all, the function generates
+an error through 
+<A HREF="kdu_error.html">kdu_error</A>. Of course, this is undesirable, so you should make
+sure the amount of data you supply does not exceed
+the maximum chunk length, minus the chunk prefix size,
+as supplied to the present object's constructor.
+</P><P>
+ You can use the 
+<A HREF="kdu_serve__ret$ta_chunks.html">retrieve_extra_data_chunks</A> function to retrieve a list of chunks holding the
+extra data pushed in by this function, all by itself,
+as an alternative to calling 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>. Whether by this means or by subsequent calls to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>, once extra data has been cleared from the relevant
+window context, subsequent calls to 
+<A HREF="kdu_serve__pus$xtra_data.html">push_extra_data</A> start assembling extra data from scratch.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+The number of bytes which are still available within
+the relevant window context, for storing extra data
+bytes, before the chunk becomes full. If 
+<A HREF="kdu_serve__pus$xtra_data.html#num_bytes">num_bytes</A> is 0, the function does nothing except return the
+number of bytes which are available. If 
+<A HREF="kdu_serve__pus$xtra_data.html#chunk_list">chunk_list</A> is non-NULL, the function returns the number of bytes
+which remain within the last chunk on the list headed
+by 
+<A HREF="kdu_serve__pus$xtra_data.html#chunk_list">chunk_list</A> to which extra data has been written. If no extra
+data has yet been written to this list, by this or
+previous calls to the function, the return value will
+indicate the capacity of a completely new data chunk
+which would be created if extra data were to be written
+to the list.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="data">data</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Points to a memory block containing the extra data.
+This may be null only if 
+<A HREF="kdu_serve__pus$xtra_data.html#num_bytes">num_bytes</A> is 0.
+</P>
+</DIV>
+<H4><A NAME="num_bytes">num_bytes</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+Number of bytes of extra data in the 
+<A HREF="kdu_serve__pus$xtra_data.html#data">data</A> buffer. May be zero, if you are only interested in
+the return value.
+</P>
+</DIV>
+<H4><A NAME="chunk_list">chunk_list</A> [<A HREF ="kds_chunk.html">kds_chunk</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+List of 
+<A HREF="kds_chunk.html">kds_chunk</A> objects returned by one or more previous calls to
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>, which have not been returned to the object using
+<A HREF="kdu_serve__rel$se_chunks.html">release_chunks</A>. This list may be NULL, if you want the extra data
+to be appended to the relevant window context's internal
+extra data queue, for inclusion in the chunk list returned
+by a subsequent call to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>.
+</P>
+</DIV>
+<H4><A NAME="context_id">context_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+As explained above, each window context has its own
+internal extra data queue. If no context with the supplied
+ID has yet been used, this function creates one.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__get$mage_done.html"> prev </A>||<A HREF="kdu_serve__ret$ta_chunks.html"> next </A>|</P>
+</BODY>
+</HTML>

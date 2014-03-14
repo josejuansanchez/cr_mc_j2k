@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_source::open) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__operator!.html"> prev </A>||<A HREF="jpx_source__get$mate_src.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_source::open</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_source.Open</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>int</B> open(
+<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*&nbsp;src,
+<B>bool</B>&nbsp;return_if_incompatible)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native int Open(
+Jp2_family_src&nbsp;src,
+boolean&nbsp;return_if_incompatible)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx_source.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function is able to open both JP2 and JPX compatible
+data sources. Note that the most correct suffix to
+use for JPX files is actually ".jpf", not ".jpx", although
+the latter is not an unreasonable choice. If the data
+source is not compatible with either the JPX or JP2
+specifications, an error will be generated through
+<A HREF="kdu_error.html">kdu_error</A>, unless 
+<A HREF="jpx_source__open.html#return_if_incompatible">return_if_incompatible</A> is true.
+</P><P>
+ It is illegal to invoke this function on an object
+which has previously been opened, but not yet closed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+Three possible values, as follows:
+</P><UL><LI>
+0 if insufficient information is available from the
+<A HREF="jpx_source__open.html#src">src</A> object to complete the opening operation. In practice,
+this can occur only if the 
+<A HREF="jpx_source__open.html#src">src</A> object is fueled by a dynamic cache (a 
+<A HREF="kdu_cache.html">kdu_cache</A> object). In order to complete the opening of a JP2
+data source, the signature and file-type boxes must
+both be found. In order to complete the opening of
+a JPX file, the reader requirements box must also be
+found or else it must be discovered to be missing (some
+earlier JPX writers did not generate the JPX box, even
+though it is formally required), but we can tell if
+it is missing pretty easily, since it is required to
+follow the file-type box.
+</LI><LI>
+1 if successful.
+</LI><LI>
+-1 if the data source is found not to be compatible
+with the JPX or JP2 specifications on the basis of
+the signature or file-type boxes (or their absence).
+This value will not be returned unless 
+<A HREF="jpx_source__open.html#return_if_incompatible">return_if_incompatible</A> is true (see below). If it is returned, the object
+will be left in the closed state.
+</LI></UL>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="src">src</A> [<A HREF ="jp2$y_src.html">jp2_family_src</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+The 
+<A HREF="jp2$y_src.html">jp2_family_src</A> object must already have been opened. It should generally
+support seeking, since non-seekable sources will cause
+errors to be generated unless the 
+<A HREF="jpx_source.html">jpx_source</A> is used in a manner which is consistent with linearly
+reading the data sources from beginning to end &mdash;
+such use is possible for appropriately organized files.
+</P><P>
+ NOTE CAREFULLY: if your application needs to perform
+multi-threaded decompression while simultaneously using
+the services offered by the present object to dynamically
+load metadata or structural information from 
+<A HREF="jpx_source__open.html#src">src</A> &mdash; this would definitely happen, for example,
+in interactive applications where the ultimate source
+of data is a dynamic cache (see 
+<A HREF="kdu_cache.html">kdu_cache</A>) &mdash; then you need to make sure that the 
+<A HREF="jp2$y_src__acquire_lock.html">src&rarr;acquire_lock</A> and 
+<A HREF="jp2$y_src__release_lock.html">src&rarr;release_lock</A> functions actually do provide mutually exclusive locking
+functionality. That is, you need to provide a derived
+version of 
+<A HREF="jp2$y_src.html">jp2_family_src</A> here, which implements those functions. The 
+<A HREF="jp2$1y_src.html">jp2_threadsafe_family_src</A> class should fit the bill.
+</P>
+</DIV>
+<H4><A NAME="return_if_incompatible">return_if_incompatible</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If false, an error will be generated through 
+<A HREF="kdu_error.html">kdu_error</A> if the data source is found to be incompatible with
+either the JPX or JP2 specifications. If true, incompatibility
+will not generate an error, but the function will return
+-1, leaving the application free to pass the 
+<A HREF="jpx_source__open.html#src">src</A> object to another file format reader (unless the 
+<A HREF="jpx_source__open.html#src">src</A> is not seekable, in which case it must be closed and
+re-opened before trying a different file format reader).
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx_source__operator!.html"> prev </A>||<A HREF="jpx_source__get$mate_src.html"> next </A>|</P>
+</BODY>
+</HTML>

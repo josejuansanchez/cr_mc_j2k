@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::find_render_dims) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__get$n_factors.html"> prev </A>||<A HREF="kdu$essor__fin$eam_point.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::find_render_dims</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Find_render_dims</EM></H3></DIR></DIR>
+<P CLASS="function-text">static <A HREF ="kdu_dims.html">kdu_dims</A> find_render_dims(
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;codestream_region,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_subs,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_numerator,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;ref_comp_expand_denominator)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_dims Find_render_dims(
+Kdu_dims&nbsp;codestream_region,
+Kdu_coords&nbsp;ref_comp_subs,
+Kdu_coords&nbsp;ref_comp_expand_numerator,
+Kdu_coords&nbsp;ref_comp_expand_denominator)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Find the region on the rendering grid which is associated
+with a supplied 
+<A HREF="kdu$essor__fin$nder_dims.html#codestream_region">codestream_region</A>. The latter is expressed on the high resolution codestream
+canvas. The function first identifies the corresponding
+region on the reference image component, whose sub-sampling
+factors (relative to the high resolution codestream
+canvas) are given by 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_subs">ref_comp_subs</A>. The function then applies the rational expansion
+factors given by 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_expand_numerator">ref_comp_expand_numerator</A> and 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_expand_denominator">ref_comp_expand_denominator</A>.
+</P><P>
+ The region mapping conventions here are identical
+to those described for the 
+<A HREF="kdu$essor__start.html">start</A> and 
+<A HREF="kdu$essor__get$mage_dims__1.html">get_rendered_image_dims</A> functions. In fact, this function is the single place
+in which dimensioning of rendered imagery is performed.
+The function is declared static, so it can be used
+by other objects or applications without an instantiated
+instance of the 
+<A HREF="kdu$essor.html">kdu_region_decompressor</A> class.
+</P><P>
+ The specific coordinate transformations employed by
+this function are as follows. Let [E,F), [E',F') and
+[Er,Fr) define half-open intervals on the high-resolution
+codestream canvas, the reference image component, and
+the rendering grid, respectively. These intervals represent
+either the horizontal or vertical ordinate for the
+respective grid &mdash; i.e., the same transformations
+apply in each direction. Further, let N and D represent
+the values of 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_expand_numerator">ref_comp_expand_numerator</A> and 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_expand_denominator">ref_comp_expand_denominator</A> in the relevant direction, and let S denote the value
+of 
+<A HREF="kdu$essor__fin$nder_dims.html#ref_comp_subs">ref_comp_subs</A> in the relevant direction.
+</P><UL><LI>
+The function first applies the normal mapping between
+the high resolution codestream canvas and the reference
+image component, setting: E' = ceil(E/S) and F' = ceil(F/S).
+</LI><LI>
+The function then applies the following the rational
+expansion factors as follows: Er = ceil(E'*N/D-H) and
+Fr = ceil(F'*N/D-H). Here, H is an approximately "half
+pixel" offset, given by H = floor((N-1)/2) / D.
+</LI></UL><P>
+ The coordinate mapping process described above can
+be interpreted as follows. Let x be the location of
+a sample on the reference image component. This sample
+has the location x*S on the high resolution codestream
+canvas and belongs to the region [E,F) if and only
+if E &lt;= x*S &lt; F. Although the rational expansion
+factors can be contractive (i.e., N can be smaller
+than D), we will refer to the transformation from [E',F')
+to [Er,Fr) as "expansion". During this "expansion"
+process, the sample at location x is considered to
+occupy the region [x*N/D-H,(x+1)*N/D-H) on the rendering
+grid. The regions associated with each successive integer-valued
+x are thus disjoint and contiguous &mdash; note that
+for large N, H is almost exactly equal to 0.5*(N/D).
+In this way, the region on the rendering grid which
+is occupied by image component samples within the interval
+[E',F') is given by the half-open interval [E'*(N/D)-H,F'*(N/D)-H).
+The determined range of rendering grid points [Er,Fr)
+is exactly the set of grid points whose integer locations
+fall within the above range.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="codestream_region">codestream_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_subs">ref_comp_subs</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_numerator">ref_comp_expand_numerator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_comp_expand_denominator">ref_comp_expand_denominator</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__get$n_factors.html"> prev </A>||<A HREF="kdu$essor__fin$eam_point.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::change_parent) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__find_path_to.html"> prev </A>||<A HREF="jpx$anode__add_numlist.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::change_parent</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Change_parent</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> change_parent(
+<A HREF ="jpx$anode.html">jpx_metanode</A>&nbsp;new_parent)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Change_parent(
+Jpx_metanode&nbsp;new_parent)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Removes the node from its current parent (decrementing
+its descendant count) and adds it as a descendant of
+the supplied 
+<A HREF="jpx$anode__cha$ge_parent.html#new_parent">new_parent</A> node. If this removes a numlist node's last descendant,
+the numlist node is automatically deleted.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+False if no change is made. This happens if 
+<A HREF="jpx$anode__cha$ge_parent.html#new_parent">new_parent</A> is already a descendant of the current node or the
+node's current parent.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="new_parent">new_parent</A> [<A HREF ="jpx$anode.html">jpx_metanode</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="jpx$anode__find_path_to.html"> prev </A>||<A HREF="jpx$anode__add_numlist.html"> next </A>|</P>
+</BODY>
+</HTML>

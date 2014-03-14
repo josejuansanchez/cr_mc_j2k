@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_overlay_params::push_aux_params) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__get$aux_param.html"> prev </A>||<A HREF="kdu$arams__res$ux_params.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_overlay_params::push_aux_params</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_overlay_params.Push_aux_params</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> push_aux_params(
+const&nbsp;<B>kdu_uint32</B>&nbsp;*&nbsp;aux_params,
+<B>int</B>&nbsp;num_aux_params)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Push_aux_params(
+long[]&nbsp;aux_params,
+int&nbsp;num_aux_params)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$arams.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+You can use this function to temporarily replace the
+auxiliary painting parameters, as seen by the 
+<A HREF="kdu$arams__get$ux_params.html">get_num_aux_params</A> and 
+<B>get_aux_params</B> functions. This can be useful when calling the 
+<B>kdu_region_compositor::paint_overlay</B> function from within an overridden 
+<A HREF="kdu$sitor__cus$t_overlay.html">kdu_region_compositor::custom_paint_overlay</A>. Note that 
+<B>pop_aux_params</B> is automatically invoked after a call to 
+<A HREF="kdu$sitor__cus$t_overlay.html">kdu_region_compositor::custom_paint_overlay</A> returns so that the information you record using this
+function is only temporary.
+</P><P>
+ Despite the name of this function, there is no internal
+"stack" of auxiliary parameters. Calling 
+<A HREF="kdu$arams__pus$ux_params.html">push_aux_params</A> a second time will provide new replacement values
+for the auxiliary painting parameters, but a single
+call to 
+<A HREF="kdu$arams__res$ux_params.html">restore_aux_params</A> will remove all such replacements, restoring the original
+parameters passed to 
+<A HREF="kdu$sitor__con$_overlays.html">kdu_region_compositor::configure_overlays</A>.
+</P><P>
+ The 
+<B>tmp_aux_params</B> array is copied internally, primarily to facilitate
+the use of this function with other non-native language
+bindings such as Java.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="aux_params">aux_params</A> [const&nbsp;<B>kdu_uint32</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_aux_params">num_aux_params</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$arams__get$aux_param.html"> prev </A>||<A HREF="kdu$arams__res$ux_params.html"> next </A>|</P>
+</BODY>
+</HTML>

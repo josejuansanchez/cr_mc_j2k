@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jpx_metanode::touch) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__is_deleted.html"> prev </A>||<A HREF="jpx$anode__set$state_ref.html"> next </A>|</P>
+<H1><A NAME="ToP">jpx_metanode::touch</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Jpx_metanode.Touch</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> touch(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Touch(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$essed_io+jpx+h.html">"../apps/compressed_io/jpx.h"</A>]</P><P><A HREF="jpx$anode.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function provides a mechanism for forcing the
+node and all of its descendants to be appended to the
+internal list of touched nodes. Nodes are also added
+to the list of touched nodes when they are first created,
+when they are changed, when any of their ancestors
+are changed, or when they are deleted. For more information,
+see the description of 
+<A HREF="jpx$nager__get$hed_nodes.html">jpx_meta_manager::get_touched_nodes</A>.
+</P><P>
+ Note that the touched list only ever contains metanodes
+whose underlying box is complete. When reading from
+a dynamic cache, a box may have been encountered, but
+its contents not yet fully available (for example,
+a label box might be encountered, but the cache does
+not yet contain the entire label). When this happens,
+the box's metanode is created and made available, but
+it is not added to the touched list until the box has
+been completely read. Touching metanodes like this
+will not have any effect. Also, a metanode whose box
+has not yet been read will not yet have any available
+descendants, so no descendants can be touched either,
+even if their underlying boxes are available in the
+cache.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="jpx$anode__is_deleted.html"> prev </A>||<A HREF="jpx$anode__set$state_ref.html"> next </A>|</P>
+</BODY>
+</HTML>

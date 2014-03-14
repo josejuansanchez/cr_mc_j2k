@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (jp2_palette) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">jp2_palette</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Jp2_palette</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++apps+c$essed_io+jp2+h.html">"../apps/compressed_io/jp2.h"</A>]</P><P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Manages colour palettes wherever they are used in JP2-family
+files. If present, this information is stored in a
+JP2 "Palette" box.
+</P><P>
+ The principle intent of palettes is to facilitate
+the efficient representation of images with very few
+distinct colours, where a single image component provides
+indices into the palette. However, a JP2 palette is
+really just a collection of lookup tables, with the
+restriction that all lookup tables have the same number
+of entries. It is legal to apply any of the lookup
+tables to any of the code-stream image components in
+order to create new mapped channel values. Any or all
+of these mapped channels may then be associated with
+particular colour reproduction functions. These associations
+are described by the JP2 "Component Mapping" and "Channel
+Definition" boxes (possibly with the help of a "Codestream
+Registration" box), whose information is collectively
+accessed and manipulated via the 
+<A HREF="jp2$nnels.html">jp2_channels</A> interface.
+</P><P>
+ Objects of this class are merely interfaces to an
+internal object, which cannot be directly created by
+an application. Creation and destruction of the internal
+object, as well as saving and reading of the associated
+JP2 boxes are capabilities reserved for the internal
+machinery associated with the file format manager which
+provides the interface.
+</P><P>
+ Objects which can provide a non-empty 
+<A HREF="jp2$lette.html">jp2_palette</A> interface include 
+<A HREF="jp2_source.html">jp2_source</A>, 
+<A HREF="jp2_target.html">jp2_target</A>, 
+<A HREF="jpx$ource.html">jpx_codestream_source</A>, 
+<A HREF="jpx$arget.html">jpx_codestream_target</A>, 
+<A HREF="mj2$ource.html">mj2_video_source</A> and 
+<A HREF="mj2$arget.html">mj2_video_target</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="jp2$lette__jp2_palette__1.html">jp2_palette</A> <EM>(2 forms)</EM></P>
+<P><A HREF="jp2$lette__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="jp2$lette__operator!.html">operator!</A></P>
+<P><A HREF="jp2$lette__copy.html">copy</A> {<U>Java:</U> Copy}
+</P>
+<P><A HREF="jp2$lette__init.html">init</A> {<U>Java:</U> Init}
+</P>
+<P><A HREF="jp2$lette__set_lut.html">set_lut</A> {<U>Java:</U> Set_lut}
+</P>
+<P><A HREF="jp2$lette__get$m_entries.html">get_num_entries</A> {<U>Java:</U> Get_num_entries}
+</P>
+<P><A HREF="jp2$lette__get_num_luts.html">get_num_luts</A> {<U>Java:</U> Get_num_luts}
+</P>
+<P><A HREF="jp2$lette__get$bit_depth.html">get_bit_depth</A> {<U>Java:</U> Get_bit_depth}
+</P>
+<P><A HREF="jp2$lette__get_signed.html">get_signed</A> {<U>Java:</U> Get_signed}
+</P>
+<P><A HREF="jp2$lette__get_lut__1.html">get_lut</A> <EM>(2 forms)</EM> {<U>Java:</U> Get_lut}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

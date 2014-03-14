@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_serve::get_window) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__set_window.html"> prev </A>||<A HREF="kdu_serve__get$mage_done.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_serve::get_window</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_serve.Get_window</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> get_window(
+<A HREF ="kdu_window.html">kdu_window</A>&nbsp;&amp;&nbsp;window,
+<B>int</B>&nbsp;context_id=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Get_window(
+Kdu_window&nbsp;window,
+int&nbsp;context_id)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+k$er+kdu_serve+h.html">"../apps/kdu_server/kdu_serve.h"</A>]</P><P><A HREF="kdu_serve.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Retrieves the window parameters which are to be used
+in the next call to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> unless 
+<A HREF="kdu_serve__set_window.html">set_window</A> is called first. As with most functions offered by
+<A HREF="kdu_serve.html">kdu_serve</A>, this call relates to a specific window context, as
+identified by 
+<A HREF="kdu_serve__get_window.html#context_id">context_id</A>.
+</P><P>
+ The principle reason for calling this function is
+to learn about any modifications which the server made
+to the window parameters supplied in a previous call
+to 
+<A HREF="kdu_serve__set_window.html">set_window</A>. As noted in connection with that function, the server
+may need to make such changes in order to satisfy its
+own resource constraints. In particular, very large
+windows (large spatial regions and/or large number
+of components) may require excessive memory to be allocated
+by the server.
+</P><P>
+ It is important to realize that the server may not
+make any necessary alterations to the window parameters
+supplied to 
+<A HREF="kdu_serve__set_window.html">set_window</A> until after the first subsequent call to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>. Thus, the most meaningful point at which to call
+the present function is after the first (or a subsequent)
+call to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> which follows a 
+<A HREF="kdu_serve__set_window.html">set_window</A> call.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True if the window is still active, in the sense that
+not all data which is relevant to the window has yet
+been packaged up in calls to 
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A>. If the function returns false, subsequent calls to
+<A HREF="kdu_serve__gen$ncrements.html">generate_increments</A> are guaranteed to return NULL, meaning that the window
+has been fully served.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="window">window</A> [<A HREF ="kdu_window.html">kdu_window</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="context_id">context_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+As explained in connection with 
+<A HREF="kdu_serve__set_window.html">set_window</A>, this object is capable of managing multiple concurrent
+window contexts. If no context with the indicated 
+<A HREF="kdu_serve__get_window.html#context_id">context_id</A> has yet been used, the present function invokes 
+<A HREF="kdu_window__init.html">window.init</A> and returns false without creating a new window context.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_serve__set_window.html"> prev </A>||<A HREF="kdu_serve__get$mage_done.html"> next </A>|</P>
+</BODY>
+</HTML>

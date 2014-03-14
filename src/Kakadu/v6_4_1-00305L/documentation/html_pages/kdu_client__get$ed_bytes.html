@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client::get_received_bytes) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__get_status.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_client::get_received_bytes</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client.Get_received_bytes</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual <B>kdu_long</B> get_received_bytes(
+<B>int</B>&nbsp;queue_id=-1,
+<B>double</B>&nbsp;*&nbsp;non_idle_seconds=NULL,
+<B>double</B>&nbsp;*&nbsp;seconds_since_first_active=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_received_bytes(
+int&nbsp;queue_id,
+double[]&nbsp;non_idle_seconds,
+double[]&nbsp;seconds_since_first_active)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu_client.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Returns the total number of bytes which have been received
+from the server, including all headers and other overhead
+information, in response to requests posted to the
+indicated request queue.
+</P><P>
+ This function differs from 
+<A HREF="kdu_cache__get$red_bytes.html">kdu_cache::get_transferred_bytes</A> in three respects: firstly, it can be used to query
+information about transfer over a specific request
+queue; second, it returns only the amount of data transferred
+by the server, not including additional bytes which
+may have been retrieved from a local cache; finally,
+it includes all the transfered overhead.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="queue_id">queue_id</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+One of the request queue identifiers returned by the
+<A HREF="kdu_client__connect.html">connect</A> or 
+<A HREF="kdu_client__add_queue.html">add_queue</A> functions, or else a negative integer. In the latter
+case, the function returns the total number of received
+bytes belonging to all request queues, since the 
+<A HREF="kdu_client__connect.html">connect</A> function was last called. If this argument is not
+negative and does not refer to an alive request queue
+(see 
+<A HREF="kdu_client__is_alive.html">is_alive</A>), the function returns 0. Thus, once all queues have
+been removed via the 
+<A HREF="kdu_client__disconnect.html">disconnect</A> function, this function will return 0 for all non-negative
+<A HREF="kdu_client__get$ed_bytes.html#queue_id">queue_id</A> values.
+</P>
+</DIV>
+<H4><A NAME="non_idle_seconds">non_idle_seconds</A> [<B>double</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If this argument is non-NULL, it is used to return
+the total number of seconds for which the indicated
+request queue has been non-idle, or (if 
+<A HREF="kdu_client__get$ed_bytes.html#queue_id">queue_id</A> &lt; 0) the total number of seconds for which the
+aggregate of all request queues managed by the client
+over its lifetime has been non-idle. A request queue
+is non-idle between the point at which it issues a
+request and the point at which it becomes idle, as
+identified by the 
+<A HREF="kdu_client__is_idle.html">is_idle</A> member function. The client is non-idle between the
+point at which any request queue issues a request and
+the point at which all request queues become idle.
+</P>
+</DIV>
+<H4><A NAME="seconds_since_first_active">seconds_since_first_active</A> [<B>double</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+If non-NULL, this argument is used to return the total
+number of seconds since the indicated request queue
+first became active, or (if 
+<A HREF="kdu_client__get$ed_bytes.html#queue_id">queue_id</A> &lt; 0) the total number of seconds since any request
+queue in the client first became active. A request
+queue becomes active when it first issues a request.
+During the time spent resolving network addresses or
+attempting to connect TCP channels prior to issuing
+a request, the queue is not considered active.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_client__get_status.html"> prev </A>|</P>
+</BODY>
+</HTML>

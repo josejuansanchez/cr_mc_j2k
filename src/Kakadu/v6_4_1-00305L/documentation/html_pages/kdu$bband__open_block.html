@@ -1,0 +1,126 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_subband::open_block) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$lock_size.html"> prev </A>||<A HREF="kdu$bband__close_block.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_subband::open_block</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_subband.Open_block</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu_block.html">kdu_block</A>&nbsp;* open_block(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;block_idx,
+<B>int</B>&nbsp;*&nbsp;return_tpart=NULL,
+<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*&nbsp;env=NULL)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_block Open_block(
+Kdu_coords&nbsp;block_idx,
+int[]&nbsp;return_tpart,
+Kdu_thread_env&nbsp;env)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$u_compressed+h.html">"../coresys/common/kdu_compressed.h"</A>]</P><P><A HREF="kdu$bband.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Code-block access is bracketed by calls to 
+<A HREF="kdu$bband__open_block.html">open_block</A> and 
+<A HREF="kdu$bband__close_block.html">close_block</A>. It is currently illegal to have more than one code-block
+open per-thread at the same time. In fact, the underlying
+structure manages storage for a single 
+<A HREF="kdu_block.html">kdu_block</A> object, in the main 
+<A HREF="kdu$tream.html">kdu_codestream</A> machinery, and one for each thread within a 
+<A HREF="kdu$d_env.html">kdu_thread_env</A> environment.
+</P><P>
+ It is also illegal to open any given block a second
+time without first closing the tile (input codestreams)
+or the relevant precinct (interchange codestreams)
+and re-opening it. Moreover, such activities are permitted
+only with interchange codestreams or input codestreams
+which have been set up for persistence by calling the
+<A HREF="kdu$tream__set$ersistent.html">kdu_codestream::set_persistent</A> function.
+</P><P>
+ This restriction on multiple openings of any given
+code-block is important for the efficiency of the system,
+since it allows the internal machinery to determine
+when resources can be destroyed, recycled or temporarily
+swapped out of memory. Applications which do wish to
+open blocks multiple times will generally be happy
+to close and re-open the tile (or precinct) anyway.
+</P><P>
+ The returned 
+<A HREF="kdu_block.html">kdu_block</A> object contains all necessary information for encoding
+or decoding the code-block, including its dimensions,
+coding mode switches and so forth.
+</P><P>
+ For input codestreams (created using the particular
+form of the overloaded 
+<A HREF="kdu$tream__create__1.html">kdu_codestream::create</A> function which takes a compressed data source), the
+block will have all coding pass and code-byte information
+intact, ready to be decoded.
+</P><P>
+ Otherwise (output or interchange codestreams), all
+relevant members of the returned 
+<A HREF="kdu_block.html">kdu_block</A> object will be initialized to the empty state, ready
+to accept newly generated (or copied) code bytes.
+</P><P>
+ It is worth noting that opening a block may have far
+reaching implications for the internal code-stream
+management machinery. Precincts may be created for
+the first time; packets may be read and de-sequenced;
+tile-parts may be opened and so forth. There is no
+restriction on the order in which code-blocks may be
+opened, although different orders can have very different
+implications for the amount of the code-stream which
+must be buffered internally, especially if the compressed
+data source does not support seeking, or the code-stream
+does not provide seeking hints (these are optional
+JPEG2000 marker segments).
+</P><P>
+ Although this function may be used with interchange
+codestreams, its namesake in the 
+<A HREF="kdu$cinct.html">kdu_precinct</A> interface is recommended instead for interchange applications.
+For more on this, consult the comments appearing with
+<A HREF="kdu$cinct__open_block.html">kdu_precinct::open_block</A> and 
+<A HREF="kdu$cinct__close_block.html">kdu_precinct::close_block</A>.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="block_idx">block_idx</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Must provide indices inside the valid region identified
+by the 
+<A HREF="kdu$bband__get$id_blocks.html">get_valid_blocks</A> function.
+</P>
+</DIV>
+<H4><A NAME="return_tpart">return_tpart</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+For input codestreams, this argument (if not NULL)
+is used to return the index of the tile-part to which
+the block belongs (starting from 0). For interchange
+and output codestreams, a negative number will usually
+be returned via this argument if it is used.
+</P>
+</DIV>
+<H4><A NAME="env">env</A> [<A HREF ="kdu$d_env.html">kdu_thread_env</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+You must supply a non-NULL 
+<A HREF="kdu$bband__open_block.html#env">env</A> reference if there is any chance that this codestream
+(or any other codestream with which it shares storage
+via 
+<A HREF="kdu$tream__sha$buffering.html">kdu_codestream::share_buffering</A>) is being simultaneously accessed from another thread.
+When you do supply a non-NULL 
+<A HREF="kdu$bband__open_block.html#env">env</A> argument, the returned block is actually part of the
+local storage associated with the thread itself, so
+each thread may have a separate open block.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$bband__get$lock_size.html"> prev </A>||<A HREF="kdu$bband__close_block.html"> next </A>|</P>
+</BODY>
+</HTML>

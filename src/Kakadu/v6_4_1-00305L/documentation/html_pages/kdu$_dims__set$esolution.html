@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_image_dims::set_resolution) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__~kd$mage_dims.html"> prev </A>||<A HREF="kdu$_dims__all$esolution.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_image_dims::set_resolution</A></H1>
+<P CLASS="function-text"><B>void</B> set_resolution(
+<B>double</B>&nbsp;ref_width,
+<B>double</B>&nbsp;ref_height,
+<B>bool</B>&nbsp;units_known,
+<B>double</B>&nbsp;xpels_per_metre,
+<B>double</B>&nbsp;ypels_per_metre,
+<B>bool</B>&nbsp;dont_save=false)</P>
+<P>[Declared in <A HREF="++++apps+image+kdu_image+h.html">"../apps/image/kdu_image.h"</A>]</P><P><A HREF="kdu$_dims.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Used to set physical display resolution information,
+if known. Both the X and Y resolution values must be
+strictly positive. If 
+<A HREF="kdu$_dims__set$esolution.html#units_known">units_known</A> is false, only the ratio between these quantities
+has any meaning. In any case, the X and Y resolution
+values are expressed relative to an image resolution
+whose dimensions are given by 
+<A HREF="kdu$_dims__set$esolution.html#ref_width">ref_width</A> and 
+<A HREF="kdu$_dims__set$esolution.html#ref_height">ref_height</A>; these resolutions are scaled to match the actual
+dimensions of any individual image component.
+</P><P>
+ If 
+<A HREF="kdu$_dims__set$esolution.html#dont_save">dont_save</A> is true, the 
+<A HREF="kdu$_dims__all$esolution.html">allow_save_resolution</A> function will return false, meaning that the resolution
+information configured here is not to be saved to the
+file, even if there are known values and units. This
+is rather unusual, but can be used to prevent the writing
+of TIFF resolution tags in certain cases where they
+might conflict with other tags in some viewing applications
+(most notable example is OSX Preview, which appears
+to be incapable of handling files which contain both
+resolution and geo-referencing tags).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="ref_width">ref_width</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ref_height">ref_height</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="units_known">units_known</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="xpels_per_metre">xpels_per_metre</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="ypels_per_metre">ypels_per_metre</A> [<B>double</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="dont_save">dont_save</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$_dims__~kd$mage_dims.html"> prev </A>||<A HREF="kdu$_dims__all$esolution.html"> next </A>|</P>
+</BODY>
+</HTML>

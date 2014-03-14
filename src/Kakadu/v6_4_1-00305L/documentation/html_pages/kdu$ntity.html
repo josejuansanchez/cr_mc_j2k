@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_thread_entity) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#FFF491">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+<H1><A NAME="ToP">kdu_thread_entity</A></H1>
+<DIR><DIR><H3><U>Java:</U> class Kdu_thread_entity</H3></DIR></DIR>
+
+<P>[Declared in <A HREF="++++coresy$+kdu_threads+h.html">"../coresys/common/kdu_threads.h"</A>]</P><P ALIGN="CENTER"><HR></P><H3>Known objects derived from this class</H3><UL>
+<LI><A HREF="kdu$d_env.html">kdu_thread_env</A></LI>
+</UL>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This object represents the state of a running thread,
+which may call into the 
+<A HREF="kdu$tream.html">kdu_codestream</A> interface or any of its derivatives. Its 
+<A HREF="kdu$ntity__acquire_lock.html">acquire_lock</A> and 
+<A HREF="kdu$ntity__release_lock.html">release_lock</A> functions are used by the internal machinery to block
+access to critical sections of code which are sensitive
+to concurrent access from multiple threads. Since it
+is possible that an error is generated in one of these
+calls, which subsequently throws an exception without
+terminating the process, it is important that any locks
+are released when such an exception is caught. The
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A> function is provided for this purpose.
+</P><P>
+ Threads may belong to groups of cooperating workers.
+Each such group has an owner, whose 
+<A HREF="kdu$ntity.html">kdu_thread_entity</A> object was directly created using 
+<A HREF="kdu$ntity__create.html">create</A>. The other working threads are all created using the
+owner's 
+<A HREF="kdu$ntity__add_thread.html">add_thread</A> member. When the owner is destroyed, the entire group
+is destroyed along with it &mdash; after waiting for
+all workers to go idle. When one thread in a group
+generates an error through 
+<A HREF="kdu_error.html">kdu_error</A>, resulting in a call to 
+<A HREF="kdu$ntity__han$exception.html">handle_exception</A>, the remaining threads in the group will also throw
+exceptions when they next call the 
+<A HREF="kdu$ntity__acquire_lock.html">acquire_lock</A> function. This helps ensure that the group behaves
+as a single working entity. In each case, exception
+catching and rethrowing is restricted to exceptions
+of type 
+<B>kdu_exception</B>.
+</P><P>
+ The purpose of thread groups is to use multiple physical
+processors efficiently. This is done by associating
+each working thread with a separate processor and scheduling
+jobs onto the theads through a collection of job queues.
+Separate job queues typically involve disjoint blocks
+of memory so that processor resources are used most
+efficiently by keeping threads local to queues, as
+much as possible. The scheduling mechanism is implemented
+through two functions: 
+<A HREF="kdu$ntity__process_jobs.html">process_jobs</A> and 
+<A HREF="kdu$ntity__add_jobs.html">add_jobs</A>.
+</P><P>
+ Thread queues are organized into a hierarchy, wherein
+new queues may be created as top-level queues or as
+sub-queues of other queues. At the bottom of this hierarchy
+are the leaf queues. A number of powerful features
+offered by this object may be defined to operate only
+within sub-trees of the hierarchy. Among these are
+the ability to wait for completion of all jobs within
+a given sub-tree, the ability to register a synchronized
+job to be run automatically when all jobs in a sub-tree
+reach a defined point, and the ability to selectively
+delete sub-trees from the hierarchy.
+</P><P>
+ This object is designed to be sub-classed. When you
+do so, your derived object will be used by every thread
+within the same working group. Your derived object
+also specifies the number of distinct locks which are
+to be provided to the 
+<A HREF="kdu$ntity__acquire_lock.html">acquire_lock</A> and 
+<A HREF="kdu$ntity__release_lock.html">release_lock</A> functions, once 
+<A HREF="kdu$ntity__create.html">create</A> is called. This is done by overriding the 
+<A HREF="kdu$ntity__get$num_locks.html">get_num_locks</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="FuncS">Public Functions</A></H2><DIV CLASS="indented-text">
+<P><A HREF="kdu$ntity__kdu$ad_entity.html">kdu_thread_entity</A> {<U>Java:</U> Kdu_thread_entity}
+</P>
+<P><A HREF="kdu$ntity__pre_destroy.html">pre_destroy</A> {<U>Java:</U> Pre_destroy}
+</P>
+<P><A HREF="kdu$ntity__~kd$ad_entity.html">~kdu_thread_entity</A> [virtual] {<U>Java:</U> Native_destroy}
+</P>
+<P><A HREF="kdu$ntity__new.html">new</A></P>
+<P><A HREF="kdu$ntity__delete.html">delete</A></P>
+<P><A HREF="kdu$ntity__new_instance.html">new_instance</A> [virtual] {<U>Java:</U> New_instance}
+</P>
+<P><A HREF="kdu$ntity__exists.html">exists</A> {<U>Java:</U> Exists}
+</P>
+<P><A HREF="kdu$ntity__operator!.html">operator!</A></P>
+<P><A HREF="kdu$ntity__is_$oup_owner.html">is_group_owner</A> {<U>Java:</U> Is_group_owner}
+</P>
+<P><A HREF="kdu$ntity__get$ad_entity.html">get_current_thread_entity</A> {<U>Java:</U> Get_current_thread_entity}
+</P>
+<P><A HREF="kdu$ntity__get$num_locks.html">get_num_locks</A> [virtual] {<U>Java:</U> Get_num_locks}
+</P>
+<P><A HREF="kdu$ntity__create.html">create</A> {<U>Java:</U> Create}
+</P>
+<P><A HREF="kdu$ntity__destroy.html">destroy</A> {<U>Java:</U> Destroy}
+</P>
+<P><A HREF="kdu$ntity__get$m_threads.html">get_num_threads</A> {<U>Java:</U> Get_num_threads}
+</P>
+<P><A HREF="kdu$ntity__add_thread.html">add_thread</A> {<U>Java:</U> Add_thread}
+</P>
+<P><A HREF="kdu$ntity__add_queue.html">add_queue</A> {<U>Java:</U> Add_queue}
+</P>
+<P><A HREF="kdu$ntity__add_jobs.html">add_jobs</A> {<U>Java:</U> Add_jobs}
+</P>
+<P><A HREF="kdu$ntity__synchronize.html">synchronize</A> {<U>Java:</U> Synchronize}
+</P>
+<P><A HREF="kdu$ntity__terminate.html">terminate</A> {<U>Java:</U> Terminate}
+</P>
+<P><A HREF="kdu$ntity__reg$nized_job.html">register_synchronized_job</A> {<U>Java:</U> Register_synchronized_job}
+</P>
+<P><A HREF="kdu$ntity__process_jobs.html">process_jobs</A> {<U>Java:</U> Process_jobs}
+</P>
+<P><A HREF="kdu$ntity__han$exception.html">handle_exception</A> [virtual] {<U>Java:</U> Handle_exception}
+</P>
+<P><A HREF="kdu$ntity__acquire_lock.html">acquire_lock</A> {<U>Java:</U> Acquire_lock}
+</P>
+<P><A HREF="kdu$ntity__try_lock.html">try_lock</A> {<U>Java:</U> Try_lock}
+</P>
+<P><A HREF="kdu$ntity__release_lock.html">release_lock</A> {<U>Java:</U> Release_lock}
+</P>
+</DIV>
+<P ALIGN="CENTER"><HR></P>
+<P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#FuncS"> functions </A>|</P>
+</BODY>
+</HTML>

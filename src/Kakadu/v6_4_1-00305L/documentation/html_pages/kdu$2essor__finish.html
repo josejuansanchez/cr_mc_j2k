@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_stripe_decompressor::finish) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$2essor__start.html"> prev </A>||<A HREF="kdu$2essor__get$_heights.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_stripe_decompressor::finish</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_stripe_decompressor.Finish</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>bool</B> finish(
+)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Finish(
+)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_stripe_decompressor.h"</A>]</P><P><A HREF="kdu$2essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Each call to 
+<A HREF="kdu$2essor__start.html">start</A> must be bracketed by a call to 
+<A HREF="kdu$2essor__finish.html">finish</A>, if you wish to re-use the object to decompress further
+code-streams. Calling this function is not strictly
+necessary if you intend to use the function only once.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+True only if all available image data was recovered
+using the 
+<A HREF="kdu$2essor__pull_stripe__1.html">pull_stripe</A> function.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="kdu$2essor__start.html"> prev </A>||<A HREF="kdu$2essor__get$_heights.html"> next </A>|</P>
+</BODY>
+</HTML>

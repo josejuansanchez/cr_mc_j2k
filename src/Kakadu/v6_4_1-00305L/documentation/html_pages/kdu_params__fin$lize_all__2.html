@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_params::finalize_all) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__fin$lize_all__1.html"> prev </A>|</P>
+<H1><A NAME="ToP">kdu_params::finalize_all</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_params.Finalize_all</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu_params__fin$lize_all__1.html">1</A>,
+2</B></P>
+<P CLASS="function-text"><B>void</B> finalize_all(
+<B>int</B>&nbsp;tile_idx,
+<B>bool</B>&nbsp;after_reading=false)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native void Finalize_all(
+int&nbsp;tile_idx,
+boolean&nbsp;after_reading)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$n+kdu_params+h.html">"../coresys/common/kdu_params.h"</A>]</P><P><A HREF="kdu_params.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the first form of the overloaded 
+<A HREF="kdu_params__fin$lize_all__1.html">finalize_all</A> function, except that only those objects whose tile
+index agrees with the supplied argument are actually
+finalized. This is useful when information becomes
+available on a tile-by-tile basis, as can happen when
+transcoding an existing code-stream.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="tile_idx">tile_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+A value of -1 refers to the objects in the main header,
+while tile-specific objects to be finalized have tile
+indices starting from 0.
+</P>
+</DIV>
+<H4><A NAME="after_reading">after_reading</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+<P>
+If true, the finalization process is being performed
+on parameters which were obtained by reading codestream
+marker segments. This can affect the behaviour of individual
+derived 
+<A HREF="kdu_params__finalize.html">finalize</A> functions, and also allows them to minimize their
+effort, since complex finalization is often not required
+in this case. The function is invoked with this argument
+equal to true from within the codestream management
+system &mdash; you would not normally invoke it in
+this way directly from within an application.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu_params__fin$lize_all__1.html"> prev </A>|</P>
+</BODY>
+</HTML>

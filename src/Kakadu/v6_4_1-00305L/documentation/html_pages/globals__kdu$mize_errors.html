@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (::kdu_customize_errors) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_ycc_to_rgb.html"> prev </A>||<A HREF="globals__kdu$tomize_text__1.html"> next </A>|</P>
+<H1><A NAME="ToP">::kdu_customize_errors</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> static Kdu_global.Kdu_customize_errors</EM></H3></DIR></DIR>
+<P CLASS="function-text"><B>void</B> kdu_customize_errors(
+<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;*&nbsp;handler)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native static void Kdu_customize_errors(
+Kdu_message&nbsp;handler)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++coresy$du_messaging+h.html">"../coresys/common/kdu_messaging.h"</A>]</P>
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function can and usually should be used to customize
+the behaviour of error messages produced using the
+<A HREF="kdu_error.html">kdu_error</A> object. By default, error message text will be discarded,
+and the process will be terminated through 
+<B>exit</B> whenever a 
+<A HREF="kdu_error.html">kdu_error</A> object is destroyed.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="handler">handler</A> [<A HREF ="kdu$ssage.html">kdu_message</A>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+All text delivered to a 
+<A HREF="kdu_error.html">kdu_error</A> object will be passed to 
+<A HREF="kdu$ssage__put_text__1.html">handler&rarr;put_text</A> (unless 
+<A HREF="globals__kdu$mize_errors.html#handler">handler</A> is NULL) and all calls to 
+<A HREF="kdu_error__flush.html">kdu_error::flush</A> will be generate calls to 
+<A HREF="kdu$ssage__flush.html">handler&rarr;flush</A>, with the 
+<B>end_of_message</B> argument set to false (regardless of the value of
+this argument in the call to 
+<A HREF="kdu_error__flush.html">kdu_error::flush</A>). If a 
+<A HREF="kdu_error.html">kdu_error</A> object is destroyed, 
+<A HREF="kdu$ssage__flush.html">handler&rarr;flush</A> will be called with an 
+<B>end_of_message</B> argument equal to true and the process will subsequently
+be terminated through 
+<B>exit</B>. The termination may be avoided, however, by throwing
+an exception from within the message terminating 
+<A HREF="kdu$ssage__flush.html">handler&rarr;flush</A> call.
+</P><P>
+ For consistency, and especially to ensure correct
+behaviour of Kakadu's multi-threaded processing machinery,
+you should only throw exceptions of type 
+<B>kdu_exception</B>.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="globals__kdu$_ycc_to_rgb.html"> prev </A>||<A HREF="globals__kdu$tomize_text__1.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,177 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_decompressor::process) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__4.html"> prev </A>||<A HREF="kdu$essor__process__6.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_decompressor::process</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_decompressor.Process</EM></H3></DIR></DIR>
+<P>Overload navigation: <B><A HREF="kdu$essor__process__1.html">1</A>,
+<A HREF="kdu$essor__process__2.html">2</A>,
+<A HREF="kdu$essor__process__3.html">3</A>,
+<A HREF="kdu$essor__process__4.html">4</A>,
+5,
+<A HREF="kdu$essor__process__6.html">6</A>,
+<A HREF="kdu$essor__process__7.html">7</A></B></P>
+<P CLASS="function-text"><B>bool</B> process(
+<B>kdu_byte</B>&nbsp;*&nbsp;buffer,
+<B>int</B>&nbsp;*&nbsp;channel_offsets,
+<B>int</B>&nbsp;pixel_gap,
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;buffer_origin,
+<B>int</B>&nbsp;row_gap,
+<B>int</B>&nbsp;suggested_increment,
+<B>int</B>&nbsp;max_region_pixels,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;incomplete_region,
+<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;&nbsp;new_region,
+<B>int</B>&nbsp;precision_bits=8,
+<B>bool</B>&nbsp;measure_row_gap_in_pixels=true,
+<B>int</B>&nbsp;expand_monochrome=0,
+<B>int</B>&nbsp;fill_alpha=0)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native boolean Process(
+byte[]&nbsp;buffer,
+int[]&nbsp;channel_offsets,
+int&nbsp;pixel_gap,
+Kdu_coords&nbsp;buffer_origin,
+int&nbsp;row_gap,
+int&nbsp;suggested_increment,
+int&nbsp;max_region_pixels,
+Kdu_dims&nbsp;incomplete_region,
+Kdu_dims&nbsp;new_region,
+int&nbsp;precision_bits,
+boolean&nbsp;measure_row_gap_in_pixels,
+int&nbsp;expand_monochrome,
+int&nbsp;fill_alpha)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$decompressor+h.html">"../apps/support/kdu_region_decompressor.h"</A>]</P><P><A HREF="kdu$essor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Same as the first form of the overloaded 
+<A HREF="kdu$essor__process__1.html">process</A> function, except that the channel buffers are interleaved
+into a single buffer. It is actually possible to select
+arbitrary 
+<A HREF="kdu$essor__process__5.html#channel_offsets">channel_offsets</A> so that the organization of 
+<A HREF="kdu$essor__process__5.html#buffer">buffer</A> need not necessarily be interleaved component-by-component.
+</P><P>
+ One reason for providing this function in addition
+to the second form of the 
+<A HREF="kdu$essor__process__1.html">process</A> function, is that this version is readily mapped to
+alternate language bindings, such as Java.
+</P><P>
+ The other reason for providing this function is to
+provide a convenient method to fill in additional entries
+in an interleaved buffer with reasonable values. This
+is achieved with the aid of the 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A> and 
+<A HREF="kdu$essor__process__5.html#fill_alpha">fill_alpha</A> arguments.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="buffer">buffer</A> [<B>kdu_byte</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="channel_offsets">channel_offsets</A> [<B>int</B>&nbsp;*]</H4><DIV CLASS="indented-text">
+<P>
+Array with at least 
+<A HREF="kdu$pping.html#num_channels">kdu_channel_mapping::num_channels</A> entries. Each entry specifies the offset in samples
+to the first sample of the associated channel data.
+The number of entries in this array may need to be
+larger than the number of actual available channels,
+depending upon the 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A> and 
+<A HREF="kdu$essor__process__5.html#fill_alpha">fill_alpha</A> arguments, as described below.
+</P>
+</DIV>
+<H4><A NAME="pixel_gap">pixel_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="buffer_origin">buffer_origin</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="row_gap">row_gap</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="suggested_increment">suggested_increment</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="max_region_pixels">max_region_pixels</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="incomplete_region">incomplete_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="new_region">new_region</A> [<A HREF ="kdu_dims.html">kdu_dims</A>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="precision_bits">precision_bits</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="measure_row_gap_in_pixels">measure_row_gap_in_pixels</A> [<B>bool</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="expand_monochrome">expand_monochrome</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+If the number of colour channels is 1, as determined
+from the value of 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A> in the 
+<B>mapping</B> object passed to 
+<A HREF="kdu$essor__start.html">start</A>, or by the fact that no 
+<B>mapping</B> object at all was passed to 
+<A HREF="kdu$essor__start.html">start</A>, this argument may be used to expand the single colour
+channel into a total of 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A> copies. Specifically, if 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A> exceeds 1, an additional 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A>-1 copies of the single available colour channel are
+created &mdash; these are expected to correspond to
+entries 1 through 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A>-1 in the 
+<A HREF="kdu$essor__process__5.html#channel_offsets">channel_offsets</A> array. Any additional (non-colour) channels which
+are being decompressed are then considered to correspond
+to entries starting from index 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A> in the 
+<A HREF="kdu$essor__process__5.html#channel_offsets">channel_offsets</A> array.
+</P><P>
+ If, however, there are multiple colour channels in
+the original description supplied to 
+<A HREF="kdu$essor__start.html">start</A>, this argument is ignored. For this case, it is not
+at all obvious how extra colour components ought to
+be synthesized &mdash; the application should perhaps
+arrange for the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object passed to 
+<A HREF="kdu$essor__start.html">start</A> to describe the additional colour channels, along
+with a suitable colour transform.
+</P>
+</DIV>
+<H4><A NAME="fill_alpha">fill_alpha</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+This argument may be used to synthesize "opaque" alpha
+channels, where no corresponding alpha description
+is available. Specifically, if 
+<A HREF="kdu$essor__process__5.html#fill_alpha">fill_alpha</A> exceeds the number of non-colour channels specified
+in the description supplied to 
+<A HREF="kdu$essor__start.html">start</A> (this is 0 if no 
+<B>mapping</B> object is supplied to 
+<A HREF="kdu$essor__start.html">start</A>; otherwise, it is the difference between 
+<A HREF="kdu$pping.html#num_channels">kdu_channel_mapping::num_channels</A> and 
+<A HREF="kdu$pping.html#num_colour_channels">kdu_channel_mapping::num_colour_channels</A>), additional channels are synthesized as required
+and filled with the maximum value associated with the
+numeric representation (depends on 
+<A HREF="kdu$essor__process__5.html#precision_bits">precision_bits</A>). In this case, the non-colour channels written by
+this funtion correspond to entries C through C+
+<A HREF="kdu$essor__process__5.html#fill_alpha">fill_alpha</A>-1 in the 
+<A HREF="kdu$essor__process__5.html#channel_offsets">channel_offsets</A> array, where C is the number of colour channels being
+written (taking into account the effect of 
+<A HREF="kdu$essor__process__5.html#expand_monochrome">expand_monochrome</A>).
+</P><P>
+ Note that there is no default information in the 
+<A HREF="kdu$pping.html">kdu_channel_mapping</A> object supplied to 
+<A HREF="kdu$essor__start.html">start</A> from which to determine a fill value, in the case
+that 
+<A HREF="kdu$essor__process__5.html#precision_bits">precision_bits</A> is 0. For this reason, the fill value if taken to
+be 0xFF if 
+<A HREF="kdu$essor__process__5.html#precision_bits">precision_bits</A> is not in the range 1 to 7.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$essor__process__4.html"> prev </A>||<A HREF="kdu$essor__process__6.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_region_compositor::find_point) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$m_packets.html"> prev </A>||<A HREF="kdu$sitor__map_region.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_region_compositor::find_point</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_region_compositor.Find_point</EM></H3></DIR></DIR>
+<P CLASS="function-text"><A HREF ="kdu$r_ref.html">kdu_ilayer_ref</A> find_point(
+<A HREF ="kdu_coords.html">kdu_coords</A>&nbsp;point,
+<B>int</B>&nbsp;enumerator=0,
+<B>float</B>&nbsp;visibility_threshold=-1.0F)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native Kdu_ilayer_ref Find_point(
+Kdu_coords&nbsp;point,
+int&nbsp;enumerator,
+float&nbsp;visibility_threshold)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+s$n_compositor+h.html">"../apps/support/kdu_region_compositor.h"</A>]</P><P><A HREF="kdu$sitor.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+This function can be used to enumerate all the imagery
+layers in which 
+<A HREF="kdu$sitor__find_point.html#point">point</A> is contained and visible with respect to the 
+<A HREF="kdu$sitor__find_point.html#visibility_threshold">visibility_threshold</A>. If 
+<A HREF="kdu$sitor__find_point.html#enumerator">enumerator</A> is 0, the function returns information for the top-most
+such ilayer. In general, the function skips over the
+top-most 
+<A HREF="kdu$sitor__find_point.html#enumerator">enumerator</A> such ilayers and returns the next one, if there is
+one. If so, the function returns a non-null instance
+of the 
+<A HREF="kdu$r_ref.html">kdu_ilayer_ref</A> class to identify the relevant ilayer; otherwise the
+returned object is a "null" reference, meaning that
+its 
+<A HREF="kdu$r_ref__is_null.html">kdu_ilayer_ref::is_null</A> member returns true.
+</P><P>
+ Note that the presence of overlaying imagery layers
+tends to render the 
+<A HREF="kdu$sitor__find_point.html#point">point</A> less visible (if not invisible) in an underlying ilayer
+so that the 
+<A HREF="kdu$sitor__find_point.html#visibility_threshold">visibility_threshold</A> might not be satisfied. The 
+<A HREF="kdu$sitor__find_point.html#point">point</A> is also less visible within an imagery layer if that
+ilayer has low opacity at the location in question.
+In general, the visibility of 
+<A HREF="kdu$sitor__find_point.html#point">point</A> within an ilayer L is taken to be V = O_L * Prod_{l
+&lt; L} (1-O_L), where O_l denotes the opacity of ilayer
+l at location 
+<A HREF="kdu$sitor__find_point.html#point">point</A> (normalized to a maximum opacity of 1) and the set
+{l &lt; L} denotes ilayers which lie above ilayer L.
+With this definition in mind, V lies in the range 0
+to 1. If V &gt; 
+<A HREF="kdu$sitor__find_point.html#visibility_threshold">visibility_threshold</A>, the visibility threshold is deemed to be satisfied.
+If an ilayer has not yet been completely rendered,
+so that the opacity at 
+<A HREF="kdu$sitor__find_point.html#point">point</A> is unknown, the opacity will usually be taken to be
+1.0 &mdash; there may be exceptions if you are rendering
+without buffer initialization (i.e., if 
+<B>set_buffer_surface_initialization_mode</B> has been called with false as the argument).
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="point">point</A> [<A HREF ="kdu_coords.html">kdu_coords</A>]</H4><DIV CLASS="indented-text">
+<P>
+Location of a point on the compositing grid, expressed
+using the same coordinate system as that associated
+with 
+<A HREF="kdu$sitor__set$r_surface.html">set_buffer_surface</A>.
+</P>
+</DIV>
+<H4><A NAME="enumerator">enumerator</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+<P>
+You can use this argument to walk through the matching
+compositing layers from top-most to bottom-most, until
+there are no more.
+</P>
+</DIV>
+<H4><A NAME="visibility_threshold">visibility_threshold</A> [<B>float</B>]</H4><DIV CLASS="indented-text">
+<P>
+As mentioned above, the visibility V at location 
+<A HREF="kdu$sitor__find_point.html#point">point</A> must be greater than 
+<A HREF="kdu$sitor__find_point.html#visibility_threshold">visibility_threshold</A> for 
+<A HREF="kdu$sitor__find_point.html#point">point</A> to be considered visible in a layer. V is equal to
+the normalized opacity within that layer, multiplied
+by product of 1 minus the normalized opacity of all
+covering layers.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$sitor__get$m_packets.html"> prev </A>||<A HREF="kdu$sitor__map_region.html"> next </A>|</P>
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE> Kakadu Hyper-Doc (kdu_client_translator::get_context_components) </TITLE>
+<STYLE TYPE="text/css">
+<!--
+.indented-text { padding-left: 20pt; }
+.function-text { padding-left: 80pt;
+                 text-indent: -60pt; }
+-->
+</STYLE>
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#B4DCB4">
+<P ALIGN="RIGHT">|<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lator__get$odestream.html"> prev </A>||<A HREF="kdu$lator__per$remapping.html"> next </A>|</P>
+<H1><A NAME="ToP">kdu_client_translator::get_context_components</A></H1>
+<DIR><DIR><H3><EM><U>Java:</U> Kdu_client_translator.Get_context_components</EM></H3></DIR></DIR>
+<P CLASS="function-text">virtual const&nbsp;<B>int</B>&nbsp;* get_context_components(
+<B>int</B>&nbsp;context_type,
+<B>int</B>&nbsp;context_idx,
+<B>int</B>&nbsp;remapping_ids[],
+<B>int</B>&nbsp;member_idx,
+<B>int</B>&nbsp;&amp;&nbsp;num_components)</P>
+<DIR><DIR><P CLASS="function-text"><EM><U>Java:</U> public native long Get_context_components(
+int&nbsp;context_type,
+int&nbsp;context_idx,
+int[]&nbsp;remapping_ids,
+int&nbsp;member_idx,
+int[]&nbsp;num_components)</EM></P></DIR></DIR>
+<P>[Declared in <A HREF="++++apps+c$o+kdu_client+h.html">"../apps/compressed_io/kdu_client.h"</A>]</P><P><A HREF="kdu$lator.html">Go to class description.</A></P>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="SynopsiS">Synopsis</A></H2>
+<DIV CLASS="indented-text">
+<P>
+Designed to mirror 
+<A HREF="kdu$2arget__get$mponents.html">kdu_serve_target::get_context_components</A>.
+</P><P>
+ See 
+<A HREF="kdu$lator__get$t_members.html">get_num_context_members</A> for a general introduction. The 
+<A HREF="kdu$lator__get$omponents.html#context_type">context_type</A>, 
+<A HREF="kdu$lator__get$omponents.html#context_idx">context_idx</A>, 
+<A HREF="kdu$lator__get$omponents.html#remapping_ids">remapping_ids</A> and 
+<A HREF="kdu$lator__get$omponents.html#member_idx">member_idx</A> arguments have the same interpretation as in 
+<A HREF="kdu$lator__get$odestream.html">get_context_codestream</A>, except that this function returns a list of all image
+components from the codestream which are used by this
+context.
+</P>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><H2><A NAME="ReturnS">Return Value</A></H2><DIV CLASS="indented-text">
+<P>
+An array with one entry for each image component used
+by the indicated codestream context, from the specific
+codestream associated with the indicated context member.
+This is the same codestream whose index is returned
+<A HREF="kdu$lator__get$odestream.html">get_context_codestream</A>. Each element in the array holds the index (starting
+from 0) of the image component. If the object is unable
+to translate the indicated context, it should return
+NULL. As for the other functions, however, a NULL return
+value may change in the future, if more data is added
+to the cache.
+</P>
+</DIV>
+<H2><A NAME="ArgS">Arguments</A></H2><DIV CLASS="indented-text">
+<H4><A NAME="context_type">context_type</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="context_idx">context_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="remapping_ids">remapping_ids[]</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="member_idx">member_idx</A> [<B>int</B>]</H4><DIV CLASS="indented-text">
+</DIV>
+<H4><A NAME="num_components">num_components</A> [<B>int</B>&nbsp;&amp;]</H4><DIV CLASS="indented-text">
+<P>
+Used to return the number of elements in the returned
+array.
+</P>
+</DIV>
+</DIV>
+
+<P ALIGN="CENTER"><HR></P><P ALIGN="RIGHT">|<A HREF="#ToP"> top </A>||<A HREF="#SynopsiS"> synopsis </A>||<A HREF="#ReturnS"> return value </A>||<A HREF="#ArgS"> arguments </A>||<A HREF="kdu$lator__get$odestream.html"> prev </A>||<A HREF="kdu$lator__per$remapping.html"> next </A>|</P>
+</BODY>
+</HTML>
