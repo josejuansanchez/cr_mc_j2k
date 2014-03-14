@@ -16,21 +16,21 @@ if [ $# -ne 3 ]; then
 fi
 
 # Tools
-DIFFERENCES=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/differencesthumbnails
-WOISTOCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/Code/CR/woistocache
-GETHEADERSIZE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/get_header_size_j2c
-EXTRACTCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/extractcache
-DECODEFROMCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/Code/CR/decodefromcache
-SORTCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/sortcache
-SNR=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/snr
-GETHEADERSIZE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/get_header_size_j2c
-DRAWBLOCKS=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/drawblocks_txt
-COUNTSOPS=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/countsops
-COOKCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/cookcache
+DIFFERENCES=/home/josejuan/cr_mc_j2k/tools/differencesthumbnails
+WOISTOCACHE=/home/josejuan/cr_mc_j2k/src/CR/woistocache
+GETHEADERSIZE=/home/josejuan/cr_mc_j2k/tools/get_header_size_j2c
+EXTRACTCACHE=/home/josejuan/cr_mc_j2k/tools/extractcache
+DECODEFROMCACHE=/home/josejuan/cr_mc_j2k/src/CR/decodefromcache
+SORTCACHE=/home/josejuan/cr_mc_j2k/tools/sortcache
+SNR=/home/josejuan/cr_mc_j2k/tools/snr
+GETHEADERSIZE=/home/josejuan/cr_mc_j2k/tools/get_header_size_j2c
+DRAWBLOCKS=/home/josejuan/cr_mc_j2k/tools/drawblocks_txt
+COUNTSOPS=/home/josejuan/cr_mc_j2k/tools/countsops
+COOKCACHE=/home/josejuan/cr_mc_j2k/tools/cookcache
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
-octave --eval "addpath('/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/ssim/');savepath;"
-SSIM=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/ssim/compute_ssim.sh
+octave --eval "addpath('/home/josejuan/cr_mc_j2k/tools/ssim/');savepath;"
+SSIM=/home/josejuan/cr_mc_j2k/tools/ssim/compute_ssim.sh
 
 #SEQUENCE=foreman
 #SEQUENCE=stockholm
@@ -41,8 +41,8 @@ SEQUENCE=stockholm3dwt
 case $SEQUENCE in
 
     "foreman" )
-	IMAGES_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails/foreman_352x288
-	THUMBNAILS_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/foreman_352x288
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -73,8 +73,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm" )
-	IMAGES_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -105,8 +105,8 @@ case $SEQUENCE in
     ;;    
 
     "tree" )
-	IMAGES_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails/tree_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/tree_1280x768
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -137,8 +137,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm3dwt" )
-	IMAGES_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -169,8 +169,8 @@ case $SEQUENCE in
     ;;
 
     "bigbuckbunny" )
-	IMAGES_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails/big_buck_bunny_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/experimentos/experimentos_cr/data/thumbnails
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/big_buck_bunny_1280x768
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
