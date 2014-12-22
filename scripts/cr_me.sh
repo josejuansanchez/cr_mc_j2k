@@ -27,6 +27,10 @@ GETHEADERSIZE=/home/josejuan/cr_mc_j2k/tools/get_header_size_j2c
 DRAWBLOCKS=/home/josejuan/cr_mc_j2k/tools/drawblocks_txt
 COUNTSOPS=/home/josejuan/cr_mc_j2k/tools/countsops
 COOKCACHE=/home/josejuan/cr_mc_j2k/tools/cookcache
+KNAPSACK=/home/josejuan/cr_mc_j2k/knapsack/knapsack
+
+# Configuramos el path donde están los archivos .json con la info de ql, psnr y bytes de los precintos de cada imagen
+KNAPSACK_INFO_FILES=/home/josejuan/cr_mc_j2k/scripts/knapsack_info_files/files
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
 octave --eval "addpath('/home/josejuan/cr_mc_j2k/tools/ssim/');savepath;"
@@ -35,6 +39,7 @@ SSIM=/home/josejuan/cr_mc_j2k/tools/ssim/compute_ssim.sh
 #SEQUENCE=foreman
 #SEQUENCE=stockholm
 SEQUENCE=stockholm3dwt
+#SEQUENCE=stockholm6dwt
 #SEQUENCE=tree
 #SEQUENCE=bigbuckbunny
 
@@ -112,7 +117,7 @@ case $SEQUENCE in
 	CLAYERS=8
 	CLEVELS=2
 	CPRECINCTS="{128,128},{64,64},{32,32}"
-	CBLK="{32,32}"
+	CBLK="{8,8}"
 
 	# Parámetros para la estimación de movimiento
 	X=1280
@@ -144,7 +149,39 @@ case $SEQUENCE in
 	CLAYERS=8
 	CLEVELS=2
 	CPRECINCTS="{128,128},{64,64},{32,32}"
-	CBLK="{16,16}"
+	CBLK="{32,32}"
+
+	# Parámetros para la estimación de movimiento
+	X=1280
+	Y=768
+	B=128   # block size
+	A=0 	# subpixel accuracy = sub-pixel accuracy of the motion estimation
+	D=0     # border size = size of the border of the blocks in the motion estimation process
+	S=4     # search range = size of the searching area of the motion estimation
+	V=2     # Overlapping. Para difuminar los bordes de los bloques.
+
+	# Dimensiones de la imagen original
+	WIDTH_RECONS=1280
+	HEIGHT_RECONS=768
+
+	# Dimensiones de los precintos de la imagen original
+	W_PRECINT_SIZE=128
+	H_PRECINT_SIZE=128
+
+	# Dimensiones del thumbnail
+	XTHUMB=160
+	YTHUMB=96
+    ;;
+
+    "stockholm6dwt" )
+	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+
+	# Parámetros utilizados en kdu_compress
+	CLAYERS=8
+	CLEVELS=5
+	CPRECINCTS="{128,128},{64,64},{32,32},{16,16},{8,8}"
+	CBLK="{8,8}"
 
 	# Parámetros para la estimación de movimiento
 	X=1280
@@ -257,8 +294,8 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-#while [ $i -le 200 ]; do
-while [ $i -le 0 ]; do	
+while [ $i -le 1 ]; do
+#while [ $i -le 25 ]; do
 	echo -e "\t ****************************************************************************************** i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
@@ -271,24 +308,23 @@ while [ $i -le 0 ]; do
 
 	# WITH MC
 	# **********************************************************************
-	# ¡OJO!: HEMOS DESHABILIDATO EL CÁLCULO DE LOS VECTORES DE MOVIMIENTO
 	#
 	# Calculamos los vectores de movimiento
-	#/home/josejuan/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
-	#CheckExitStatusCode	
+	/home/josejuan/cr_mc_j2k/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
+	CheckExitStatusCode	
 	#
 	# WITHOUT MC
 	# **********************************************************************	
 	# ¡OJO!: UTILIZAMOS LA MISMA IMAGEN: $odd_image
 	# 
-	/home/josejuan/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
-	CheckExitStatusCode		
+	#/home/josejuan/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
+	#CheckExitStatusCode			
 	# ************************************************************************	
 
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
 	# Como salida genera la imagen: prediction_temp.pgm
 	# Nota: "decorrelate" necesita que la imagen de entrada esté en el directorio local
-	/home/josejuan/MCJ2K/bin/decorrelate -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V	
+	/home/josejuan/cr_mc_j2k/MCJ2K/bin/decorrelate -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V	
 	CheckExitStatusCode	
 
 	# Eliminamos la imagen temporal que se genera
@@ -311,10 +347,39 @@ while [ $i -le 0 ]; do
 	$W_PRECINT_SIZE_THUMBNAIL $H_PRECINT_SIZE_THUMBNAIL $W_OFFSET $H_OFFSET > /dev/null
 	CheckExitStatusCode
 
+# *************************
+#	# Calculamos qué método debemos utilizar para obtener las WOIs
+#	rm kanpsack_solution.txt
+#	$KNAPSACK $KNAPSACK_INFO_FILES/${next_index}.json precincts/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
+#	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
+#	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
+#
+#	if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
+#		KNAPSACK_SOLUTION_QL=`grep "\"ql\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
+#		echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
+#	fi	
+# *************************
+
 	# Obtenemos los precintos de la siguiente imagen en función del "bitrate" estimado
 	# Esta operación simula una serie de peticiones al servidor para obtener los precintos que nos interesan de la siguiente imagen
 	# Precincts Selection Mode = 1 (Seleccionamos los precintos sólo cuando coinciden con la WOI)
+
+# *************************
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+
 	$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 1
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 2
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 3
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 4
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 5
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+	
+	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE $KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
+# *************************
+
 	CheckExitStatusCode
 	BYTES_READED=`cat bytes.readed`
 
@@ -322,6 +387,7 @@ while [ $i -le 0 ]; do
 	echo -e "${next_index} \t $BYTES_READED" >> $BYTES_FILE
 
 	####################################################################
+	echo -e " ### Ordenamos los precintos de la siguiente imagen ###"
 	$SORTCACHE $next_image_j2c_cache
 	CheckExitStatusCode
 	####################################################################
@@ -376,8 +442,6 @@ while [ $i -le 0 ]; do
 	$WOISTOCACHE prediction_temp.j2c precincts/${next_index}.todos.txt $WIDTH_RECONS $HEIGHT_RECONS $(($CLEVELS+1)) $CLAYERS 999999999 0 > /dev/null
 	CheckExitStatusCode
 
-	#exit
-
 	# Extraemos los datos que nos interesan de la imagen predicción y los volcamos en temp_aux.cache
 	$EXTRACTCACHE $next_image_j2c_cache prediction_temp.j2c.cache temp_aux.cache
 	CheckExitStatusCode
@@ -388,19 +452,39 @@ while [ $i -le 0 ]; do
 	CheckExitStatusCode
 
 	# Ordenamos la caché
+	echo -e " ### Ordenamos la caché: prediction + next ###"
 	$SORTCACHE prediction_plus_next.j2c.cache
 	CheckExitStatusCode
 
 	# Empty Packets + Prediction + Next
+	echo -e " ### Empty Packets + Prediction + Next ###"
 	$COOKCACHE prediction_plus_next.j2c.cache.ord prediction_temp.j2c.cache
 	CheckExitStatusCode
 	cat emptypackets.j2c.cache >> prediction_plus_next.j2c.cache.ord
 	CheckExitStatusCode
 	
 	# Ordenamos la caché	
+	echo -e " ### Ordenamos la caché: Empty Packets + Prediction + Next ###"
 	mv prediction_plus_next.j2c.cache.ord prediction_plus_next_plus_empty.j2c.cache
 	$SORTCACHE prediction_plus_next_plus_empty.j2c.cache
 	CheckExitStatusCode
+	####################################################################################################
+#******************************************************************************************************* ----------
+	# NUEVOS TESTs TEMPORALES: Julio 2014
+	#
+	#echo "0 0" > woi_for_thumbnail.txt
+	# Nota: Para traer el thumbnail hay que pedir el nivel de resolución 1
+	#$WOISTOCACHE $next_image_j2c woi_for_thumbnail.txt $WIDTH_RECONS $HEIGHT_RECONS 1 $CLAYERS 99999999999 0
+	#
+	#PRECINCTS_TEMP=precincts_temp.pgm
+	#
+	# Descomprimimos la caché de la imagen donde sólo se tienen en cuenta los nuevos precintos solicitados
+	#$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	#CheckExitStatusCode
+	#
+	# TEST
+	#mv precincts_temp.pgm precincts_temp_${i}.pgm
+#******************************************************************************************************* ----------
 	####################################################################################################
 
 	# Descomprimimos la caché
@@ -412,7 +496,7 @@ while [ $i -le 0 ]; do
 	CheckExitStatusCode
 	#----------------------------
 	# ESTUDIO SÓLO CON LOS NUEVOS PRECINTOS
-	#
+	#	
 	#PRECINCTS_TEMP=precincts_temp.pgm
 	#
 	# Descomprimimos la caché de la imagen donde sólo se tienen en cuenta los nuevos precintos solicitados

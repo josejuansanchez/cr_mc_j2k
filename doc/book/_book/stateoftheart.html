@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
+        
+        <meta charset="UTF-8">
+        <title>State of the art | Conditional Replenishment and Motion Compensation</title>
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="">
+        <meta name="description" content="J.J. Sánchez-Hernández, J.P. García-Ortiz, V. González-Ruiz">
+        <meta name="keywords" content="gitbook,github" >
+        <meta name="generator" content="www.gitbook.io">
+
+        
+        <link rel="next" href="./changelog.html" />
+        
+        
+        <link rel="prev" href="./cacheformat.html" />
+        
+
+        <meta property="og:title" content="State of the art | Conditional Replenishment and Motion Compensation">
+        <meta property="og:site_name" content="Conditional Replenishment and Motion Compensation">
+        <meta property="og:type" content="book">
+        <meta property="og:locale" content="en_US">
+
+        <meta property="book:author" content="https://github.com/">
+        <meta property="book:tag" content="GitBook">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    </head>
+    <body>
+        
+
+        <link rel="stylesheet" href="gitbook/style.css">
+        
+
+
+        
+    <div class="book"  data-level="5" data-basepath="." data-revision="1398340400236">
+    <div class="book-header">
+    <!-- Actions Left -->
+    
+    <a href="#" class="btn pull-left toggle-summary"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+	<div class="dropdown-caret">
+  <span class="caret-outer"></span>
+  <span class="caret-inner"></span>
+</div>
+
+	<div class="btn-group btn-block">
+		<button id="reduce-font-size" class="btn btn-default">A</button>
+		<button id="enlarge-font-size" class="btn btn-default">A</button>
+	</div>
+
+	<ul class="list-group font-family-list">
+		<li class="list-group-item" data-font="0">Serif</li>
+		<li class="list-group-item" data-font="1">Sans</li>
+	</ul>
+
+	<div class="btn-group btn-group-xs btn-block color-theme-list">
+	  <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+	  <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+	  <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+	</div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    <a href="#" target="_blank" class="btn pull-right" data-sharing="google-plus"><i class="fa fa-google-plus"></i></a>
+    <a href="#" target="_blank" class="btn pull-right" data-sharing="facebook"><i class="fa fa-facebook"></i></a>
+    <a href="#" target="_blank" class="btn pull-right" data-sharing="twitter"><i class="fa fa-twitter"></i></a>
+
+    
+
+    <!-- Title -->
+    <h1><a href="./" >Conditional Replenishment and Motion Compensation</a></h1>
+</div>
+
+    <div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        <li data-level="0" data-path="index.html">
+            <a href="./"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+            <li  data-level="1" data-path="algorithm.html">
+                
+                <a href="./algorithm.html">
+                    <i class="fa fa-check"></i> <b>1.</b> Algoritmo
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="2" data-path="tools.html">
+                
+                <a href="./tools.html">
+                    <i class="fa fa-check"></i> <b>2.</b> Tools
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="3" data-path="packets.html">
+                
+                <a href="./packets.html">
+                    <i class="fa fa-check"></i> <b>3.</b> JPEG2000 Packet Structure
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="4" data-path="cacheformat.html">
+                
+                <a href="./cacheformat.html">
+                    <i class="fa fa-check"></i> <b>4.</b> Formato `.cache`
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="5" data-path="stateoftheart.html">
+                
+                <a href="./stateoftheart.html">
+                    <i class="fa fa-check"></i> <b>5.</b> State of the art
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="6" data-path="changelog.html">
+                
+                <a href="./changelog.html">
+                    <i class="fa fa-check"></i> <b>6.</b> Changelog
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="7" data-path="todos.html">
+                
+                <a href="./todos.html">
+                    <i class="fa fa-check"></i> <b>7.</b> TODOs
+                </a>
+                
+                
+            </li>
+        
+            <li  data-level="8" data-path="knapsack.html">
+                
+                <a href="./knapsack.html">
+                    <i class="fa fa-check"></i> <b>8.</b> Knapsack Algorithm
+                </a>
+                
+                
+            </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 62.5%;min-width: 50%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="./index.html" title="Introduction" class="chapter done new-chapter" data-progress="0" style="left: 0%;"></a>
+    
+        <a href="./algorithm.html" title="Algoritmo" class="chapter done new-chapter" data-progress="1" style="left: 12.5%;"></a>
+    
+        <a href="./tools.html" title="Tools" class="chapter done new-chapter" data-progress="2" style="left: 25%;"></a>
+    
+        <a href="./packets.html" title="JPEG2000 Packet Structure" class="chapter done new-chapter" data-progress="3" style="left: 37.5%;"></a>
+    
+        <a href="./cacheformat.html" title="Formato `.cache`" class="chapter done new-chapter" data-progress="4" style="left: 50%;"></a>
+    
+        <a href="./stateoftheart.html" title="State of the art" class="chapter done new-chapter" data-progress="5" style="left: 62.5%;"></a>
+    
+        <a href="./changelog.html" title="Changelog" class="chapter  new-chapter" data-progress="6" style="left: 75%;"></a>
+    
+        <a href="./todos.html" title="TODOs" class="chapter  new-chapter" data-progress="7" style="left: 87.5%;"></a>
+    
+        <a href="./knapsack.html" title="Knapsack Algorithm" class="chapter  new-chapter" data-progress="8" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_8">
+                    
+                        <h1 id="state-of-the-art">State of the art</h1>
+<h4 id="keywords">Keywords</h4>
+<p>JPEG2000, Streaming, Conditional Replenishment, Motion Compensation</p>
+<h4 id="conditional-replenishment-of-jpeg2000-tiles-with-motion-compensation">Conditional Replenishment of JPEG2000 tiles with Motion Compensation</h4>
+<p><strong>Notes</strong> </p>
+<ul>
+<li>Reduces the inter-frame redundancy present in common JPEG2000 sequences (MJP2 sequences).</li>
+<li>Applies a real-time motion compensation technique to the MJP2 sequences before transmission.</li>
+<li>They propose transmitting only the tiles that change in each JPEG2000 frame.</li>
+<li><em>Review</em>: the method proposed for real-time tile change detection.</li>
+</ul>
+<p><strong>References</strong>  </p>
+<ol>
+<li><a href="http://www.sciencedirect.com/science/article/pii/S1047320311000253" target="_blank">MIJ2K: Enhanced video transmission based on conditional replenishment of JPEG2000 tiles with motion compensation</a>.<br>Alvaro Luis Bustamante, José M. Molina López,  Miguel A. Patricio.<br>Univ. Carlos III de Madrid, Madrid, Spain.  </li>
+</ol>
+<h4 id="conditional-replenishment-of-jpeg2000-code-blocks-with-motion-compensation">Conditional Replenishment of JPEG2000 code-blocks with Motion Compensation</h4>
+<p><strong>Notes</strong> </p>
+<ul>
+<li>Too complex to be applied in real-time environments.</li>
+<li>Clients and servers have to be purposely designed for use with these techniques.</li>
+</ul>
+<p><strong>References</strong>  </p>
+<ol>
+<li><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4379773" target="_blank">A novel paradigm for optimized scalable video transmission based on JPEG2000 with motion.</a><br>A. Naman, D. Taubman.<br>IEEE International Conference on Image Processing, 2007. ICIP 2007, vol. 5, 2007.  </li>
+</ol>
+<ol>
+<li><p><a href="http://delivery.acm.org/10.1145/1300000/1290061/p43-naman.pdf" target="_blank">Optimized scalable video transmission based on conditional replenishment of JPEG2000 code-blocks with motion compensation</a>.  A. Naman, D. Taubman.<br>Proceedings of the International Workshop on Mobile Video, ACM, New York, NY, USA (2007), pp. 43–48</p>
+</li>
+<li><p><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX%20-%20A%20FLEXIBLE%20VIDEO%20TRANSMISSION%20SYSTEM%20BASED%20ON%20JPEG%202000%20CONDITIONAL%20REPLENISHMENTWITH%20MULTIPLE%20REFERENCES_FO_Devaux.pdf" target="_blank">A flexible video transmission system based on JPEG 2000 conditional replenishment with multiple references</a>.<br>F. Devaux, J. Meessen, C. Parisot, J. Delaigle, B. Macq, C. De Vleeschouwer.<br>IEEE International Conference on Acoustics, Speech Signal Proces. (ICASSP 07).  </p>
+</li>
+</ol>
+<hr>
+<p><strong>Notes</strong></p>
+<ul>
+<li>They propose a rate-distortion optimal strategy to select the most profitable packets to transmit. </li>
+<li>They provide the client with two references, the previous reconstructed frame and an estimation of the current scene background, which improves the transmission system performances.</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX%20-%20A%20FLEXIBLE%20VIDEO%20TRANSMISSION%20SYSTEM%20BASED%20ON%20JPEG%202000%20CONDITIONAL%20REPLENISHMENTWITH%20MULTIPLE%20REFERENCES_FO_Devaux.pdf" target="_blank">A flexible video transmission system based on JPEG2000 Conditional Replenishment with multiple references</a></li>
+</ul>
+<hr>
+<p><strong>Thesis</strong>:</p>
+<ul>
+<li><p><a href="http://www.intopix.com/uploaded/Download%20Publications/intoPIX_JPEG%202000%20and%20Parity%20Bit%20Replenishment%20for%20Remote%20Video%20Browsing_Thesis_FO_Devaux.pdf" target="_blank">JPEG 2000 and Parity Bit Replenishment for Remote Video Browsing</a><br>François-Olivier Devaux. September 2008.</p>
+</li>
+<li><p><a href="http://www.hpca.ual.es/~jjsanchez/references/Thesis_JPEG2000-Based_Scalable_Interactive_Video.pdf" target="_blank">JPEG2000-Based Scalable Interactive Video (JSIV)</a><br>Aous Thabit Naman. September 2010.</p>
+</li>
+</ul>
+<hr>
+<h3 id="patents">Patents</h3>
+<ul>
+<li><a href="http://www.google.com/patents/US8577157" target="_blank">Conditional replenishment for motion JPEG2000 &raquo;</a><br>Inventors: <a href="http://www.technicolor.com/en/talent/researcher/le-leannec" target="_blank">Fabrice Le Leannec</a> and <a href="http://www.informatik.uni-trier.de/~ley/pers/hd/h/Henocq:Xavier.html" target="_blank">Xavier Henocq</a>. / Canon.<br>Date of Patent: Nov. 5, 2013</li>
+</ul>
+<hr>
+<ul>
+<li><p><a href="http://www.stanford.edu/class/ee368b/Projects/chiao/" target="_blank">Rate-constrained Conditional Replenishment Video Coding with Adaptive Change Detection</a><br>Xinqiao Liu. December 1, 2000.  </p>
+</li>
+<li><p><a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4387612" target="_blank">A New Video Compression Scheme Combining Conditional Replenishment and Address Event Representation</a><br>IEEE Workshop on Signal Processing Systems, 2007. Date of Conference: 17-19 Oct. 2007.</p>
+</li>
+</ul>
+<hr>
+<h3 id="references">References</h3>
+<ul>
+<li>H. Everett, III. <a href="http://www.hpca.ual.es/~jjsanchez/references/Generalized_Lagrange_multiplier_method_for_solving_problems_of_optimum_allocation_of_resources.pdf" target="_blank">Generalized lagrange multiplier method for solving problems of
+optimum allocation of resources</a>. Operations Research, 11(3):399–417, 1963</li>
+</ul>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./cacheformat.html" class="navigation navigation-prev"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./changelog.html" class="navigation navigation-next"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js"></script>
+        <script src="gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+        <script src="gitbook/app.js"></script>
+        
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-mixpanel/plugin.js"></script>
+    
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+    </body>
+</html>

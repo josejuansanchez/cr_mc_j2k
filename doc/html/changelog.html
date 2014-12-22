@@ -5,10 +5,11 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -28,7 +29,39 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </head>
 <body>
 <h1 id="changelog">Changelog</h1>
-<h3 id="section">03/02/2014</h3>
+<h3 id="section">04/07/2014</h3>
+<ul>
+<li>Modificación en la utilidad <code>decodefromcache</code> para aceptar como parámetro de entrada el número del nivel de resolución con el que se quiere descomprimir la imagen. Si no se especifica ningún parámetro de entrada entonces se supone que se quiere descomprimir la imagen con el máximo nivel de resolución (0).</li>
+</ul>
+<h3 id="section-1">04/06/2014</h3>
+<ul>
+<li>Modificación en la utilidad <code>woistocache</code> para que el número de bytes leídos que se devuelve en el archivo <code>bytes.readed</code> no sea mayor que el parámetro de entrada <code>bitrate</code>.</li>
+<li>Modificación en la utilidad <code>woistocache</code> para incluir los métodos 1 y 2 (Knapsack).</li>
+</ul>
+<h3 id="section-2">02/06/2014</h3>
+<p>Se ha completado toda la implementación del problema Knapsack. Se han creado las siguientes utilidades:</p>
+<ul>
+<li><code>knapsack_info_files/create_all_info_files.sh</code></li>
+<li><code>j2c_to_knapsack_files/create_knapsack_json_file.sh</code></li>
+<li><code>j2c_to_knapsack_files/create_woi_list</code></li>
+<li><code>knapsack/knapsack</code></li>
+</ul>
+<h3 id="section-3">03/04/2014</h3>
+<p>Modificación en la creación de paquetes vacíos.</p>
+<p>A la hora de crear paquetes vacíos creábamos paquetes con esta estructura:</p>
+<pre><code>FF 91 00 04 XX XX C0 00</code></pre>
+<p>donde:</p>
+<ul>
+<li><code>FF 91</code>: SOP Marker<br /></li>
+<li><code>00 04</code>: Lenght of marker segment in bytes (not including the marker)<br /></li>
+<li><code>XX XX</code>: Packet number<br /></li>
+<li><code>C0 00</code>: Packet body</li>
+</ul>
+<p>Esta forma de crear un paquete vacío es errónea ya que el contenido del campo <strong>Packet body</strong> incluye información en su cabecera debido a que el primer bit es un 1 <code>(C0 00 = 1010 0000)</code>.</p>
+<p>Según la documentación de JPEG2000:</p>
+<pre><code>Zero Length Packet 
+The first bit in the packet header indicates whether the packet has a length of zero. If this bit is 0, the length is zero. Otherwise, the value of 1 means the packet has a non-zero length.</code></pre>
+<h3 id="section-4">03/02/2014</h3>
 <p>Modificaciones sobre el método:</p>
 <pre><code>bool jp2_area::woi_to_lrcp_modified(char filename_woi[], int w, int h, int r, int q)</code></pre>
 <p>Con este código podemos extraer información importante a partir del code-stream:</p>

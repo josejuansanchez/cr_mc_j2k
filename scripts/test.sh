@@ -8,15 +8,16 @@ function CheckExitStatusCode()
 	fi
 }
 
-TEST=_test_2014_02_14
+TEST=_test_2014_06_16_blk_16_mode_2_8
+#TEST=_test_2014_06_12_blk_16_mode_2_8
 
 # tree
 #IMAGE_N=0
 #IMAGE_N1=1
 
 # stockholm
-IMAGE_N=2
-IMAGE_N1=3
+IMAGE_N=3
+IMAGE_N1=4
 
 # big buck bunny
 #IMAGE_N=100

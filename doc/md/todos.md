@@ -25,3 +25,25 @@ int SetPacketList(packet *packetList, int *npa, char filename[]) {
 * Estudiar si es mejor enviar todos los metadatos de todas las imágenes de la secuencia antes de realizar el envío del *code-stream*, o enviar los metadatos de forma individual junto a cada imagen.
 * Estudiar cómo varía el tamaño de los archivos según los parámetros de compresión utilizados y de qué manera esto nos puede afectar.
 * Dejar los paquetes vacíos en 7 bytes (actualmente están en 8 bytes).
+* Usar SSIM como métrica de distorsión a la hora de calcular los vectores de movimiento.
+* La utilidad ```woistocache``` no envía las capas de calidad completas. 
+  Por ejemplo, en este caso puede ocurrir que si tenemos un ```bitrate``` de entrada de 1762, estaríamos enviando la segunda
+  capa de calidad incompleta (faltaría 1 2 0 2 7).
+
+```
+896 256 128 128: 0 0 0 2 7: 27
+ID:    27 Offset: 10806 Length:   524
+
+896 256 128 128: 0 1 0 2 7: 87
+ID:    87 Offset: 33092 Length:   547
+
+896 256 128 128: 0 2 0 2 7: 147
+ID:   147 Offset: 47378 Length:   351
+
+896 256 128 128: 1 0 0 2 7: 27
+ID:    27 Offset: 54178 Length:    26
+
+896 256 128 128: 1 1 0 2 7: 87
+ID:    87 Offset: 59782 Length:   314
+```
+* Crear un archivo de configuración .JSON que sea común para todos los scripts.

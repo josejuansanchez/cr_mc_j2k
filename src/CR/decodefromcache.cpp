@@ -56,11 +56,13 @@ int main(int argc, char **argv)
 {
 	jp2_area jarea;
 	JP2Cache cache;
+	int r;
 
 	if(argc < 6) 
 	{
 		fprintf(stderr, "\nError: Numero de parametros incorrecto!!!\n"
-		       "\nUso: %s <Caché> <Imagen OUT> <Ancho Img. Reconst> <Alto Img. Reconst>\n\n",argv[0]);
+		       "\nUso: %s <Caché> <Imagen OUT> <Ancho Img. Reconst> <Alto Img. Reconst> <Imagen con header info> [Nivel de Resolución]\n\n",argv[0]);
+		fprintf(stderr, "[Nivel de Resolución = 0]. Descomprime la imagen con el mayor nivel de resolución posible.\n");		
 		return -1;
 	}
 	
@@ -86,12 +88,23 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	/* Comprobamos si el nivel de resolución está entre los parámetros de entrada. 		   */
+	/* Si no está presente lo establecemos a 0 por defecto (el máximo nivel de resolución) */
+	if (argc > 6) {
+		r = atoi(argv[6]);
+	} else {
+		r = 0;
+	}
+
+	printf("Nivel de resolución: %d\n", r);
+	printf("Nota: 0 es el máximo nivel de resolución de la imagen\n");
+
 	/* Características de la imagen que queremos reconstruir */
 	jarea.woi_reconstructed.x = 0;
 	jarea.woi_reconstructed.y = 0;	
 	jarea.woi_reconstructed.w = atoi(argv[3]);
 	jarea.woi_reconstructed.h = atoi(argv[4]);
-	jarea.woi_reconstructed.r = 0;
+	jarea.woi_reconstructed.r = r;
 
 	/* Descomprimimos los precintos seleccionados y generamos una imagen de salida */
 	kdu_byte *org = jarea.create_buffer();

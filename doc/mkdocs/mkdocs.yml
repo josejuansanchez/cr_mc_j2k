@@ -1,0 +1,26 @@
+site_name: Conditional Replenishment and Motion Compensation
+pages:
+- [index.md, Home]
+- [development/algorithm.md, Development, Algorithm]
+- [development/knapsack.md, Development, Knapsack Algorithm]
+- [development/knapsackfiles.md, Development, Knapsack Files]
+- [development/fileformats.md, Development, File Formats]
+- [development/packets.md, Development, JPEG2000 Packets Structure]
+- [development/tools.md, Development, Tools]
+- [development/changelog.md, Development, Changelog]
+- [development/todo.md, Development, TODO]
+- [experiments/experiments.md, Experiments]
+- [references/stateoftheart.md, References, State of the art]
+
+#theme: readthedocs
+#theme: flatly
+#theme: spacelab
+theme: yeti
+
+#theme: cyborg
+#theme: cosmo
+#theme: cerulean
+#theme: readable
+#theme: slate
+#theme: simplex
+#theme: journal

@@ -1,6 +1,53 @@
 Changelog
 =========
 
+### 04/07/2014
+* Modificación en la utilidad ```decodefromcache``` para aceptar como parámetro de entrada el número
+del nivel de resolución con el que se quiere descomprimir la imagen. Si no se especifica ningún parámetro
+de entrada entonces se supone que se quiere descomprimir la imagen con el máximo nivel de resolución (0).
+
+### 04/06/2014
+
+* Modificación en la utilidad ```woistocache``` para que el número de bytes leídos que se devuelve 
+en el archivo ```bytes.readed``` no sea mayor que el parámetro de entrada ```bitrate```.
+* Modificación en la utilidad ```woistocache``` para incluir los métodos 1 y 2 (Knapsack).
+
+### 02/06/2014
+
+Se ha completado toda la implementación del problema Knapsack.
+Se han creado las siguientes utilidades:
+
+- ```knapsack_info_files/create_all_info_files.sh```
+- ```j2c_to_knapsack_files/create_knapsack_json_file.sh```
+- ```j2c_to_knapsack_files/create_woi_list```
+- ```knapsack/knapsack```
+
+### 03/04/2014
+
+Modificación en la creación de paquetes vacíos.
+
+A la hora de crear paquetes vacíos creábamos paquetes con esta estructura:
+
+```
+FF 91 00 04 XX XX C0 00
+```
+
+donde: 
+
+  * ```FF 91```: SOP Marker   
+  * ```00 04```: Lenght of marker segment in bytes (not including the marker)  
+  * ```XX XX```: Packet number  
+  * ```C0 00```: Packet body  
+
+Esta forma de crear un paquete vacío es errónea ya que el contenido del campo **Packet body** incluye información en su cabecera debido a que el primer bit es un 1 ```(C0 00 = 1010 0000)```.
+
+Según la documentación de JPEG2000:
+
+```
+Zero Length Packet 
+The first bit in the packet header indicates whether the packet has a length of zero. If this bit is 0, the length is zero. Otherwise, the value of 1 means the packet has a non-zero length.
+```
+
 ### 03/02/2014
 
 Modificaciones sobre el método:

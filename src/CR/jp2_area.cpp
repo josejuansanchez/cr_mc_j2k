@@ -1042,6 +1042,7 @@ bool jp2_area::load_cache_from_file_without_id_list(JP2Cache& cache, char *filen
   int cont_add = 0;
 
   //printf("\nid from GetPacketId: %d", GetPacketId(data));
+  printf("\nid from GetPacketId: %d -\t l: %d \t r: %d \t c: %d \t py: %d \t px: %d \t rb: %d", GetPacketId(data),l,r,c,py,px,rb);
 
   while(!feof(fc))
   {
@@ -1059,7 +1060,8 @@ bool jp2_area::load_cache_from_file_without_id_list(JP2Cache& cache, char *filen
   	fread(&rb, sizeof(rb), 1, fc);
   	fread(&data, 1, rb, fc);
 
-    //printf("\nid from GetPacketId: %d", GetPacketId(data));    
+    //printf("\nid from GetPacketId: %d", GetPacketId(data));   
+    printf("\nid from GetPacketId: %d -\t l: %d \t r: %d \t c: %d \t py: %d \t px: %d \t rb: %d", GetPacketId(data),l,r,c,py,px,rb);
   }
   fclose(fc);
 
@@ -1111,7 +1113,7 @@ bool jp2_area::decode_from_cache(kdu_byte *buf, JP2Cache& cache_aux)
   code_aux.set_persistent();
 
   // Info: /home/josejuan/Aplicaciones/Kakadu/SourceCode/v6_4_1-00305L/documentation/index.html
-  code_aux.set_resilient(true);
+  //code_aux.set_resilient(true);
   //***************************
   
   return decode_from_codestream(code_aux, buf);
@@ -1451,8 +1453,9 @@ bool jp2_area::woi_to_lrcp_modified(char filename_woi[], int w, int h, int r, in
             {    
                kdu_long pid = res.get_precinct_id(kdu_coords(px, py));            
                
-               float scale_factor = pow(2,r - 1 - resolution);
-               //printf("%d / %f = %f \t %f \t %d\n", ww.x, scale_factor, ww.x / scale_factor, (ww.x / scale_factor) / precincts_size_in_each_resolution[resolution].size.x, px);
+               float scale_factor = pow(2, r - 1 - resolution);
+               //printf("\n%d / %f = %f \t %f \t %d\n", ww.x, scale_factor, ww.x / scale_factor, (ww.x / scale_factor) / precincts_size_in_each_resolution[resolution].size.x, px);
+               //printf("%d / %f = %f \t %f \t %d\n", ww.y, scale_factor, ww.y / scale_factor, (ww.y / scale_factor) / precincts_size_in_each_resolution[resolution].size.y, py);
                //printf("%d %d %d %d: %d %d %d %d %d: %ld\n", ww.x, ww.y, ww.w, ww.h, l, resolution, c, py, px, (long)pid);
 
                // Eliminamos los precintos que no coincidan exactamente con la región de la WOI.
@@ -1553,7 +1556,7 @@ bool jp2_area::sort_lrcp_file_type_1(int layersLevel, int resolutionLevels)
 
 // Ordenamos el archivo que contiene los paquetes en coordenadas LRCP.
 // Vamos cogiendo todos los paquetes de una capa de calidad de cada precinto.
-bool jp2_area::sort_lrcp_file_type_2(int layersLevel, int resolutionLevels)
+bool jp2_area::sort_lrcp_file_using_knapsack_method_1(int layersLevel, int resolutionLevels)
 {
   /* Archivo de donde vamos a ir leyendo las coordenadas de los paquetes */
   char *filename = new char[255];
@@ -1628,6 +1631,52 @@ bool jp2_area::sort_lrcp_file_type_2(int layersLevel, int resolutionLevels)
   return true;
 }
 
+// Ordenamos el archivo que contiene los paquetes en coordenadas LRCP.
+// Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto.
+bool jp2_area::sort_lrcp_file_using_knapsack_method_2(int layersLevel, int resolutionLevels, int until_this_quality_layer)
+{
+  /* Archivo de donde vamos a ir leyendo las coordenadas de los paquetes */
+  char *filename = new char[255];
+  strcpy(filename, cur_name);
+  strcat(filename,".lrcp");
+  FILE *fwois = fopen(filename,"r");
+  if (!fwois) return false;
+
+  /* Archivo donde vamos a ir guardando las coordenadas lrcp en diferente orden */
+  char *filename_sort = new char[255];
+  strcpy(filename_sort, cur_name);
+  strcat(filename_sort,".lrcp.sort");
+  FILE *fsort = fopen(filename_sort,"w");
+  if (!fsort) return false;
+
+  int x, y, w, h, l, r, c, py, px;
+  long id;
+  int cont = 0;
+
+  while(!feof(fwois))
+  {
+    /* Leemos tantas líneas como niveles de resolución tengamos y capas de calidad que queramos incluir */
+    for(int j=0; j < resolutionLevels*until_this_quality_layer; j++){
+      fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
+      //printf("\t\t---> %d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);
+      fprintf(fsort,"%d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);      
+      cont++;    
+    }
+
+    /* Indica cuántas líneas tenemos que saltarnos del primer bloque */
+    for(int j=cont; j < layersLevel*resolutionLevels; j++){
+      fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
+    }    
+
+    /* Reseteamos el contador */
+    cont = 0;
+  }
+
+  fclose(fwois);
+  fclose(fsort);
+  return true;
+}
+
 // REVISAR ****************
 //
 
@@ -1657,7 +1706,8 @@ int jp2_area::load_wois_cache_and_update_index_list_TEST(JP2Cache& cache, double
             break;
 
     /* Leemos las coordenadas del archivo que hemos ordenado previamente */
-    case 1: strcat(filename,".lrcp.sort");
+    case 1:
+    case 2: strcat(filename,".lrcp.sort");
             break;
   }
   
@@ -1703,6 +1753,12 @@ int jp2_area::load_wois_cache_and_update_index_list_TEST(JP2Cache& cache, double
 		    }
 		    if (!encontrado)
 		    {
+           // NEW CHANGE
+           if(num + packet.length > max_bytes)
+           {
+              goto end_load_woi;
+           }
+
 	         int off = packet.offset;
 	         int plen = packet.length;
 
@@ -1770,7 +1826,6 @@ int jp2_area::load_wois_cache_and_update_index_list_TEST(JP2Cache& cache, double
 
   return num;
 }
-
 
 int jp2_area::save_packets_to_file()
 {

@@ -5,6 +5,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
@@ -13,13 +14,13 @@
 <pre><code> FF 91    00 04    04 EC    C0 00 ...
 \-----/  \-----/  \-----/  \--------/
  16 bits  16 bits  16 bits   N bits
-
+ 
  SOP       Lsop     Nsop     Packet Body</code></pre>
 <p><strong>SOP</strong>: Start Of Packet marker.<br /><strong>Lsop</strong>: Length of marker segment in bytes (Not including the marker).<br /><strong>Nsop</strong>: Packet number (Possible values are between 0 and 65535).</p>
 <h1 id="paquetes-vacíos">Paquetes vacíos</h1>
-<p>Los paquetes vacíos que se han creado contienen 8 bytes y tienen el siguiente formato:</p>
-<pre><code> FF 91   00 04   XX XX   80 00
-\_____/ \_____/ \_____/ \_____/
+<p>Los paquetes vacíos que se han creado contienen 7 bytes y tienen el siguiente formato:</p>
+<pre><code> FF 91   00 04   XX XX   00
+\_____/ \_____/ \_____/ \__/
   SOP    Lsop    Nsop    Packet Body</code></pre>
 <ul>
 <li><p><strong>SOP</strong>: Start of packet.</p></li>
@@ -31,8 +32,7 @@
 <li><p><code>00_{(16)} = unsigned char lsop_0 = 0_{(10)}</code>.</p></li>
 <li><p><code>04_{(16)} = unsigned char lsop_1 = 4_{(10)}</code>.</p></li>
 <li><p><code>XX XX</code> se corresponde con el id del paquete.</p></li>
-<li><p><code>80_{(16)} = unsigned char body_0 = 128_{(10)}</code>.</p></li>
-<li><p><code>00_{(16)} = unsigned char body_1 = 0_{(10)}</code>.</p></li>
+<li><p><code>00_{(16)} = unsigned char body_0 = 0_{(10)}</code>.</p></li>
 </ul>
 <h1 id="nuevo-tamaño-de-bloque-para-la-lectura-de-paquetes">Nuevo tamaño de bloque para la lectura de paquetes</h1>
 <p>Se ha modificado el tamaño de la estructura que utilizábamos para leer los paquetes de los archivos <code>.j2c</code> para luego almacenarlos en nuestro formato interno <code>.j2c.cache</code>. Por ejemplo en la aplicación <code>woistocache</code> los paquetes se leían en bloques de <span class="math">500</span> bytes utilizando la estructura <code>kdu_byte data[500]</code>. De modo que para un paquete de <span class="math">2214</span> bytes tendríamos <span class="math">5</span> bloques en nuestro archivo <code>.j2c.cache</code>.</p>
@@ -68,7 +68,7 @@ SOP       Lsop     Nsop     Packet Body</code></pre>
 <pre><code> FF 91    00 04 
 \-----/  \-----/
  16 bits  16 bits
-
+ 
  SOP       Lsop</code></pre>
 <h1 id="cambios-en-la-librería-jp2_area.cpp">Cambios en la librería <code>jp2_area.cpp</code></h1>
 <p>Hemos modificado el método <code>void jp2_area::get_packet_data(FILE *f, packet_data&amp; p)</code> de la librería <code>jp2_area.cpp</code> para evitar el problema de los marcadores <strong>SOP</strong>.</p>
@@ -76,13 +76,13 @@ SOP       Lsop     Nsop     Packet Body</code></pre>
 <pre><code> FF 91    00 04 
 \-----/  \-----/
  16 bits  16 bits
-
+ 
  SOP       Lsop</code></pre>
 <p>También nos hemos encontrado con un caso que podría dar lugar a confusión, porque se puede hacer una mala interpretación del marcador <strong>FF D9</strong> (End Of Code-stream).</p>
 <pre><code> FF 91    00 04   01 FF    D9 ... ...
 \-----/  \-----/ \-----/  \-----/
  16 bits 16 bits 16 bits
-
+ 
  SOP       Lsop   Nsop    Packet Body</code></pre>
 <p>Para solucionarlo hemos comprobado que después del marcador <strong>FF D9</strong> no hay más bytes.</p>
 </body>

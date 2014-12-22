@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<h1 id="experiment-2014-06-10">Experiment: 2014-06-10</h1>
+<h2 id="secuencia">Secuencia</h2>
+<ul>
+<li><em>stockholm</em></li>
+</ul>
+<h2 id="descripción">Descripción</h2>
+<ul>
+<li>Se ha simulado una transimisión de <strong>25</strong> imágenes de la secuencia <em>stockholm</em> de 1280x768.</li>
+<li>Este experimento compara cómo sería la transmisión siguiendo el algoritmo <strong>cr</strong> frente a una transmisión Motion JPEG2000.</li>
+<li><strong>cr</strong>: Para nuestro algoritmo sólo se transmite <strong>la primera capa de calidad completa de cada precinto</strong>.</li>
+<li>En este experimento <em>no se ha utilizado mc</em>.</li>
+<li><strong>mj2</strong>: Se trunca el <em>code-stream</em> a un determinado bitrate para simular una transmisión Motion JPEG2000.</li>
+<li>Parámetros de <strong>kdu_compress</strong>:</li>
+</ul>
+<pre><code>        CLAYERS=8
+        CLEVELS=2
+        CPRECINCTS=&quot;{128,128},{64,64},{32,32}&quot;        
+        CBLK=&quot;{16,16}&quot;</code></pre>
+<ul>
+<li>Layer size (bytes):</li>
+</ul>
+<pre><code>        Layer 1: 52.935
+        Layer 2: 75.629
+        Layer 3: 107.036
+        Layer 4: 151.085
+        Layer 5: 212.880
+        Layer 6: 299.633
+        Layer 7: 421.937
+        Layer 8: 620.854</code></pre>
+<ul>
+<li>En este experimento se está utilizando <strong>método 2 de knapsack con 3 capas de calidad</strong> para hacer la transmisión.</li>
+</ul>
+<h1 id="psnr-and-ssim">PSNR and SSIM</h1>
+<h3 id="psnr">PSNR</h3>
+<div class="figure">
+<img src="images/psnr.png" />
+</div>
+<h3 id="ssim">SSIM</h3>
+<div class="figure">
+<img src="images/ssim.png" />
+</div>
+</body>
+</html>

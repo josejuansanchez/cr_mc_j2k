@@ -5,10 +5,11 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
 code > span.kw { color: #007020; font-weight: bold; }
@@ -57,6 +58,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Utilizar información de las predicciones (o información ya precalculada) como metadatos de las imágenes.</li>
 <li>Estudiar si es mejor enviar todos los metadatos de todas las imágenes de la secuencia antes de realizar el envío del <em>code-stream</em>, o enviar los metadatos de forma individual junto a cada imagen.</li>
 <li>Estudiar cómo varía el tamaño de los archivos según los parámetros de compresión utilizados y de qué manera esto nos puede afectar.</li>
+<li>Dejar los paquetes vacíos en 7 bytes (actualmente están en 8 bytes).</li>
+<li>Usar SSIM como métrica de distorsión a la hora de calcular los vectores de movimiento.</li>
+<li>La utilidad <code>woistocache</code> no envía las capas de calidad completas. Por ejemplo, en este caso puede ocurrir que si tenemos un <code>bitrate</code> de entrada de 1762, estaríamos enviando la segunda capa de calidad incompleta (faltaría 1 2 0 2 7).</li>
+</ul>
+<pre><code>896 256 128 128: 0 0 0 2 7: 27
+ID:    27 Offset: 10806 Length:   524
+
+896 256 128 128: 0 1 0 2 7: 87
+ID:    87 Offset: 33092 Length:   547
+
+896 256 128 128: 0 2 0 2 7: 147
+ID:   147 Offset: 47378 Length:   351
+
+896 256 128 128: 1 0 0 2 7: 27
+ID:    27 Offset: 54178 Length:    26
+
+896 256 128 128: 1 1 0 2 7: 87
+ID:    87 Offset: 59782 Length:   314</code></pre>
+<ul>
+<li>Crear un archivo de configuración .JSON que sea común para todos los scripts.</li>
 </ul>
 </body>
 </html>

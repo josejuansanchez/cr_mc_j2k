@@ -359,8 +359,8 @@ void CreateEmptyPackets(packet *emptyList, int npe) {
    unsigned char sop_1 = 145;
    unsigned char lsop_0 = 0;
    unsigned char lsop_1 = 4;
-   unsigned char body_0 = 128;
-   unsigned char body_1 = 0;
+   unsigned char body_0 = 0; //128;
+   //unsigned char body_1 = 0;
 
    FILE *f;
    char filename[256] = "emptypackets";
@@ -384,7 +384,7 @@ void CreateEmptyPackets(packet *emptyList, int npe) {
       fwrite(&emptyList[i].py, sizeof(emptyList[i].py), 1, f);
       fwrite(&emptyList[i].px, sizeof(emptyList[i].px), 1, f);
       
-      int rb = 8;
+      int rb = 7; //8;
       fwrite(&rb, sizeof(rb), 1, f);
 
       fwrite(&sop_0, sizeof(unsigned char), 1, f);
@@ -393,7 +393,7 @@ void CreateEmptyPackets(packet *emptyList, int npe) {
       fwrite(&lsop_1, sizeof(unsigned char), 1, f);
       fwrite(&nsop_reverse, sizeof(short), 1, f);
       fwrite(&body_0, sizeof(unsigned char), 1, f);
-      fwrite(&body_1, sizeof(unsigned char), 1, f);
+      //fwrite(&body_1, sizeof(unsigned char), 1, f);
    }
 
    fclose(f);

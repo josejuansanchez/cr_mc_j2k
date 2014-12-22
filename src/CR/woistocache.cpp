@@ -87,18 +87,24 @@ static bool write_bytes_readed(long numBytes)
 int main(int argc, char **argv)
 {
 	jp2_area jarea;
-	int WprecinctSize, HprecinctSize, r, l, pSelectionMode;
+	int WprecinctSize, HprecinctSize, r, l, pSelectionMode, until_this_quality_layer;
 	double bitRate;
 
 	if(argc < 9) 
  	{
 		fprintf(stderr, "\nError: Numero de parametros incorrecto!!!\n"
-		       "\nUso: %s <Imagen J2C> <Lista de WOIs .txt> <W Precinct size> <H Precinct size> <r> <l> <BitRate (Bytes)> <Precincts Selection Mode>\n\n",argv[0]);
+		       "\nUso: %s <Imagen J2C> <Lista de WOIs .txt> <W Precinct size> <H Precinct size> <r> <l> <BitRate (Bytes)> <Precincts Selection Mode> [until_this_quality_layer]\n\n",argv[0]);
 		fprintf(stderr, "Precincts Selection Mode = 0. Los precintos se seleccionan tal y como lo hace KAKADU.\n");
-		fprintf(stderr, "Precincts Selection Mode = 1. Los precintos se seleccionan sólo cuando coinciden con la WOI.\n");
+		fprintf(stderr, "Precincts Selection Mode = 1. Los precintos se seleccionan sólo cuando coinciden con la WOI (Knapsack Method 1).\n");
+		fprintf(stderr, "Precincts Selection Mode = 2. Los precintos se seleccionan sólo cuando coinciden con la WOI (Knapsack Method 2).\n");
+		fprintf(stderr, "                              Si utilizamos este modo es obligatorio indicar el parámetro [until_this_quality_layer].\n");
 		return -1;
 	}
 	
+	/* NOTA: Si usamos Mode = 2 (Knapsack Method 2) y un valor muy alto para el parámetro de entrada <BitRate>, */
+	/* hay que tener en cuenta que sólo se devolverán hasta el número máximo de capas de calidad que indiquemos */
+	/* en <until_this_quality_layer> */
+
 	kdu_customize_warnings(&warn_collector);
 	kdu_customize_errors(&err_collector);
 	
@@ -111,6 +117,15 @@ int main(int argc, char **argv)
 	l = atoi(argv[6]);
 	bitRate= atof(argv[7]);
 	pSelectionMode = atoi(argv[8]);
+
+	/* Si estamos en el Mode = 2, necesitamos el parámetro [until_this_quality_layer] */
+	if (pSelectionMode == 2) {
+		if(argc < 10) {
+			fprintf(stderr, "\nError: Debe indicar un valor válido para el parámetro [until_this_quality_layer]\n\n");
+			return -1;
+		} 
+		until_this_quality_layer = atoi(argv[9]);
+	}
 
 	/* Abrimos la imagen J2C */
 	if(!jarea.open(argv[1])) 
@@ -132,16 +147,26 @@ int main(int argc, char **argv)
 				break;
 
 		/* Seleccionamos los precintos sólo cuando coinciden con la WOI */
+		/* Los precintos se seleccionan siguiendo el método Knapsack 1  */
 		case 1: jarea.woi_to_lrcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
 				
 				/* <---------------------------- */
 				/* Vamos cogiendo el primer paquete de cada precinto. */
 				//jarea.sort_lrcp_file_type_1(l,r);
-				
-				/* Vamos cogiendo todos los paquetes de una capa de calidad de cada precinto. */
-				jarea.sort_lrcp_file_type_2(l,r);
 				/* <---------------------------- */
+				
+				/* Seleccionamos los precintos siguiendo el método Knapsack 1 */
+				/* Vamos cogiendo todos los paquetes de una capa de calidad de cada precinto. */
+				jarea.sort_lrcp_file_using_knapsack_method_1(l,r);
+				break;
 
+		/* Seleccionamos los precintos sólo cuando coinciden con la WOI */
+		/* Los precintos se seleccionan siguiendo el método Knapsack 2  */
+		case 2: jarea.woi_to_lrcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
+
+				/* Seleccionamos los precintos siguiendo el método Knapsack 2 */
+				/* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */				
+				jarea.sort_lrcp_file_using_knapsack_method_2(l,r, until_this_quality_layer);
 				break;
 	}
 
