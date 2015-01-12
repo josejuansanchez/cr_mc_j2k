@@ -15,26 +15,41 @@ if [ $# -ne 3 ]; then
 	exit;
 fi
 
+PLATFORM=LINUX
+#PLATFORM=MAC
+
+case $PLATFORM in
+	"LINUX" )
+		HOME=/home/josejuan/cr_mc_j2k
+		;;
+
+	"MAC" )
+		HOME=/Users/josejuan/cr_mc_j2k
+		;;
+esac
+
 # Tools
-DIFFERENCES=/home/josejuan/cr_mc_j2k/tools/differencesthumbnails
-WOISTOCACHE=/home/josejuan/cr_mc_j2k/src/CR/woistocache
-GETHEADERSIZE=/home/josejuan/cr_mc_j2k/tools/get_header_size_j2c
-EXTRACTCACHE=/home/josejuan/cr_mc_j2k/tools/extractcache
-DECODEFROMCACHE=/home/josejuan/cr_mc_j2k/src/CR/decodefromcache
-SORTCACHE=/home/josejuan/cr_mc_j2k/tools/sortcache
-SNR=/home/josejuan/cr_mc_j2k/tools/snr
-GETHEADERSIZE=/home/josejuan/cr_mc_j2k/tools/get_header_size_j2c
-DRAWBLOCKS=/home/josejuan/cr_mc_j2k/tools/drawblocks_txt
-COUNTSOPS=/home/josejuan/cr_mc_j2k/tools/countsops
-COOKCACHE=/home/josejuan/cr_mc_j2k/tools/cookcache
-KNAPSACK=/home/josejuan/cr_mc_j2k/knapsack/knapsack
+DIFFERENCES=$HOME/tools/differencesthumbnails
+WOISTOCACHE=$HOME/src/CR/woistocache
+GETHEADERSIZE=$HOME/tools/get_header_size_j2c
+EXTRACTCACHE=$HOME/tools/extractcache
+DECODEFROMCACHE=$HOME/src/CR/decodefromcache
+SORTCACHE=$HOME/tools/sortcache
+SNR=$HOME/tools/snr
+GETHEADERSIZE=$HOME/tools/get_header_size_j2c
+DRAWBLOCKS=$HOME/tools/drawblocks_txt
+COUNTSOPS=$HOME/tools/countsops
+COOKCACHE=$HOME/tools/cookcache
+KNAPSACK=$HOME/knapsack/knapsack
+ME=$HOME/MCJ2K/bin/me
+DECORRELATE=$HOME/MCJ2K/bin/decorrelate
 
 # Configuramos el path donde están los archivos .json con la info de ql, psnr y bytes de los precintos de cada imagen
-KNAPSACK_INFO_FILES=/home/josejuan/cr_mc_j2k/scripts/knapsack_info_files/files
+KNAPSACK_INFO_FILES=$HOME/scripts/knapsack_info_files/files
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
-octave --eval "addpath('/home/josejuan/cr_mc_j2k/tools/ssim/');savepath;"
-SSIM=/home/josejuan/cr_mc_j2k/tools/ssim/compute_ssim.sh
+octave --eval "addpath('$HOME/tools/ssim/');savepath;"
+SSIM=$HOME/tools/ssim/compute_ssim.sh
 
 #SEQUENCE=foreman
 #SEQUENCE=stockholm
@@ -46,8 +61,8 @@ SEQUENCE=stockholm3dwt
 case $SEQUENCE in
 
     "foreman" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/foreman_352x288
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/foreman_352x288
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -78,8 +93,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -110,8 +125,8 @@ case $SEQUENCE in
     ;;    
 
     "tree" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/tree_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/tree_1280x768
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -142,8 +157,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm3dwt" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -174,8 +189,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm6dwt" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -206,8 +221,8 @@ case $SEQUENCE in
     ;;
 
     "bigbuckbunny" )
-	IMAGES_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails/big_buck_bunny_1280x768
-	THUMBNAILS_DIRECTORY=/home/josejuan/cr_mc_j2k/data/thumbnails
+	IMAGES_DIRECTORY=$HOME/data/thumbnails/big_buck_bunny_1280x768
+	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -310,21 +325,21 @@ while [ $i -le 1 ]; do
 	# **********************************************************************
 	#
 	# Calculamos los vectores de movimiento
-	/home/josejuan/cr_mc_j2k/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
+	$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
 	CheckExitStatusCode	
 	#
 	# WITHOUT MC
 	# **********************************************************************	
 	# ¡OJO!: UTILIZAMOS LA MISMA IMAGEN: $odd_image
 	# 
-	#/home/josejuan/MCJ2K/bin/me -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
+	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
 	#CheckExitStatusCode			
 	# ************************************************************************	
 
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
 	# Como salida genera la imagen: prediction_temp.pgm
 	# Nota: "decorrelate" necesita que la imagen de entrada esté en el directorio local
-	/home/josejuan/cr_mc_j2k/MCJ2K/bin/decorrelate -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V	
+	$DECORRELATE -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V	
 	CheckExitStatusCode	
 
 	# Eliminamos la imagen temporal que se genera

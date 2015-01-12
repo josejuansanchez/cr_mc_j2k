@@ -1,1 +1,6 @@
+# Images
 data/
+
+# Octave files
+.octave_hist
+.octaverc
