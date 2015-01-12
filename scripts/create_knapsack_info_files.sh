@@ -1,27 +1,28 @@
 #!/bin/bash
 
-#set -x
+set -x
 
 if [ $# -ne 2 ]; then
 	echo "Uso: $0 <numero_inicio_secuencia> <numero_fin_secuencia>"
 	exit -1
 fi
 
+CONFIGFILE=cr_mc_config.cfg
+if [ ! -f $CONFIGFILE ]; then
+	echo "Error reading config file: $CONFIGFILE"
+	exit;
+fi
+
+echo "Reading config file: $CONFIGFILE ...."
+source "$CONFIGFILE"
+
 START=$1
 END=$2
-SOURCE_IMAGE_J2C_FILES="/home/josejuan/experimentos/experimentos_cr/data/thumbnails"
+SOURCE_IMAGE_J2C_FILES="$HOME/data/thumbnails"
 
 # Tools
-CREATE_WOI_LIST=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/knapsack/j2c_to_knapsack_files/create_woi_list
-CREATE_KNAPSACK_JSON_FILE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/knapsack/j2c_to_knapsack_files/create_knapsack_json_file.sh
-
-# Dimensiones de la imagen original
-WIDTH_RECONS=1280
-HEIGHT_RECONS=768
-
-# Dimensiones de los precintos de la imagen original
-W_PRECINT_SIZE=128
-H_PRECINT_SIZE=128
+CREATE_WOI_LIST=$HOME/knapsack/j2c_to_knapsack_files/create_woi_list
+CREATE_KNAPSACK_JSON_FILE=$HOME/knapsack/j2c_to_knapsack_files/create_knapsack_json_file.sh
 
 # Archivo que contiene toda la lista de WOIs
 WOIS_LIST_FILE=wois.txt

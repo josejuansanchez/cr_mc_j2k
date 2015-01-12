@@ -2,29 +2,19 @@
 
 #set -x
 
-# Tools
-WOISTOCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/Code/CR/woistocache
-DECODEFROMCACHE=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/Code/CR/decodefromcache
-SNR=/home/josejuan/experimentos/experimentos_cr/conditional_replenishment/tools/snr
+CONFIGFILE=cr_mc_config.cfg
+if [ ! -f $CONFIGFILE ]; then
+	echo "Error reading config file: $CONFIGFILE"
+	exit;
+fi
+
+echo "Reading config file: $CONFIGFILE ...."
+source "$CONFIGFILE"
 
 #################################################
-
-# Precinct size at the maximum resolution level
-W_PRECINT_SIZE=128
-H_PRECINT_SIZE=128
-
-# Compression parameters used in Kakadu
-CLEVELS=2
-CLAYERS=8
-
-# Original image dimension
-WIDTH_RECONS=1280
-HEIGHT_RECONS=768
-
-#Type of output
+# Output type
 OUTPUT=JSON
 #OUTPUT=TEXT
-
 #################################################
 
 # Functions

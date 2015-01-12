@@ -4,3 +4,7 @@ data/
 # Octave files
 .octave_hist
 .octaverc
+
+# Temporary files
+scripts/temp_woi.txt
+scripts/wois.txt
