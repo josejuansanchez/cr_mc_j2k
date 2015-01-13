@@ -246,7 +246,8 @@ EXE	+= $(BIN)/extract
 #			ln -s $< $@
 #EXE	+= $(BIN)/mcj2k
 
-all:	$(EXE)
+#all:	$(EXE)
+all: $(BIN)/me
 
 objetives:
 	@echo $(EXE) all clean

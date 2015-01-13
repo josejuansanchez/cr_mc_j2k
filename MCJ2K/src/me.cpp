@@ -1000,5 +1000,3 @@ int main(int argc, char *argv[]) {
   delete texture_dwt;
 
 }
-
-
