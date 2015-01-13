@@ -1,6 +1,5 @@
 CC = g++
-#KAKADU_DIR = /home/jportiz/carlos/Kakadu/v4_5-00305L
-KAKADU_DIR = /home/josejuan/Utilidades/ICIP/Code/Kakadu/v6_4_1-00305L
+KAKADU_DIR = /home/josejuan/cr_mc_j2k/src/Kakadu/v6_4_1-00305L
 
 INCLUDES = -I$(KAKADU_DIR)/coresys/common -I$(KAKADU_DIR)/apps/args 
 INCLUDES += -I$(KAKADU_DIR)/apps/image -I$(KAKADU_DIR)/apps/compressed_io 

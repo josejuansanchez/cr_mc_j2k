@@ -1,6 +1,9 @@
 # Images
 data/
 
+# Kakadu
+src/Kakadu
+
 # Octave files
 .octave_hist
 .octaverc
