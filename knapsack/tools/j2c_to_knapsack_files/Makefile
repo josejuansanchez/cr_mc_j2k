@@ -17,8 +17,11 @@ $(BIN)/create_woi_list: src/create_woi_list.c
 EXE += $(BIN)/create_woi_list
 
 #Objetives
-all :	$(EXE)
+all : directories $(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f $(BIN)/*	
+	rm -rf $(BIN)/*	
+
+directories:
+	mkdir -p $(BIN)	

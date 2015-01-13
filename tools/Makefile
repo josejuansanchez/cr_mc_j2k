@@ -272,8 +272,11 @@ $(BIN)/cookcache: src/cookcache.c bin/libcache.o
 EXE	+= $(BIN)/cookcache
 
 # Objetives
-all: 	$(EXE)
+all: directories $(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f $(BIN)/*
+	rm -rf $(BIN)/*
+
+directories:
+	mkdir -p $(BIN)

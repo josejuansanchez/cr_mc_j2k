@@ -27,8 +27,11 @@ $(BIN)/knapsack: src/knapsack.c bin/libknapsack.o src/parson/parson.c
 EXE += $(BIN)/knapsack
 
 #Objetives
-all :	$(EXE)
+all : directories $(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f $(BIN)/*
+	rm -rf $(BIN)/*
+
+directories:
+	mkdir -p $(BIN)
