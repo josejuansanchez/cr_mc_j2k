@@ -1,24 +1,34 @@
-# Compilador
+default:	all
+
+# Compiler
 CC := gcc
+
 # Flags
-CFLAGS := -g
+CFLAGS := -g -O3 -pipe
+CFLAGS += -Wno-unused-result
 
-#Objetivos
-all : knapsack
+# Directories
+BIN = bin
+EXE =
 
-libknapsack.o: libknapsack.c libknapsack.h
+$(BIN)/libknapsack.o: src/libknapsack.c src/libknapsack.h
 	@echo "   libknapsack:"
-	$(CC) $(CFLAGS) -c libknapsack.c -o $@ -lm
+	$(CC) $(CFLAGS) -c src/libknapsack.c -o $@ -lm
+EXE += $(BIN)/libknapsack.o
 
-knapsacktest: knapsacktest.c libknapsack.o
+$(BIN)/knapsacktest: src/knapsacktest.c bin/libknapsack.o
 	@echo "  knapsacktest:"
-	$(CC) $(CFLAGS) libknapsack.o knapsacktest.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/libknapsack.o src/knapsacktest.c -o $@ -lm
+EXE += $(BIN)/knapsacktest
 
-knapsack: knapsack.c libknapsack.o parson/parson.c
+$(BIN)/knapsack: src/knapsack.c bin/libknapsack.o src/parson/parson.c
 	@echo "  knapsack:"
-	$(CC) $(CFLAGS) libknapsack.o knapsack.c parson/parson.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/libknapsack.o src/knapsack.c src/parson/parson.c -o $@ -lm
+EXE += $(BIN)/knapsack
 
+#Objetives
+all :	$(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f *.o knapsacktest knapsack
+	rm -f $(BIN)/*

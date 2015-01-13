@@ -7,6 +7,9 @@ src/Kakadu
 # Tools binaries
 tools/bin
 
+# Knapsack binaries
+knapsack/bin
+
 # Octave files
 .octave_hist
 .octaverc

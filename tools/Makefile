@@ -276,4 +276,4 @@ all: 	$(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f bin/*
+	rm -f $(BIN)/*
