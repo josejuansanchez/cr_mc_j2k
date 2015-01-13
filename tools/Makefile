@@ -1,230 +1,279 @@
-# Compilador
+default:	all
+
+# Compiler
 CC := gcc
+
 # Flags
-CFLAGS := -g
+CFLAGS := -g -O3 -pipe
+CFLAGS += -Wno-unused-result
 
-#Objetivos
-all : differencespgm mergewois divideprecincts distinctOne distinctTwo snr \
-      mergewoismax printprecincts deleteheader extract limitprecincts drawblocks printblock  \
-      limitprecincts2 sumpgm differencespgm2 merge divideprecincts2 differencespgmprecincts joinprecincts \
-      analyze avg limitprecincts3 differencesthumbnails differencesthumbnailsprecincts count txttodat countsops drawoneblock \
-      extractcache sortcache viewcache drawblocks_txt print_wois_list create_image_pgm get_header_size_j2c limitprecincts_threshold \
-      adaptative_threshold fusion fusion2 differencesppm countplt getprecinct differences move_pixels viewblocks cookcache
+# Directories
+BIN = bin
+EXE =
 
-differencespgm: differencespgm.c PGM.o iroutines.o
+$(BIN)/differencespgm: src/differencespgm.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences PGM:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differencespgm.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differencespgm.c -o $@ -lm
+EXE	+= $(BIN)/differencespgm
 
-differencespgm2: differencespgm2.c PGM.o iroutines.o
+$(BIN)/differencespgm2: src/differencespgm2.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences2 PGM:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differencespgm2.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differencespgm2.c -o $@ -lm
+EXE	+= $(BIN)/differencespgm2
 
-differencespgmprecincts: differencespgmprecincts.c PGM.o iroutines.o
+$(BIN)/differencespgmprecincts: src/differencespgmprecincts.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences PGM Precincts:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differencespgmprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differencespgmprecincts.c -o $@ -lm
+EXE	+= $(BIN)/differencespgmprecincts
 
-differencesthumbnails: differencesthumbnails.c PGM.o iroutines.o
+$(BIN)/differencesthumbnails: src/differencesthumbnails.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences Thumbnails:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differencesthumbnails.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differencesthumbnails.c -o $@ -lm
+EXE	+= $(BIN)/differencesthumbnails
 
-differencesthumbnailsprecincts: differencesthumbnailsprecincts.c PGM.o iroutines.o
+$(BIN)/differencesthumbnailsprecincts: src/differencesthumbnailsprecincts.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences Thumbnails Precincts:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differencesthumbnailsprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differencesthumbnailsprecincts.c -o $@ -lm
+EXE	+= $(BIN)/differencesthumbnailsprecincts
 
-differences: differences.c PGM.o iroutines.o
+$(BIN)/differences: src/differences.c bin/PGM.o bin/iroutines.o
 	@echo "   Differences:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o differences.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/differences.c -o $@ -lm
+EXE	+= $(BIN)/differences
 
-mergewois: mergewois.c PGM.o iroutines.o
+$(BIN)/mergewois: src/mergewois.c bin/PGM.o bin/iroutines.o
 	@echo "   Merge Wois:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o mergewois.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/mergewois.c -o $@ -lm
+EXE	+= $(BIN)/mergewois
 
-mergewoismax: mergewoismax.c PGM.o iroutines.o
+$(BIN)/mergewoismax: src/mergewoismax.c bin/PGM.o bin/iroutines.o
 	@echo "   Merge Wois Max:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o mergewoismax.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/mergewoismax.c -o $@ -lm
+EXE	+= $(BIN)/mergewoismax
 
-merge: merge.c PGM.o iroutines.o
+$(BIN)/merge: src/merge.c bin/PGM.o bin/iroutines.o
 	@echo "   Merge:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o merge.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/merge.c -o $@ -lm
+EXE	+= $(BIN)/
 
-divideprecincts: divideprecincts.c PGM.o iroutines.o
+$(BIN)/divideprecincts: src/divideprecincts.c bin/PGM.o bin/iroutines.o
 	@echo "   Divide Precints:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o divideprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/divideprecincts.c -o $@ -lm
+EXE	+= $(BIN)/merge
 
-divideprecincts2: divideprecincts2.c PGM.o iroutines.o
+$(BIN)/divideprecincts2: src/divideprecincts2.c bin/PGM.o bin/iroutines.o
 	@echo "   Divide Precints 2:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o divideprecincts2.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/divideprecincts2.c -o $@ -lm
+EXE	+= $(BIN)/divideprecincts2
 
-deleteheader: deleteheader.c PGM.o iroutines.o
+$(BIN)/deleteheader: src/deleteheader.c bin/PGM.o bin/iroutines.o
 	@echo "   Delete Headers:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o deleteheader.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/deleteheader.c -o $@ -lm
+EXE	+= $(BIN)/deleteheader
 
-extract: extract.c PGM.o iroutines.o
+$(BIN)/extract: src/extract.c bin/PGM.o bin/iroutines.o
 	@echo "   Extract:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o extract.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/extract.c -o $@ -lm
+EXE	+= $(BIN)/extract
 
-limitprecincts: limitprecincts.c PGM.o iroutines.o
+$(BIN)/limitprecincts: src/limitprecincts.c bin/PGM.o bin/iroutines.o
 	@echo "   Limit Precints:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o limitprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/limitprecincts.c -o $@ -lm
+EXE	+= $(BIN)/limitprecincts
 
-limitprecincts2: limitprecincts2.c PGM.o iroutines.o
+$(BIN)/limitprecincts2: src/limitprecincts2.c bin/PGM.o bin/iroutines.o
 	@echo "   Limit Precints2:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o limitprecincts2.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/limitprecincts2.c -o $@ -lm
+EXE	+= $(BIN)/limitprecincts2
 
-limitprecincts3: limitprecincts3.c PGM.o iroutines.o
+$(BIN)/limitprecincts3: src/limitprecincts3.c bin/PGM.o bin/iroutines.o
 	@echo "   Limit Precints3:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o limitprecincts3.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/limitprecincts3.c -o $@ -lm
+EXE	+= $(BIN)/limitprecincts3
 
-limitprecincts_threshold: limitprecincts_threshold.c PGM.o iroutines.o
+$(BIN)/limitprecincts_threshold: src/limitprecincts_threshold.c bin/PGM.o bin/iroutines.o
 	@echo "   Limit Precints Threshold:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o limitprecincts_threshold.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/limitprecincts_threshold.c -o $@ -lm
+EXE	+= $(BIN)/limitprecincts_threshold
 
-sumpgm: sumpgm.c PGM.o iroutines.o
+$(BIN)/sumpgm: src/sumpgm.c bin/PGM.o bin/iroutines.o
 	@echo "   SumPGM:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o sumpgm.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/sumpgm.c -o $@ -lm
+EXE	+= $(BIN)/sumpgm
 
-distinctOne: distinctOne.c distinct.o
+$(BIN)/distinctOne: src/distinctOne.c bin/distinct.o
 	@echo "   distinctOne:"
-	$(CC) $(CFLAGS) distinct.o distinctOne.c -o $@
+	$(CC) $(CFLAGS) bin/distinct.o src/distinctOne.c -o $@
+EXE	+= $(BIN)/distinctOne
 
-distinctTwo: distinctTwo.c distinct.o
+$(BIN)/distinctTwo: src/distinctTwo.c bin/distinct.o
 	@echo "   distinctTwo:"
-	$(CC) $(CFLAGS) distinct.o distinctTwo.c -o $@
+	$(CC) $(CFLAGS) bin/distinct.o src/distinctTwo.c -o $@
+EXE	+= $(BIN)/distinctTwo
 
-printprecincts: printprecincts.c iroutines.o
+$(BIN)/printprecincts: src/printprecincts.c bin/iroutines.o
 	@echo "   Print Precincts:"
-	$(CC) $(CFLAGS) iroutines.o printprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/iroutines.o src/printprecincts.c -o $@ -lm
+EXE	+= $(BIN)/printprecincts
 
-drawblocks: drawblocks.c PGM.o iroutines.o
+$(BIN)/drawblocks: src/drawblocks.c bin/PGM.o bin/iroutines.o
 	@echo "   Draw Blocks:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o drawblocks.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/drawblocks.c -o $@ -lm
+EXE	+= $(BIN)/drawblocks
 
-drawoneblock: drawoneblock.c PGM.o iroutines.o
+$(BIN)/drawoneblock: src/drawoneblock.c bin/PGM.o bin/iroutines.o
 	@echo "   Draw One Block:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o drawoneblock.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/drawoneblock.c -o $@ -lm
+EXE	+= $(BIN)/drawoneblock
 
-drawblocks_txt: drawblocks_txt.c PGM.o iroutines.o
+$(BIN)/drawblocks_txt: src/drawblocks_txt.c bin/PGM.o bin/iroutines.o
 	@echo "   Draw Blocks TXT:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o drawblocks_txt.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/drawblocks_txt.c -o $@ -lm
+EXE	+= $(BIN)/drawblocks_txt
 
-printblock: printblock.c PGM.o iroutines.o
+$(BIN)/printblock: src/printblock.c bin/PGM.o bin/iroutines.o
 	@echo "   Print Block:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o printblock.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/printblock.c -o $@ -lm
+EXE	+= $(BIN)/printblock
 
-joinprecincts: joinprecincts.c PGM.o iroutines.o
+$(BIN)/joinprecincts: src/joinprecincts.c bin/PGM.o bin/iroutines.o
 	@echo "   Join:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o joinprecincts.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/joinprecincts.c -o $@ -lm
+EXE	+= $(BIN)/joinprecincts
 
-snr: snr.c
+$(BIN)/snr: src/snr.c
 	@echo "   snr:"
-	$(CC) $(CFLAGS) snr.c -o $@ -lm
+	$(CC) $(CFLAGS) src/snr.c -o $@ -lm
+EXE	+= $(BIN)/snr
 
-avg: avg.c PGM.o iroutines.o
+$(BIN)/avg: src/avg.c bin/PGM.o bin/iroutines.o
 	@echo "   avg:"
-	$(CC) $(CFLAGS)  PGM.o iroutines.o avg.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/avg.c -o $@ -lm
+EXE	+= $(BIN)/avg
 
-count: count.c PGM.o iroutines.o
+$(BIN)/count: src/count.c bin/PGM.o bin/iroutines.o
 	@echo "   count:"
-	$(CC) $(CFLAGS)  PGM.o iroutines.o count.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/count.c -o $@ -lm
+EXE	+= $(BIN)/count
 
-txttodat: txttodat.c PGM.o iroutines.o
+$(BIN)/txttodat: src/txttodat.c bin/PGM.o bin/iroutines.o
 	@echo "   txttodat:"
-	$(CC) $(CFLAGS)  PGM.o iroutines.o txttodat.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/txttodat.c -o $@ -lm
+EXE	+= $(BIN)/txttodat
 
-PGM.o: PGM.c PGM.h
+$(BIN)/PGM.o: src/PGM.c src/PGM.h
 	@echo "   PGM:"
-	$(CC) $(CFLAGS) -c PGM.c -o $@
+	$(CC) $(CFLAGS) -c src/PGM.c -o $@
+EXE	+= $(BIN)/PGM.o
 
-iroutines.o: iroutines.c iroutines.h
+$(BIN)/iroutines.o: src/iroutines.c src/iroutines.h
 	@echo "   iroutines:"
-	$(CC) $(CFLAGS) -c iroutines.c -o $@ -lm
+	$(CC) $(CFLAGS) -c src/iroutines.c -o $@ -lm
+EXE	+= $(BIN)/iroutines.o
 
-distinct.o: distinct.c distinct.h
+$(BIN)/distinct.o: src/distinct.c src/distinct.h
 	@echo "   distinct:"
-	$(CC) $(CFLAGS) -c distinct.c -o $@
+	$(CC) $(CFLAGS) -c src/distinct.c -o $@
+EXE	+= $(BIN)/distinct.o
 
-libcache.o: libcache.c libcache.h
+$(BIN)/libcache.o: src/libcache.c src/libcache.h
 	@echo "   iroutines:"
-	$(CC) $(CFLAGS) -c libcache.c -o $@ -lm
+	$(CC) $(CFLAGS) -c src/libcache.c -o $@ -lm
+EXE	+= $(BIN)/libcache.o
 
-analyze: analyze.c
+$(BIN)/analyze: src/analyze.c
 	@echo "   analyze:"
-	$(CC) $(CFLAGS) analyze.c -o $@ -lm
+	$(CC) $(CFLAGS) src/analyze.c -o $@ -lm
+EXE	+= $(BIN)/analyze
 
-countsops: countsops.c
+$(BIN)/countsops: src/countsops.c
 	@echo "  countsops:"
-	$(CC) $(CFLAGS) countsops.c -o $@ -lm
+	$(CC) $(CFLAGS) src/countsops.c -o $@ -lm
+EXE	+= $(BIN)/countsops
 
-extractcache: extractcache.c
+$(BIN)/extractcache: src/extractcache.c
 	@echo "  extractcache:"
-	$(CC) $(CFLAGS) extractcache.c -o $@ -lm
+	$(CC) $(CFLAGS) src/extractcache.c -o $@ -lm
+EXE	+= $(BIN)/extractcache
 
-sortcache: sortcache.c libcache.o
+$(BIN)/sortcache: src/sortcache.c bin/libcache.o
 	@echo "  sortcache:"
-	$(CC) $(CFLAGS) libcache.o sortcache.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/libcache.o src/sortcache.c -o $@ -lm
+EXE	+= $(BIN)/sortcache
 
-viewcache: viewcache.c libcache.o
+$(BIN)/viewcache: src/viewcache.c bin/libcache.o
 	@echo "  viewcache:"
-	$(CC) $(CFLAGS) libcache.o viewcache.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/libcache.o src/viewcache.c -o $@ -lm
+EXE	+= $(BIN)/viewcache
 
-print_wois_list: print_wois_list.c
+$(BIN)/print_wois_list: src/print_wois_list.c
 	@echo "  print_wois_list:"
-	$(CC) $(CFLAGS) print_wois_list.c -o $@ -lm
+	$(CC) $(CFLAGS) src/print_wois_list.c -o $@ -lm
+EXE	+= $(BIN)/print_wois_list
 
-create_image_pgm: create_image_pgm.c
+$(BIN)/create_image_pgm: src/create_image_pgm.c
 	@echo "  create_image_pgm:"
-	$(CC) $(CFLAGS) PGM.o create_image_pgm.c  -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o src/create_image_pgm.c  -o $@ -lm
+EXE	+= $(BIN)/create_image_pgm
 
-get_header_size_j2c: get_header_size_j2c.c
+$(BIN)/get_header_size_j2c: src/get_header_size_j2c.c
 	@echo "  get_header_size_j2c:"
-	$(CC) $(CFLAGS) get_header_size_j2c.c -o $@ -lm
+	$(CC) $(CFLAGS) src/get_header_size_j2c.c -o $@ -lm
+EXE	+= $(BIN)/get_header_size_j2c
 
-adaptative_threshold: adaptative_threshold.c
+$(BIN)/adaptative_threshold: src/adaptative_threshold.c
 	@echo "  adaptative_threshold:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o adaptative_threshold.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/adaptative_threshold.c -o $@ -lm
+EXE	+= $(BIN)/adaptative_threshold
 
-fusion: fusion.c PGM.o iroutines.o
+$(BIN)/fusion: src/fusion.c bin/PGM.o bin/iroutines.o
 	@echo "   Fusion:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o fusion.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/fusion.c -o $@ -lm
+EXE	+= $(BIN)/fusion
 
-fusion2: fusion2.c PGM.o iroutines.o
+$(BIN)/fusion2: src/fusion2.c bin/PGM.o bin/iroutines.o
 	@echo "   Fusion2:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o fusion2.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/fusion2.c -o $@ -lm
+EXE	+= $(BIN)/fusion2
 
-PPM.o: PPM.c PPM.h
+$(BIN)/PPM.o: src/PPM.c src/PPM.h
 	@echo "   PPM:"
-	$(CC) $(CFLAGS) -c PPM.c -o $@
+	$(CC) $(CFLAGS) -c src/PPM.c -o $@
+EXE	+= $(BIN)/PPM.o
 
-differencesppm: differencesppm.c PPM.o iroutines.o
+$(BIN)/differencesppm: src/differencesppm.c bin/PPM.o bin/iroutines.o
 	@echo "   Differences PPM:"
-	$(CC) $(CFLAGS) PPM.o iroutines.o differencesppm.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PPM.o bin/iroutines.o src/differencesppm.c -o $@ -lm
+EXE	+= $(BIN)/differencesppm
 
-countplt: countplt.c
+$(BIN)/countplt: src/countplt.c
 	@echo "  countplt:"
-	$(CC) $(CFLAGS) countplt.c -o $@ -lm
+	$(CC) $(CFLAGS) src/countplt.c -o $@ -lm
+EXE	+= $(BIN)/countplt
 
-getprecinct: getprecinct.c
+$(BIN)/getprecinct: src/getprecinct.c
 	@echo "  getprecinct:"
-	$(CC) $(CFLAGS) getprecinct.c -o $@ -lm
+	$(CC) $(CFLAGS) src/getprecinct.c -o $@ -lm
+EXE	+= $(BIN)/getprecinct
 
-move_pixels: move_pixels.c PGM.o
+$(BIN)/move_pixels: src/move_pixels.c bin/PGM.o
 	@echo "   Move Pixels:"
-	$(CC) $(CFLAGS) PGM.o move_pixels.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o src/move_pixels.c -o $@ -lm
+EXE	+= $(BIN)/move_pixels
 
-viewblocks: viewblocks.c PGM.o iroutines.o
+$(BIN)/viewblocks: src/viewblocks.c bin/PGM.o bin/iroutines.o
 	@echo "   View Blocks:"
-	$(CC) $(CFLAGS) PGM.o iroutines.o viewblocks.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/PGM.o bin/iroutines.o src/viewblocks.c -o $@ -lm
+EXE	+= $(BIN)/viewblocks
 
-cookcache: cookcache.c libcache.o
+$(BIN)/cookcache: src/cookcache.c bin/libcache.o
 	@echo "  cookcache:"
-	$(CC) $(CFLAGS) libcache.o cookcache.c -o $@ -lm
+	$(CC) $(CFLAGS) bin/libcache.o src/cookcache.c -o $@ -lm
+EXE	+= $(BIN)/cookcache
 
+# Objetives
+all: 	$(EXE)
 
 clean :
 	@echo "   Remove binaries..."
-	rm -f *.o differencespgm mergewois divideprecincts distinctOne distinctTwo snr \
-	mergewoismax printprecincts deleteheader extract limitprecincts drawblocks printblock \
-	limitprecincts2 sumpgm differencespgm2 merge divideprecincts2 differencespgmprecincts joinprecincts \
-  	analyze avg limitprecincts3 differencesthumbnails differencesthumbnailsprecincts count txttodat countsops drawoneblock \
-	extractcache sortcache viewcache drawblocks_txt print_wois_list create_image_pgm get_header_size_j2c limitprecincts_threshold \
-	adaptative_threshold fusion2 differencesppm countplt getprecinct fusion differences move_pixels viewblocks cookcache
+	rm -f bin/*

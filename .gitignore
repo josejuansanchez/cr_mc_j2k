@@ -4,6 +4,9 @@ data/
 # Kakadu
 src/Kakadu
 
+# Tools binaries
+tools/bin
+
 # Octave files
 .octave_hist
 .octaverc
