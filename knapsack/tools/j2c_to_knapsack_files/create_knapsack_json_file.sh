@@ -2,7 +2,7 @@
 
 #set -x
 
-CONFIGFILE=cr_mc_config.cfg
+CONFIGFILE="../../../scripts/cr_mc_config.cfg"
 if [ ! -f $CONFIGFILE ]; then
 	echo "Error reading config file: $CONFIGFILE"
 	exit;

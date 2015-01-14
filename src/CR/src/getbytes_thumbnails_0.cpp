@@ -8,7 +8,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include "../Util/Args.h"
+#include "../../Util/Args.h"
 #include "jp2_area.h"
 
 
@@ -52,7 +52,7 @@ static bool write_image(char *fname, kdu_byte *buffer, int num_components, int h
 
 static bool set_multiple_wois(char *fname, jp2_area *jarea, int w, int h, int r, int q)
 {
-  int x, y;
+  int x, y, line;
   woi ww;
   FILE *f = fopen(fname, "r");
 
@@ -103,6 +103,7 @@ static bool set_multiple_wois_and_load_cache(char *fname, jp2_area *jarea, int w
   return true;
 }
 
+
 int main(int argc, char **argv)
 {
 	jp2_area jareaA, jareaB;
@@ -111,15 +112,14 @@ int main(int argc, char **argv)
 
 	if(argc < 11) {
 		fprintf(stderr, "\nError: Numero de parametros incorrecto!!!\n"
-		       "\nUso: %s <Caché (A)> <imagen J2C (B)> <lista precintos UP> <precinct size> <r> <l> <imagen OUT> <Ancho Img. Reconst> <Alto Img. Reconst> <BitRate (Bytes)>\n",argv[0]);
-		fprintf(stderr, "\n<l>: Empieza en 0\n\n");
+		       "\nUso: %s <imagen J2C (A)> <imagen J2C (B)> <lista precintos UP> <precinct size> <r> <l> <imagen OUT> <Ancho Img. Reconst> <Alto Img. Reconst> <BitRate (Bytes)>\n\n",argv[0]);
 		return -1;
 	}
 	
 	kdu_customize_warnings(&warn_collector);
 	kdu_customize_errors(&err_collector);
 	
-	fprintf(stderr, "\nCaché A: '%s'\n", argv[1]);
+	fprintf(stderr, "\nImagen A: '%s'\n", argv[1]);
 	fprintf(stderr, "\nImagen B: '%s'\n", argv[2]);
 	fprintf(stderr, "\nLista de precintos UP: '%s'\n", argv[3]);
 	
@@ -135,38 +135,37 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	/* Creamos la lista de índices y id de paquetes */
+	/* Creamos la lista de índices de paquetes */
 	jareaB.create_index_and_id_list();
 
 	/* Marcamos las WOIs 'B' */
 	set_multiple_wois(argv[3], &jareaB, precinctSize, precinctSize, r, l);
 
-	/* Actualizamos la caché con los paquetes de las WOIs seleccionadas de B */
-	JP2Cache cache;
-	jareaB.load_wois_cache_and_update_index_list(cache, bitRate, false);
+	/* Guardamos en una cache los paquetes de las WOIs seleccionadas */
+	JP2Cache cacheB;
+	jareaB.load_wois_cache_and_update_index_list(cacheB, bitRate, false);
 
-	/* Leemos la caché de A de un archivo */
-	//
-	/* NOTA: Los IDs de precintos que se hayan leído en el paso anterior (load_wois_cache_and_update_index_list) se descartan */
-	/* y no se incluyen en la nueva caché */
-	//
-	if(!jareaB.load_cache_from_file(cache, argv[1]))		
+	/* Abrimos la imagen A */
+	if(!jareaA.open(argv[1])) 
 	{
-		printf("\nError: No se ha podido leer el archivo de caché (%s)!!!\n\n",argv[1]);
+		fprintf(stderr, "\nError: No se ha podido abrir el archivo (%s)!!!\n\n",argv[1]); 
 		return -1;
 	}
 
-	/* Características de la imagen que queremos reconstruir */
-	jareaB.woi_reconstructed.x = 0;
-	jareaB.woi_reconstructed.y = 0;	
-	jareaB.woi_reconstructed.w = atoi(argv[8]);
-	jareaB.woi_reconstructed.h = atoi(argv[9]);
-	jareaB.woi_reconstructed.r = 0;
+	/* WOI 'A' */
+    	woi ww = woi(0, 0, atoi(argv[8]), atoi(argv[9]), r, l);
+    	jareaA.set_woi(ww);
 
-	/* Descomprimimos los precintos seleccionados y generamos una imagen de salida */
-	kdu_byte *org = jareaB.create_buffer();
-	jareaB.decode_from_cache(org, cache);
-	write_image(argv[7], org, 1, jareaB.woi_reconstructed.h, jareaB.woi_reconstructed.w);
+	/* Características de la imagen que queremos reconstruir */
+	jareaA.woi_reconstructed.x = 0;
+	jareaA.woi_reconstructed.y = 0;	
+	jareaA.woi_reconstructed.w = atoi(argv[8]);
+	jareaA.woi_reconstructed.h = atoi(argv[9]);
+	jareaA.woi_reconstructed.r = 0;			// OJO!! Niveles de resolución que queremos descartar
+
+	kdu_byte *org = jareaA.create_buffer();
+	jareaA.decode(org, cacheB, jareaB.index_list, jareaB.ne);
+	write_image(argv[7], org, 1, jareaA.woi_reconstructed.h, jareaA.woi_reconstructed.w);
 
 	return 0;
 }

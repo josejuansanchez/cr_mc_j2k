@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <limits.h>
-#include "../JP2Util/JP2Util.h"
+#include "../../JP2Util/JP2Util.h"
 
 
 struct packet_data
