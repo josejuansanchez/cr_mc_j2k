@@ -11,6 +11,12 @@ tools/bin
 knapsack/tools/knapsack/bin
 knapsack/tools/j2c_to_knapsack_files/bin
 
+# CR binaries
+src/CR/bin/
+
+# Object files
+*.o
+
 # Octave files
 .octave_hist
 .octaverc

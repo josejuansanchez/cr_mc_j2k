@@ -1,4 +1,4 @@
-default:	all # Para que sólo haga falta escribir "make"
+default:	all
 
 CC = g++
 
