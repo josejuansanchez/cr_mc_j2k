@@ -49,12 +49,12 @@ public:
       if(nx & 1) { /* N'umero impar de columnas */
 	for(int j=0;j<ny;j++) {
 	  memcpy(in_line, signal[j], nx*sizeof(TYPE));
-	  odd_analyze(in_line, signal[j], signal[j] + x + 1, nx);
+	  this->odd_analyze(in_line, signal[j], signal[j] + x + 1, nx);
 	}
       } else { /* N'umero par de columnas */
 	for(int j=0;j<ny;j++) {
 	  memcpy(in_line, signal[j], nx*sizeof(TYPE));
-	  even_analyze(in_line, signal[j], signal[j] + x, nx);
+	  this->even_analyze(in_line, signal[j], signal[j] + x, nx);
 	}
       }
       
@@ -64,7 +64,7 @@ public:
 	  for(int j=0;j<ny;j++) {
 	    in_line[j]=signal[j][i];
 	  }
-	  odd_analyze(in_line, out_line, out_line + y + 1, ny);
+	  this->odd_analyze(in_line, out_line, out_line + y + 1, ny);
 	  for(int j=0;j<ny;j++) {
 	    signal[j][i]=out_line[j];
 	  }
@@ -74,7 +74,7 @@ public:
 	  for(int j=0;j<ny;j++) {
 	    in_line[j]=signal[j][i];
 	  }
-	  even_analyze(in_line, out_line, out_line + y, ny);
+	  this->even_analyze(in_line, out_line, out_line + y, ny);
 	  for(int j=0;j<ny;j++) {
 	    signal[j][i]=out_line[j];
 	  }
@@ -100,7 +100,7 @@ public:
 	  for(int j=0;j<ny;j++) {
 	    in_line[j] = signal[j][i];
 	  }
-	  odd_synthesize(out_line, in_line, in_line + my + 1, ny);
+	  this->odd_synthesize(out_line, in_line, in_line + my + 1, ny);
 	  for(int j=0;j<ny;j++) {
 	    signal[j][i] = out_line[j];
 	  }
@@ -110,7 +110,7 @@ public:
 	  for(int j=0;j<ny;j++) {
 	    in_line[j] = signal[j][i];
 	  }
-	  even_synthesize(out_line, in_line, in_line + my, ny);
+	  this->even_synthesize(out_line, in_line, in_line + my, ny);
 	  for(int j=0;j<ny;j++) {
 	    signal[j][i] = out_line[j];
 	  }
@@ -121,12 +121,12 @@ public:
       if(nx & 1) { /* N'umero impar de columnas */
 	for(int j=0;j<ny;j++) {
 	  memcpy(in_line, signal[j], nx*sizeof(TYPE));
-	  odd_synthesize(signal[j], in_line, in_line + mx + 1, nx);
+	  this->odd_synthesize(signal[j], in_line, in_line + mx + 1, nx);
 	}
       } else { /* N'umero par de columas */
 	for(int j=0;j<ny;j++) {
 	  memcpy(in_line, signal[j], nx*sizeof(TYPE));
-	  even_synthesize(signal[j], in_line, in_line + mx, nx);
+	  this->even_synthesize(signal[j], in_line, in_line + mx, nx);
 	}
       }
     }
