@@ -3,8 +3,8 @@
 set -x
 
 if [ $# -ne 1 ]; then
-	echo -e "\nUso: $0 <BITRATE>\n";
-	exit;
+	echo -e "\nUso: $0 <BITRATE>\n"
+	exit 1
 fi
 
 BITRATE=$1

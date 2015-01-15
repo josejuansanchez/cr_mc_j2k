@@ -12,4 +12,3 @@ echo "exit") | gnuplot
 cp ${IMG_OUT}.svg temp.svg
 
 display ${IMG_OUT}.svg
-

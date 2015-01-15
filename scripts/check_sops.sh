@@ -2,7 +2,7 @@
 
 if [ $# -ne 2 ]; then
 	echo -e "\nUso: $0 <First Image> <Last Image>\n";
-	exit;
+	exit 1;
 fi
 
 FIRST=$1

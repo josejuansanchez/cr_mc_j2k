@@ -22,7 +22,13 @@ Example on Linux:
 cr_mc_j2k/src/Kakadu/v6_4_1-00305L/make/make -f Makefile-Linux-x86-64-gcc
 ```
 
-## Step 2. Compile all the tools
+## Step 2. Set variables
+
+```
+source ./cr_mc_j2k/config/cr_mc_config.sh
+```
+
+## Step 3. Compile all the tools
 
 ```
 cr_mc_j2k/make/make

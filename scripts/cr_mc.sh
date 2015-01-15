@@ -11,18 +11,19 @@ function CheckExitStatusCode()
 set -x
 
 if [ $# -ne 3 ]; then
-	echo -e "\nUso: $0 <IMAGEN N> <IMAGEN N+1> <BITRATE>\n";
-	exit;
+	echo -e "\nUso: $0 <IMAGEN N> <IMAGEN N+1> <BITRATE>\n"
+	exit 1
 fi
 
 CONFIGFILE=cr_mc_config.cfg
 if [ ! -f $CONFIGFILE ]; then
 	echo "Error reading config file: $CONFIGFILE"
-	exit;
+	exit 1
 fi
 
 echo "Reading config file: $CONFIGFILE ...."
 source "$CONFIGFILE"
+CheckExitStatusCode
 
 # Ancho de banda estimado
 BITRATE=$3

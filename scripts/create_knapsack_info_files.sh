@@ -4,13 +4,18 @@ set -x
 
 if [ $# -ne 2 ]; then
 	echo "Uso: $0 <numero_inicio_secuencia> <numero_fin_secuencia>"
-	exit -1
+	exit 1
 fi
 
-CONFIGFILE=cr_mc_config.cfg
+if [[ $CR_MC_J2K_HOME = "" ]]; then
+	echo "Error. CR_MC_J2K_HOME is not defined"
+	exit 1
+fi
+
+CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
 if [ ! -f $CONFIGFILE ]; then
 	echo "Error reading config file: $CONFIGFILE"
-	exit;
+	exit 1
 fi
 
 echo "Reading config file: $CONFIGFILE ...."

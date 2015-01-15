@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ $# -ne 2 ]; then
-	echo -e "\nUso: $0 <first_image> <last_image>\n";
-	exit;
+	echo -e "\nUso: $0 <first_image> <last_image>\n"
+	exit 1
 fi
 
 i=$1

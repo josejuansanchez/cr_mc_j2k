@@ -1,33 +1,37 @@
+#!/bin/bash
+
 # Platform
 # LINUX
-HOME=/home/josejuan/cr_mc_j2k
+CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
 # MAC
-#HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
+#CR_MC_J2K_HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
+
+export CR_MC_J2K_HOME
 
 # Tools
-DIFFERENCES=$HOME/tools/bin/differencesthumbnails
-WOISTOCACHE=$HOME/src/CR/bin/woistocache
-GETHEADERSIZE=$HOME/tools/bin/get_header_size_j2c
-EXTRACTCACHE=$HOME/tools/bin/extractcache
-DECODEFROMCACHE=$HOME/src/CR/bin/decodefromcache
-SORTCACHE=$HOME/tools/bin/sortcache
-SNR=$HOME/tools/bin/snr
-GETHEADERSIZE=$HOME/tools/bin/get_header_size_j2c
-DRAWBLOCKS=$HOME/tools/bin/drawblocks_txt
-COUNTSOPS=$HOME/tools/bin/countsops
-COOKCACHE=$HOME/tools/bin/cookcache
-KNAPSACK=$HOME/knapsack/knapsack
-ME=$HOME/MCJ2K/bin/me
-DECORRELATE=$HOME/MCJ2K/bin/decorrelate
-CREATE_WOI_LIST=$HOME/knapsack/tools/j2c_to_knapsack_files/bin/create_woi_list
-CREATE_KNAPSACK_JSON_FILE=$HOME/knapsack/tools/j2c_to_knapsack_files/create_knapsack_json_file.sh
+DIFFERENCES=$CR_MC_J2K_HOME/tools/bin/differencesthumbnails
+WOISTOCACHE=$CR_MC_J2K_HOME/src/CR/bin/woistocache
+GETHEADERSIZE=$CR_MC_J2K_HOME/tools/bin/get_header_size_j2c
+EXTRACTCACHE=$CR_MC_J2K_HOME/tools/bin/extractcache
+DECODEFROMCACHE=$CR_MC_J2K_HOME/src/CR/bin/decodefromcache
+SORTCACHE=$CR_MC_J2K_HOME/tools/bin/sortcache
+SNR=$CR_MC_J2K_HOME/tools/bin/snr
+GETHEADERSIZE=$CR_MC_J2K_HOME/tools/bin/get_header_size_j2c
+DRAWBLOCKS=$CR_MC_J2K_HOME/tools/bin/drawblocks_txt
+COUNTSOPS=$CR_MC_J2K_HOME/tools/bin/countsops
+COOKCACHE=$CR_MC_J2K_HOME/tools/bin/cookcache
+KNAPSACK=$CR_MC_J2K_HOME/knapsack/knapsack
+ME=$CR_MC_J2K_HOME/MCJ2K/bin/me
+DECORRELATE=$CR_MC_J2K_HOME/MCJ2K/bin/decorrelate
+CREATE_WOI_LIST=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/bin/create_woi_list
+CREATE_KNAPSACK_JSON_FILE=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/create_knapsack_json_file.sh
 
 # Configuramos el path donde están los archivos .json con la info de ql, psnr y bytes de los precintos de cada imagen
-KNAPSACK_INFO_FILES=$HOME/scripts/knapsack/info_files/files
+KNAPSACK_INFO_FILES=$CR_MC_J2K_HOME/scripts/knapsack/info_files/files
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
-octave --eval "addpath('$HOME/tools/ssim/');savepath;"
-SSIM=$HOME/tools/ssim/compute_ssim.sh
+#octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;"
+#SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 
 #SEQUENCE=foreman
 #SEQUENCE=stockholm
@@ -39,8 +43,8 @@ SEQUENCE=stockholm3dwt
 case $SEQUENCE in
 
     "foreman" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/foreman_352x288
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/foreman_352x288
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -71,8 +75,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -103,8 +107,8 @@ case $SEQUENCE in
     ;;    
 
     "tree" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/tree_1280x768
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/tree_1280x768
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -135,8 +139,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm3dwt" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -167,8 +171,8 @@ case $SEQUENCE in
     ;;
 
     "stockholm6dwt" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/stockholm_1280x768
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/stockholm_1280x768
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
@@ -199,8 +203,8 @@ case $SEQUENCE in
     ;;
 
     "bigbuckbunny" )
-	IMAGES_DIRECTORY=$HOME/data/thumbnails/big_buck_bunny_1280x768
-	THUMBNAILS_DIRECTORY=$HOME/data/thumbnails
+	IMAGES_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails/big_buck_bunny_1280x768
+	THUMBNAILS_DIRECTORY=$CR_MC_J2K_HOME/data/thumbnails
 
 	# Parámetros utilizados en kdu_compress
 	CLAYERS=8
