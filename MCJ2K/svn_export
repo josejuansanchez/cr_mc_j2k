@@ -1,6 +1,0 @@
-#!/bin/bash
-set -x
-rm -rf /tmp/MCTF
-svn export src /tmp/MCTF
-tar --create --file=/tmp/MCTF.tar -C /tmp MCTF
-gzip -9 /tmp/MCTF.tar

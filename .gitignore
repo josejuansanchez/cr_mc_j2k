@@ -14,6 +14,9 @@ knapsack/tools/j2c_to_knapsack_files/bin
 # CR binaries
 src/CR/bin/
 
+# MCJ2K binaries
+MCJ2K/bin
+
 # Object files
 *.o
 

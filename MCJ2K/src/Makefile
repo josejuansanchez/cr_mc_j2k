@@ -247,7 +247,7 @@ EXE	+= $(BIN)/extract
 #EXE	+= $(BIN)/mcj2k
 
 #all:	$(EXE)
-all: $(BIN)/me
+all: $(BIN)/me $(BIN)/decorrelate
 
 objetives:
 	@echo $(EXE) all clean
