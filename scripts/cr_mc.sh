@@ -8,14 +8,19 @@ function CheckExitStatusCode()
 	fi
 }
 
-set -x
+#set -x
 
 if [ $# -ne 3 ]; then
 	echo -e "\nUso: $0 <IMAGEN N> <IMAGEN N+1> <BITRATE>\n"
 	exit 1
 fi
 
-CONFIGFILE=cr_mc_config.cfg
+if [[ $CR_MC_J2K_HOME = "" ]]; then
+	echo "Error. CR_MC_J2K_HOME is not defined"
+	exit 1
+fi
+
+CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
 if [ ! -f $CONFIGFILE ]; then
 	echo "Error reading config file: $CONFIGFILE"
 	exit 1
@@ -318,10 +323,10 @@ while [ $i -le 1 ]; do
 	#----------------------------	
 
 	# Calculamos el SSIM (the Structural SIMilarity (SSIM) index)
-	SSIM_ME_PRECI=`$SSIM $next_image_pgm predictionimages/${next_image_prediction_pgm} | awk '{print $3}'`
+	SSIM_ME_PRECI=`$SSIM $next_image_pgm predictionimages/${next_image_prediction_pgm} 2> /dev/null | awk '{print $3}'`
 	CheckExitStatusCode
 
-	SSIM_TRUNC=`$SSIM $next_image_pgm $next_image_trunc_pgm | awk '{print $3}'`
+	SSIM_TRUNC=`$SSIM $next_image_pgm $next_image_trunc_pgm 2> /dev/null | awk '{print $3}'`
 	CheckExitStatusCode
 
 	echo -e "$SSIM_ME_PRECI \t $SSIM_TRUNC \n"

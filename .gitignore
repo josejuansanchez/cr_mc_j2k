@@ -30,3 +30,8 @@ scripts/wois.txt
 scripts/bytes.txt
 scripts/psnr.txt
 scripts/ssim.txt
+scripts/motion
+
+
+knapsack/tools/create_all_kanpsack_files/temp_woi.txt
+knapsack/tools/create_all_kanpsack_files/wois.txt

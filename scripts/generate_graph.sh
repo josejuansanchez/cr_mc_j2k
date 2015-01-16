@@ -26,9 +26,9 @@ PASTE_FILE=paste.txt
 paste $BYTES_FILE $PSNR_FILE $SSIM_FILE | awk '{ print $1 " " $2 " " $3 " " $4 " " $5 " " $6 }' > $PASTE_FILE
 
 # Creamos las gráficas con gnuplot
-gnuplot < create_bytes_graph.gpt
-gnuplot < create_psnr_graph.gpt 
-gnuplot < create_ssim_graph.gpt 
+gnuplot < gpt/create_bytes_graph.gpt
+gnuplot < gpt/create_psnr_graph.gpt 
+gnuplot < gpt/create_ssim_graph.gpt 
 
 # Cambiamos el nombre de los archivos de las imágenes
 mv bytes.png bytes_$BITRATE.png
