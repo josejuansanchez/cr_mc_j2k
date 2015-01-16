@@ -44,8 +44,12 @@ i=$START
 while [ $i -le $END ]; do
 	i_index=`printf %03d $i`
 
-	$CREATE_KNAPSACK_JSON_FILE $THUMBNAILS_DIRECTORY/${i_index}.j2c $WOIS_LIST_FILE > files/${i_index}.json
+	echo "Creating info file: $KNAPSACK_JSON_FILES/${i_index}.json"
+
+	$CREATE_KNAPSACK_JSON_FILE $THUMBNAILS_DIRECTORY/${i_index}.j2c $WOIS_LIST_FILE > $KNAPSACK_JSON_FILES/${i_index}.json
 	CheckExitStatusCode
+
+	echo "Info file: $KNAPSACK_JSON_FILES/${i_index}.json created!"
 
 	i=$(($i+1))
 done

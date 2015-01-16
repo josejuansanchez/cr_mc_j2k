@@ -129,7 +129,7 @@ while [ $i -le 1 ]; do
 # *************************
 #	# Calculamos qué método debemos utilizar para obtener las WOIs
 #	rm kanpsack_solution.txt
-#	$KNAPSACK $KNAPSACK_INFO_FILES/${next_index}.json precincts/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
+#	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json precincts/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
 #	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
 #	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
 #

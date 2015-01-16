@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 if [[ $CR_MC_J2K_HOME = "" ]]; then
 	echo "Error. CR_MC_J2K_HOME is not defined"

@@ -25,13 +25,11 @@ ME=$CR_MC_J2K_HOME/MCJ2K/bin/me
 DECORRELATE=$CR_MC_J2K_HOME/MCJ2K/bin/decorrelate
 CREATE_WOI_LIST=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/bin/create_woi_list
 CREATE_KNAPSACK_JSON_FILE=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/create_knapsack_json_file.sh
-
-# Configuramos el path donde están los archivos .json con la info de ql, psnr y bytes de los precintos de cada imagen
-KNAPSACK_INFO_FILES=$CR_MC_J2K_HOME/scripts/knapsack/info_files/files
+KNAPSACK_JSON_FILES=$CR_MC_J2K_HOME/knapsack/files
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
-#octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;"
-#SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
+octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;"
+SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 
 #SEQUENCE=foreman
 #SEQUENCE=stockholm
