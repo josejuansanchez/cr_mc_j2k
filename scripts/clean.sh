@@ -20,13 +20,14 @@ rm temp.svg
 rm *.png
 
 rm _tmp_pgm_images/*
-rm _tmp_predictionimages/*
+rm _tmp_prediction_images/*
 rm _tmp_blocks/*
-rm _tmp_blocksprecincts/*
+rm _tmp_blocks_precincts/*
 rm _tmp_precincts/*
-rm _tmp_precinctsimages/*
+rm _tmp_precincts_images/*
 rm _tmp_trunc_images/*
 rm _tmp_thumb_images/*
+rm _tmp_prediction_data/*
 
 rm psnr.txt
 rm bytes.txt

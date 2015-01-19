@@ -8,7 +8,7 @@ function CheckExitStatusCode()
 	fi
 }
 
-function CleanMETempFiles()
+function CleanMeTempFiles()
 {
 	rm high
  	rm frame_types
@@ -21,6 +21,11 @@ function CleanMETempFiles()
 function CleanAllTempFiles()
 {
 	rm *.pgm
+	rm *.cache
+	rm *.ord
+	rm *.lrcp
+	rm *.woi
+	rm *.j2c
 }
 
 set -x
@@ -45,14 +50,15 @@ echo "Reading config file: $CONFIGFILE ...."
 source "$CONFIGFILE"
 CheckExitStatusCode
 
-# Temporary dirctories
+# Temporary directories
 TMP_PGM_IMAGES_DIRECTORY=_tmp_pgm_images
 TMP_THUMB_IMAGES_DIRECTORY=_tmp_thumb_images
 TMP_PRECINCTS_DIRECTORY=_tmp_precincts
-TMP_PREDICTION_IMAGES_DIRECTORY=_tmp_predictionimages
+TMP_PREDICTION_IMAGES_DIRECTORY=_tmp_prediction_images
 TMP_TRUNC_IMAGES_DIRECTORY=_tmp_trunc_images
 TMP_BLOCKS=_tmp_blocks
-TMP_BLOCKS_PRECINCTS=_tmp_blocksprecincts
+TMP_BLOCKS_PRECINCTS=_tmp_blocks_precincts
+TMP_PREDICTION_DATA_DIRECTORY=_tmp_prediction_data
 
 # The estimated bitrate
 BITRATE=$3
@@ -103,11 +109,11 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 1 ]; do
+while [ $i -le 0 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
-	CleanMETempFiles
+	CleanMeTempFiles
 
 	# WITH MC
 	# **********************************************************************
@@ -409,12 +415,20 @@ while [ $i -le 1 ]; do
 	#----------------------------	
 
 
+	# Copiamos los archivos temporales en directorios auxilares para depurar
 	cp $even_image $TMP_PGM_IMAGES_DIRECTORY
 	cp $odd_image $TMP_PGM_IMAGES_DIRECTORY
 	cp prediction_thumb.pgm $TMP_THUMB_IMAGES_DIRECTORY
 	cp $next_image_thumbnail $TMP_THUMB_IMAGES_DIRECTORY
 	cp $next_image_trunc_j2c $TMP_TRUNC_IMAGES_DIRECTORY
 	cp $next_image_trunc_pgm $TMP_TRUNC_IMAGES_DIRECTORY
+	cp prediction_plus_next.j2c.cache $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_plus_next.j2c.cache
+	cp prediction_plus_next_plus_empty.j2c.cache $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_plus_next_plus_empty.j2c.cache
+	cp prediction_plus_next_plus_empty.j2c.cache.ord $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_plus_next_plus_empty.j2c.cache.ord
+	cp prediction_temp.j2c $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c
+	cp prediction_temp.j2c.cache $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c.cache
+	cp prediction_temp.j2c.lrcp $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c.lrcp
+	cp prediction_temp.j2c.woi $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c.woi
 
 	even_num=$((even_num+1))
 	odd_num=$((odd_num+1))
@@ -447,3 +461,6 @@ while [ $i -le 1 ]; do
 	i=$(($i+1))
 
 done
+
+CleanMeTempFiles
+CleanAllTempFiles
