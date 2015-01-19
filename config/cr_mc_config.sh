@@ -2,11 +2,9 @@
 
 # Platform
 # LINUX
-CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
+export CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
 # MAC
-#CR_MC_J2K_HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
-
-export CR_MC_J2K_HOME
+#export CR_MC_J2K_HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
 
 # Tools
 DIFFERENCES=$CR_MC_J2K_HOME/tools/bin/differencesthumbnails

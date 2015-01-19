@@ -18,11 +18,11 @@ rm bytes.readed
 rm *.pgm
 rm temp.svg
 rm *.png
-rm predictionimages/*.pgm
-rm blocks/*.pgm
-rm blocksprecincts/*.pgm
-rm precincts/*
-rm precinctsimages/*.pgm
+rm _predictionimages/*.pgm
+rm _blocks/*.pgm
+rm _blocksprecincts/*.pgm
+rm _precincts/*
+rm _precinctsimages/*.pgm
 rm psnr.txt
 rm bytes.txt
 rm ssim.txt

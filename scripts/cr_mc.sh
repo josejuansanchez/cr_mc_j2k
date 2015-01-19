@@ -127,14 +127,14 @@ while [ $i -le 1 ]; do
 	CheckExitStatusCode	
 
 	# Calculamos las diferencias a partir de los thumbnails (predicción y siguiente imagen)
-	$DIFFERENCES prediction_thumb.pgm $next_image_thumbnail precincts/${next_index}.todos.dat precincts/${next_index}.todos.txt \
+	$DIFFERENCES prediction_thumb.pgm $next_image_thumbnail _precincts/${next_index}.todos.dat _precincts/${next_index}.todos.txt \
 	$W_PRECINT_SIZE_THUMBNAIL $H_PRECINT_SIZE_THUMBNAIL $W_OFFSET $H_OFFSET > /dev/null
 	CheckExitStatusCode
 
 # *************************
 #	# Calculamos qué método debemos utilizar para obtener las WOIs
 #	rm kanpsack_solution.txt
-#	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json precincts/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
+#	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json _precincts/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
 #	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
 #	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
 #
@@ -149,19 +149,19 @@ while [ $i -le 1 ]; do
 	# Precincts Selection Mode = 1 (Seleccionamos los precintos sólo cuando coinciden con la WOI)
 
 # *************************
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
 
-	$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 1
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 2
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 3
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 4
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 5
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+	$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 1
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 2
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 3
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 4
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 5
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
 	
-	#$WOISTOCACHE $next_image_j2c precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE $KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
+	#$WOISTOCACHE $next_image_j2c _precincts/${next_index}.todos.txt $W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE $KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
 # *************************
 
 	CheckExitStatusCode
@@ -223,7 +223,7 @@ while [ $i -le 1 ]; do
 	# Pedimos una lista con todos los precintos de la imagen. 
 	# Hay que tener en cuenta que la división de los precintos para toda la imagen sea exacta.
 	# Precincts Selection Mode = 0 (Seleccionamos los precintos tal y como lo hace KAKADU)
-	$WOISTOCACHE prediction_temp.j2c precincts/${next_index}.todos.txt $WIDTH_RECONS $HEIGHT_RECONS $(($CLEVELS+1)) $CLAYERS 999999999 0 > /dev/null
+	$WOISTOCACHE prediction_temp.j2c _precincts/${next_index}.todos.txt $WIDTH_RECONS $HEIGHT_RECONS $(($CLEVELS+1)) $CLAYERS 999999999 0 > /dev/null
 	CheckExitStatusCode
 
 	# Extraemos los datos que nos interesan de la imagen predicción y los volcamos en temp_aux.cache
@@ -272,10 +272,10 @@ while [ $i -le 1 ]; do
 	####################################################################################################
 
 	# Descomprimimos la caché
-	$DECODEFROMCACHE prediction_plus_next_plus_empty.j2c.cache.ord predictionimages/${next_image_prediction_pgm} $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	$DECODEFROMCACHE prediction_plus_next_plus_empty.j2c.cache.ord _predictionimages/${next_image_prediction_pgm} $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
 	CheckExitStatusCode
 
-	PSNR_ME_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=predictionimages/${next_image_prediction_pgm} 2> /dev/null | \
+	PSNR_ME_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=_predictionimages/${next_image_prediction_pgm} 2> /dev/null | \
 	grep "PSNR\[dB\]" | awk '{print $3}'`
 	CheckExitStatusCode
 	#----------------------------
@@ -323,7 +323,7 @@ while [ $i -le 1 ]; do
 	#----------------------------	
 
 	# Calculamos el SSIM (the Structural SIMilarity (SSIM) index)
-	SSIM_ME_PRECI=`$SSIM $next_image_pgm predictionimages/${next_image_prediction_pgm} 2> /dev/null | awk '{print $3}'`
+	SSIM_ME_PRECI=`$SSIM $next_image_pgm _predictionimages/${next_image_prediction_pgm} 2> /dev/null | awk '{print $3}'`
 	CheckExitStatusCode
 
 	SSIM_TRUNC=`$SSIM $next_image_pgm $next_image_trunc_pgm 2> /dev/null | awk '{print $3}'`
@@ -335,19 +335,19 @@ while [ $i -le 1 ]; do
 	#----------------------------
 	# Dibujamos los bloques que se ha pedido de la siguiente imagen sobre la imagen predicha
 	
-	$DRAWBLOCKS predictionimages/${next_image_prediction_pgm} ${THUMBNAILS_DIRECTORY}/${next_index}.j2c.woi ${W_PRECINT_SIZE} ${H_PRECINT_SIZE} blocks/${next_index}.blocks.pgm
+	$DRAWBLOCKS _predictionimages/${next_image_prediction_pgm} ${THUMBNAILS_DIRECTORY}/${next_index}.j2c.woi ${W_PRECINT_SIZE} ${H_PRECINT_SIZE} _blocks/${next_index}.blocks.pgm
 	CheckExitStatusCode
 
 	#----------------------------
 	# Guardamos las imágenes que se obtienen al descomprimir sólo los precintos que pedimos de la siguiente imagen
 	#
-	#cp precincts_temp.pgm precinctsimages/${next_index}.pgm
+	#cp precincts_temp.pgm _precinctsimages/${next_index}.pgm
 	#CheckExitStatusCode
 	#
 	#----------------------------
 	# Dibujamos los bloques que se ha pedido de la siguiente imagen sobre la imagen de los precintos
 	#
-	#$DRAWBLOCKS precinctsimages/${next_index}.pgm ${THUMBNAILS_DIRECTORY}/${next_index}.j2c.woi ${W_PRECINT_SIZE} ${H_PRECINT_SIZE} blocksprecincts/${next_index}.blocks.pgm
+	#$DRAWBLOCKS _precinctsimages/${next_index}.pgm ${THUMBNAILS_DIRECTORY}/${next_index}.j2c.woi ${W_PRECINT_SIZE} ${H_PRECINT_SIZE} _blocksprecincts/${next_index}.blocks.pgm
 	#CheckExitStatusCode
 	#
 	#----------------------------	
@@ -364,7 +364,7 @@ while [ $i -le 1 ]; do
 
 	# odd image
 	# La imagen que hemos predicho pasa a ser la nueva imagen odd. Necesitamos copiar la imagen que hemos predicho (la nueva imagen odd) al directorio local
-	cp predictionimages/${next_image_prediction_pgm} ${odd}.pgm
+	cp _predictionimages/${next_image_prediction_pgm} ${odd}.pgm
 	CheckExitStatusCode
 	odd_image=${odd}.pgm
 
