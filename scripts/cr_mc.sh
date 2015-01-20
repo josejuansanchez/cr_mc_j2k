@@ -110,7 +110,7 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 0 ]; do
+while [ $i -le 2 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
@@ -223,11 +223,9 @@ while [ $i -le 0 ]; do
 	# Actualizamos el archivo de bytes leídos para imagen de la secuencia
 	echo -e "${next_index} \t $BYTES_READED" >> $BYTES_FILE
 
-	####################################################################
 	echo -e " ### Ordenamos los precintos de la siguiente imagen ###"
 	$SORTCACHE $next_image_j2c_cache
 	CheckExitStatusCode
-	####################################################################
 
 	# WOISTOCACHE, genera 3 archivos de salida:
 	#
@@ -315,7 +313,7 @@ while [ $i -le 0 ]; do
 	CheckExitStatusCode
 
 	####################################################################################################
-	# NUEVOS TESTs TEMPORALES: Julio 2014
+	# TESTs TEMPORALES (Revisar esta sección)
 	#
 	#echo "0 0" > woi_for_thumbnail.txt
 	# Nota: Para traer el thumbnail hay que pedir el nivel de resolución 1
@@ -342,25 +340,27 @@ while [ $i -le 0 ]; do
 
 	#----------------------------
 	# ESTUDIO SÓLO CON LOS NUEVOS PRECINTOS
-	#	
-	#PRECINCTS_TEMP=precincts_temp.pgm
-	#
+	#----------------------------		
+	PRECINCTS_TEMP=precincts_temp.pgm
+	
 	# Descomprimimos la caché de la imagen donde sólo se tienen en cuenta los nuevos precintos solicitados
-	#$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
-	#CheckExitStatusCode
-	#
-	#PSNR_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=$PRECINCTS_TEMP 2> /dev/null | \
-	#grep "PSNR\[dB\]" | awk '{print $3}'`
-	#CheckExitStatusCode
+	$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	CheckExitStatusCode
+	
+	PSNR_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=$PRECINCTS_TEMP 2> /dev/null | \
+	grep "PSNR\[dB\]" | awk '{print $3}'`
+	CheckExitStatusCode
+	
 	#----------------------------
 	# ESTUDIO SÓLO CON MC
-	#
-	#PSNR_MC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=prediction_temp.pgm 2> /dev/null | \
-	#grep "PSNR\[dB\]" | awk '{print $3}'`
-	#CheckExitStatusCode
+	#----------------------------
+	PSNR_MC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=prediction_temp.pgm 2> /dev/null | \
+	grep "PSNR\[dB\]" | awk '{print $3}'`
+	CheckExitStatusCode
+	
 	#----------------------------
 	# ESTUDIO CON EL MODO DE FUNCIONAMIENTO DEL SERVIDOR ACTUAL (TRUNCANDO)
-
+	#----------------------------
     # TODO: Habría que tener en cuenta el número de bytes del thumbnail que nos hemos traído de la siguiente imagen.
     #       Actualmente no se está teniendo en cuenta.
 
@@ -374,10 +374,12 @@ while [ $i -le 0 ]; do
 	CheckExitStatusCode
 
 	#----------------------------
+	# TABLA RESUMEN
+	#----------------------------
 
 	echo -e "BYTES_READED: $BYTES_READED"
 	echo -e "me + precints \t precincts \t me \t trunc\n"
-	#echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC \n"
+	echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC \n"
 	#echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC" >> ${PSNR_FILE}
 	echo -e "$PSNR_ME_PRECI \t $PSNR_TRUNC \n"
 	echo -e "$PSNR_ME_PRECI \t $PSNR_TRUNC" >> ${PSNR_FILE}
@@ -415,7 +417,6 @@ while [ $i -le 0 ]; do
 	#
 	#----------------------------	
 
-
 	# Copiamos los archivos temporales en directorios auxilares para depurar
 	cp $even_image $TMP_PGM_IMAGES_DIRECTORY
 	cp $odd_image $TMP_PGM_IMAGES_DIRECTORY
@@ -431,6 +432,7 @@ while [ $i -le 0 ]; do
 	cp prediction_temp.j2c.lrcp $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c.lrcp
 	cp prediction_temp.j2c.woi $TMP_PREDICTION_DATA_DIRECTORY/${next_index}_prediction_temp.j2c.woi
 
+	# Actualizamos las variables para la próxima iteración
 	even_num=$((even_num+1))
 	odd_num=$((odd_num+1))
 
