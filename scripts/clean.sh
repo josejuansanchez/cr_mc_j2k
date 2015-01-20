@@ -1,9 +1,7 @@
 #!/bin/bash
 
-rm vectors/prev.dat
-rm vectors/next.dat
-rm gnuplot/prev.dat
-rm gnuplot/next.dat
+rm me_vectors/*
+rm me_gnuplot/*
 rm motion
 rm frame_types
 rm high

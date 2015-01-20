@@ -26,6 +26,7 @@ function CleanAllTempFiles()
 	rm *.lrcp
 	rm *.woi
 	rm *.j2c
+	rm bytes.readed
 }
 
 set -x

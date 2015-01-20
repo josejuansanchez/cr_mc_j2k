@@ -937,18 +937,18 @@ int main(int argc, char *argv[]) {
 
 /**************************************************************************************/
     char backward_file[80];
-    sprintf(backward_file, "vectors/prev.dat");
+    sprintf(backward_file, "me_vectors/prev.dat");
     writeMEToFile(backward_file, blocks_in_y, blocks_in_x, mv, PREV);
 
     char backward_gnuplot[80];
-    sprintf(backward_gnuplot, "gnuplot/prev.dat");
+    sprintf(backward_gnuplot, "me_gnuplot/prev.dat");
     writeMEToFileForGnuPlot(backward_gnuplot, blocks_in_y, blocks_in_x, block_size, mv, PREV);
 
     // PRUEBA
-    sprintf(backward_file, "vectors/next.dat");
+    sprintf(backward_file, "me_vectors/next.dat");
     writeMEToFile(backward_file, blocks_in_y, blocks_in_x, mv, NEXT);
 
-    sprintf(backward_gnuplot, "gnuplot/next.dat");
+    sprintf(backward_gnuplot, "me_gnuplot/next.dat");
     writeMEToFileForGnuPlot(backward_gnuplot, blocks_in_y, blocks_in_x, block_size, mv, NEXT);
 
 /**************************************************************************************/
