@@ -110,7 +110,7 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 2 ]; do
+while [ $i -le 90 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
