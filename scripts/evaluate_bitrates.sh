@@ -20,8 +20,8 @@ EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_01_22_stockholm_layers-8_level
 #IMAGE_N1=1
 
 # stockholm
-IMAGE_N=3
-IMAGE_N1=4
+IMAGE_N=4
+IMAGE_N1=5
 
 # big buck bunny
 #IMAGE_N=100

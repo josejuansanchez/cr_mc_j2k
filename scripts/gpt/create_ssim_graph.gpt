@@ -8,4 +8,4 @@ set ylabel 'SSIM'
 set key bottom
 
 plot "paste.txt" using 1:5 with lines title 'cr + mc' axes x1y1,\
-	 "paste.txt" using 1:6 with lines title 'mjc' axes x1y1
+	 "paste.txt" using 1:6 with lines title 'mj2' axes x1y1
