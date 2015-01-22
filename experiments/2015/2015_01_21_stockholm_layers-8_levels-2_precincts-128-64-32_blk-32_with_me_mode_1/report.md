@@ -77,4 +77,4 @@ PSNR and SSIM
 Codestream recibido para cada imagen
 =============
 
-![assets/bytes_1000.txt](assets/bytes_1000.txt)
+![assets/bytes_1000.txt](assets/bytes_1000.png)
