@@ -10,7 +10,7 @@ while [ $i -le $2 ]; do
 
 	index=`printf %03d $i`
 
-	list="$list _blocksprecincts/$index.blocks.pgm "
+	list="$list _tmp_blocks_precincts/$index.blocks.pgm "
 
 	i=$(($i+1))
 done
