@@ -8,8 +8,12 @@ function CheckExitStatusCode()
 	fi
 }
 
-TEST=_test_2014_06_16_blk_16_mode_2_8
-#TEST=_test_2014_06_12_blk_16_mode_2_8
+if [[ $CR_MC_J2K_HOME = "" ]]; then
+    echo "Error. CR_MC_J2K_HOME is not defined"
+    exit 1
+fi
+
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_01_22_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_mode_1
 
 # tree
 #IMAGE_N=0
@@ -26,14 +30,14 @@ IMAGE_N1=4
 #for((BITRATE=1000; BITRATE<=51000; BITRATE=BITRATE+5000))
 for((BITRATE=1000; BITRATE<=51000; BITRATE=BITRATE+10000))
 do
-    ./cr_me.sh $IMAGE_N $IMAGE_N1 $BITRATE
+    ./cr_mc.sh $IMAGE_N $IMAGE_N1 $BITRATE
     CheckExitStatusCode	
     ./generate_graph.sh $BITRATE
     CheckExitStatusCode	
 
-    cp bytes_$BITRATE.png $TEST    
-    cp psnr_$BITRATE.png $TEST
-    cp ssim_$BITRATE.png $TEST    
-    cp paste_$BITRATE.txt $TEST
+    cp bytes_$BITRATE.png $EXPERIMENTS    
+    cp psnr_$BITRATE.png $EXPERIMENTS
+    cp ssim_$BITRATE.png $EXPERIMENTS    
+    cp paste_$BITRATE.txt $EXPERIMENTS
     ./clean.sh
 done

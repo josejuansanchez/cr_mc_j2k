@@ -9,5 +9,5 @@ set ylabel 'PSNR [dB]'
 #set yrange [0:60]
 set key bottom
 
-plot "paste.txt" using 1:3 with lines title 'me + cr' axes x1y1,\
-	 "paste.txt" using 1:4 with lines title 'trunc' axes x1y1
+plot "paste.txt" using 1:3 with lines title 'cr + mc' axes x1y1,\
+	 "paste.txt" using 1:4 with lines title 'mj2' axes x1y1
