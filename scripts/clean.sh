@@ -31,3 +31,5 @@ rm psnr.txt
 rm bytes.txt
 rm ssim.txt
 rm paste_*.txt
+
+rm *.gif
