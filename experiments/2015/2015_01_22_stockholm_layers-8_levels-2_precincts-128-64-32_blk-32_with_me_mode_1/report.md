@@ -104,3 +104,23 @@ Simulación de los resultados
 
   * mj2:  
     ![](gifs/trunc_20000.gif)
+
+* Bitrate: 31.000 bytes
+  * cr + mc:  
+    ![](gifs/prediction_31000.gif)
+
+  * blocks:  
+    ![](gifs/blocks_31000.gif)
+
+  * mj2:  
+    ![](gifs/trunc_31000.gif)
+
+* Bitrate: 41.000 bytes
+  * cr + mc:  
+    ![](gifs/prediction_41000.gif)
+
+  * blocks:  
+    ![](gifs/blocks_41000.gif)
+
+  * mj2:  
+    ![](gifs/trunc_41000.gif)
