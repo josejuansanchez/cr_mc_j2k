@@ -61,7 +61,7 @@ Experiment: 2015-01-22
     - WoisToCache: Modo 1 (Se transmiten todas las capas de calidad de cada precinto)
     - Utiliza **mc**: Sí
     - Utiliza Knapsack: No
-    - Bitrate estimado: **1000 bytes** para cada frame
+    - Bitrate estimado: De **11000 bytes** a **51000** para cada frame
 
 PSNR and SSIM
 =============
@@ -82,25 +82,25 @@ Codestream recibido para cada imagen
 Simulación de los resultados
 =============
 
-* Original:
+* Original:  
   ![](gifs/original.gif)
 
 * Bitrate: 10.000 bytes
-  * cr + mc:
+  * cr + mc:  
     ![](gifs/prediction_10000.gif)
 
-  * blocks:
+  * blocks:  
     ![](gifs/blocks_10000.gif)
 
-  * mj2:
-    ![](gifs/mj2_10000.gif)
+  * mj2:  
+    ![](gifs/trunc_10000.gif)
 
 * Bitrate: 20.000 bytes
-  * cr + mc:
+  * cr + mc:  
     ![](gifs/prediction_20000.gif)
 
-  * blocks:
+  * blocks:  
     ![](gifs/blocks_20000.gif)
 
-  * mj2:
-    ![](gifs/mj2_20000.gif)
+  * mj2:  
+    ![](gifs/trunc_20000.gif)
