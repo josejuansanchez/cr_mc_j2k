@@ -163,16 +163,16 @@ while [ $i -le 90 ]; do
 	CheckExitStatusCode
 
 # *************************
-#	# Calculamos qué método debemos utilizar para obtener las WOIs
-#	rm kanpsack_solution.txt
-#	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt $BITRATE > kanpsack_solution.txt
-#	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
-#	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
-#
-#	if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
-#		KNAPSACK_SOLUTION_QL=`grep "\"ql\"" kanpsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
-#		echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
-#	fi	
+	# Calculamos qué método debemos utilizar para obtener las WOIs
+	rm knapsack_solution.txt
+	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt $BITRATE > knapsack_solution.txt
+	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
+	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
+
+	if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
+		KNAPSACK_SOLUTION_QL=`grep "\"ql\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
+		echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
+	fi	
 # *************************
 
 	# Obtenemos los precintos de la siguiente imagen en función del "bitrate" estimado.
@@ -182,8 +182,8 @@ while [ $i -le 90 ]; do
 
 	# TODO: Esta sección está en fase de pruebas
 	# *************************
-	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
@@ -212,9 +212,9 @@ while [ $i -le 90 ]; do
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
 	
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
-	# $KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
+	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
+	$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
 	# *************************
 
 	CheckExitStatusCode
