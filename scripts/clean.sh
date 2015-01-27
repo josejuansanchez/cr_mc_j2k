@@ -33,3 +33,5 @@ rm ssim.txt
 rm paste_*.txt
 
 rm *.gif
+
+rm knapsack_solution.txt
