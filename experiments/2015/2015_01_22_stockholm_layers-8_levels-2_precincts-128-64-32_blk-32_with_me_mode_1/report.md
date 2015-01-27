@@ -78,16 +78,16 @@ PSNR and SSIM
 
 ### PSNR
 
-![assets/psnr_1000.txt](assets/psnr.png)
+![](assets/psnr.png)
 
 ### SSIM
 
-![assets/ssim_1000.txt](assets/ssim.png)
+![](assets/ssim.png)
 
 Codestream recibido para cada imagen
 =============
 
-![assets/bytes_1000.txt](assets/bytes.png)
+![](assets/bytes.png)
 
 Simulación de los resultados
 =============

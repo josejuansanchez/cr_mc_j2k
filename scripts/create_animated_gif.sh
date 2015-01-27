@@ -45,8 +45,8 @@ mogrify -resize ${WIDTH}x${HEIGHT} /tmp/trunc/*.pgm
 convert -delay 2 -loop 0 /tmp/trunc/*.pgm trunc.gif
 #animate trunc.gif
 
-mkdir /tmp/original
-cp ${IMAGES_DIRECTORY}/*.pgm /tmp/original
-mogrify -resize ${WIDTH}x${HEIGHT} /tmp/original/*.pgm
-convert -delay 2 -loop 0 /tmp/original/*.pgm original.gif
+#mkdir /tmp/original
+#cp ${IMAGES_DIRECTORY}/*.pgm /tmp/original
+#mogrify -resize ${WIDTH}x${HEIGHT} /tmp/original/*.pgm
+#convert -delay 2 -loop 0 /tmp/original/*.pgm original.gif
 #animate original.gif
