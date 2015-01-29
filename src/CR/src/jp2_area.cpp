@@ -317,7 +317,6 @@ bool jp2_area::open(char *fname)
 	return true;
 }
 
-
 void jp2_area::close()
 {
   if(!cur_name) return;
@@ -1928,4 +1927,49 @@ int jp2_area::save_packets_to_file()
   printf("\n[%s][save_packets_to_file] # cache.adds: %ld \n",cur_name,cont_add);
 
   return num;
+}
+
+void jp2_area::show_codestream_properties() {
+  // Obtenemos el número de precintos que hay en cada nivel de resolución  
+  kdu_dims idims;
+  codestream.apply_input_restrictions(0, 0, 0, 0, NULL);
+  codestream.get_dims(0, idims);
+  printf("\nImage dimension: %d x %d\n", idims.size.x, idims.size.y);
+
+  kdu_dims roi, realroi;
+  roi.pos = kdu_coords(0, 0);
+  roi.size = kdu_coords(idims.size.x, idims.size.y);
+
+  codestream.apply_input_restrictions(0, 0, 0, 0, NULL);
+  codestream.map_region(0, roi, realroi);
+  codestream.apply_input_restrictions(0, 0, 0, 0, &realroi);
+
+  int numr = codestream.get_min_dwt_levels() + 1;
+  kdu_tile tile = codestream.open_tile(kdu_coords(0, 0));
+  kdu_tile_comp comp = tile.access_component(0);
+
+  kdu_dims *precincts_in_each_resolution = new kdu_dims[numr];
+  kdu_dims *resolution_size = new kdu_dims[numr];  
+  kdu_dims *precincts_size_in_each_resolution = new kdu_dims[numr];
+
+  for (int resolution = 0; resolution < numr; resolution++) {
+    printf("Resolution: %d\n", resolution);
+
+    kdu_resolution res = comp.access_resolution(resolution);
+
+    kdu_dims rdims;
+    res.get_dims(rdims);
+    printf("\tDimension.\t x: %5d \t y: %5d\n", rdims.size.x, rdims.size.y);
+    resolution_size[resolution] = rdims;
+
+    kdu_dims pdims;
+    res.get_valid_precincts(pdims);
+    printf("\t# of precincts.\t x: %5d \t y: %5d\n", pdims.size.x, pdims.size.y);
+    precincts_in_each_resolution[resolution] = pdims;
+
+    precincts_size_in_each_resolution[resolution].size.x = rdims.size.x / pdims.size.x;
+    precincts_size_in_each_resolution[resolution].size.y = rdims.size.y / pdims.size.y;
+    printf("\tPrecincts size.\t x: %5d \t y: %5d\n", precincts_size_in_each_resolution[resolution].size.x, precincts_size_in_each_resolution[resolution].size.x);
+  }
+  tile.close();  
 }

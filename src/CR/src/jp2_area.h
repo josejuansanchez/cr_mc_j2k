@@ -158,6 +158,8 @@ public:
 
   int GetPacketId(kdu_byte data[]);
 
+  void show_codestream_properties();
+
   virtual ~jp2_area()
   {
     close();
