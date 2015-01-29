@@ -15,7 +15,7 @@ EXE =
 INCLUDES = -I$(KAKADU_DIR)/coresys/common -I$(KAKADU_DIR)/apps/args 
 INCLUDES += -I$(KAKADU_DIR)/apps/image -I$(KAKADU_DIR)/apps/compressed_io 
 INCLUDES += -I$(KAKADU_DIR)/apps/support -I$(KAKADU_DIR)/apps/jp2
-OPTIONS = -O -Wall -Wno-uninitialized -Wno-deprecated
+OPTIONS = -O -Wall -Wno-uninitialized -Wno-deprecated -Wno-unused-result -Wno-sign-compare
 DEFINES = -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DKDU_PENTIUM_GCC
 CFLAGS = $(INCLUDES) $(OPTIONS) $(DEFINES)
 
