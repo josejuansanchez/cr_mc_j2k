@@ -1952,6 +1952,12 @@ void jp2_area::show_codestream_properties() {
   kdu_dims *resolution_size = new kdu_dims[numr];  
   kdu_dims *precincts_size_in_each_resolution = new kdu_dims[numr];
 
+  int numl = tile.get_num_layers();
+  printf("# of quality layers: %d\n", numl);
+  long total_number_of_packets = 0;
+
+  printf("# of resolution levels: %d\n\n", numr);
+
   for (int resolution = 0; resolution < numr; resolution++) {
     printf("Resolution: %d\n", resolution);
 
@@ -1970,6 +1976,11 @@ void jp2_area::show_codestream_properties() {
     precincts_size_in_each_resolution[resolution].size.x = rdims.size.x / pdims.size.x;
     precincts_size_in_each_resolution[resolution].size.y = rdims.size.y / pdims.size.y;
     printf("\tPrecincts size.\t x: %5d \t y: %5d\n", precincts_size_in_each_resolution[resolution].size.x, precincts_size_in_each_resolution[resolution].size.x);
+
+    long number_of_packets = pdims.size.x * pdims.size.y * numl;
+    printf("\t# of packets   \t  : %5d\n", number_of_packets);
+    total_number_of_packets = total_number_of_packets + number_of_packets;
   }
+  printf("\nTotal # of packets: %d\n", total_number_of_packets);
   tile.close();  
 }
