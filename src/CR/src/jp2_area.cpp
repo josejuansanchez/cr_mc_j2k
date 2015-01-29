@@ -1978,9 +1978,9 @@ void jp2_area::show_codestream_properties() {
     printf("\tPrecincts size.\t x: %5d \t y: %5d\n", precincts_size_in_each_resolution[resolution].size.x, precincts_size_in_each_resolution[resolution].size.x);
 
     long number_of_packets = pdims.size.x * pdims.size.y * numl;
-    printf("\t# of packets   \t  : %5d\n", number_of_packets);
+    printf("\t# of packets   \t  : %5ld\n", number_of_packets);
     total_number_of_packets = total_number_of_packets + number_of_packets;
   }
-  printf("\nTotal # of packets: %d\n", total_number_of_packets);
+  printf("\nTotal # of packets: %ld\n", total_number_of_packets);
   tile.close();  
 }
