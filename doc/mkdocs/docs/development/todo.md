@@ -45,4 +45,4 @@ ID:    27 Offset: 54178 Length:    26
 896 256 128 128: 1 1 0 2 7: 87
 ID:    87 Offset: 59782 Length:   314
 ```
-* [ ] Crear un archivo de configuración ~~.JSON~~ que sea común para todos los scripts.
+* [x] Crear un archivo de configuración ~~.JSON~~ que sea común para todos los scripts.
