@@ -31,6 +31,11 @@ scripts/bytes.txt
 scripts/psnr.txt
 scripts/ssim.txt
 scripts/motion
+scripts/*.pgm
+scripts/*.j2c
+scripts/*.cache
+scripts/*.ord
+scripts/*.lrcp
 
 # Knapsack temporary files
 knapsack/tools/create_all_kanpsack_files/temp_woi.txt
