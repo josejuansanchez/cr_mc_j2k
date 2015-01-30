@@ -30,7 +30,8 @@ HEIGHT=`echo "$HEIGHT_RECONS/2" | bc`
 mkdir /tmp/blocks
 cp _tmp_blocks/*.pgm /tmp/blocks
 mogrify -resize ${WIDTH}x${HEIGHT} /tmp/blocks/*.pgm
-convert -delay 75 -loop 0 /tmp/blocks/*.pgm blocks.gif
+convert -delay 25 -loop 0 /tmp/blocks/*.pgm blocks.gif
+#convert -delay 75 -loop 0 /tmp/blocks/*.pgm blocks.gif
 #animate blocks.gif
 
 mkdir /tmp/prediction

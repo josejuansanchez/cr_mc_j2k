@@ -176,5 +176,5 @@ int main(int argc, char **argv)
 	/* Guardamos los bytes leídos en un archivo */
 	write_bytes_readed(numBytes);
 
-	return 0;
+ 	return 0;
 }
