@@ -80,20 +80,26 @@ PSNR and SSIM
 
 ![](assets/psnr.png)
 
+* [Más información](md/psnr.md)
+
 ### SSIM
 
 ![](assets/ssim.png)
+
+* [Más información](md/ssim.md)
 
 Codestream recibido para cada imagen
 =============
 
 ![](assets/bytes.png)
 
+* [Más información](md/bytes.md) 
+
 Simulación de los resultados
 =============
 
-* [Bitrate: 11.000 bytes](gif_11000.md)
-* [Bitrate: 21.000 bytes](gif_21000.md)
-* [Bitrate: 31.000 bytes](gif_31000.md)
-* [Bitrate: 41.000 bytes](gif_41000.md)
-* [Bitrate: 51.000 bytes](gif_51000.md)
+* [Bitrate: 11.000 bytes](md/gif_11000.md)
+* [Bitrate: 21.000 bytes](md/gif_21000.md)
+* [Bitrate: 31.000 bytes](md/gif_31000.md)
+* [Bitrate: 41.000 bytes](md/gif_41000.md)
+* [Bitrate: 51.000 bytes](md/gif_51000.md)
