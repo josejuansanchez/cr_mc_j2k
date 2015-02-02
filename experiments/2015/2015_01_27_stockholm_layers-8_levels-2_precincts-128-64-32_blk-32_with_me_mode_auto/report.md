@@ -80,57 +80,26 @@ PSNR and SSIM
 
 ![](assets/psnr.png)
 
+* [Más información](md/psnr.md)
+
 ### SSIM
 
 ![](assets/ssim.png)
+
+* [Más información](md/ssim.md)
 
 Codestream recibido para cada imagen
 =============
 
 ![](assets/bytes.png)
 
+* [Más información](md/bytes.md) 
+
 Simulación de los resultados
 =============
 
-* Original:  
-  ![](gifs/original.gif)
-
-* Bitrate: 11.000 bytes
-  * cr + mc:  
-    ![](gifs/prediction_11000.gif)
-
-  * blocks:  
-    ![](gifs/blocks_11000.gif)
-
-  * mj2:  
-    ![](gifs/trunc_11000.gif)
-
-* Bitrate: 21.000 bytes
-  * cr + mc:  
-    ![](gifs/prediction_21000.gif)
-
-  * blocks:  
-    ![](gifs/blocks_21000.gif)
-
-  * mj2:  
-    ![](gifs/trunc_21000.gif)
-
-* Bitrate: 31.000 bytes
-  * cr + mc:  
-    ![](gifs/prediction_31000.gif)
-
-  * blocks:  
-    ![](gifs/blocks_31000.gif)
-
-  * mj2:  
-    ![](gifs/trunc_31000.gif)
-
-* Bitrate: 41.000 bytes
-  * cr + mc:  
-    ![](gifs/prediction_41000.gif)
-
-  * blocks:  
-    ![](gifs/blocks_41000.gif)
-
-  * mj2:  
-    ![](gifs/trunc_41000.gif)
+* [Bitrate: 11.000 bytes](md/gif_11000.md)
+* [Bitrate: 21.000 bytes](md/gif_21000.md)
+* [Bitrate: 31.000 bytes](md/gif_31000.md)
+* [Bitrate: 41.000 bytes](md/gif_41000.md)
+* [Bitrate: 51.000 bytes](md/gif_51000.md)
