@@ -92,9 +92,6 @@ Codestream recibido para cada imagen
 Simulación de los resultados
 =============
 
-* Original:  
-  ![](gifs/original.gif)
-
 * [Bitrate: 11.000 bytes](gif_11000.md)
 * [Bitrate: 21.000 bytes](gif_21000.md)
 * [Bitrate: 31.000 bytes](gif_31000.md)
