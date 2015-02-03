@@ -22,14 +22,14 @@ int main(int argc, char *argv[])
 
 	cont = 0;
 	c1=fgetc(f);
-	long numByte = 1;	
+	long numByte = 1;
 	long startByte = -1;
 	while(!feof(f))
 	{
 		if (c1==0xFF)
 		{
 			c2 = fgetc(f);
-			numByte++;			
+			numByte++;
 			//printf("\n%X",c2);
 			if (c2==0x91)
 			{
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 						startByte = numByte;
 
 						printf("Cont: %ld \t Start at Byte: %ld \t - %X %X - ", cont, (numByte - 4), c1, c2);
-						cont++;						
+						cont++;
 					}
 				}
 			}

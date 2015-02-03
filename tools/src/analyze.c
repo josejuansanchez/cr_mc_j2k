@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-	FILE *f;
+FILE *f;
 	long idframe;
-	double psnrpreci, psnrtrunc;	
+	double psnrpreci, psnrtrunc;
 	long contgt, contlt, conteq;
 	double diff, maxdiff;
 	double sum;
@@ -72,4 +72,3 @@ int main(int argc, char *argv[])
 	
 	return 0;
 }
-

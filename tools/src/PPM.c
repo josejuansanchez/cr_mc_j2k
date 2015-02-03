@@ -38,9 +38,9 @@ int ppmRead (char *fileName,long *rows,long *cols,unsigned char **image)
 
       /* Open the file, return an error if necessary. */
       if ((filePointer = fopen(fileName,"r")) == NULL) {
-	   printf ("ERROR: cannot open file\n\n");
-	   fclose (filePointer);
-	   return (0);
+        printf ("ERROR: cannot open file\n\n");
+        fclose (filePointer);
+        return (0);
       }
     
       /* Initialize columnsidth, and height */
@@ -51,18 +51,18 @@ int ppmRead (char *fileName,long *rows,long *cols,unsigned char **image)
       fgets (line,MAXLENGTH,filePointer);
       while (line[0]=='#' || line[0]=='\n') fgets (line,MAXLENGTH,filePointer);
       if (line[0]=='P' && (line[1]=='3')) {
-	   binary = 0;
-	 /*   printf ("\nFile Format: P2\n"); */
+        binary = 0;
+        /* printf ("\nFile Format: P2\n"); */
       }
       else if (line[0]=='P' && (line[1]=='6')) {
-	   binary = 1;
-	  /*  printf ("\nFORMAT: P5\n"); */
+        binary = 1;
+        /* printf ("\nFORMAT: P5\n"); */
       }
       else {
-	   printf ("ERROR: incorrect file format\n\n");
-	   fclose (filePointer);
-	   return (0);
-      }          
+        printf ("ERROR: incorrect file format\n\n");
+        fclose (filePointer);
+        return (0);
+      }
 
       /* Input the width, height and maximum value, skip comments and blank
        * lines. */
@@ -80,50 +80,49 @@ int ppmRead (char *fileName,long *rows,long *cols,unsigned char **image)
       /* printf("Maximum value: %d\n\n",maximumValue); */
 
       if ((*cols)<1 ||(*rows)<1 || maximumValue<0 || maximumValue>MAXVALUE){
-	   printf ("ERROR: invalid file specifications (cols/rows/max value)\n\n");
-	   fclose (filePointer);
-	   return (0);
+        printf ("ERROR: invalid file specifications (cols/rows/max value)\n\n");
+        fclose (filePointer);
+        return (0);
       }
       else if ((*cols) > MAXCOLS || (*rows) > MAXROWS) {
-	   printf ("ERROR: increase MAXROWS/MAXCOLS in PPM.h");
-	   fclose (filePointer);
-	   return (0);
-      } 
-
+        printf ("ERROR: increase MAXROWS/MAXCOLS in PPM.h");
+        fclose (filePointer);
+        return (0);
+      }
 
       /* Read in the data for binary (P6) or ascii (P2) PPM formats   */
       if (binary) {
-	   for (i = 0; i < (*rows); i++) {		
-	        numberRead += fread((void *)&(image[i][0]),sizeof(unsigned char),(*cols)*3,filePointer); 
-		if (feof(filePointer)) break;
-	   }
+        for (i = 0; i < (*rows); i++) {
+          numberRead += fread((void *)&(image[i][0]),sizeof(unsigned char),(*cols)*3,filePointer);
+          if (feof(filePointer)) break;
+        }
       }
       else {
            printf("\n *** Sin terminar... ***\n");
-	   /* TODO 
-	   for (i= 0; i < (*rows); i++) {
-	        for (j =0; j < (*cols); j++) { 
-	             test = fscanf (filePointer,"%d",&temp);
-		     if (test == EOF) break;
-		     image[i][j] = (unsigned char)temp;
+          /* TODO 
+          for (i= 0; i < (*rows); i++) {
+            for (j =0; j < (*cols); j++) { 
+              test = fscanf (filePointer,"%d",&temp);
+              if (test == EOF) break;
+              image[i][j] = (unsigned char)temp;
 
-		     numberRead++;
-		}
-		if (test == EOF) break;
-	   }
-	   */
-      } 
- 
-   /*    printf ("  Rows * Columns = %ld\n",(*rows)*(*cols)); */
-   /*    printf ("  Number of pixels read = %ld\n\n",numberRead); */
+              numberRead++;
+            }
+            if (test == EOF) break;
+          }
+          */
+      }
+
+      /* printf ("  Rows * Columns = %ld\n",(*rows)*(*cols)); */
+      /* printf ("  Number of pixels read = %ld\n\n",numberRead); */
 
       /* Insure the number of pixels read is at least the
        *   number indicated by w*h.
        * If not, return an error message, but proceed */
       if (numberRead < ((*rows)*(*cols))) {
-	   printf ("ERROR: fewer pixels than rows*cols indicates\n\n");
+        printf ("ERROR: fewer pixels than rows*cols indicates\n\n");
       }
-     
+
       /* close the file and return 1 indicating success */
       fclose (filePointer);
       return (1);
@@ -146,19 +145,19 @@ int ppmWrite(char* filename, long rows,long cols,unsigned char **image,char* com
 
       /* return 0 if the dimensions are larger than the image array. */
       if (rows > MAXROWS || cols > MAXCOLS) {
-           printf ("ERROR: row/col specifications larger than image array:\n");
-	   return (0);
+        printf ("ERROR: row/col specifications larger than image array:\n");
+        return (0);
       }
 
       /* open the file; write header and comments specified by the user. */
-      if ((file = fopen(filename, "w")) == NULL)	{
-           printf("ERROR: file open failed\n");
-	   return(0);
+      if ((file = fopen(filename, "w")) == NULL) {
+        printf("ERROR: file open failed\n");
+        return(0);
       }
       fprintf(file,"P6\n");
 
       if (comment_string != NULL) fprintf(file,"# %s \n", comment_string);
-    
+
       /* write the dimensions of the image */	
       fprintf(file,"%ld %ld\n", cols, rows);
 
@@ -171,37 +170,12 @@ int ppmWrite(char* filename, long rows,long cols,unsigned char **image,char* com
       /* Write data */
 
       for (i=0; i < rows; i++) {
-          nwritten += fwrite((void*)&(image[i][0]),sizeof(unsigned char),
-	  		   cols*3, file);
-      }	
+          nwritten += fwrite((void*)&(image[i][0]),sizeof(unsigned char), cols*3, file);
+      }
 
-      
-  /*     printf ("\nNumber of pixels total(from rows*cols): %ld\n",rows*cols); */
-/*       printf ("Number of pixels written: %ld\n\n",nwritten); */
+      /* printf ("\nNumber of pixels total(from rows*cols): %ld\n",rows*cols); */
+      /* printf ("Number of pixels written: %ld\n\n",nwritten); */
 
       fclose(file);
       return(1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

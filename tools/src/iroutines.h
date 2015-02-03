@@ -1,10 +1,10 @@
 
 typedef struct
 {
-	double countDifferences;
-	long offsetx;
-	long offsety;
-	long qualitylayer;
+    double countDifferences;
+    long offsetx;
+    long offsety;
+    long qualitylayer;
 } precint;
 
 void allocate2D(unsigned char** image, int rows, int cols);

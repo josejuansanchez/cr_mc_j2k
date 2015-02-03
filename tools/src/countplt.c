@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	{
 		if (c1==0xFF)
 		{
-			c2 = fgetc(f);			
+			c2 = fgetc(f);
 			//printf("\n%X",c2);
 			if (c2==0x58)
 			{

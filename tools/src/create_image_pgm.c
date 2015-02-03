@@ -42,12 +42,12 @@ int main (int argc, char *argv[])
 
 	/* Reservamos memoria dinámica para la imagen */
 	image = ( unsigned char** )malloc( rows*sizeof( unsigned char* ) );
-     
-    	/* Reservamos memoria para cada fila */
-   	for(i = 0; i < rows; i++) 
-    	{
-    		image[i] = ( unsigned char* )malloc( cols*sizeof( unsigned char ) );
-    	}
+
+	/* Reservamos memoria para cada fila */
+	for(i = 0; i < rows; i++) 
+	{
+		image[i] = ( unsigned char* )malloc( cols*sizeof( unsigned char ) );
+	}
 
 	/* Inicializamos la matriz de la imagen con el color de entrada */
 	for(i=0;i<rows;i++)
@@ -64,11 +64,10 @@ int main (int argc, char *argv[])
 	{
 		printf("\nLa imagen: %s se ha creado con éxito.\n\n",argv[4]);
 	}
-	else	
-    	{
+	else
+	{
 		printf("\nError al crear la imagen: %s\n\n.",argv[4]);
-    	}
+	}
 
 	return 0;
 }
-
