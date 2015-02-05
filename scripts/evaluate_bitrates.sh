@@ -2,10 +2,10 @@
 
 function CheckExitStatusCode()
 {
-	if [ $? -ne 0 ]; then
-		echo "Error"
-		exit
-	fi
+    if [ $? -ne 0 ]; then
+        echo "Error"
+        exit
+    fi
 }
 
 if [[ $CR_MC_J2K_HOME = "" ]]; then
@@ -35,9 +35,9 @@ do
     ./generate_graph.sh $BITRATE
     CheckExitStatusCode	
 
-    cp bytes_$BITRATE.png $EXPERIMENTS    
+    cp bytes_$BITRATE.png $EXPERIMENTS
     cp psnr_$BITRATE.png $EXPERIMENTS
-    cp ssim_$BITRATE.png $EXPERIMENTS    
+    cp ssim_$BITRATE.png $EXPERIMENTS
     cp paste_$BITRATE.txt $EXPERIMENTS
     ./clean.sh
 done
