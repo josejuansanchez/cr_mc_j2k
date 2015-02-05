@@ -81,14 +81,17 @@ convert /tmp/original/*.pgm /tmp/original/%d.png
 #    | MJ2K       | Original |
 #    -------------------------
 
+# I have had to change the image format because when I use .png the images
+# obtained seems to be darker.
+
 mkdir /tmp/all
 
 for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
 do
     montage /tmp/prediction/$FRAME.png /tmp/blocks/$FRAME.png \
       /tmp/trunc/$FRAME.png /tmp/original/$FRAME.png \
-      -tile 2x2 -geometry +1+1 /tmp/all/$FRAME.png
+      -tile 2x2 -geometry +1+1 /tmp/all/$FRAME.jpg
 done
 
-ffmpeg2theora /tmp/all/%d.png -o all.ogv
-convert -delay 2 -loop 0 /tmp/all/*.png all.gif
+ffmpeg2theora /tmp/all/%d.jpg -o all.ogv
+convert -delay 2 -loop 0 /tmp/all/*.jpg all.gif
