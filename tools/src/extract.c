@@ -5,11 +5,11 @@
 
 int main (int argc, char *argv[])
 {
-    long rowsA, colsA;                   /* Dimensiones de la imagen A */
-    unsigned char **imageA;  		 /* Array 2D para la imagen A */
-    unsigned char **imageB;  		 /* Array 2D para la imagen B */
+    long rowsA, colsA;         /* Dimensiones de la imagen A */
+    unsigned char **imageA;    /* Array 2D para la imagen A */
+    unsigned char **imageB;    /* Array 2D para la imagen B */
     FILE* file;
-    int readOK, writeOK;	 	 /* Controlan la E/S de disco */
+    int readOK, writeOK;       /* Controlan la E/S de disco */
     long nwritten;
     long i, j, ib, jb;
     long x, y, w, h;
@@ -17,10 +17,10 @@ int main (int argc, char *argv[])
     /* Comprobamos el número de parametros */
     if (argc!=7)
     {
-	printf("\nUso: %s <in_filenameA> <out_filenameB> <x> <y> <w> <h>.",argv[0]);
-	printf("\n\nin_filenameA = Image PGM.");
-	printf("\nout_filenameB = Image PGM.\n\n");
-	exit(0);
+        printf("\nUso: %s <in_filenameA> <out_filenameB> <x> <y> <w> <h>.",argv[0]);
+        printf("\n\nin_filenameA = Image PGM.");
+        printf("\nout_filenameB = Image PGM.\n\n");
+        exit(0);
     }
 
     x = atoi(argv[3]);
@@ -34,7 +34,7 @@ int main (int argc, char *argv[])
     /* Reservamos memoria para cada fila */
     for(i = 0; i < MAXROWS; i++) 
     {
-    	imageA[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
+        imageA[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
     }
 
     /* Reservamos memoria dinámica para la imagen */
@@ -43,40 +43,40 @@ int main (int argc, char *argv[])
     /* Reservamos memoria para cada fila */
     for(i = 0; i < MAXROWS; i++) 
     {
-    	imageB[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
+        imageB[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
     }
 
     /* Leemos la imagen A de disco */
     readOK = pgmRead (argv[1],&rowsA,&colsA,imageA);
     if (!readOK)
     {
-	printf("\nError al abrir la imagen: %s.\n",argv[1]);
-	exit(1);
+        printf("\nError al abrir la imagen: %s.\n",argv[1]);
+        exit(1);
     }
 
     /* Extraemos un trozo de imagen de A */
     ib = 0;
     for(i=x;i<x+h;i++)
     {
-	jb = 0;
-	for(j=y;j<y+w;j++)
-	{
-		imageB[ib][jb] = imageA[i][j];
-		jb++;
-	}
-	ib++;
+        jb = 0;
+        for(j=y;j<y+w;j++)
+        {
+            imageB[ib][jb] = imageA[i][j];
+            jb++;
+        }
+        ib++;
     }
 
     /* Guardamos la imagen en disco */
     writeOK = pgmWrite (argv[2],ib,jb,imageB,NULL);
     if (writeOK) 
     {
-	printf("\nEl archivo: %s, se ha creado con éxito.",argv[2]);
+        printf("\nEl archivo: %s, se ha creado con éxito.",argv[2]);
     }
-    else	
+    else
     {
-	printf("\nError al crear la imagen: %s.",argv[2]);
-    }  	
+        printf("\nError al crear la imagen: %s.",argv[2]);
+    }
 
     return 0;
 }

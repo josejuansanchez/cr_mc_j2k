@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
 
   if (argc<2)
   {
-	 printf("\nUso: %s <filename.j2c.cache>\n",argv[0]);
-	 return -1;
+    printf("\nUso: %s <filename.j2c.cache>\n",argv[0]);
+    return -1;
   }  
 
   printf("\n[viewcache][begin] packets in cache\n");

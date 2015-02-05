@@ -6,29 +6,29 @@
 
 int main (int argc, char *argv[])
 {
-    precint *precincts;			 /* Vector de precintos */
-    long np;				 /* Numero de elementos del vector */
-    int readOK, writeOK;   		 /* Controlan la E/S de disco */
-    long precinctSize;			 /* Tamaño del precinto */	
+    precint *precincts;      /* Vector de precintos */
+    long np;                 /* Numero de elementos del vector */
+    int readOK, writeOK;     /* Controlan la E/S de disco */
+    long precinctSize;       /* Tamaño del precinto */
     long i;
     long startql7, startql6, startql5, startql4, startql3, startql2, startql1;
 
     /* Comprobamos el número de parametros */
     if (argc!=3)
     {
-	printf("\nUso: %s <in_precincts_list> <precinct_size>.\n",argv[0]);
-	printf("\nParámetros: ");
-	printf("\n  - <in_precincts_list> = Lista de precintos de entrada.");
-	printf("\n  - <precinct_size> = Un valor entre [16,4096].\n\n");
-	exit(0);
-    }	
+        printf("\nUso: %s <in_precincts_list> <precinct_size>.\n",argv[0]);
+        printf("\nParámetros: ");
+        printf("\n  - <in_precincts_list> = Lista de precintos de entrada.");
+        printf("\n  - <precinct_size> = Un valor entre [16,4096].\n\n");
+        exit(0);
+    }
 
     /* Validamos el valor del tamaño de precinto */
     precinctSize = atoi(argv[2]);
     /*if (precinctSize<16 || precinctSize>4096 || precinctSize%2!=0)
     {
-	printf("\nEl valor de precint_size debe ser un múltiplo de 2 entre [16,4096].\n");
-	exit(0);
+        printf("\nEl valor de precint_size debe ser un múltiplo de 2 entre [16,4096].\n");
+        exit(0);
     }*/
 
     /* Calculamos el numero de precintos que contiene la imagen */
@@ -41,78 +41,78 @@ int main (int argc, char *argv[])
     readOK = readPrecinctsWithQualityLayerFromFile(precincts,&np,argv[1]);
     if (!readOK)
     {
-	printf("\nError al leer el archivo de precintos: %s.\n",argv[1]);
-	exit(1);    
+        printf("\nError al leer el archivo de precintos: %s.\n",argv[1]);
+        exit(1);
     }
 
     /*
     for(i=0;i<np;i++)
     {
-	printf("X=%ld \t Y=%ld \t QL= %ld\n",precincts[i].offsetx,precincts[i].offsety,precincts[i].qualitylayer);
+        printf("X=%ld \t Y=%ld \t QL= %ld\n",precincts[i].offsetx,precincts[i].offsety,precincts[i].qualitylayer);
     }
     */
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==7)
-	{
-		startql7 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==7)
+        {
+            startql7 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==6)
-	{
-		startql6 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==6)
+        {
+            startql6 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==5)
-	{
-		startql5 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==5)
+        {
+            startql5 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==4)
-	{
-		startql4 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==4)
+        {
+            startql4 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==3)
-	{
-		startql3 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==3)
+        {
+            startql3 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==2)
-	{
-		startql2 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==2)
+        {
+            startql2 = i;
+            break;
+        }
     }
 
     for(i=0;i<np;i++)
     {
-	if (precincts[i].qualitylayer==1)
-	{
-		startql1 = i;
-		break;			
-	}
+        if (precincts[i].qualitylayer==1)
+        {
+            startql1 = i;
+            break;
+        }
     }
 
     //printf("\n%ld %ld %ld %ld %ld %ld %ld\n",startql7,startql6,startql5,startql4,startql3,startql2,startql1);
@@ -128,4 +128,3 @@ int main (int argc, char *argv[])
 
     return 0;
 }
-

@@ -17,8 +17,8 @@ int main (int argc, char *argv[])
 
     if (argc!=4)
     {
-	printf("\nUso: %s <in_filename_precincts_list_A_dat> <in_filename_precincts_list_B_dat> <out_filename_precincts_dat>.\n\n",argv[0]);
-	exit(0);
+        printf("\nUso: %s <in_filename_precincts_list_A_dat> <in_filename_precincts_list_B_dat> <out_filename_precincts_dat>.\n\n",argv[0]);
+        exit(0);
     }
 
     /* Reservamos memoria dinámica para los vectores de precintos */
@@ -29,27 +29,27 @@ int main (int argc, char *argv[])
     readOK = readPrecinctsToFile(precinctsUp, &npUp, argv[1]);
     if (!readOK)
     {
-	printf("\nError al abrir el archivo: %s.\n",argv[1]);
-	exit(1);
+        printf("\nError al abrir el archivo: %s.\n",argv[1]);
+        exit(1);
     }
 
     readOK = readPrecinctsToFile(precinctsDown, &npDown, argv[2]);
     if (!readOK)
     {
-	printf("\nError al abrir el archivo: %s.\n",argv[2]);
-	exit(1);
+        printf("\nError al abrir el archivo: %s.\n",argv[2]);
+        exit(1);
     }
 
 
     for(i=0;i<npUp;i++)
     {
-	precinctsOut[i] = precinctsUp[i];
+        precinctsOut[i] = precinctsUp[i];
     }
 
     for(j=0;j<npDown;j++)
     {
-	precinctsOut[i] = precinctsDown[j];
-	i++;    	
+        precinctsOut[i] = precinctsDown[j];
+        i++;
     }
 
     OrdenarSeleccionDirecta(precinctsOut, i);
@@ -57,14 +57,13 @@ int main (int argc, char *argv[])
     writeOK = writePrecinctsToFile(precinctsOut, i, argv[3]);
     if (!writeOK)
     {
-	printf("\nError al abrir el archivo: %s.\n",argv[3]);
-	exit(1);
+        printf("\nError al abrir el archivo: %s.\n",argv[3]);
+        exit(1);
     }
     else
     {
-	printf("\nEl archivo: %s se creó con éxito.\n",argv[3]);
+        printf("\nEl archivo: %s se creó con éxito.\n",argv[3]);
     }
 
     return 0;
 }
-

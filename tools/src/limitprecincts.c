@@ -5,18 +5,18 @@
 
 int main (int argc, char *argv[])
 {
-    precint *precincts;			 /* Vector de precintos */
-    long np;				 /* Numero de elementos del vector */
-    long maxPrecincts;	
+    precint *precincts;      /* Vector de precintos */
+    long np;                 /* Numero de elementos del vector */
+    long maxPrecincts;
 
     /* Comprobamos el número de parametros */
     if (argc!=4)
     {
-	printf("\nUso: %s <filename_precincts_list_in> <filename_precincts_list_in> <max_precincts>.",argv[0]);
-	printf("\nfilename_precincts_list = Precincts list IN.");
-	printf("\nfilename_precincts_list = Precincts list OUT.");
-	printf("\nmax_precincts = Número de precintos con los que vamos a generar la imagen.\n\n");
-	exit(0);
+        printf("\nUso: %s <filename_precincts_list_in> <filename_precincts_list_in> <max_precincts>.",argv[0]);
+        printf("\nfilename_precincts_list = Precincts list IN.");
+        printf("\nfilename_precincts_list = Precincts list OUT.");
+        printf("\nmax_precincts = Número de precintos con los que vamos a generar la imagen.\n\n");
+        exit(0);
     }
 
     /* Validamos el valor del tamaño de precinto */

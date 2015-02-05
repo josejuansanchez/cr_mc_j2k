@@ -9,18 +9,18 @@ void OrdenarSeleccionDirecta(offset precints[], long np)
 
     for(i=0;i<=np-2;i++)
     {
-    	k = i;
-	for(j=i+1;j<=np-1;j++)
-	{
-	    if (precints[j].offset < precints[k].offset)
-     	    {
-	 	k = j;
-  	    }
+		k = i;
+		for(j=i+1;j<=np-1;j++)
+		{
+			if (precints[j].offset < precints[k].offset)
+			{
+				k = j;
+			}
+		}
+		aux = precints[k];
+		precints[k] = precints[i];
+		precints[i] = aux;
 	}
-	aux = precints[k];
-	precints[k] = precints[i];
-	precints[i] = aux;
-    }
 }
 
 
@@ -90,7 +90,7 @@ int NumeroDeOffsetList(char *filename)
 	while(!feof(f))
 	{
 		ne = ne + 1;
-		fscanf(f,"%ld:%ld\n",&o.offset,&o.length);		
+		fscanf(f,"%ld:%ld\n",&o.offset,&o.length);
 	}	
 	fclose(f);
 	return ne;

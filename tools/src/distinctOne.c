@@ -62,11 +62,11 @@ int main(int argc, char *argv[])
 	printf("\n# Paquetes distintos: %ld",nedis);
 	printf("\n# Paquetes repetidos: %ld",ne-nedis);
 
-	/* Sumamos los bytes de los paquetes distintos */	
+	/* Sumamos los bytes de los paquetes distintos */
 	sum = SumBytes(distintos,nedis);
 	printf("\nSum (Bytes): %lf",sum);
-        printf("\nSum (KBytes): %lf",sum/1024);
-        printf("\nSum (MBytes): %lf\n",sum/(1024*1024));
+	printf("\nSum (KBytes): %lf",sum/1024);
+	printf("\nSum (MBytes): %lf\n",sum/(1024*1024));
 	printf("\nBYTES: %.0lf",sum);
 
 	/* Ordenamos la lista ascendentemente según el offset */
@@ -82,5 +82,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
-

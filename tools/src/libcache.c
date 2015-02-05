@@ -78,7 +78,7 @@ int SetPacketList(packet *packetList, int *npa, char filename[])
       packetList[*npa].rb = rb;
 
       /* Get the packet id from de data */
-      /* FF      91      00      04      XX      XX  ... */      
+      /* FF      91      00      04      XX      XX  ... */
       /* data[0] data[1] data[2] data[3] data[4] data[5] */
       int packetId = GetPacketId(data);
       packetList[*npa].packetId = packetId;
@@ -427,7 +427,7 @@ int CacheToJ2C(char filenameIn[], char filenameOut[], packet *packetList, int np
     fread(&data, 1, rb, fin);
 
     /* Get the packet id from de data */
-    /* FF      91      00      04      XX      XX  ... */      
+    /* FF      91      00      04      XX      XX  ... */
     int packetId = GetPacketId(data);
 
     /* Buscamos en el archivo todos los paquetes que tengan el id que buscamos */
@@ -452,7 +452,7 @@ int CacheToJ2C(char filenameIn[], char filenameOut[], packet *packetList, int np
       fread(&data, 1, rb, fin);
 
       /* Get the packet id from de data */
-      /* FF      91      00      04      XX      XX  ... */      
+      /* FF      91      00      04      XX      XX  ... */
       packetId = GetPacketId(data);
     }
     fclose(fin);
