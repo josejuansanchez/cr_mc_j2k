@@ -120,16 +120,16 @@ while [ $i -le 90 ]; do
 	# **********************************************************************
 	#
 	# Calculamos los vectores de movimiento
-	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
-	#CheckExitStatusCode	
+	$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
+	CheckExitStatusCode	
 
 	#
 	# WITHOUT MC
 	# **********************************************************************	
 	# ¡OJO!: UTILIZAMOS LA MISMA IMAGEN: $odd_image
 	# 
-	$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
-	CheckExitStatusCode			
+	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
+	#CheckExitStatusCode			
 	# ************************************************************************	
 
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
@@ -182,8 +182,8 @@ while [ $i -le 90 ]; do
 
 	# TODO: Esta sección está en fase de pruebas
 	# *************************
-	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
@@ -212,9 +212,9 @@ while [ $i -le 90 ]; do
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
 	
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
-	#$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
+	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
+	$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
 	# *************************
 
 	CheckExitStatusCode
