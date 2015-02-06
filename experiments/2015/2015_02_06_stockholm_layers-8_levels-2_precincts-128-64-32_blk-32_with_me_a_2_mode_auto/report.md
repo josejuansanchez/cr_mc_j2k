@@ -98,8 +98,8 @@ Codestream recibido para cada imagen
 Simulación de los resultados
 =============
 
-* [Bitrate: 11.000 bytes](ogv/all_11000.ogv)
-* [Bitrate: 21.000 bytes](ogv/all_21000.ogv)
-* [Bitrate: 31.000 bytes](ogv/all_31000.ogv)
-* [Bitrate: 41.000 bytes](ogv/all_41000.ogv)
-* [Bitrate: 51.000 bytes](ogv/all_51000.ogv)
+* Bitrate: 11.000 bytes
+* Bitrate: 21.000 bytes
+* Bitrate: 31.000 bytes
+* Bitrate: 41.000 bytes
+* Bitrate: 51.000 bytes
