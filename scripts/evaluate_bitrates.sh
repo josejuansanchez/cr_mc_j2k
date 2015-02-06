@@ -13,7 +13,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_02_05_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a_1_mode_auto
+EXPERIMENTS=$CR_MC_J2K_HOME/2015_02_06_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a_2_mode_auto
 
 # tree
 #IMAGE_N=0
@@ -39,5 +39,10 @@ do
     cp psnr_$BITRATE.png $EXPERIMENTS
     cp ssim_$BITRATE.png $EXPERIMENTS
     cp paste_$BITRATE.txt $EXPERIMENTS
+
+    ./create_ogv_and_gif.sh $IMAGE_N IMAGE_N1
+    mv all.ogv all_$BITRATE.ogv
+    mv all.gif all_$BITRATE.gif
+
     ./clean.sh
 done
