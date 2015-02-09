@@ -41,7 +41,11 @@ do
     cp paste_$BITRATE.txt $EXPERIMENTS
 
     # TODO: Temporal solution - 0 and 90 are values hardcoded
-    ./create_ogv_and_gif.sh 0 90
+    #./create_ogv_and_gif.sh 0 90
+
+    ./create_ogv_and_gif.sh 0 2
+    exit
+
     mv all.ogv all_$BITRATE.ogv
     mv all.gif all_$BITRATE.gif
 

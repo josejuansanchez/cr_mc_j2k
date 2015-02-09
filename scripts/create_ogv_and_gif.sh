@@ -127,5 +127,6 @@ do
       -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/$FRAME.jpg
 done
 
-ffmpeg2theora $TMP_ALL_DIR/%d.jpg -o all.ogv
+ffmpeg -i $TMP_ALL_DIR/%d.jpg -b 5000k all.ogv
+#ffmpeg2theora $TMP_ALL_DIR/%d.jpg -o all.ogv
 convert -delay 2 -loop 0 $TMP_ALL_DIR/*.jpg all.gif
