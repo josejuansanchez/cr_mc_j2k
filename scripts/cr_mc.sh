@@ -135,7 +135,7 @@ while [ $i -le 20 ]; do
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
 	# Como salida genera la imagen: prediction_temp.pgm
 	# Nota: "decorrelate" necesita que la imagen de entrada esté en el directorio local
-	$DECORRELATE -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V	
+	$DECORRELATE -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V -a $A
 	CheckExitStatusCode	
 
 	# Eliminamos la imagen temporal que se genera
@@ -379,7 +379,7 @@ while [ $i -le 20 ]; do
 
 	echo -e "BYTES_READED: $BYTES_READED"
 	echo -e "me + precints \t precincts \t me \t trunc\n"
-	echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC \n"
+	#echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC \n"
 	#echo -e "$PSNR_ME_PRECI \t $PSNR_PRECI \t $PSNR_MC \t $PSNR_TRUNC" >> ${PSNR_FILE}
 	echo -e "$PSNR_ME_PRECI \t $PSNR_TRUNC \n"
 	echo -e "$PSNR_ME_PRECI \t $PSNR_TRUNC" >> ${PSNR_FILE}

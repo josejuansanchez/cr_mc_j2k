@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 function CheckExitStatusCode()
 {
     if [ $? -ne 0 ]; then
@@ -47,8 +49,13 @@ fi
 
 cp _tmp_prediction_images/*.pgm $TMP_PREDICTION_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_PREDICTION_DIR/*.pgm
-convert $TMP_PREDICTION_DIR/*.pgm $TMP_PREDICTION_DIR/%d.png
-#ffmpeg2theora $TMP_PREDICTION_DIR/%d.png -o prediction.ogv
+
+for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+do
+  FRAME_NUMBER=`printf %03d $FRAME`
+  convert $TMP_PREDICTION_DIR/$FRAME_NUMBER.pgm $TMP_PREDICTION_DIR/$FRAME_NUMBER.png
+done
+
 #convert -delay 2 -loop 0 $TMP_PREDICTION_DIR/*.pgm prediction.gif
 
 ## 2. Blocks sequence
@@ -64,8 +71,13 @@ fi
 
 cp _tmp_blocks/*.pgm $TMP_BLOCKS_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_BLOCKS_DIR/*.pgm
-convert $TMP_BLOCKS_DIR/*.pgm $TMP_BLOCKS_DIR/%d.png
-#ffmpeg2theora $TMP_BLOCKS_DIR/%d.png -o blocks.ogv
+
+for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+do
+  FRAME_NUMBER=`printf %03d $FRAME`
+  convert $TMP_BLOCKS_DIR/$FRAME_NUMBER.blocks.pgm $TMP_BLOCKS_DIR/$FRAME_NUMBER.png
+done
+
 #convert -delay 25 -loop 0 $TMP_BLOCKS_DIR/*.png blocks.gif
 
 ## 3. MJ2K sequence
@@ -81,8 +93,13 @@ fi
 
 cp _tmp_trunc_images/*.pgm $TMP_TRUNC_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_TRUNC_DIR/*.pgm
-convert $TMP_TRUNC_DIR/*.pgm $TMP_TRUNC_DIR/%d.png
-#ffmpeg2theora $TMP_TRUNC_DIR/%d.png -o trunc.ogv
+
+for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+do
+  FRAME_NUMBER=`printf %03d $FRAME`
+  convert $TMP_TRUNC_DIR/$FRAME_NUMBER.trunc.pgm $TMP_TRUNC_DIR/$FRAME_NUMBER.png
+done
+
 #convert -delay 2 -loop 0 $TMP_TRUNC_DIR/*.pgm trunc.gif
 
 ## 4. Original sequence
@@ -98,8 +115,13 @@ fi
 
 cp ${IMAGES_DIRECTORY}/*.pgm $TMP_ORIGINAL_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_ORIGINAL_DIR/*.pgm
-convert $TMP_ORIGINAL_DIR/*.pgm $TMP_ORIGINAL_DIR/%d.png
-#ffmpeg2theora $TMP_ORIGINAL_DIR/%d.png -o original.ogv
+
+for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+do
+  FRAME_NUMBER=`printf %03d $FRAME`
+  convert $TMP_ORIGINAL_DIR/$FRAME_NUMBER.pgm $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png
+done
+
 #convert -delay 2 -loop 0 $TMP_ORIGINAL_DIR/*.pgm original.gif
 
 ## 5. Create a montage with all the above frames using this layout:
@@ -122,11 +144,11 @@ fi
 
 for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
 do
-    montage $TMP_PREDICTION_DIR/$FRAME.png $TMP_BLOCKS_DIR/$FRAME.png \
-      $TMP_TRUNC_DIR/$FRAME.png $TMP_ORIGINAL_DIR/$FRAME.png \
-      -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/$FRAME.jpg
+  FRAME_NUMBER=`printf %03d $FRAME`
+  montage $TMP_PREDICTION_DIR/$FRAME_NUMBER.png $TMP_BLOCKS_DIR/$FRAME_NUMBER.png \
+    $TMP_TRUNC_DIR/$FRAME_NUMBER.png $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png \
+    -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/img_$FRAME_NUMBER.jpg
 done
 
-ffmpeg -i $TMP_ALL_DIR/%d.jpg -b 5000k all.ogv
-#ffmpeg2theora $TMP_ALL_DIR/%d.jpg -o all.ogv
+ffmpeg -f image2 -i $TMP_ALL_DIR/%03d.jpg -b 5000k all.ogv
 convert -delay 2 -loop 0 $TMP_ALL_DIR/*.jpg all.gif
