@@ -81,97 +81,101 @@ void predict
   for(int c=0; c<components; c++) {
     for(int by=0; by<blocks_in_y; by++) {
       for(int bx=0; bx<blocks_in_x; bx++) {
-	
-	int mvy0 = mv[PREV][Y_FIELD][by][bx] + by * block_size;
-	int mvy1 = mv[NEXT][Y_FIELD][by][bx] + by * block_size;
-	int mvx0 = mv[PREV][X_FIELD][by][bx] + bx * block_size;
-	int mvx1 = mv[NEXT][X_FIELD][by][bx] + bx * block_size;
 
-	/* Copiamos el bloque. */
-	for(int y=-dwt_border; y<(block_size+dwt_border); y++) {
-	  for(int x=-dwt_border; x<(block_size+dwt_border); x++) {
-	    prediction_block[y+dwt_border][x+dwt_border]
-	      =
-	      (reference_picture[PREV][c][mvy0+y][mvx0+x]
-	       +
-	       reference_picture[NEXT][c][mvy1+y][mvx1+x])
-	      /2;
-	  }
-	}
-	
-	/* DWT del bloque. */
-	overlap_dwt->analyze(prediction_block,
-			     block_size + dwt_border * 2,
-			     block_size + dwt_border * 2,
-			     levels);
-	
-	/* Copiamos en "prediction_picture" las bandas de alta frecuencia. */ {
-	  for(int l=1; l<=levels; l++) {
-	    int bs = block_size>>l;
-	    for(int y=0; y<bs; y++) {
-	      for(int x=0; x<bs; x++) {
-		/* Banda LH */
-		prediction_picture
-		  [c]
-		  [by*bs+y]
-		  [(pixels_in_x>>l)+bx*bs+x]
-		  =
-		  prediction_block
-		  [(dwt_border>>l)+y]
-		  [((block_size+dwt_border*3)>>l)+x];
-		/* Banda HL */
-		prediction_picture
-		  [c]
-		  [(pixels_in_y>>l)+by*bs+y]
-		  [bx*bs+x]
-		  =
-		  prediction_block
-		  [((block_size+dwt_border*3)>>l)+y]
-		  [(dwt_border>>l)+x];
-		/* Banda HH */
-		prediction_picture
-		  [c]
-		  [(pixels_in_y>>l)+by*bs+y]
-		  [(pixels_in_x>>l)+bx*bs+x]
-		  =
-		  prediction_block
-		  [((block_size+dwt_border*3)>>l)+y]
-		  [((block_size+dwt_border*3)>>l)+x];
-	      } /* for(x) */
-	    } /* for(y) */
-	  } /* for(l) */
-	} /* Bandas de alta frecuencia. */
-	
-	/* Copiamos en prediction_picture la banda LL. */ { 
-	  int bs = block_size>>levels;
-	  for(int y=0; y<bs; y++) {
-	    for(int x=0; x<bs; x++) {
-	      prediction_picture
-		[c]
-		[by*bs+y]
-		[bx*bs+x]
-		=
-		prediction_block
-		[(dwt_border>>levels)+y]
-		[(dwt_border>>levels)+x];
-	    } /* for(x) */
-	  } /* for(y) */
-	} /* Banda LL. */
-      } /* for(blocks_in_y) */
-    } /* for(blocks_in_x) */
-    
+        int mvy0 = mv[PREV][Y_FIELD][by][bx] + by * block_size;
+        int mvy1 = mv[NEXT][Y_FIELD][by][bx] + by * block_size;
+        int mvx0 = mv[PREV][X_FIELD][by][bx] + bx * block_size;
+        int mvx1 = mv[NEXT][X_FIELD][by][bx] + bx * block_size;
+
+        /* Copiamos el bloque. */
+        for(int y=-dwt_border; y<(block_size+dwt_border); y++) {
+          for(int x=-dwt_border; x<(block_size+dwt_border); x++) {
+            prediction_block[y+dwt_border][x+dwt_border]
+            =
+            (reference_picture[PREV][c][mvy0+y][mvx0+x]
+            +
+            reference_picture[NEXT][c][mvy1+y][mvx1+x])
+            /2;
+          }
+        }
+
+        /* DWT del bloque. */
+        overlap_dwt->analyze(prediction_block,
+          block_size + dwt_border * 2,
+          block_size + dwt_border * 2,
+          levels);
+
+        /* Copiamos en "prediction_picture" las bandas de alta frecuencia. */ 
+        {
+          for(int l=1; l<=levels; l++) {
+            int bs = block_size>>l;
+            for(int y=0; y<bs; y++) {
+              for(int x=0; x<bs; x++) {
+                /* Banda LH */
+                prediction_picture
+                [c]
+                [by*bs+y]
+                [(pixels_in_x>>l)+bx*bs+x]
+                =
+                prediction_block
+                [(dwt_border>>l)+y]
+                [((block_size+dwt_border*3)>>l)+x];
+
+                /* Banda HL */
+                prediction_picture
+                [c]
+                [(pixels_in_y>>l)+by*bs+y]
+                [bx*bs+x]
+                =
+                prediction_block
+                [((block_size+dwt_border*3)>>l)+y]
+                [(dwt_border>>l)+x];
+                
+                /* Banda HH */
+                prediction_picture
+                [c]
+                [(pixels_in_y>>l)+by*bs+y]
+                [(pixels_in_x>>l)+bx*bs+x]
+                =
+                prediction_block
+                [((block_size+dwt_border*3)>>l)+y]
+                [((block_size+dwt_border*3)>>l)+x];
+              } /* for(x) */
+            } /* for(y) */
+          } /* for(l) */
+        } /* Bandas de alta frecuencia. */
+
+        /* Copiamos en prediction_picture la banda LL. */
+        {
+          int bs = block_size>>levels;
+          for(int y=0; y<bs; y++) {
+            for(int x=0; x<bs; x++) {
+              prediction_picture
+              [c]
+              [by*bs+y]
+              [bx*bs+x]
+              =
+              prediction_block
+              [(dwt_border>>levels)+y]
+              [(dwt_border>>levels)+x];
+            } /* for(x) */
+          } /* for(y) */
+        } /* Banda LL. */
+      } /* for(blocks_in_x) */
+    } /* for(blocks_in_y) */
+
     overlap_dwt->synthesize(prediction_picture[c], pixels_in_y, pixels_in_x, levels);
-   
+
 #ifdef _1_ 
     if(levels) {
       /* Clipping de la predicción. */
       for(int y=0; y<pixels_in_y; y++) {
-	for(int x=0; x<pixels_in_x; x++) {
-	  TC_CPU_TYPE aux = prediction_picture[c][y][x];
-	  if(aux<MIN_TC_VAL) aux=MIN_TC_VAL;
-	  else if(aux>MAX_TC_VAL) aux=MAX_TC_VAL;
-	  prediction_picture[c][y][x] = aux;
-	}
+        for(int x=0; x<pixels_in_x; x++) {
+          TC_CPU_TYPE aux = prediction_picture[c][y][x];
+          if(aux<MIN_TC_VAL) aux=MIN_TC_VAL;
+          else if(aux>MAX_TC_VAL) aux=MAX_TC_VAL;
+            prediction_picture[c][y][x] = aux;
+        }
       }
     }
 #endif
@@ -240,11 +244,11 @@ int main(int argc, char *argv[]) {
 
     c = getopt_long(argc, argv,
 #if defined ANALYZE
-		    "v:b:e:f:h:i:t:o:p:x:y:s:a:?",
+    "v:b:e:f:h:i:t:o:p:x:y:s:a:?",
 #else
-		    "v:b:e:f:h:i:o:p:x:y:s:a:?",
+    "v:b:e:f:h:i:o:p:x:y:s:a:?",
 #endif
-		    long_options, &option_index);
+    long_options, &option_index);
     
     if(c==-1) {
       /* Ya no hay más opciones. */
@@ -255,13 +259,13 @@ int main(int argc, char *argv[]) {
     case 0:
       /* If this option set a flag, do nothing else now. */
       if (long_options[option_index].flag != 0)
-	break;
+        break;
       info("option %s", long_options[option_index].name);
       if (optarg)
-	info(" with arg %s", optarg);
+        info(" with arg %s", optarg);
       info("\n");
       break;
-      
+
     case 'v':
       block_overlaping = atoi(optarg);
 #if defined DEBUG
@@ -406,7 +410,7 @@ int main(int argc, char *argv[]) {
     even_fd = fopen(even_fn, "r");
     if(!even_fd) {
       error("%s: unable to read \"%s\" ... aborting!\n",
-	    argv[0], even_fn);
+        argv[0], even_fn);
       abort();
     }
   }
@@ -415,7 +419,7 @@ int main(int argc, char *argv[]) {
     motion_in_fd = fopen(motion_in_fn, "r");
     if(!motion_in_fd) {
       error("%s: unable to read \"%s\" ... aborting!\n",
-	    argv[0], motion_in_fn);
+        argv[0], motion_in_fn);
       abort();
     }
   }
@@ -425,7 +429,7 @@ int main(int argc, char *argv[]) {
     motion_out_fd = fopen(motion_out_fn, "w");
     if(!motion_out_fd) {
       error("%s: unable to write \"%s\" ... aborting!\n",
-	    argv[0], motion_out_fn);
+        argv[0], motion_out_fn);
       abort();
     }
   }
@@ -434,18 +438,18 @@ int main(int argc, char *argv[]) {
   FILE *odd_fd; {
     odd_fd = fopen(odd_fn,
 #if defined ANALYZE
-		    "r"
+    "r"
 #else
-		    "w"
+    "w"
 #endif
-		   );
+    );
     if(!odd_fd) {
 #if defined ANALYZE
       error("%s: unable to read \"%s\" ... aborting!\n",
-	    argv[0], odd_fn);
+        argv[0], odd_fn);
 #else
       error("%s: unable to write \"%s\" ... aborting!\n",
-	    argv[0], odd_fn);
+        argv[0], odd_fn);
 #endif
       abort();
     }
@@ -455,18 +459,18 @@ int main(int argc, char *argv[]) {
   FILE *high_fd; {
     high_fd = fopen(high_fn,
 #if defined ANALYZE
-		    "w"
+    "w"
 #else
-		    "r"
+    "r"
 #endif
-		    );
+    );
     if(!high_fd) {
 #if defined ANALYZE
       error("%s: unable to write \"%s\" ... aborting!\n",
-	    argv[0], high_fn);
+        argv[0], high_fn);
 #else
       error("%s: unable to read \"%s\" ... aborting!\n",
-	    argv[0], high_fn);    
+        argv[0], high_fn);    
 #endif
       abort();
     }
@@ -482,12 +486,12 @@ int main(int argc, char *argv[]) {
     prediction_fd = fopen(prediction_fn, "w");
     if(!prediction_fd) {
       error("%s: unable to write \"%s\" ... aborting!\n",
-	    argv[0], prediction_fn);
+        argv[0], prediction_fn);
       abort();
     }
 #if defined DEBUG
     info("%s: writing predictions in \"%s\"\n",
-	 argv[0], prediction_fn);
+      argv[0], prediction_fn);
 #endif
   }
 #endif /* GET_PREDICTION */
@@ -495,18 +499,18 @@ int main(int argc, char *argv[]) {
   FILE *frame_types_fd; {
     frame_types_fd = fopen(frame_types_fn,
 #if defined ANALYZE
-			   "w"
+    "w"
 #else
-			   "r"
+    "r"
 #endif
-			   );
+    );
     if(!frame_types_fd) {
 #if defined ANALYZE
       error("%s: unable to write \"%s\" ... aborting!\n",
-	    argv[0], frame_types_fn);
+        argv[0], frame_types_fn);
 #else
       error("%s: unable to read \"%s\" ... aborting!\n",
-	    argv[0], frame_types_fn);    
+        argv[0], frame_types_fn);    
 #endif
       abort();
     }
@@ -550,10 +554,10 @@ int main(int argc, char *argv[]) {
 
   TC_CPU_TYPE **prediction_block =
     image.alloc((pixels_in_y[0]/blocks_in_y + block_overlaping*2)
-		<< subpixel_accuracy,
-		(pixels_in_x[0]/blocks_in_x + block_overlaping*2)
-		<< subpixel_accuracy,
-		0);
+    << subpixel_accuracy,
+    (pixels_in_x[0]/blocks_in_x + block_overlaping*2)
+    << subpixel_accuracy,
+    0);
 
   /****/
   // Modificación: 16 / Julio / 2013
@@ -569,31 +573,31 @@ int main(int argc, char *argv[]) {
     reference[i] = new TC_CPU_TYPE ** [COMPONENTS];
     for(int c=0; c<COMPONENTS; c++) {
       reference[i][c] =
-	      image.alloc(pixels_in_y[0] << subpixel_accuracy,
-		    pixels_in_x[0] << subpixel_accuracy,
-		    picture_border_size << subpixel_accuracy);
+        image.alloc(pixels_in_y[0] << subpixel_accuracy,
+        pixels_in_x[0] << subpixel_accuracy,
+        picture_border_size << subpixel_accuracy);
     }
   }
 
   TC_CPU_TYPE ***predicted = new TC_CPU_TYPE ** [COMPONENTS];
   for(int c=0; c<COMPONENTS; c++) {
     predicted[c] = image.alloc(pixels_in_y[c], /* c */
-			       pixels_in_x[c], /* c */
-			       picture_border_size);
+      pixels_in_x[c], /* c */
+      picture_border_size);
   }
 
   TC_CPU_TYPE ***prediction = new TC_CPU_TYPE ** [COMPONENTS];
   for(int c=0; c<COMPONENTS; c++) {
     prediction[c] = image.alloc(pixels_in_y[0] << subpixel_accuracy,
-				pixels_in_x[0] << subpixel_accuracy,
-				0);
+      pixels_in_x[0] << subpixel_accuracy,
+      0);
   }
   
   TC_CPU_TYPE ***residue = new TC_CPU_TYPE ** [COMPONENTS];
   for(int c=0; c<COMPONENTS; c++) {
     residue[c] = image.alloc(pixels_in_y[c], /* c */
-			     pixels_in_x[c], /* c */
-			     0/*picture_border_size*/);
+      pixels_in_x[c], /* c */
+      0/*picture_border_size*/);
   }
   
 #if defined GET_PREDICTION
@@ -614,7 +618,7 @@ int main(int argc, char *argv[]) {
     imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* ) );
     for(int i = 0; i < pixels_in_y[c]; i++) 
     {
-    	imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
+      imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
     }
 
     // Leemos la imagen de disco
@@ -624,7 +628,7 @@ int main(int argc, char *argv[]) {
     // Copiamos la imagen que hemos leído de disco a la estructura reference[0]
     for(int y=0; y < pixels_in_y[c]; y++) {
       for(int x=0; x < pixels_in_x[c]; x++) {
-	       reference[0][c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
+        reference[0][c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
       }
     }
     /**********/
@@ -659,7 +663,7 @@ int main(int argc, char *argv[]) {
   /*
   for(int y=0; y<pixels_in_y[0]/2; y++) {
     memset(reference[0][1][y]+pixels_in_x[0]/2, 0,
-	   (pixels_in_x[0]*sizeof(TC_CPU_TYPE))/2);
+      (pixels_in_x[0]*sizeof(TC_CPU_TYPE))/2);
   }
   */
 
@@ -696,7 +700,7 @@ int main(int argc, char *argv[]) {
   /*
   for(int y=0; y<pixels_in_y[0]/2; y++) {
     memset(reference[0][2][y]+pixels_in_x[0]/2, 0,
-	   (pixels_in_x[0]*sizeof(TC_CPU_TYPE))/2);
+      (pixels_in_x[0]*sizeof(TC_CPU_TYPE))/2);
   }
   for(int y=pixels_in_y[0]/2; y<pixels_in_y[0]; y++) {
     memset(reference[0][2][y], 0, pixels_in_x[0]*sizeof(TC_CPU_TYPE));
@@ -752,7 +756,7 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("%s: reading picture %d of \"%s\".\n",
-	 argv[0], i, odd_fn);
+      argv[0], i, odd_fn);
 #endif
 
     /* Leemos siguiente la imagen (que es la que vamos a predecir). */
@@ -767,7 +771,7 @@ int main(int argc, char *argv[]) {
       imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* ) );
       for(int i = 0; i < pixels_in_y[c]; i++) 
       {
-    	imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
+        imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
       }
 
       // Leemos la imagen de disco
@@ -777,7 +781,7 @@ int main(int argc, char *argv[]) {
       // Copiamos la imagen que hemos leído de disco a la estructura predicted
       for(int y=0; y<pixels_in_y[c]; y++) {
         for(int x=0; x<pixels_in_x[c]; x++) {
-	       predicted[c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
+          predicted[c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
         }
       }
       /**********/
@@ -794,9 +798,9 @@ int main(int argc, char *argv[]) {
     for(int c=0; c<COMPONENTS; c++) {
       image.read(high_fd, residue[c], pixels_in_y[c], pixels_in_x[c]);
       for(int y=0; y<pixels_in_y[c]; y++) {
-	     for(int x=0; x<pixels_in_x[c]; x++) {
-	       residue[c][y][x] -= 128;
-	     }
+        for(int x=0; x<pixels_in_x[c]; x++) {
+          residue[c][y][x] -= 128;
+        }
       }
     }
 
@@ -804,7 +808,7 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("%s: reading picture %d of \"%s\".\n",
-	 argv[0], i, even_fn);
+      argv[0], i, even_fn);
 #endif
 
     /* Leemos reference[1], interpolando las cromas. */
@@ -820,7 +824,7 @@ int main(int argc, char *argv[]) {
       imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* ) );
       for(int i = 0; i < pixels_in_y[c]; i++) 
       {
-    	 imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
+        imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
       }
 
       // Leemos la imagen de disco
@@ -830,7 +834,7 @@ int main(int argc, char *argv[]) {
       // Copiamos la imagen que hemos leído de disco a la estructura reference[1]
       for(int y=0; y<pixels_in_y[c]; y++) {
         for(int x=0; x<pixels_in_x[c]; x++) {
-	       reference[1][c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
+          reference[1][c][y][x] = (TC_CPU_TYPE) imageTemp[y][x];
         }
       }
       /**********/
@@ -897,7 +901,7 @@ int main(int argc, char *argv[]) {
     /* Leemos los campos de movimiento. */
 #if defined DEBUG
     info("%s: reading motion vector field %d in \"%s\".\n",
-	 argv[0], i, motion_in_fn);
+      argv[0], i, motion_in_fn);
 #endif
     motion.read(motion_in_fd, mv, blocks_in_y, blocks_in_x);
 
@@ -906,16 +910,16 @@ int main(int argc, char *argv[]) {
       static int count[256];
       
       for(int i=0; i<256; i++) {
-	     count[i] = 0;
+        count[i] = 0;
       }
       
       for(int y=0; y<blocks_in_y; y++) {
-	     for(int x=0; x<blocks_in_x; x++) {
-	       count[ mv[PREV][Y_FIELD][y][x] + 128 ]++;
-	       count[ mv[PREV][X_FIELD][y][x] + 128 ]++;
-	       count[ mv[NEXT][Y_FIELD][y][x] + 128 ]++;
-	       count[ mv[NEXT][X_FIELD][y][x] + 128 ]++;
-	     }
+        for(int x=0; x<blocks_in_x; x++) {
+          count[ mv[PREV][Y_FIELD][y][x] + 128 ]++;
+          count[ mv[PREV][X_FIELD][y][x] + 128 ]++;
+          count[ mv[NEXT][Y_FIELD][y][x] + 128 ]++;
+          count[ mv[NEXT][X_FIELD][y][x] + 128 ]++;
+        }
       }
 
       motion_entropy = entropy(count, 256);
@@ -929,17 +933,17 @@ int main(int argc, char *argv[]) {
       /* Escribimos la imagen residuo, submuestreando las cromas. */
 
     predict(block_overlaping << subpixel_accuracy,
-	    block_size << subpixel_accuracy,
-	    blocks_in_y,
-	    blocks_in_x,
-	    COMPONENTS,
-	    pixels_in_y[0]<<subpixel_accuracy,
-	    pixels_in_x[0]<<subpixel_accuracy,
-	    mv,
-	    image_dwt,
-	    prediction_block,
-	    prediction,
-	    reference);
+      block_size << subpixel_accuracy,
+      blocks_in_y,
+      blocks_in_x,
+      COMPONENTS,
+      pixels_in_y[0]<<subpixel_accuracy,
+      pixels_in_x[0]<<subpixel_accuracy,
+      mv,
+      image_dwt,
+      prediction_block,
+      prediction,
+      reference);
 
     for(int c=0; c<COMPONENTS; c++) {
       for(int y=0; y<pixels_in_y[0] << subpixel_accuracy; y++) {
@@ -955,9 +959,9 @@ int main(int argc, char *argv[]) {
        movimiento se hace a la resolución original del vídeo. */
     for(int c=0; c<COMPONENTS; c++) {
       image_dwt->analyze(prediction[c],
-			 pixels_in_y[0] << subpixel_accuracy,
-			 pixels_in_x[0] << subpixel_accuracy,
-			 subpixel_accuracy);
+        pixels_in_y[0] << subpixel_accuracy,
+        pixels_in_x[0] << subpixel_accuracy,
+        subpixel_accuracy);
     }
 
     /****/
@@ -971,7 +975,7 @@ int main(int argc, char *argv[]) {
 #if defined GET_PREDICTION
 #if defined DEBUG
     info("%s: writing picture %d of \"%s\".\n",
-	 argv[0], i, prediction_fn);
+      argv[0], i, prediction_fn);
 #endif /* DEBUG */
     for(int c=0; c<COMPONENTS; c++) {
       image.write(prediction_fd, prediction[c], pixels_in_y[c], pixels_in_x[c]);
@@ -1002,43 +1006,43 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
       info("%s: writing picture %d of \"%s\".\n",
-	   argv[0], i, high_fn);
+        argv[0], i, high_fn);
 #endif
 
       /*
 
-	Una resta a alta resolución y una reducción, vs, dos
-	reducciones y una resta a baja resolución.
+  Una resta a alta resolución y una reducción, vs, dos
+  reducciones y una resta a baja resolución.
 
-	Sin truncar:
+  Sin truncar:
 
-	1 2 3 4   1 1 2 2   0  1  1  2     0.5  1.5
-	5 6 7 8 - 5 5 6 6 = 0  1  1  2 -> -0.5 -1.5
-	8 7 6 5   8 8 7 7   0 -1 -1 -2
-	4 3 2 1   4 4 3 3   0 -1 -1 -2
-
-           |         |
-           v         v
-
-	3.5 5.5 - 3.0 4.0 =  0.5  1.5
-        5.5 3.5   6.0 5.0   -0.5 -1.5
-
-	Truncando:
-
-	1 2 3 4   1 1 2 2   0  1  1  2     0  1
-	5 6 7 8 - 5 5 6 6 = 0  1  1  2 -> -1 -2
-	8 7 6 5   8 8 7 7   0 -1 -1 -2
-	4 3 2 1   4 4 3 3   0 -1 -1 -2
+  1 2 3 4   1 1 2 2   0  1  1  2     0.5  1.5
+  5 6 7 8 - 5 5 6 6 = 0  1  1  2 -> -0.5 -1.5
+  8 7 6 5   8 8 7 7   0 -1 -1 -2
+  4 3 2 1   4 4 3 3   0 -1 -1 -2
 
            |         |
            v         v
 
-	3 5     -   3 4 =  0  1
-        5 3         6 5   -1 -2
-	
-	O sea, que es lo mismo compensar el movimiento a alta
-	resolución que a baja resolución (siempre y cuando las
-	predicciones sean iguales).
+  3.5 5.5 - 3.0 4.0 =  0.5  1.5
+  5.5 3.5   6.0 5.0   -0.5 -1.5
+
+  Truncando:
+
+  1 2 3 4   1 1 2 2   0  1  1  2     0  1
+  5 6 7 8 - 5 5 6 6 = 0  1  1  2 -> -1 -2
+  8 7 6 5   8 8 7 7   0 -1 -1 -2
+  4 3 2 1   4 4 3 3   0 -1 -1 -2
+
+           |         |
+           v         v
+
+  3 5     -   3 4 =  0  1
+  5 3         6 5   -1 -2
+
+  O sea, que es lo mismo compensar el movimiento a alta
+  resolución que a baja resolución (siempre y cuando las
+  predicciones sean iguales).
 
        */
 
@@ -1071,8 +1075,8 @@ int main(int argc, char *argv[]) {
      for(int y=0; y<pixels_in_y[0]; y++) {
        for(int x=0; x<pixels_in_x[0]; x++) {
         predicted_count[ predicted[0][y][x] ]++;
-	      residue_count[ residue[0][y][x] + 128 ]++; // Usar puntero
-	     }
+        residue_count[ residue[0][y][x] + 128 ]++; // Usar puntero
+       }
       }
 
       predicted_entropy = entropy(predicted_count, 256);
@@ -1094,9 +1098,9 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("predicted_entropy=%f residue_entropy=%f motion_entropy=%f\n",
-	 predicted_entropy, residue_entropy, motion_entropy);
+      predicted_entropy, residue_entropy, motion_entropy);
     info("predicted_size=%d residue_size=%d motion_size=%d\n",
-	 predicted_size, residue_size, motion_size);
+      predicted_size, residue_size, motion_size);
 #endif
 
     //if(predicted_entropy <= (residue_entropy + motion_entropy)) /* Imagen de tipo I. */ {
@@ -1117,7 +1121,7 @@ int main(int argc, char *argv[]) {
       }
 
       for(int c=0; c<COMPONENTS; c++) {
-	     image.write(high_fd, residue[c], pixels_in_y[c], pixels_in_x[c]);
+        image.write(high_fd, residue[c], pixels_in_y[c], pixels_in_x[c]);
       }
 
       /* No hay campo de movimiento (distinto de 0) asociado a una imagen I. */
@@ -1131,9 +1135,9 @@ int main(int argc, char *argv[]) {
       /* Convertimos al rango [0,255] posiblemente con clipping y escribimos a disco. */
 
       for(int c=0; c<COMPONENTS; c++) {
-	/* El siguiente lazo sólo es necesario si el rango dinámico de
-	   la imagen residuo tiene que almacenarse en el rango
-	   [0,255]. */
+  /* El siguiente lazo sólo es necesario si el rango dinámico de
+     la imagen residuo tiene que almacenarse en el rango
+     [0,255]. */
         for(int y=0; y<pixels_in_y[c]; y++) {
           for(int x=0; x<pixels_in_x[c]; x++) {
             int val = residue[c][y][x] + 128;
@@ -1141,7 +1145,7 @@ int main(int argc, char *argv[]) {
             else if(val > 255) val = 255;
             residue[c][y][x] = val;
           }
-        }	
+        }
         image.write(high_fd, residue[c], pixels_in_y[c], pixels_in_x[c]);
       }
 
@@ -1153,7 +1157,7 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("%s: writing picture %d of \"%s\".\n",
-	 argv[0], i, odd_fn);
+      argv[0], i, odd_fn);
 #endif
 
     /* Descompensamos. */
@@ -1165,8 +1169,8 @@ int main(int argc, char *argv[]) {
        for(int y=0; y<pixels_in_y[c]; y++) {
          for(int x=0; x<pixels_in_x[c]; x++) {
            predicted[c][y][x] = residue[c][y][x] + 128;
-	         /*	if (predicted[c][y][x] < 0 ) predicted[c][y][x] = 0;
-		        else if(predicted[c][y][x] > 255 ) predicted[c][y][x] = 255;*/
+           /* if (predicted[c][y][x] < 0 ) predicted[c][y][x] = 0;
+           else if(predicted[c][y][x] > 255 ) predicted[c][y][x] = 255;*/
           }
         }
       }
