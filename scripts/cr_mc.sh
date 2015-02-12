@@ -110,7 +110,7 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 20 ]; do
+while [ $i -le 1 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
@@ -137,6 +137,8 @@ while [ $i -le 20 ]; do
 	# Nota: "decorrelate" necesita que la imagen de entrada esté en el directorio local
 	$DECORRELATE -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V -a $A
 	CheckExitStatusCode	
+
+	exit
 
 	# Eliminamos la imagen temporal que se genera
 	echo "Removing: prediction_$odd_image"
@@ -459,7 +461,7 @@ while [ $i -le 20 ]; do
 	next_image_j2c_cache=${THUMBNAILS_DIRECTORY}/${next_index}.j2c.cache
 	next_image_prediction_pgm=${next_index}.pgm
 	next_image_trunc_j2c=${next_index}.trunc.j2c
-	next_image_trunc_pgm=${next_index}.trunc.pgm	
+	next_image_trunc_pgm=${next_index}.trunc.pgm
 
 	i=$(($i+1))
 
