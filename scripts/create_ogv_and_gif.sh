@@ -142,13 +142,24 @@ else
     mkdir $TMP_ALL_DIR
 fi
 
+# We are going to utilize ffmpeg to encode single pictures into movies
+# and the first filename of the file list specified by the pattern %03d 
+# must contain a number inclusively contained between 0 and 4.
+# This limitation is imposed by the tool and may be hopefully fixed.
+# This is the reason of the use of COUNTER and OUT_FRAME_NUMBER.
+
+COUNTER=0
 for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
 do
   FRAME_NUMBER=`printf %03d $FRAME`
+  OUT_FRAME_NUMBER=`printf %03d $COUNTER`
+
   montage $TMP_PREDICTION_DIR/$FRAME_NUMBER.png $TMP_BLOCKS_DIR/$FRAME_NUMBER.png \
     $TMP_TRUNC_DIR/$FRAME_NUMBER.png $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png \
-    -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/img_$FRAME_NUMBER.jpg
+    -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/img_$OUT_FRAME_NUMBER.jpg
+
+  COUNTER=$(($COUNTER+1))
 done
 
-ffmpeg -f image2 -i $TMP_ALL_DIR/%03d.jpg -b 5000k all.ogv
+ffmpeg -f image2 -i $TMP_ALL_DIR/img_%03d.jpg -b 5000k all.ogv
 convert -delay 2 -loop 0 $TMP_ALL_DIR/*.jpg all.gif
