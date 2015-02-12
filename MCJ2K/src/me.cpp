@@ -83,33 +83,33 @@ void local_me_for_block
   MVC_CPU_TYPE mv_next_y_by_bx = mv[NEXT][Y_FIELD][by][bx];
   MVC_CPU_TYPE mv_next_x_by_bx = mv[NEXT][X_FIELD][by][bx];
 
-#define COMPUTE_ERRORS(_y,_x)						\
-  MVC_CPU_TYPE y[2] = {mv_prev_y_by_bx + _y, mv_next_y_by_bx - _y};	\
-  MVC_CPU_TYPE x[2] = {mv_prev_x_by_bx + _x, mv_next_x_by_bx - _x};	\
-  int error[2] = {0, 0};						\
-									\
-  for(int py=luby; py<rbby; py++) {					\
-    TC_CPU_TYPE *pred_py = pred[py];					\
-      for(int px=lubx; px<rbbx; px++) {					\
-	error[PREV] += abs						\
-	  (pred_py[px] - ref[PREV][py + y[PREV]][px + x[PREV]]);	\
-	error[NEXT] += abs						\
-	  (pred_py[px] - ref[NEXT][py + y[NEXT]][px + x[NEXT]]);	\
-      }									\
-    }									\
-    /*printf("ERROR : %d\n",error[NEXT]);					\*/
+#define COMPUTE_ERRORS(_y,_x) \
+  MVC_CPU_TYPE y[2] = {mv_prev_y_by_bx + _y, mv_next_y_by_bx - _y}; \
+  MVC_CPU_TYPE x[2] = {mv_prev_x_by_bx + _x, mv_next_x_by_bx - _x}; \
+  int error[2] = {0, 0};                                            \
+                                                                    \
+  for(int py=luby; py<rbby; py++) {                                 \
+    TC_CPU_TYPE *pred_py = pred[py];                                \
+      for(int px=lubx; px<rbbx; px++) {                             \
+        error[PREV] += abs                                          \
+          (pred_py[px] - ref[PREV][py + y[PREV]][px + x[PREV]]);    \
+        error[NEXT] += abs                                          \
+          (pred_py[px] - ref[NEXT][py + y[NEXT]][px + x[NEXT]]);    \
+      }                                                             \
+    }                                                               \
+    /*printf("ERROR : %d\n",error[NEXT]); \*/
     
-#define UPDATE_VECTORS							\
-  if(error[PREV] <= min_error[PREV]) {					\
-    vy[PREV] = y[PREV];							\
-    vx[PREV] = x[PREV];							\
-    min_error[PREV] = error[PREV];					\
-  }									\
-									\
-  if(error[NEXT] <= min_error[NEXT]) {					\
-    vy[NEXT] = y[NEXT];							\
-    vx[NEXT] = x[NEXT];							\
-    min_error[NEXT] = error[NEXT];					\
+#define UPDATE_VECTORS \
+  if(error[PREV] <= min_error[PREV]) {  \
+    vy[PREV] = y[PREV];                 \
+    vx[PREV] = x[PREV];                 \
+    min_error[PREV] = error[PREV];      \
+  }                                     \
+                                        \
+  if(error[NEXT] <= min_error[NEXT]) {  \
+    vy[NEXT] = y[NEXT];                 \
+    vx[NEXT] = x[NEXT];                 \
+    min_error[NEXT] = error[NEXT];      \
   }
 
   /* 1. Posición (-1,-1). Arriba - izquierda. */ {
@@ -202,7 +202,7 @@ void local_me_for_image
     info("%d/%d ", by, blocks_in_y); info_flush();
 #endif
     for(int bx=0; bx<blocks_in_x; bx++) {
-	
+
       /* Región que ocupa el bloque (incluido el borde) */
       int luby = (by  ) * block_size - border_size;
       int lubx = (bx  ) * block_size - border_size;
@@ -280,12 +280,12 @@ void me_for_image
   /**********/
 
   local_me_for_image(mv,
-		     ref,
-		     pred,
-		     block_size,
-		     border_size,
-		     desp(blocks_in_y, dwt_levels),
-		     desp(blocks_in_x, dwt_levels));
+    ref,
+    pred,
+    block_size,
+    border_size,
+    desp(blocks_in_y, dwt_levels),
+    desp(blocks_in_x, dwt_levels));
     
   for(int l=dwt_levels-1; l>=0; --l) {
     int Y_l = desp(pixels_in_y, l);
@@ -312,29 +312,29 @@ void me_for_image
     for(int by=0; by<blocks_in_y_l; by++) {
       for(int bx=0; bx<blocks_in_x_l; bx++) {
 
-	mv[PREV][Y_FIELD][by][bx] *= 2;
-	if(mv[PREV][Y_FIELD][by][bx] > search_range)
-	  mv[PREV][Y_FIELD][by][bx] = search_range;
-	if(mv[PREV][Y_FIELD][by][bx] < -search_range)
-	  mv[PREV][Y_FIELD][by][bx] = -search_range;
+        mv[PREV][Y_FIELD][by][bx] *= 2;
+        if(mv[PREV][Y_FIELD][by][bx] > search_range)
+          mv[PREV][Y_FIELD][by][bx] = search_range;
+        if(mv[PREV][Y_FIELD][by][bx] < -search_range)
+          mv[PREV][Y_FIELD][by][bx] = -search_range;
 
-	mv[NEXT][Y_FIELD][by][bx] *= 2;
-	if(mv[NEXT][Y_FIELD][by][bx] > search_range)
-	  mv[NEXT][Y_FIELD][by][bx] =  search_range;
-	if(mv[NEXT][Y_FIELD][by][bx] < -search_range)
-	  mv[NEXT][Y_FIELD][by][bx] = -search_range;
+        mv[NEXT][Y_FIELD][by][bx] *= 2;
+        if(mv[NEXT][Y_FIELD][by][bx] > search_range)
+          mv[NEXT][Y_FIELD][by][bx] =  search_range;
+        if(mv[NEXT][Y_FIELD][by][bx] < -search_range)
+          mv[NEXT][Y_FIELD][by][bx] = -search_range;
 
-	mv[PREV][X_FIELD][by][bx] *= 2;
-	if(mv[PREV][X_FIELD][by][bx] > search_range)
-	  mv[PREV][X_FIELD][by][bx] =  search_range;
-	if(mv[PREV][X_FIELD][by][bx] < -search_range)
-	  mv[PREV][X_FIELD][by][bx] = -search_range;
+        mv[PREV][X_FIELD][by][bx] *= 2;
+        if(mv[PREV][X_FIELD][by][bx] > search_range)
+          mv[PREV][X_FIELD][by][bx] =  search_range;
+        if(mv[PREV][X_FIELD][by][bx] < -search_range)
+          mv[PREV][X_FIELD][by][bx] = -search_range;
 
-	mv[NEXT][X_FIELD][by][bx] *= 2;
-	if(mv[NEXT][X_FIELD][by][bx] > search_range)
-	  mv[NEXT][X_FIELD][by][bx] =  search_range;
-	if(mv[NEXT][X_FIELD][by][bx] < -search_range)
-	  mv[NEXT][X_FIELD][by][bx] = -search_range;
+        mv[NEXT][X_FIELD][by][bx] *= 2;
+        if(mv[NEXT][X_FIELD][by][bx] > search_range)
+          mv[NEXT][X_FIELD][by][bx] =  search_range;
+        if(mv[NEXT][X_FIELD][by][bx] < -search_range)
+          mv[NEXT][X_FIELD][by][bx] = -search_range;
       }
     }
 
@@ -342,11 +342,11 @@ void me_for_image
     info("motion_estimate: over-pixel motion estimation level=%d\n",l);
 #endif
     local_me_for_image(mv,
-		       ref,
-		       pred,
-		       block_size,
-		       border_size,
-		       blocks_in_y_l, blocks_in_x_l);
+      ref,
+      pred,
+      block_size,
+      border_size,
+      blocks_in_y_l, blocks_in_x_l);
   }
   
   /* Estimación sub-pixel. */
@@ -365,38 +365,38 @@ void me_for_image
     for(int by=0; by<blocks_in_y; by++) {
       for(int bx=0; bx<blocks_in_x; bx++) {
 
-	mv[PREV][Y_FIELD][by][bx] *= 2;
-	if(mv[PREV][Y_FIELD][by][bx]>(search_range<<subpixel_accuracy))
-	  mv[PREV][Y_FIELD][by][bx] = search_range<<subpixel_accuracy;
-	if(mv[PREV][Y_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
-	  mv[PREV][Y_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
+        mv[PREV][Y_FIELD][by][bx] *= 2;
+        if(mv[PREV][Y_FIELD][by][bx]>(search_range<<subpixel_accuracy))
+          mv[PREV][Y_FIELD][by][bx] = search_range<<subpixel_accuracy;
+        if(mv[PREV][Y_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
+          mv[PREV][Y_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
 
-	mv[NEXT][Y_FIELD][by][bx] *= 2;
-	if(mv[NEXT][Y_FIELD][by][bx]>(search_range<<subpixel_accuracy))
-	  mv[NEXT][Y_FIELD][by][bx] = search_range<<subpixel_accuracy;
-	if(mv[NEXT][Y_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
-	  mv[NEXT][Y_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
+        mv[NEXT][Y_FIELD][by][bx] *= 2;
+        if(mv[NEXT][Y_FIELD][by][bx]>(search_range<<subpixel_accuracy))
+          mv[NEXT][Y_FIELD][by][bx] = search_range<<subpixel_accuracy;
+        if(mv[NEXT][Y_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
+          mv[NEXT][Y_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
 
-	mv[PREV][X_FIELD][by][bx] *= 2;
-	if(mv[PREV][X_FIELD][by][bx]>(search_range<<subpixel_accuracy))
-	  mv[PREV][X_FIELD][by][bx] = (search_range<<subpixel_accuracy);
-	if(mv[PREV][X_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
-	  mv[PREV][X_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
+        mv[PREV][X_FIELD][by][bx] *= 2;
+        if(mv[PREV][X_FIELD][by][bx]>(search_range<<subpixel_accuracy))
+          mv[PREV][X_FIELD][by][bx] = (search_range<<subpixel_accuracy);
+        if(mv[PREV][X_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
+          mv[PREV][X_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
 
-	mv[NEXT][X_FIELD][by][bx] *= 2;
-	if(mv[NEXT][X_FIELD][by][bx]>(search_range<<subpixel_accuracy))
-	  mv[NEXT][X_FIELD][by][bx] = (search_range<<subpixel_accuracy);
-	if(mv[NEXT][X_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
-	  mv[NEXT][X_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
+        mv[NEXT][X_FIELD][by][bx] *= 2;
+        if(mv[NEXT][X_FIELD][by][bx]>(search_range<<subpixel_accuracy))
+          mv[NEXT][X_FIELD][by][bx] = (search_range<<subpixel_accuracy);
+        if(mv[NEXT][X_FIELD][by][bx]<-(search_range<<subpixel_accuracy))
+          mv[NEXT][X_FIELD][by][bx]= -(search_range<<subpixel_accuracy);
       }
     }
 
     local_me_for_image(mv,
-		       ref,
-		       pred,
-		       block_size<<l,
-		       border_size>>l,
-		       blocks_in_y, blocks_in_x);
+      ref,
+      pred,
+      block_size<<l,
+      border_size>>l,
+      blocks_in_y, blocks_in_x);
   }
 
   /* Dejamos las imágenes como estaban, para la siguiente búsqueda. */
@@ -447,57 +447,56 @@ void me_for_image
       
       /* Para cada punto del área de búsqueda. */
       for(int ry=by*block_size-search_range; ry<=by*block_size+search_range; ry++) {
-	for(int rx=bx*block_size-search_range; rx<=bx*block_size+search_range; rx++) {
+        for(int rx=bx*block_size-search_range; rx<=bx*block_size+search_range; rx++) {
 
-	  /* Para cada punto del bloque a buscar. */
-	  int error = 0;
-	  for(int y=-border_size; y<block_size+border_size; y++) {
-	    for(int x=-border_size; x<block_size+border_size; x++) {
+          /* Para cada punto del bloque a buscar. */
+          int error = 0;
+          for(int y=-border_size; y<block_size+border_size; y++) {
+            for(int x=-border_size; x<block_size+border_size; x++) {
 
-	      /* PRUEBA */
-	      error += abs(pred[by*block_size+y][bx*block_size+x] -
-			   ref
-			   [0]
-			   [ry + mv[NEXT][Y_FIELD][by][bx] + y]
-			   [rx + mv[NEXT][X_FIELD][by][bx] + x]);
-	      /*error += abs(pred[by*block_size+y][bx*block_size+x] -
-			   ref
-			   [1]
-			   [by*block_size*2 - ry + mv[PREV][Y_FIELD][by][bx] + y]
-			   [bx*block_size*2 - rx + mv[PREV][X_FIELD][by][bx] + x]);
-	      */
-	      /**********/
+              /* PRUEBA */
+              error += abs(pred[by*block_size+y][bx*block_size+x] -
+              ref
+              [0]
+              [ry + mv[NEXT][Y_FIELD][by][bx] + y]
+              [rx + mv[NEXT][X_FIELD][by][bx] + x]);
+              /*error += abs(pred[by*block_size+y][bx*block_size+x] -
+              ref
+              [1]
+              [by*block_size*2 - ry + mv[PREV][Y_FIELD][by][bx] + y]
+              [bx*block_size*2 - rx + mv[PREV][X_FIELD][by][bx] + x]);
+              */
+              /**********/
 
-	      /* ORIGINAL */
-	      /*
-	      error += abs(predicted_pic[by*block_size+y][bx*block_size+x] -
-			   reference_pic
-			   [0]
-			   [ry + mv[NEXT][Y][by][bx] + y]
-			   [rx + mv[NEXT][X][by][bx] + x]);
-	      error += abs(predicted_pic[by*block_size+y][bx*block_size+x] -
-			   reference_pic
-			   [1]
-			   [by*block_size*2 - ry + mv[PREV][Y][by][bx] + y]
-			   [bx*block_size*2 - rx + mv[PREV][X][by][bx] + x]);
-	      */
+              /* ORIGINAL */
+              /*
+              error += abs(predicted_pic[by*block_size+y][bx*block_size+x] -
+              reference_pic
+              [0]
+              [ry + mv[NEXT][Y][by][bx] + y]
+              [rx + mv[NEXT][X][by][bx] + x]);
+              error += abs(predicted_pic[by*block_size+y][bx*block_size+x] -
+              reference_pic
+              [1]
+              [by*block_size*2 - ry + mv[PREV][Y][by][bx] + y]
+              [bx*block_size*2 - rx + mv[PREV][X][by][bx] + x]);
+              */
+            }
+          }
 
-	    }
-	  }
-
-	  if(error < min_error) {
-	    min_error = error;
-	    vy = ry-by*block_size;
-	    vx = rx-bx*block_size;
-	  }
-	  /*print("\n%d,%d  %d,%d %d %d",
-	    ry + mv[NEXT][Y][by][bx],
-	    rx + mv[NEXT][X][by][bx],
-	    by*block_size*2 - ry + mv[PREV][Y][by][bx],
-	    bx*block_size*2 - rx + mv[PREV][X][by][bx],
-	    error, min_error
-	    );*/
-	}
+          if(error < min_error) {
+            min_error = error;
+            vy = ry-by*block_size;
+            vx = rx-bx*block_size;
+          }
+          /*print("\n%d,%d  %d,%d %d %d",
+          ry + mv[NEXT][Y][by][bx],
+          rx + mv[NEXT][X][by][bx],
+          by*block_size*2 - ry + mv[PREV][Y][by][bx],
+          bx*block_size*2 - rx + mv[PREV][X][by][bx],
+          error, min_error
+          );*/
+        }
       }
 
       /* PRUEBA */
@@ -505,7 +504,7 @@ void me_for_image
       mv[NEXT][X_FIELD][by][bx] += vx;
       mv[PREV][Y_FIELD][by][bx] += -vy;
       mv[PREV][X_FIELD][by][bx] += -vx;
-      /**********/      
+      /**********/
 
       /* ORIGINAL */
       /*
@@ -582,10 +581,10 @@ int main(int argc, char *argv[]) {
     case 0:
       /* If this option set a flag, do nothing else now. */
       if (long_options[option_index].flag != 0)
-	break;
+        break;
       info("option %s", long_options[option_index].name);
       if (optarg)
-	info(" with arg %s", optarg);
+        info(" with arg %s", optarg);
       info("\n");
       break;
       
@@ -707,14 +706,14 @@ int main(int argc, char *argv[]) {
 #endif
       motion_fd = fopen(motion_fn, "w");
       if(!motion_fd) {
-	error("%s: unable to create the file \"%s\" ... aborting!\n",
-	      argv[0], motion_fn);
-	abort();
+        error("%s: unable to create the file \"%s\" ... aborting!\n",
+          argv[0], motion_fn);
+        abort();
       }
     } else {
 #if defined DEBUG
       info("%s: reusing motion information \"%s\"\n",
-	   argv[0], motion_fn);
+        argv[0], motion_fn);
 #endif
     }
   }
@@ -726,7 +725,7 @@ int main(int argc, char *argv[]) {
     if(!imotion_fd) {
 #if defined DEBUG
       info("%s: \"%s\" does not exist: initial_motion_fn = \"%s\"\n",
-	   argv[0], imotion_fn, "/dev/zero");
+        argv[0], imotion_fn, "/dev/zero");
 #endif
       imotion_fd = fopen("/dev/zero", "r");
       /* /dev/zero debería siempre existir. */
@@ -737,7 +736,7 @@ int main(int argc, char *argv[]) {
     even_fd = fopen(even_fn, "r");
     if(!even_fd) {
       error("%s: \"%s\" does not exist ... aborting!\n",
-	    argv[0], even_fn);
+      argv[0], even_fn);
       abort();
     }
   }
@@ -746,7 +745,7 @@ int main(int argc, char *argv[]) {
     odd_fd = fopen(odd_fn, "r");
     if(!odd_fd) {
       error("%s: \"%s\" does not exist ... aborting!\n",
-	    argv[0], odd_fn);
+      argv[0], odd_fn);
       abort();
     }
   }
@@ -759,21 +758,21 @@ int main(int argc, char *argv[]) {
   for(int i=0; i<2; i++) {
     reference[i] =
       texture.alloc(pixels_in_y << subpixel_accuracy,
-		    pixels_in_x << subpixel_accuracy,
-		    picture_border_size << subpixel_accuracy/**2*/);
+      pixels_in_x << subpixel_accuracy,
+      picture_border_size << subpixel_accuracy/**2*/);
 
     /* Esta inicialización parece no hacer nada. */
     for(int y=0; y<pixels_in_y << subpixel_accuracy; y++) {
       for(int x=0; x<pixels_in_x <<subpixel_accuracy; x++) {
-	reference[i][y][x] = 0;
+        reference[i][y][x] = 0;
       }
     }
   }
   
   TC_CPU_TYPE **predicted =
     texture.alloc(pixels_in_y << subpixel_accuracy,
-		  pixels_in_x << subpixel_accuracy,
-		  picture_border_size << subpixel_accuracy/**2*/);
+      pixels_in_x << subpixel_accuracy,
+      picture_border_size << subpixel_accuracy/**2*/);
 
     /* Esta inicialización parece no hacer nada. */
   for(int y=0; y<pixels_in_y << subpixel_accuracy; y++) {
@@ -817,7 +816,7 @@ int main(int argc, char *argv[]) {
   image = ( unsigned char** )malloc( pixels_in_y*sizeof( unsigned char* ) );
   for(int i = 0; i < pixels_in_y; i++) 
   {
-    	image[i] = ( unsigned char* )malloc( pixels_in_x*sizeof( unsigned char ) );
+    image[i] = ( unsigned char* )malloc( pixels_in_x*sizeof( unsigned char ) );
   }
 
   // Leemos la imagen de disco
@@ -827,7 +826,7 @@ int main(int argc, char *argv[]) {
   // Copiamos la imagen que hemos leído de disco a la estructura reference[0]
   for(int y=0; y<pixels_in_y; y++) {
     for(int x=0; x<pixels_in_x; x++) {
-	   reference[0][y][x] = (TC_CPU_TYPE) image[y][x];
+      reference[0][y][x] = (TC_CPU_TYPE) image[y][x];
     }
   }
   /**********/
@@ -840,15 +839,15 @@ int main(int argc, char *argv[]) {
 
   /* Rellenamos el borde de la imagen leída. */
   texture.fill_border(reference[0],
-		      pixels_in_y,
-		      pixels_in_x,
-		      picture_border_size);
+    pixels_in_y,
+    pixels_in_x,
+    picture_border_size);
 
   for(int i=0; i<pictures/2; i++) {
 
 #if defined DEBUG
     info("%s: reading picture %d of \"%s\".\n",
-	 argv[0], i, odd_fn);
+      argv[0], i, odd_fn);
 #endif
 
     /* Luma. */
@@ -862,7 +861,7 @@ int main(int argc, char *argv[]) {
     // Copiamos la imagen que hemos leído de disco a la estructura predicted
     for(int y=0; y<pixels_in_y; y++) {
       for(int x=0; x<pixels_in_x; x++) {
-	predicted[y][x] = (TC_CPU_TYPE) image[y][x];
+        predicted[y][x] = (TC_CPU_TYPE) image[y][x];
       }
     }
     /**********/
@@ -875,12 +874,12 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("%s: reading picture %d of \"%s\".\n",
-	 argv[0], i, even_fn);
+      argv[0], i, even_fn);
 #endif
     /* Esta inicialización parece no hacer nada. */
     for(int y=0; y<pixels_in_y << subpixel_accuracy; y++) {
       for(int x=0; x<pixels_in_x <<subpixel_accuracy; x++) {
-	reference[1][y][x] = 0;
+        reference[1][y][x] = 0;
       }
     }
 
@@ -894,7 +893,7 @@ int main(int argc, char *argv[]) {
     // Copiamos la imagen que hemos leído de disco a la estructura reference[1]
     for(int y=0; y<pixels_in_y; y++) {
       for(int x=0; x<pixels_in_x; x++) {
-	reference[1][y][x] = (TC_CPU_TYPE) image[y][x];
+        reference[1][y][x] = (TC_CPU_TYPE) image[y][x];
       }
     }
     /**********/
@@ -907,9 +906,9 @@ int main(int argc, char *argv[]) {
 
     /* Rellenamos el borde de la imagen leída. */
     texture.fill_border(reference[1],
-			pixels_in_y,
-			pixels_in_x,
-			picture_border_size);
+      pixels_in_y,
+      pixels_in_x,
+      picture_border_size);
 
 #if defined DEBUG
     info("%s: reading initial motion vectors.\n", argv[0]);
@@ -918,22 +917,22 @@ int main(int argc, char *argv[]) {
     // Esto tampoco hace nada (dejar lo de arriba).
     for(int by=0; by<blocks_in_y; by++) {
       for(int bx=0; bx<blocks_in_x; bx++) {
-	mv[PREV][Y_FIELD][by][bx] = mv[PREV][X_FIELD][by][bx] = mv[NEXT][Y_FIELD][by][bx] = mv[NEXT][X_FIELD][by][bx] = 0;
+        mv[PREV][Y_FIELD][by][bx] = mv[PREV][X_FIELD][by][bx] = mv[NEXT][Y_FIELD][by][bx] = mv[NEXT][X_FIELD][by][bx] = 0;
       }
     }
 
     me_for_image(mv,
-		 reference,
-		 predicted,
-		 pixels_in_y, pixels_in_x,
-		 block_size,
-		 border_size,
-		 subpixel_accuracy,
-		 search_range,
-		 blocks_in_y,
-		 blocks_in_x,
-		 texture_dwt,
-		 motion_dwt);
+      reference,
+      predicted,
+      pixels_in_y, pixels_in_x,
+      block_size,
+      border_size,
+      subpixel_accuracy,
+      search_range,
+      blocks_in_y,
+      blocks_in_x,
+      texture_dwt,
+      motion_dwt);
 
 /**************************************************************************************/
     char backward_file[80];
@@ -950,7 +949,6 @@ int main(int argc, char *argv[]) {
 
     sprintf(backward_gnuplot, "me_gnuplot/next.dat");
     writeMEToFileForGnuPlot(backward_gnuplot, blocks_in_y, blocks_in_x, block_size, mv, NEXT);
-
 /**************************************************************************************/
 
 #if defined DEBUG
@@ -959,25 +957,24 @@ int main(int argc, char *argv[]) {
     for(int y=0; y<blocks_in_y; y++) {
       info("\n");
       for(int x=0; x<blocks_in_x; x++) {
-	static char aux[80];
-	sprintf(aux,"%3d,%3d",
-	     mv[PREV][Y_FIELD][y][x],
-	     mv[PREV][X_FIELD][y][x]);
-	info("%8s",aux);
+        static char aux[80];
+        sprintf(aux,"%3d,%3d",
+          mv[PREV][Y_FIELD][y][x],
+          mv[PREV][X_FIELD][y][x]);
+        info("%8s",aux);
       }
     }
     info("\n");
-    
 
     info("Forward motion vector field:");
     for(int y=0; y<blocks_in_y; y++) {
       info("\n");
       for(int x=0; x<blocks_in_x; x++) {
-	static char aux[80];
-	sprintf(aux,"%3d,%3d",
-	     mv[NEXT][Y_FIELD][y][x],
-	     mv[NEXT][X_FIELD][y][x]);
-	info("%8s",aux);
+        static char aux[80];
+        sprintf(aux,"%3d,%3d",
+          mv[NEXT][Y_FIELD][y][x],
+          mv[NEXT][X_FIELD][y][x]);
+        info("%8s",aux);
       }
     }
     info("\n");
@@ -985,7 +982,7 @@ int main(int argc, char *argv[]) {
 
 #if defined DEBUG
     info("%s: writing motion vector field %d in \"%s\".\n",
-	 argv[0], i, motion_fn);
+    argv[0], i, motion_fn);
 #endif
     motion.write(motion_fd, mv, blocks_in_y, blocks_in_x);
 
