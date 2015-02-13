@@ -712,7 +712,7 @@ int main(int argc, char *argv[]) {
      tamaño. Es el momento de interpolar (y rellenar bordes) si se
      está usando estimación de movimiento sub-pixel. */
 
-  /*
+  
   // Interpolamos y rellenamos bordes
   for(int c = 0; c < COMPONENTS; c++) {
     
@@ -720,39 +720,37 @@ int main(int argc, char *argv[]) {
       
       // Interpolamos. (El error está aquí!)
       for(int y = 0; y < ( pixels_in_y[0] << s ) / 2; y++) {
-	memset ( reference[0][c][y] + ( pixels_in_x[0] << s ) / 2,
-		 0,
-		 ( ( ( pixels_in_x[0] << s ) / 2 ) * sizeof(TC_CPU_TYPE) )
-		 );
+        memset ( reference[0][c][y] + ( pixels_in_x[0] << s ) / 2,
+        0,
+        ( ( ( pixels_in_x[0] << s ) / 2 ) * sizeof(TC_CPU_TYPE) )
+        );
       }
       
       for(int y = ( pixels_in_y[0] << s) / 2; y < ( pixels_in_y[0] << s); y++) {
-	memset(reference[0][c][y],
-	       0,
-	       ( pixels_in_x[0] << s ) *sizeof(TC_CPU_TYPE) );
+         memset(reference[0][c][y],
+         0,
+         ( pixels_in_x[0] << s ) *sizeof(TC_CPU_TYPE) );
       }
-      image_dwt->synthesize(reference[0][c],
-			    pixels_in_y[0] << s,
-			    pixels_in_x[0] << s,
-			    1);
       
+      image_dwt->synthesize(reference[0][c],
+        pixels_in_y[0] << s,
+        pixels_in_x[0] << s,
+        1);      
     }
     
     // Rellenamos.
     image.fill_border(reference[0][c],
-		      pixels_in_y[0] << subpixel_accuracy,
-		      pixels_in_x[0] << subpixel_accuracy,
-		      picture_border_size << subpixel_accuracy);
-    
-  }
-  */
+      pixels_in_y[0] << subpixel_accuracy,
+      pixels_in_x[0] << subpixel_accuracy,
+      picture_border_size << subpixel_accuracy);
+  }  
   /****/
 
   /* Procesamos el resto de imágenes. */
   
   for(int i=0; i<pictures/2; i++) {
     
-#if defined ANALYZE /* Descorrelacionamos. */     
+#if defined ANALYZE /* Descorrelacionamos. */
 
 #if defined DEBUG
     info("%s: reading picture %d of \"%s\".\n",
@@ -861,41 +859,41 @@ int main(int argc, char *argv[]) {
       memset(reference[1][2][y], 0, pixels_in_x[0]*sizeof(TC_CPU_TYPE));
     }
     image_dwt->synthesize(reference[1][2], pixels_in_y[0], pixels_in_x[0], 1);
+    */
 
     // Interpolamos y rellenamos bordes. 
     for(int c = 0; c < COMPONENTS; c++) {
       
       for(int s = 1; s <= subpixel_accuracy; s++) {
-	
-	    // Interpolamos. (El error está aquí!)
-	    for(int y = 0; y < ( pixels_in_y[0] << s ) / 2; y++) {
-	      memset ( reference[1][c][y] + ( pixels_in_x[0] << s ) / 2,
-		    0,
-		    ( ( ( pixels_in_x[0] << s ) / 2 ) * sizeof(TC_CPU_TYPE) )
-		    );
-	    }
-	
-	    for(int y = ( pixels_in_y[0] << s) / 2; y < ( pixels_in_y[0] << s); y++) {
-	     memset(reference[1][c][y],
-		    0,
-		    ( pixels_in_x[0] << s ) *sizeof(TC_CPU_TYPE) );
-	     }
-	
+
+      // Interpolamos. (El error está aquí!)
+      for(int y = 0; y < ( pixels_in_y[0] << s ) / 2; y++) {
+        memset ( reference[1][c][y] + ( pixels_in_x[0] << s ) / 2,
+        0,
+        ( ( ( pixels_in_x[0] << s ) / 2 ) * sizeof(TC_CPU_TYPE) )
+        );
+      }
+
+      for(int y = ( pixels_in_y[0] << s) / 2; y < ( pixels_in_y[0] << s); y++) {
+        memset(reference[1][c][y],
+        0,
+        ( pixels_in_x[0] << s ) *sizeof(TC_CPU_TYPE) );
+      }
+
       image_dwt->synthesize(reference[1][c],
-			      pixels_in_y[0] << s,
-			      pixels_in_x[0] << s,
-			      1);
+        pixels_in_y[0] << s,
+        pixels_in_x[0] << s,
+        1);
 
       }
       
       // Rellenamos
       image.fill_border(reference[1][c],
-			pixels_in_y[0] << subpixel_accuracy,
-			pixels_in_x[0] << subpixel_accuracy,
-			picture_border_size << subpixel_accuracy);
+        pixels_in_y[0] << subpixel_accuracy,
+        pixels_in_x[0] << subpixel_accuracy,
+        picture_border_size << subpixel_accuracy);
 
     }
-    */
     /****/
 
     /* Leemos los campos de movimiento. */
@@ -984,8 +982,7 @@ int main(int argc, char *argv[]) {
       /****/
       unsigned char **imageTemp;
       imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* ) );
-      for(int i = 0; i < pixels_in_y[c]; i++) 
-      {
+      for(int i = 0; i < pixels_in_y[c]; i++) {
         imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
       }
 
@@ -1009,7 +1006,7 @@ int main(int argc, char *argv[]) {
         argv[0], i, high_fn);
 #endif
 
-      /*
+  /*
 
   Una resta a alta resolución y una reducción, vs, dos
   reducciones y una resta a baja resolución.
@@ -1044,7 +1041,7 @@ int main(int argc, char *argv[]) {
   resolución que a baja resolución (siempre y cuando las
   predicciones sean iguales).
 
-       */
+  */
 
 
     /* Compensamos (con clipping). La compensación se hace a
