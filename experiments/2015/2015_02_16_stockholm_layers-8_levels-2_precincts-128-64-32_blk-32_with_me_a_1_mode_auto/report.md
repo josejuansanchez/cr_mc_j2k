@@ -98,8 +98,8 @@ Codestream recibido para cada imagen
 Simulación de los resultados
 =============
 
-* Bitrate: 11.000 bytes [giv](gif/all_11000.gif) [ogv](ogv/all_11000.ogv)
-* Bitrate: 21.000 bytes [giv](gif/all_21000.gif) [ogv](ogv/all_21000.ogv)
-* Bitrate: 31.000 bytes [giv](gif/all_31000.gif) [ogv](ogv/all_31000.ogv)
-* Bitrate: 41.000 bytes [giv](gif/all_41000.gif) [ogv](ogv/all_41000.ogv)
-* Bitrate: 51.000 bytes [giv](gif/all_51000.gif) [ogv](ogv/all_51000.ogv)
+* Bitrate: 11.000 bytes. [gif](gif/all_11000.gif) | [ogv](ogv/all_11000.ogv)
+* Bitrate: 21.000 bytes. [gif](gif/all_21000.gif) | [ogv](ogv/all_21000.ogv)
+* Bitrate: 31.000 bytes. [gif](gif/all_31000.gif) | [ogv](ogv/all_31000.ogv)
+* Bitrate: 41.000 bytes. [gif](gif/all_41000.gif) | [ogv](ogv/all_41000.ogv)
+* Bitrate: 51.000 bytes. [gif](gif/all_51000.gif) | [ogv](ogv/all_51000.ogv)
