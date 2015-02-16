@@ -707,11 +707,11 @@ int main(int argc, char *argv[]) {
   }
   image_dwt->synthesize(reference[0][2], pixels_in_y[0], pixels_in_x[0], 1); 
   */
+  /****/
 
   /* En este punto referece[0] tiene sus tres componentes con el mismo
      tamaño. Es el momento de interpolar (y rellenar bordes) si se
      está usando estimación de movimiento sub-pixel. */
-
   
   // Interpolamos y rellenamos bordes
   for(int c = 0; c < COMPONENTS; c++) {
@@ -744,7 +744,6 @@ int main(int argc, char *argv[]) {
       pixels_in_x[0] << subpixel_accuracy,
       picture_border_size << subpixel_accuracy);
   }  
-  /****/
 
   /* Procesamos el resto de imágenes. */
   
@@ -860,6 +859,7 @@ int main(int argc, char *argv[]) {
     }
     image_dwt->synthesize(reference[1][2], pixels_in_y[0], pixels_in_x[0], 1);
     */
+    /****/    
 
     // Interpolamos y rellenamos bordes. 
     for(int c = 0; c < COMPONENTS; c++) {
@@ -894,7 +894,6 @@ int main(int argc, char *argv[]) {
         picture_border_size << subpixel_accuracy);
 
     }
-    /****/
 
     /* Leemos los campos de movimiento. */
 #if defined DEBUG

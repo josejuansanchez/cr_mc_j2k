@@ -110,7 +110,7 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 1 ]; do
+while [ $i -le 90 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
@@ -137,8 +137,6 @@ while [ $i -le 1 ]; do
 	# Nota: "decorrelate" necesita que la imagen de entrada esté en el directorio local
 	$DECORRELATE -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -i motion -v $V -a $A
 	CheckExitStatusCode	
-
-	exit
 
 	# Eliminamos la imagen temporal que se genera
 	echo "Removing: prediction_$odd_image"
