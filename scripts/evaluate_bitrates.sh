@@ -13,7 +13,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_02_17_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a_2_v_2_mode_auto
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_02_17_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a_1_v_2_mode_auto
 
 # tree
 #IMAGE_N=0
