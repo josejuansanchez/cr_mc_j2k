@@ -13,7 +13,7 @@ if [ ! -f $CONFIGFILE ]; then
 	exit 1
 fi
 
-echo "Reading config file: $CONFIGFILE ...."
+#echo "Reading config file: $CONFIGFILE ...."
 source "$CONFIGFILE"
 
 #################################################
