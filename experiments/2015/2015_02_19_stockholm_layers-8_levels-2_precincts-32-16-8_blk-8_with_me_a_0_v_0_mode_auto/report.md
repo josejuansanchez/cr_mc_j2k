@@ -66,10 +66,12 @@ PSNR and SSIM
 
 ### Average
 * 11000 bytes
+```
   * PSNR(cr + mc):      27.4821858571
   * PSNR(mj2):          12.4517101429
   * SSIM(cr + mc):      0.922637142857
   * SSIM(mj2):          0.507695714286
+```
 
 Codestream recibido para cada imagen
 =============
