@@ -29,8 +29,18 @@ try:
             numRows += 1
 
         print "\nAverage"
+        avg = [0] * len(columns)
+
         for index, summedRowValue in enumerate(sums):
-            print summedRowValue / numRows
+            avg[index] = summedRowValue / numRows
+            print avg[index]
+
+        print "\nData for the report"
+        print "* PSNR(cr + mc):      ", avg[2]
+        print "* PSNR(mj2):          ", avg[3]
+        print "* SSIM(cr + mc):      ", avg[4]
+        print "* SSIM(mj2):          ", avg[5]
+
 except IOError:
     print "IOError"
     sys.exit(1)
