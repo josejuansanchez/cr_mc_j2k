@@ -980,13 +980,13 @@ int main(int argc, char *argv[]) {
       // PRUEBA
       /****/
       unsigned char **imageTemp;
-      imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* )*2 );
-      for(int i = 0; i < pixels_in_y[c]*2; i++) {
-        imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char )*2 );
+      imageTemp = ( unsigned char** )malloc( pixels_in_y[c]*sizeof( unsigned char* ) );
+      for(int i = 0; i < pixels_in_y[c]; i++) {
+        imageTemp[i] = ( unsigned char* )malloc( pixels_in_x[c]*sizeof( unsigned char ) );
       }
 
-      for(int y=0; y < pixels_in_y[c]*2; y++) {
-        for(int x=0; x < pixels_in_x[c]*2; x++) {
+      for(int y=0; y < pixels_in_y[c]; y++) {
+        for(int x=0; x < pixels_in_x[c]; x++) {
           if (prediction[c][y][x] < 0) prediction[c][y][x] = 0;
           else if (prediction[c][y][x] > 255) prediction[c][y][x] = 255;
 
@@ -994,7 +994,7 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      pgmWrite("prediction_temp.pgm", pixels_in_y[c]*2, pixels_in_x[c]*2, imageTemp, "");
+      pgmWrite("prediction_temp.pgm", pixels_in_y[c], pixels_in_x[c], imageTemp, "");
       /****/
     }
 #endif /* GET_PREDICTION */
