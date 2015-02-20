@@ -88,6 +88,47 @@ PSNR and SSIM
 
 * [Más información](md/ssim.md)
 
+### Average
+* 11000 bytes
+```
+  * PSNR(cr + mc):       20.7201422778
+  * PSNR(mj2):           23.4042310667
+  * SSIM(cr + mc):       0.620415
+  * SSIM(mj2):           0.788039777778
+```
+
+* 21000 bytes
+```
+  * PSNR(cr + mc):       20.7420413333
+  * PSNR(mj2):           25.9801266
+  * SSIM(cr + mc):       0.623215555556
+  * SSIM(mj2):           0.913481333333
+```
+
+* 31000 bytes
+```
+  * PSNR(cr + mc):       20.7777223778
+  * PSNR(mj2):           27.6014002111
+  * SSIM(cr + mc):       0.627601333333
+  * SSIM(mj2):           0.942152777778
+```
+
+* 41000 bytes
+```
+  * PSNR(cr + mc):       20.7049194778
+  * PSNR(mj2):           30.2524051111
+  * SSIM(cr + mc):       0.622497333333
+  * SSIM(mj2):           0.968010555556
+```
+
+* 51000 bytes
+```
+  * PSNR(cr + mc):       20.7777452
+  * PSNR(mj2):           31.9821113333
+  * SSIM(cr + mc):       0.628713555556
+  * SSIM(mj2):           0.970682555556
+```
+
 Codestream recibido para cada imagen
 =============
 
