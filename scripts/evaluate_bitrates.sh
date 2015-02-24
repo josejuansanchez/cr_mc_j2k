@@ -30,7 +30,7 @@ IMAGE_N1=5
 #for((BITRATE=1000; BITRATE<=51000; BITRATE=BITRATE+5000))
 for((BITRATE=11000; BITRATE<=51000; BITRATE=BITRATE+10000))
 do
-    ./cr_mc.sh $IMAGE_N $IMAGE_N1 $BITRATE
+    ./sequential.sh $IMAGE_N $IMAGE_N1 $BITRATE
     CheckExitStatusCode	
     ./generate_graph.sh $BITRATE
     CheckExitStatusCode	
