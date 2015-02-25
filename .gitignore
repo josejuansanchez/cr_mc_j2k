@@ -17,6 +17,9 @@ src/CR/bin/
 # MCJ2K binaries
 MCJ2K/bin
 
+# MCTF binaries
+MCTF/bin
+
 # Object files
 *.o
 
