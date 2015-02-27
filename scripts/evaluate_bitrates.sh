@@ -13,7 +13,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_02_27_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_a0_v2_mode_2_8
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_02_27_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_a0_v2_mode_2
 
 # speedway
 IMAGE_N=0
@@ -42,7 +42,7 @@ do
 
     # TODO: Temporal solution - 0 and 90 are values hardcoded
     #./create_ogv_and_gif.sh 0 90
-    ./create_ogv_and_gif.sh 0 50
+    ./create_ogv_and_gif.sh 2 50
 
     mv all.ogv all_$BITRATE.ogv
     mv all.gif all_$BITRATE.gif
