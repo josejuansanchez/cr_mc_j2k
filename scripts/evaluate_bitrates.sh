@@ -31,7 +31,7 @@ for((BITRATE=1000; BITRATE<=61000; BITRATE=BITRATE+1000))
 do
     ./sequential.sh $IMAGE_N $IMAGE_N1 $BITRATE
     CheckExitStatusCode 
-    ./generate_graph.sh $BITRATE
+    ./report_generate_graph.sh $BITRATE
     CheckExitStatusCode 
 
     cp bytes_$BITRATE.png $EXPERIMENTS
@@ -40,8 +40,8 @@ do
     cp paste_$BITRATE.txt $EXPERIMENTS
 
     # TODO: Temporal solution - 0 and 90 are values hardcoded
-    #./create_ogv_and_gif.sh 0 90
-    ./create_ogv_and_gif.sh 2 50
+    #./report_create_ogv_and_gif.sh 0 90
+    ./report_create_ogv_and_gif.sh 2 50
 
     mv all.ogv all_$BITRATE.ogv
     mv all.gif all_$BITRATE.gif
