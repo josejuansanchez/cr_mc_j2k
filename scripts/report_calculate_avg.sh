@@ -15,7 +15,7 @@ fi
 
 AVG=$CR_MC_J2K_HOME/pytools/avg.py
 
-for((BITRATE=11000; BITRATE<=51000; BITRATE=BITRATE+10000))
+for((BITRATE=1000; BITRATE<=60000; BITRATE=BITRATE+1000))
 do
     echo -e "\n* $BITRATE bytes"
     python $AVG paste_$BITRATE.txt
