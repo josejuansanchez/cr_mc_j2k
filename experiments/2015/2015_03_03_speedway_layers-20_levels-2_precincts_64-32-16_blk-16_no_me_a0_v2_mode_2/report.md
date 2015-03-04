@@ -62,24 +62,28 @@ PSNR and SSIM
 ### PSNR
 
 ![](assets/psnr-1k-5k.png)
-![](assets/psnr-6k-11k.png)
-![](assets/psnr-12k-16k.png)
-![](assets/psnr-17k-22k.png)
-![](assets/psnr-23k-28k.png)
-![](assets/psnr-29k-34k.png)
-![](assets/psnr-35k-40k.png)
-![](assets/psnr-40k-45k.png)
+![](assets/psnr-6k-10k.png)
+![](assets/psnr-11k-15k.png)
+![](assets/psnr-16k-20k.png)
+![](assets/psnr-21k-25k.png)
+![](assets/psnr-26k-30k.png)
+![](assets/psnr-31k-35k.png)
+![](assets/psnr-36k-40k.png)
+![](assets/psnr-41k-45k.png)
+![](assets/psnr-46k-50k.png)
 
 ### SSIM
 
 ![](assets/ssim-1k-5k.png)
-![](assets/ssim-6k-11k.png)
-![](assets/ssim-12k-16k.png)
-![](assets/ssim-17k-22k.png)
-![](assets/ssim-23k-28k.png)
-![](assets/ssim-29k-34k.png)
-![](assets/ssim-35k-40k.png)
-![](assets/ssim-40k-45k.png)
+![](assets/ssim-6k-10k.png)
+![](assets/ssim-11k-15k.png)
+![](assets/ssim-16k-20k.png)
+![](assets/ssim-21k-25k.png)
+![](assets/ssim-26k-30k.png)
+![](assets/ssim-31k-35k.png)
+![](assets/ssim-36k-40k.png)
+![](assets/ssim-41k-45k.png)
+![](assets/ssim-46k-50k.png)
 
 ### Average
 
@@ -110,39 +114,6 @@ PSNR and SSIM
 | **PSNR(mj2)**     | 40.6466981961   | 40.9369855882   | 41.2087602353   | 41.6358927255   | 42.0507357255
 | **SSIM(cr + mc)** |  0.983308235294 |  0.983277843137 |  0.984400196078 |  0.984679607843 | 0.985103921569
 | **SSIM(mj2)**     |  0.95702        |  0.959889607843 |  0.962817843137 |  0.965303137255 | 0.966837647059
-
-
-* 23000 bytes
-```
-* PSNR(cr + mc):       45.3469649216
-* PSNR(mj2):           42.9681220784
-* SSIM(cr + mc):       0.986258431373
-* SSIM(mj2):           0.97049254902
-```
-
-* 29000 bytes
-```
-* PSNR(cr + mc):       46.3981236863
-* PSNR(mj2):           44.8782839216
-* SSIM(cr + mc):       0.988672745098
-* SSIM(mj2):           0.980447843137
-```
-
-* 35000 bytes
-```
-* PSNR(cr + mc):       47.3345246863
-* PSNR(mj2):           46.2804773137
-* SSIM(cr + mc):       0.99090372549
-* SSIM(mj2):           0.98533627451
-```
-
-* 40000 bytes
-```
-* PSNR(cr + mc):       48.4820311373
-* PSNR(mj2):           47.8622408235
-* SSIM(cr + mc):       0.992655490196
-* SSIM(mj2):           0.990147058824
-```
 
 Simulación de los resultados
 =============
@@ -195,3 +166,15 @@ Simulación de los resultados
 * Bitrate: 46000 bytes. [gif](gif/all_46000.gif) | [ogv](ogv/all_41000.ogv)
 * Bitrate: 47000 bytes. [gif](gif/all_47000.gif) | [ogv](ogv/all_47000.ogv)
 * Bitrate: 48000 bytes. [gif](gif/all_48000.gif) | [ogv](ogv/all_48000.ogv)
+* Bitrate: 49000 bytes. [gif](gif/all_49000.gif) | [ogv](ogv/all_49000.ogv)
+* Bitrate: 50000 bytes. [gif](gif/all_50000.gif) | [ogv](ogv/all_50000.ogv)
+* Bitrate: 41000 bytes. [gif](gif/all_51000.gif) | [ogv](ogv/all_51000.ogv)
+* Bitrate: 42000 bytes. [gif](gif/all_52000.gif) | [ogv](ogv/all_52000.ogv)
+* Bitrate: 43000 bytes. [gif](gif/all_53000.gif) | [ogv](ogv/all_53000.ogv)
+* Bitrate: 44000 bytes. [gif](gif/all_54000.gif) | [ogv](ogv/all_54000.ogv)
+* Bitrate: 45000 bytes. [gif](gif/all_55000.gif) | [ogv](ogv/all_55000.ogv)
+* Bitrate: 46000 bytes. [gif](gif/all_56000.gif) | [ogv](ogv/all_51000.ogv)
+* Bitrate: 47000 bytes. [gif](gif/all_57000.gif) | [ogv](ogv/all_57000.ogv)
+* Bitrate: 48000 bytes. [gif](gif/all_58000.gif) | [ogv](ogv/all_58000.ogv)
+* Bitrate: 49000 bytes. [gif](gif/all_59000.gif) | [ogv](ogv/all_59000.ogv)
+* Bitrate: 50000 bytes. [gif](gif/all_60000.gif) | [ogv](ogv/all_60000.ogv)
