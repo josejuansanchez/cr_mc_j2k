@@ -11,6 +11,9 @@ tools/bin
 knapsack/tools/knapsack/bin
 knapsack/tools/j2c_to_knapsack_files/bin
 
+# Knapsack JSON files
+knapsack/files/
+
 # CR binaries
 src/CR/bin/
 
