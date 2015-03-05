@@ -1,10 +1,17 @@
 #!/bin/bash
 
-MODE=ssim #psnr | bytes
+if [ $# -ne 3 ]; then
+    echo -e "\nUsage: $0 <LOWER BOUND> <UPPER BOUND> <psnr | ssim | bytes>\n"
+    exit 1
+fi
+
+LOWER_BOUND=$1
+UPPER_BOUND=$2
+MODE=$3             #psnr | ssim | bytes
 INC=1000
 GPT=test.gpt
 
-for((START=6000; START<=56000; START=START+5000))
+for((START=$LOWER_BOUND; START<=$UPPER_BOUND; START=START+5000))
 do
   END=$(($START+4000))
 
