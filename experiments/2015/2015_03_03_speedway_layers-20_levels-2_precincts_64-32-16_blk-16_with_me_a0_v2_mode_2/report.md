@@ -7,7 +7,17 @@ Experiment: 2015-03-03
 - Número de imágenes: **50**
 
 ### Información de la secuencia
-* ~~Parámetros para la estimación de movimiento~~ 
+* Parámetros para la estimación de movimiento
+
+```
+X=384
+Y=320
+B=64   # block size
+A=0     # subpixel accuracy = sub-pixel accuracy of the motion estimation
+D=0     # border size = size of the border of the blocks in the motion estimation process
+S=4     # search range = size of the searching area of the motion estimation
+V=2     # Overlapping. Para difuminar los bordes de los bloques.
+```
 
 * Parámetros de **kdu_compress**:
 
@@ -53,7 +63,7 @@ Experiment: 2015-03-03
 - La transmisión **cr** utiliza los siguientes parámetros:
     - WoisToCache: Modo 2 / Enviando 20 capas completas para precinto
     - Utiliza Knapsack: No
-    - Utiliza **mc**: No
+    - Utiliza **mc**: Sí
     - Bitrate estimado: De **1000 bytes** a **48000 bytes**
 
 PSNR and SSIM
