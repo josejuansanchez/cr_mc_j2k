@@ -24,7 +24,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
 fi
 
 CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
-if [ ! -f $CONFIGFILE ]; then
+if [ ! -f "$CONFIGFILE" ]; then
     echo "Error reading config file: $CONFIGFILE"
     exit 1
 fi
@@ -33,8 +33,8 @@ echo "Reading config file: $CONFIGFILE ...."
 source "$CONFIGFILE"
 CheckExitStatusCode
 
-WIDTH=`echo "$WIDTH_RECONS/2" | bc`
-HEIGHT=`echo "$HEIGHT_RECONS/2" | bc`
+WIDTH=$(echo "$WIDTH_RECONS/2" | bc)
+HEIGHT=$(echo "$HEIGHT_RECONS/2" | bc)
 
 ## 1. Prediction sequence
 ## ----------------------
@@ -50,9 +50,9 @@ fi
 cp _tmp_prediction_images/*.pgm $TMP_PREDICTION_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_PREDICTION_DIR/*.pgm
 
-for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+for (( FRAME=FIRST_FRAME; FRAME<=LAST_FRAME; FRAME++ ))
 do
-  FRAME_NUMBER=`printf %03d $FRAME`
+  FRAME_NUMBER=$(printf %03d $FRAME)
   convert $TMP_PREDICTION_DIR/$FRAME_NUMBER.pgm $TMP_PREDICTION_DIR/$FRAME_NUMBER.png
 done
 
@@ -72,9 +72,9 @@ fi
 cp _tmp_blocks/*.pgm $TMP_BLOCKS_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_BLOCKS_DIR/*.pgm
 
-for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+for (( FRAME=FIRST_FRAME; FRAME<=LAST_FRAME; FRAME++ ))
 do
-  FRAME_NUMBER=`printf %03d $FRAME`
+  FRAME_NUMBER=$(printf %03d $FRAME)
   convert $TMP_BLOCKS_DIR/$FRAME_NUMBER.blocks.pgm $TMP_BLOCKS_DIR/$FRAME_NUMBER.png
 done
 
@@ -94,9 +94,9 @@ fi
 cp _tmp_trunc_images/*.pgm $TMP_TRUNC_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_TRUNC_DIR/*.pgm
 
-for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+for (( FRAME=FIRST_FRAME; FRAME<=LAST_FRAME; FRAME++ ))
 do
-  FRAME_NUMBER=`printf %03d $FRAME`
+  FRAME_NUMBER=$(printf %03d $FRAME)
   convert $TMP_TRUNC_DIR/$FRAME_NUMBER.trunc.pgm $TMP_TRUNC_DIR/$FRAME_NUMBER.png
 done
 
@@ -116,9 +116,9 @@ fi
 cp ${IMAGES_DIRECTORY}/*.pgm $TMP_ORIGINAL_DIR
 mogrify -resize ${WIDTH}x${HEIGHT} $TMP_ORIGINAL_DIR/*.pgm
 
-for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+for (( FRAME=FIRST_FRAME; FRAME<=LAST_FRAME; FRAME++ ))
 do
-  FRAME_NUMBER=`printf %03d $FRAME`
+  FRAME_NUMBER=$(printf %03d $FRAME)
   convert $TMP_ORIGINAL_DIR/$FRAME_NUMBER.pgm $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png
 done
 
@@ -149,16 +149,16 @@ fi
 # This is the reason of the use of COUNTER and OUT_FRAME_NUMBER.
 
 COUNTER=0
-for (( FRAME=$FIRST_FRAME; FRAME<=$LAST_FRAME; FRAME++ ))
+for (( FRAME=FIRST_FRAME; FRAME<=LAST_FRAME; FRAME++ ))
 do
-  FRAME_NUMBER=`printf %03d $FRAME`
-  OUT_FRAME_NUMBER=`printf %03d $COUNTER`
+  FRAME_NUMBER=$(printf %03d $FRAME)
+  OUT_FRAME_NUMBER=$(printf %03d $COUNTER)
 
   montage $TMP_PREDICTION_DIR/$FRAME_NUMBER.png $TMP_BLOCKS_DIR/$FRAME_NUMBER.png \
     $TMP_TRUNC_DIR/$FRAME_NUMBER.png $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png \
     -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/img_$OUT_FRAME_NUMBER.jpg
 
-  COUNTER=$(($COUNTER+1))
+  COUNTER=$((COUNTER+1))
 done
 
 ffmpeg -f image2 -i $TMP_ALL_DIR/img_%03d.jpg -b 5000k all.ogv

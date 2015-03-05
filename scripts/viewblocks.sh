@@ -8,11 +8,11 @@ fi
 i=$1
 while [ $i -le $2 ]; do
 
-	index=`printf %03d $i`
+	index=$(printf %03d $i)
 
 	list="$list _tmp_blocks/$index.blocks.pgm "
 
-	i=$(($i+1))
+	i=$((i+1))
 done
 
 animate $list

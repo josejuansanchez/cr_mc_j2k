@@ -19,7 +19,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
 fi
 
 CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
-if [ ! -f $CONFIGFILE ]; then
+if [ ! -f "$CONFIGFILE" ]; then
     echo "Error reading config file: $CONFIGFILE"
     exit 1
 fi
@@ -32,12 +32,12 @@ FIRST=$1
 LAST=$2
 
 i=$FIRST
-while [ $i -le $LAST ]; do
+while [ "$i" -le "$LAST" ]; do
 
-	imagej2c=`printf %03d $i`
+	imagej2c=$(printf %03d "$i")
 
-	SOPS=`$COUNTSOPS $THUMBNAILS_DIRECTORY/$imagej2c.j2c | grep "SOPs" | awk '{print $3}'`
+	SOPS=$($COUNTSOPS "$THUMBNAILS_DIRECTORY"/"$imagej2c".j2c | grep "SOPs" | awk '{print $3}')
 	echo -e "Image: [$i] - SOPs: $SOPS"
 
-	i=$(($i+1))
+	i=$((i+1))
 done
