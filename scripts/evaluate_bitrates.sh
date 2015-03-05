@@ -13,7 +13,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_03_03_speedway_layers-20_levels-2_precincts_64-32-16_blk-16_no_me_a0_v2_mode_2
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_03_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_mode_2
 
 # speedway
 IMAGE_N=0
@@ -27,7 +27,7 @@ IMAGE_N1=1
 #IMAGE_N=100
 #IMAGE_N1=101
 
-for((BITRATE=1000; BITRATE<=61000; BITRATE=BITRATE+1000))
+for((BITRATE=1000; BITRATE<=20000; BITRATE=BITRATE+1000))
 do
     ./sequential.sh $IMAGE_N $IMAGE_N1 $BITRATE
     CheckExitStatusCode 

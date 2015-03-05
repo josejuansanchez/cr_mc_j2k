@@ -120,8 +120,8 @@ while [ $i -le 50 ]; do
 	# **********************************************************************
 	#
 	# Calculamos los vectores de movimiento
-	$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
-	CheckExitStatusCode	
+	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
+	#CheckExitStatusCode	
 
 	#
 	# WITHOUT MC
@@ -129,7 +129,7 @@ while [ $i -le 50 ]; do
 	# ¡OJO!: UTILIZAMOS LA MISMA IMAGEN: $odd_image
 	# 
 	$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
-	CheckExitStatusCode
+	CheckExitStatusCode			
 	# ************************************************************************	
 
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
