@@ -142,6 +142,22 @@ PSNR and SSIM
 * SSIM(mj2):           0.990147058824
 ```
 
+* 50000 bytes
+```
+* PSNR(cr + mc):       51.917043898
+* PSNR(mj2):           51.0075097347
+* SSIM(cr + mc):       0.996073673469
+* SSIM(mj2):           0.99486877551
+```
+
+* 60000 bytes
+```
+* PSNR(cr + mc):       60.3738896531
+* PSNR(mj2):           58.0341150612
+* SSIM(cr + mc):       0.999387142857
+* SSIM(mj2):           0.999216122449
+```
+
 Simulación de los resultados
 =============
 
@@ -193,3 +209,15 @@ Simulación de los resultados
 * Bitrate: 46000 bytes. [gif](gif/all_46000.gif) | [ogv](ogv/all_41000.ogv)
 * Bitrate: 47000 bytes. [gif](gif/all_47000.gif) | [ogv](ogv/all_47000.ogv)
 * Bitrate: 48000 bytes. [gif](gif/all_48000.gif) | [ogv](ogv/all_48000.ogv)
+* Bitrate: 49000 bytes. [gif](gif/all_49000.gif) | [ogv](ogv/all_49000.ogv)
+* Bitrate: 50000 bytes. [gif](gif/all_50000.gif) | [ogv](ogv/all_50000.ogv)
+* Bitrate: 51000 bytes. [gif](gif/all_51000.gif) | [ogv](ogv/all_51000.ogv)
+* Bitrate: 52000 bytes. [gif](gif/all_52000.gif) | [ogv](ogv/all_52000.ogv)
+* Bitrate: 53000 bytes. [gif](gif/all_53000.gif) | [ogv](ogv/all_53000.ogv)
+* Bitrate: 54000 bytes. [gif](gif/all_54000.gif) | [ogv](ogv/all_54000.ogv)
+* Bitrate: 55000 bytes. [gif](gif/all_55000.gif) | [ogv](ogv/all_55000.ogv)
+* Bitrate: 56000 bytes. [gif](gif/all_56000.gif) | [ogv](ogv/all_51000.ogv)
+* Bitrate: 57000 bytes. [gif](gif/all_57000.gif) | [ogv](ogv/all_57000.ogv)
+* Bitrate: 58000 bytes. [gif](gif/all_58000.gif) | [ogv](ogv/all_58000.ogv)
+* Bitrate: 59000 bytes. [gif](gif/all_59000.gif) | [ogv](ogv/all_59000.ogv)
+* Bitrate: 60000 bytes. [gif](gif/all_60000.gif) | [ogv](ogv/all_60000.ogv)
