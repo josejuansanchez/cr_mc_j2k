@@ -42,7 +42,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
 fi
 
 CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
-if [ ! -f $CONFIGFILE ]; then
+if [ ! -f "$CONFIGFILE" ]; then
 	echo "Error reading config file: $CONFIGFILE"
 	exit 1
 fi
@@ -68,8 +68,8 @@ BITRATE=$3
 even_num=$1
 odd_num=$2
 
-even=`printf %03d $even_num`
-odd=`printf %03d $odd_num`
+even=$(printf %03d $even_num)
+odd=$(printf %03d $odd_num)
 
 # even image
 cp ${IMAGES_DIRECTORY}/${even}.pgm .
@@ -209,8 +209,11 @@ while [ $i -le 50 ]; do
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
 
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+
 	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 20
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
