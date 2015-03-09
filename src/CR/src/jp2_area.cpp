@@ -1477,6 +1477,125 @@ bool jp2_area::woi_to_lrcp_modified(char filename_woi[], int w, int h, int r, in
   return true;
 }
 
+// Sólo devuelve las coordenadas de los precintos que coinciden con las coordenadas de la WOI
+// En este caso las imágenes se han comprimido siguiendo una progresión RLCP
+bool jp2_area::woi_to_rlcp_modified(char filename_woi[], int w, int h, int r, int q)
+{
+  int x, y;
+  FILE *f = fopen(filename_woi,"r");
+  if(!f) return false;
+
+  char *filename_out = new char[255];
+  strcpy(filename_out, cur_name);
+  strcat(filename_out,".lrcp");
+  FILE *fc = fopen(filename_out,"w");
+  if(!fc) return false;
+
+  // ****************************************************
+  // Obtenemos el número de precintos que hay en cada nivel de resolución  
+  kdu_dims idims;
+  codestream.apply_input_restrictions(0, 0, 0, 0, NULL);
+  codestream.get_dims(0, idims);
+  printf("\nImage dimension: %d - %d\n", idims.size.x, idims.size.y);
+
+  kdu_dims roi, realroi;
+  roi.pos = kdu_coords(0, 0);
+  roi.size = kdu_coords(idims.size.x, idims.size.y);
+
+  codestream.apply_input_restrictions(0, 0, 0, 0, NULL);
+  codestream.map_region(0, roi, realroi);
+  codestream.apply_input_restrictions(0, 0, 0, 0, &realroi);
+
+  int numr = codestream.get_min_dwt_levels() + 1;
+  kdu_tile tile = codestream.open_tile(kdu_coords(0, 0));
+  kdu_tile_comp comp = tile.access_component(0);
+
+  kdu_dims *precincts_in_each_resolution = new kdu_dims[numr];
+  kdu_dims *resolution_size = new kdu_dims[numr];  
+  kdu_dims *precincts_size_in_each_resolution = new kdu_dims[numr];
+
+  for (int resolution = 0; resolution < numr; resolution++) {
+    printf("Resolution: %d\n", resolution);
+
+    kdu_resolution res = comp.access_resolution(resolution);
+
+    kdu_dims rdims;
+    res.get_dims(rdims);
+    printf("\tDimension.\t x: %5d \t y: %5d\n", rdims.size.x, rdims.size.y);
+    resolution_size[resolution] = rdims;
+
+    kdu_dims pdims;
+    res.get_valid_precincts(pdims);
+    printf("\t# of precincts.\t x: %5d \t y: %5d\n", pdims.size.x, pdims.size.y);
+    precincts_in_each_resolution[resolution] = pdims;
+
+    precincts_size_in_each_resolution[resolution].size.x = rdims.size.x / pdims.size.x;
+    precincts_size_in_each_resolution[resolution].size.y = rdims.size.y / pdims.size.y;
+    printf("\tPrecincts size.\t x: %5d \t y: %5d\n", precincts_size_in_each_resolution[resolution].size.x, precincts_size_in_each_resolution[resolution].size.x);
+  }
+  tile.close();  
+  // ****************************************************
+
+  while(!feof(f))
+  {
+    fscanf(f, "%d %d\n",&x, &y);
+    woi ww = woi(x, y, w, h, r, q);
+
+    kdu_dims roi, realroi;
+
+    roi.pos = kdu_coords(ww.x, ww.y);
+    roi.size = kdu_coords(ww.w, ww.h);
+
+    codestream.apply_input_restrictions(0, 0, 0, 0, NULL);
+    codestream.map_region(0, roi, realroi);
+    codestream.apply_input_restrictions(0, 0, 0, 0, &realroi);
+
+    int numr = codestream.get_min_dwt_levels() + 1;
+    kdu_tile tile = codestream.open_tile(kdu_coords(0, 0));
+
+    for (int resolution = 0; resolution < r; resolution++)
+    {
+      for (int l = 0; l < q; l++)
+      {
+        for (int c = 0; c < tile.get_num_components(); c++)
+        {
+          kdu_tile_comp comp = tile.access_component(c);
+          kdu_resolution res = comp.access_resolution(resolution);
+
+          kdu_dims pdims;
+          res.get_valid_precincts(pdims);
+
+          for (int py = pdims.pos.y; py < pdims.pos.y + pdims.size.y; py++)
+          {
+            for (int px = pdims.pos.x; px < pdims.pos.x + pdims.size.x; px++) 
+            {    
+               kdu_long pid = res.get_precinct_id(kdu_coords(px, py));            
+               
+               float scale_factor = pow(2, r - 1 - resolution);
+               //printf("\n%d / %f = %f \t %f \t %d\n", ww.x, scale_factor, ww.x / scale_factor, (ww.x / scale_factor) / precincts_size_in_each_resolution[resolution].size.x, px);
+               //printf("%d / %f = %f \t %f \t %d\n", ww.y, scale_factor, ww.y / scale_factor, (ww.y / scale_factor) / precincts_size_in_each_resolution[resolution].size.y, py);
+               //printf("%d %d %d %d: %d %d %d %d %d: %ld\n", ww.x, ww.y, ww.w, ww.h, l, resolution, c, py, px, (long)pid);
+
+               // Eliminamos los precintos que no coincidan exactamente con la región de la WOI.
+               // Kakadu incluye algunos precintos de los bordes.
+               if (((int)((ww.x / scale_factor) / precincts_size_in_each_resolution[resolution].size.x) == px) &&
+                   ((int)((ww.y / scale_factor) / precincts_size_in_each_resolution[resolution].size.y) == py)) {
+                  fprintf(fc,"%d %d %d %d: %d %d %d %d %d: %ld\n", ww.x, ww.y, ww.w, ww.h, l, resolution, c, py, px, (long)pid);
+                  //printf("\n\t*** ----> %d %d %d %d: %d %d %d %d %d: %ld\n", ww.x, ww.y, ww.w, ww.h, l, resolution, c, py, px, (long)pid);
+               }
+            }
+          }
+        }
+      }
+    }  
+    tile.close();
+  }
+  fclose(f);
+  fclose(fc); 
+
+  return true;
+}
+
 // Ordenamos el archivo que contiene los paquetes en coordenadas LRCP
 // Vamos cogiendo el primero paquete de cada precinto.
 bool jp2_area::sort_lrcp_file_type_1(int layersLevel, int resolutionLevels)
@@ -1675,6 +1794,53 @@ bool jp2_area::sort_lrcp_file_using_knapsack_method_2(int layersLevel, int resol
   fclose(fsort);
   return true;
 }
+
+// Ordenamos el archivo que contiene los paquetes en coordenadas RLCP.
+// Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto.
+bool jp2_area::sort_rlcp_file_using_knapsack_method_3(int layersLevel, int resolutionLevels, int until_this_quality_layer)
+{
+  /* Archivo de donde vamos a ir leyendo las coordenadas de los paquetes */
+  char *filename = new char[255];
+  strcpy(filename, cur_name);
+  strcat(filename,".lrcp");
+  FILE *fwois = fopen(filename,"r");
+  if (!fwois) return false;
+
+  /* Archivo donde vamos a ir guardando las coordenadas lrcp en diferente orden */
+  char *filename_sort = new char[255];
+  strcpy(filename_sort, cur_name);
+  strcat(filename_sort,".lrcp.sort");
+  FILE *fsort = fopen(filename_sort,"w");
+  if (!fsort) return false;
+
+  int x, y, w, h, l, r, c, py, px;
+  long id;
+  int cont = 0;
+
+  while(!feof(fwois))
+  {
+    /* Leemos tantas líneas como niveles de resolución tengamos y capas de calidad que queramos incluir */
+    for(int j=0; j < resolutionLevels*until_this_quality_layer; j++){
+      fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
+      //printf("\t\t---> %d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);
+      fprintf(fsort,"%d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);      
+      cont++;    
+    }
+
+    /* Indica cuántas líneas tenemos que saltarnos del primer bloque */
+    for(int j=cont; j < layersLevel*resolutionLevels; j++){
+      fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
+    }    
+
+    /* Reseteamos el contador */
+    cont = 0;
+  }
+
+  fclose(fwois);
+  fclose(fsort);
+  return true;
+}
+
 
 // REVISAR ****************
 //

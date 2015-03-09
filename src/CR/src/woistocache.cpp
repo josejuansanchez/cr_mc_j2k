@@ -168,6 +168,16 @@ int main(int argc, char **argv)
 				/* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */				
 				jarea.sort_lrcp_file_using_knapsack_method_2(l,r, until_this_quality_layer);
 				break;
+
+        /* Seleccionamos los precintos sólo cuando coinciden con la WOI */
+        /* Los precintos se seleccionan siguiendo el método Knapsack 2  */
+        /* En este caso las imágenes se han comprimido siguiendo una progresión RLCP */
+        case 3: jarea.woi_to_rlcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
+
+                /* Seleccionamos los precintos siguiendo el método Knapsack 2 */
+                /* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */                
+                jarea.sort_rlcp_file_using_knapsack_method_3(l,r, until_this_quality_layer);
+                break;                
 	}
 
 	JP2Cache cache;
