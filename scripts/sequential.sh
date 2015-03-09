@@ -209,8 +209,8 @@ while [ $i -le 50 ]; do
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
-	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
+	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.todos.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 20
@@ -256,7 +256,7 @@ while [ $i -le 50 ]; do
 	# Comprimimos la imagen predicción de .pgm a .j2c
 	# Los parámetros de compresión deben coincidir con los parámetros de compresión iniciales
 	# Esta operación debe realizarse en el cliente y puede ser un poco lenta.
-	kdu_compress -i prediction_temp.pgm -o prediction_temp.j2c Cuse_sop=yes Corder=LRCP Clayers=$CLAYERS \
+	kdu_compress -i prediction_temp.pgm -o prediction_temp.j2c Cuse_sop=yes Corder=$CORDER Clayers=$CLAYERS \
 	Clevels=$CLEVELS Cprecincts=$CPRECINCTS Cblk=$CBLK Creversible=yes #"Cmodes=RESTART|ERTERM" Cuse_eph=yes
 	CheckExitStatusCode
 
