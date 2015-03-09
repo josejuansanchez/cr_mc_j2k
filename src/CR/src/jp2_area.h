@@ -149,6 +149,7 @@ public:
   long get_precint_id(int l, int r, int c, int py, int px);
   bool woi_to_lrcp_original(char filename_woi[], int w, int h, int r, int q);
   bool woi_to_lrcp_modified(char filename_woi[], int w, int h, int r, int q);
+  bool woi_to_rlcp_modified(char filename_woi[], int w, int h, int r, int q);  
   bool sort_lrcp_file_type_1(int layersLevel, int resolutionLevels);
   bool sort_lrcp_file_using_knapsack_method_1(int layersLevel, int resolutionLevels);
   bool sort_lrcp_file_using_knapsack_method_2(int layersLevel, int resolutionLevels, int until_this_quality_layer);
