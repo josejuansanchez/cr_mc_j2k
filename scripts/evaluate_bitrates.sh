@@ -13,7 +13,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_03_09_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_mode_2_rpcl
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_03_09_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_mode_2_rlcp
 
 # speedway
 IMAGE_N=0
