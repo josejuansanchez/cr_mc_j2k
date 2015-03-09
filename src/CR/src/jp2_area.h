@@ -152,6 +152,7 @@ public:
   bool sort_lrcp_file_type_1(int layersLevel, int resolutionLevels);
   bool sort_lrcp_file_using_knapsack_method_1(int layersLevel, int resolutionLevels);
   bool sort_lrcp_file_using_knapsack_method_2(int layersLevel, int resolutionLevels, int until_this_quality_layer);
+  bool sort_rlcp_file_using_knapsack_method_3(int layersLevel, int resolutionLevels, int until_this_quality_layer);  
   int load_wois_cache_and_update_index_list_TEST(JP2Cache& cache, double max_bytes, int lrcp_type);
   void id_to_lrcp(long id, int &l, int &r, int &c, int &py, int &px);
   int save_packets_to_file();
