@@ -1820,7 +1820,7 @@ bool jp2_area::sort_rlcp_file_using_knapsack_method_3(int layersLevel, int resol
   while(!feof(fwois))
   {
     /* Leemos tantas líneas como niveles de resolución tengamos y capas de calidad que queramos incluir */
-    for(int j=0; j < resolutionLevels*until_this_quality_layer; j++){
+    for(int j=0; j < until_this_quality_layer; j++){
       fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
       //printf("\t\t---> %d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);
       fprintf(fsort,"%d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);      
@@ -1828,7 +1828,7 @@ bool jp2_area::sort_rlcp_file_using_knapsack_method_3(int layersLevel, int resol
     }
 
     /* Indica cuántas líneas tenemos que saltarnos del primer bloque */
-    for(int j=cont; j < layersLevel*resolutionLevels; j++){
+    for(int j=cont; j < layersLevel; j++){
       fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
     }    
 
