@@ -118,8 +118,8 @@ int main(int argc, char **argv)
 	bitRate= atof(argv[7]);
 	pSelectionMode = atoi(argv[8]);
 
-	/* Si estamos en el Mode = 2, necesitamos el parámetro [until_this_quality_layer] */
-	if (pSelectionMode == 2) {
+	/* Si estamos en el Mode = 2 o 3, necesitamos el parámetro [until_this_quality_layer] */
+	if (pSelectionMode == 2 || pSelectionMode == 3) {
 		if(argc < 10) {
 			fprintf(stderr, "\nError: Debe indicar un valor válido para el parámetro [until_this_quality_layer]\n\n");
 			return -1;
@@ -175,7 +175,10 @@ int main(int argc, char **argv)
         case 3: jarea.woi_to_rlcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
 
                 /* Seleccionamos los precintos siguiendo el método Knapsack 2 */
-                /* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */                
+
+                /* Vamos cogiendo todos los paquetes del mismo nivel de  */
+                /* resolución hasta una capa de calidad máxima para cada */
+                /* precinto. */
                 jarea.sort_rlcp_file_using_knapsack_method_3(l,r, until_this_quality_layer);
                 break;                
 	}

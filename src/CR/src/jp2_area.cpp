@@ -1572,9 +1572,6 @@ bool jp2_area::woi_to_rlcp_modified(char filename_woi[], int w, int h, int r, in
                kdu_long pid = res.get_precinct_id(kdu_coords(px, py));            
                
                float scale_factor = pow(2, r - 1 - resolution);
-               //printf("\n%d / %f = %f \t %f \t %d\n", ww.x, scale_factor, ww.x / scale_factor, (ww.x / scale_factor) / precincts_size_in_each_resolution[resolution].size.x, px);
-               //printf("%d / %f = %f \t %f \t %d\n", ww.y, scale_factor, ww.y / scale_factor, (ww.y / scale_factor) / precincts_size_in_each_resolution[resolution].size.y, py);
-               //printf("%d %d %d %d: %d %d %d %d %d: %ld\n", ww.x, ww.y, ww.w, ww.h, l, resolution, c, py, px, (long)pid);
 
                // Eliminamos los precintos que no coincidan exactamente con la región de la WOI.
                // Kakadu incluye algunos precintos de los bordes.
@@ -1823,11 +1820,11 @@ bool jp2_area::sort_rlcp_file_using_knapsack_method_3(int layersLevel, int resol
     for(int j=0; j < until_this_quality_layer; j++){
       fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
       //printf("\t\t---> %d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);
-      fprintf(fsort,"%d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);      
+      fprintf(fsort,"%d %d %d %d: %d %d %d %d %d: %ld\n", x, y, w, h, l, r, c, py, px, id);
       cont++;    
     }
 
-    /* Indica cuántas líneas tenemos que saltarnos del primer bloque */
+    /* Indica cuántas líneas tenemos que saltarnos */
     for(int j=cont; j < layersLevel; j++){
       fscanf(fwois,"%d %d %d %d: %d %d %d %d %d: %ld\n", &x, &y, &w, &h, &l, &r, &c, &py, &px, &id);
     }    
@@ -1872,7 +1869,8 @@ int jp2_area::load_wois_cache_and_update_index_list_TEST(JP2Cache& cache, double
 
     /* Leemos las coordenadas del archivo que hemos ordenado previamente */
     case 1:
-    case 2: strcat(filename,".lrcp.sort");
+    case 2:
+    case 3: strcat(filename,".lrcp.sort");
             break;
   }
   
