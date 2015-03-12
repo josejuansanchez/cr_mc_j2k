@@ -36,31 +36,31 @@ int main (int argc, char *argv[])
 
     /* Reservamos memoria dinámica para la imagen A */
     imageA = ( unsigned char** )malloc( MAXROWS*sizeof( unsigned char* ) );
-     
+
     /* Reservamos memoria para cada fila */
-    for(i = 0; i < MAXROWS; i++) 
+    for(i = 0; i < MAXROWS; i++)
     {
         imageA[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
     }
 
     /* Reservamos memoria dinámica para la imagen B */
     imageB = ( unsigned char** )malloc( MAXROWS*sizeof( unsigned char* ) );
-     
+
     /* Reservamos memoria para cada fila */
-    for(i = 0; i < MAXROWS; i++) 
+    for(i = 0; i < MAXROWS; i++)
     {
         imageB[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
     }
 
     /* Reservamos memoria dinámica para la imagen */
     imageC = ( unsigned char** )malloc( MAXROWS*sizeof( unsigned char* ) );
-     
+
     /* Reservamos memoria para cada fila */
-    for(i = 0; i < MAXROWS; i++) 
+    for(i = 0; i < MAXROWS; i++)
     {
         imageC[i] = ( unsigned char* )malloc( MAXCOLS*sizeof( unsigned char ) );
     }
-    
+
     /* Leemos la imagen A de disco */
     readOK = pgmRead (argv[1],&rowsA,&colsA,imageA);
     if (!readOK)
@@ -83,7 +83,7 @@ int main (int argc, char *argv[])
         printf("\nLas imágenes no tienen las mismas dimensiones.\n");
         exit(1);
     }
-    
+
     /* Calculamos el numero de precintos que contiene la imagen */
     np = rowsA*colsA;
 
@@ -123,9 +123,9 @@ int main (int argc, char *argv[])
             }
             avg = suma/(WprecinctSize*HprecinctSize);
 
-            // Solamente cuando el MSE sea mayor que 0 es cuando guardamos el precinto en la lista
+            // Solamente cuando el MSE sea mayor que 1 es cuando guardamos el precinto en la lista
             // e incrementamos el numero de elementos
-            if (avg > 0)
+            if (avg > 1)
             {
                 precincts[ne].countDifferences = avg;
                 ne = ne + 1;
