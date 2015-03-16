@@ -10,9 +10,9 @@ void allocate2D(unsigned char** image, int rows, int cols)
 
     /* Reservamos memoria dinámica para la imagen */
     image = ( unsigned char** )malloc( rows*sizeof( unsigned char* ) );
-     
+
     /* Reservamos memoria para cada fila */
-    for(i = 0; i < rows; i++) 
+    for(i = 0; i < rows; i++)
     {
         image[i] = ( unsigned char* )malloc( cols*sizeof( unsigned char ) );
     }
@@ -23,11 +23,11 @@ void deallocate2D(unsigned char** image, int rows)
     long i;
 
     /* Liberamos la memoria utilizada por cada fila */
-    for(i = 0; i < rows; i++) 
+    for(i = 0; i < rows; i++)
     {
         free(image[i]);
     }
-     
+
     /* Liberamos el array de punteros */
     free(image);
 }
@@ -37,9 +37,9 @@ void differences(unsigned char **imageA, unsigned char **imageB, unsigned char *
     long i,j;
 
     /* Restamos píxel a píxel de la imagen A con la imagen B */
-    for (i=0; i < rows; i++) 
+    for (i=0; i < rows; i++)
     {
-        for (j=0; j < cols; j++) 
+        for (j=0; j < cols; j++)
           {
        imageC[i][j] = (unsigned char)(((int)imageA[i][j] - (int)imageB[i][j]) + 128);
        //imageC[i][j] = imageA[i][j] - imageB[i][j];
@@ -52,9 +52,9 @@ void differencesABS(unsigned char **imageA, unsigned char **imageB, unsigned cha
     long i,j;
 
     /* Restamos píxel a píxel de la imagen A con la imagen B */
-    for (i=0; i < rows; i++) 
+    for (i=0; i < rows; i++)
     {
-       for (j=0; j < cols; j++) 
+       for (j=0; j < cols; j++)
        {
            imageC[i][j] = abs(imageA[i][j] - imageB[i][j]);
        }
@@ -65,9 +65,9 @@ void sum(unsigned char **imageA, unsigned char **imageB, unsigned char **imageC,
 {
     long i,j;
 
-    for (i=0; i < rows; i++) 
+    for (i=0; i < rows; i++)
     {
-       for (j=0; j < cols; j++) 
+       for (j=0; j < cols; j++)
        {
            imageC[i][j] = (imageA[i][j] + imageB[i][j])/2;
        }
@@ -78,7 +78,7 @@ void sum(unsigned char **imageA, unsigned char **imageB, unsigned char **imageC,
 void drawCodeblock(unsigned char **image, long horizontalCoordinate, long verticalCoordinate, long color, long precinctSize)
 {
     long i, j;
-    
+
     for(i=verticalCoordinate;i<(verticalCoordinate + precinctSize);i++)
     {
        for(j=horizontalCoordinate;j<(horizontalCoordinate + precinctSize);j++)
@@ -94,7 +94,7 @@ void drawCodeblock(unsigned char **image, long horizontalCoordinate, long vertic
 void drawCodeblock_WH(unsigned char **image, long horizontalCoordinate, long verticalCoordinate, long color, long WprecinctSize, long HprecinctSize)
 {
     long i, j;
-    
+
     for(i=verticalCoordinate;i<(verticalCoordinate + HprecinctSize);i++)
     {
        for(j=horizontalCoordinate;j<(horizontalCoordinate + WprecinctSize);j++)
@@ -208,7 +208,7 @@ void countDifferences(unsigned char **image, long rows, long cols, unsigned char
 void printCodeblock(unsigned char **image, long offsetx, long offsety, long precinctSize)
 {
     long i, j;
-    
+
     for(i=offsetx;i<(offsetx + precinctSize);i++)
     {
        for(j=offsety;j<(offsety + precinctSize);j++)
@@ -224,7 +224,7 @@ double averageDifference(precint *precincts, long np)
 {
     long i;
     double sum,avg;
-    
+
     sum = 0;
     for(i=0;i<np;i++)
     {
@@ -436,6 +436,35 @@ int writePrecinctsToFileTXT(precint *precincts, long start, long end, char *file
     return 1;
 }
 
+
+/* Guarda el vector de precintos en un archivo de texto */
+/* <horizontal_coordinate> <vertical_coordinate> <differences> */
+int writePrecinctsAndDifferencesToFileTXT(precint *precincts,
+                                          long start, long end, char *filename)
+{
+    FILE *f;
+    long i;
+
+    f = fopen(filename,"wt");
+    if (f==NULL)
+    {
+       printf("\nError al crear el archivo de precintos.\n");
+        return 0;
+    }
+
+    /* Guardamos el vector */
+    for(i=start;i<end;i++)
+    {
+        fprintf(f, "%4ld %4ld %4lf\n", precincts[i].offsetx, 
+                                       precincts[i].offsety,
+                                       precincts[i].countDifferences);
+    }
+
+    fclose(f);
+    return 1;
+}
+
+
 /* Lee el vector de precintos de un archivo de texto */
 int readPrecinctsFromFileTXT(precint *precincts, long *np, char *filename)
 {
@@ -451,7 +480,7 @@ int readPrecinctsFromFileTXT(precint *precincts, long *np, char *filename)
 
     /* Guardamos el número de elementos del vector y el vector */
     i = 0;
-    fscanf(f, "%4ld %4ld\n",&precincts[i].offsetx,&precincts[i].offsety);	
+    fscanf(f, "%4ld %4ld\n",&precincts[i].offsetx,&precincts[i].offsety);
     while(!feof(f))
     {
         i = i + 1;
@@ -629,14 +658,14 @@ long countPrecinctsFromFileTXT(char *filename)
 
     i = 0;
     fscanf(f, "%4ld %4ld\n",&p.offsetx,&p.offsety);
-    //printf("\n[%ld] Precint: %ld \t %ld", i, p.offsetx, p.offsety);	
+    //printf("\n[%ld] Precint: %ld \t %ld", i, p.offsetx, p.offsety);
     while(!feof(f))
     {
         i = i + 1;
         fscanf(f, "%4ld %4ld\n",&p.offsetx,&p.offsety);
         //printf("\n[%ld] Precint: %ld \t %ld", i, p.offsetx, p.offsety);
     }
-    
+
     if (p.offsetx!=-1 && p.offsety!=-1)
     {
         i = i + 1;

@@ -30,7 +30,9 @@ int main (int argc, char *argv[])
     /* Comprobamos el número de parametros */
     if (argc!=9)
     {
-        printf("\nUso: %s <in_filenameA> <in_filenameB> <out_filename_precincts_list.dat> <out_filename_precincts_list.txt> <w_precint_size> <h_precint_size> <w_offset> <h_offset>.\n",argv[0]);
+        printf("\nUso: %s <in_filenameA> <in_filenameB> \
+          <out_filename_precincts_list.dat> <out_filename_precincts_list.txt> \
+          <w_precint_size> <h_precint_size> <w_offset> <h_offset>.\n",argv[0]);
         exit(1);
     }
 
@@ -155,7 +157,8 @@ int main (int argc, char *argv[])
     }
 
     /* Guardamos la lista de precintos .txt en disco */
-    writeOK = writePrecinctsToFileTXT(precincts,0,np,argv[4]);
+    writeOK = writePrecinctsAndDifferencesToFileTXT(precincts,0,np,argv[4]);
+    //writeOK = writePrecinctsToFileTXT(precincts,0,np,argv[4]);
     if (writeOK)
     {
         printf("\nEl archivo: %s, con la lista de precintos .txt se ha creado con éxito.\n",argv[4]);
