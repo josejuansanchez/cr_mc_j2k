@@ -14,9 +14,9 @@
 using namespace std;
 
 
-class kdu_my_message : public kdu_message 
+class kdu_my_message : public kdu_message
 {
-    public: 
+    public:
 	void start_message() { }
 	void flush(bool end_of_message) { }
 	void put_text(const char *str) { cerr << str << endl; }
@@ -52,18 +52,19 @@ static bool write_image(char *fname, kdu_byte *buffer, int num_components, int h
 static bool set_multiple_wois(char *fname, jp2_area *jarea, int w, int h, int r, int q)
 {
   int x, y;
+  double countDifferences;
   woi ww;
 
   FILE *f = fopen(fname, "r");
   if(!f) return false;
 
-  fscanf(f, "%d %d\n",&x, &y);
+  fscanf(f, "%d %d %lf\n",&x, &y, &countDifferences);
   ww = woi(x, y, w, h, r, q);
   (*jarea).set_woi(ww);
   //printf("WOI (%d, %d, %d, %d, %d, %d)\n",x,y,w,h,r,q);
   while(!feof(f))
   {
-    fscanf(f, "%d %d\n",&x, &y);
+    fscanf(f, "%d %d %lf\n",&x, &y, &countDifferences);
     ww = woi(x, y, w, h, r, q);
     (*jarea).set_woi(ww);
     //printf("WOI (%d, %d, %d, %d, %d, %d)\n",x,y,w,h,r,q);
@@ -90,7 +91,7 @@ int main(int argc, char **argv)
 	int WprecinctSize, HprecinctSize, r, l, pSelectionMode, until_this_quality_layer;
 	double bitRate;
 
-	if(argc < 9) 
+	if(argc < 9)
  	{
 		fprintf(stderr, "\nError: Numero de parametros incorrecto!!!\n"
 		       "\nUso: %s <Imagen J2C> <Lista de WOIs .txt> <W Precinct size> <H Precinct size> <r> <l> <BitRate (Bytes)> <Precincts Selection Mode> [until_this_quality_layer]\n\n",argv[0]);
@@ -100,17 +101,17 @@ int main(int argc, char **argv)
 		fprintf(stderr, "                              Si utilizamos este modo es obligatorio indicar el parámetro [until_this_quality_layer].\n");
 		return -1;
 	}
-	
+
 	/* NOTA: Si usamos Mode = 2 (Knapsack Method 2) y un valor muy alto para el parámetro de entrada <BitRate>, */
 	/* hay que tener en cuenta que sólo se devolverán hasta el número máximo de capas de calidad que indiquemos */
 	/* en <until_this_quality_layer> */
 
 	kdu_customize_warnings(&warn_collector);
 	kdu_customize_errors(&err_collector);
-	
+
 	fprintf(stderr, "\nImagen J2C: '%s'\n", argv[1]);
 	fprintf(stderr, "\nLista de WOIs: '%s'\n", argv[2]);
-	
+
 	WprecinctSize = atoi(argv[3]);
 	HprecinctSize = atoi(argv[4]);
 	r = atoi(argv[5]);
@@ -123,12 +124,12 @@ int main(int argc, char **argv)
 		if(argc < 10) {
 			fprintf(stderr, "\nError: Debe indicar un valor válido para el parámetro [until_this_quality_layer]\n\n");
 			return -1;
-		} 
+		}
 		until_this_quality_layer = atoi(argv[9]);
 	}
 
 	/* Abrimos la imagen J2C */
-	if(!jarea.open(argv[1])) 
+	if(!jarea.open(argv[1]))
 	{
 		fprintf(stderr, "\nError: No se ha podido abrir el archivo (%s)!!!\n\n",argv[1]);
 		return -1;
@@ -149,12 +150,12 @@ int main(int argc, char **argv)
 		/* Seleccionamos los precintos sólo cuando coinciden con la WOI */
 		/* Los precintos se seleccionan siguiendo el método Knapsack 1  */
 		case 1: jarea.woi_to_lrcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
-				
+
 				/* <---------------------------- */
 				/* Vamos cogiendo el primer paquete de cada precinto. */
 				//jarea.sort_lrcp_file_type_1(l,r);
 				/* <---------------------------- */
-				
+
 				/* Seleccionamos los precintos siguiendo el método Knapsack 1 */
 				/* Vamos cogiendo todos los paquetes de una capa de calidad de cada precinto. */
 				jarea.sort_lrcp_file_using_knapsack_method_1(l,r);
@@ -165,7 +166,7 @@ int main(int argc, char **argv)
 		case 2: jarea.woi_to_lrcp_modified(argv[2], WprecinctSize, HprecinctSize, r, l);
 
 				/* Seleccionamos los precintos siguiendo el método Knapsack 2 */
-				/* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */				
+				/* Vamos cogiendo todos los paquetes hasta una capa de calidad máxima para cada precinto. */
 				jarea.sort_lrcp_file_using_knapsack_method_2(l,r, until_this_quality_layer);
 				break;
 
@@ -180,7 +181,7 @@ int main(int argc, char **argv)
                 /* resolución hasta una capa de calidad máxima para cada */
                 /* precinto. */
                 jarea.sort_rlcp_file_using_knapsack_method_3(l,r, until_this_quality_layer);
-                break;                
+                break;
 	}
 
 	JP2Cache cache;
