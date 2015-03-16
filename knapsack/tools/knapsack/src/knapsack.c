@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 
-	// Get the name of the ordered list fo WOIs
+	// Get the name of the ordered list of WOIs
 	strcpy(ordered_list_filename, argv[2]);
 
 	// Check the intial value
@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 	}
 
   	// Initialize random generator
-  	srand (time(NULL));	
-	
+  	srand (time(NULL));
+
 	// Allocate memory for weights
 	if (allocate_memory_for_weights(max_precincts, max_quality_layers, &weights) <= 0) {
 		printf("Error allocating memory for weights.\n");
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 		printf("Error allocating memory for ordered list.\n");
 		exit(1);
 	}
-	
+
 	// Read the values for weights (This step is for checking the values)
 	if (load_weights_from_json_file(image_info_filename, max_precincts, max_quality_layers, weights) <= 0) {
 		printf("Error reading the JSON file and loading the weights: %s\n", image_info_filename);
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 	// Read and load the ordered list of wois
 	if (load_ordered_list_of_wois_file(ordered_list_filename, &ne_ordered_list, ordered_list, image_info_filename) <= 0) {
 		printf("Error reading and loading the ordered list of wois: %s\n", ordered_list_filename);
-		exit(1);		
+		exit(1);
 	}
 
 	if (DEBUG) {
@@ -168,11 +168,11 @@ int load_weights_from_json_file(char *filename, long max_precincts, int max_qual
         JSON_Array *layers_array;
         int id, coord_x, coord_y;
         unsigned int p;
-        
+
 		int i = 0;
 		int j = 0;
 
-        for(p = 0; p < number_of_precincts; p++) {           
+        for(p = 0; p < number_of_precincts; p++) {
             precinct_object = json_array_get_object(array, p);
             layers_array = json_object_get_array(precinct_object, "layers");
             if (layers_array != NULL && json_array_get_count(layers_array) >= 1) {
@@ -191,7 +191,7 @@ int load_weights_from_json_file(char *filename, long max_precincts, int max_qual
                     	i++;
                     }
                 }
-                
+
             } else {
 				return -1;
             }
@@ -220,11 +220,11 @@ int load_profit_from_json_file(char *filename, long max_precincts, int max_quali
         JSON_Array *layers_array;
         int id, coord_x, coord_y;
         unsigned int p;
-        
+
 		int i = 0;
 		int j = 0;
 
-        for(p = 0; p < number_of_precincts; p++) {           
+        for(p = 0; p < number_of_precincts; p++) {
             precinct_object = json_array_get_object(array, p);
             layers_array = json_object_get_array(precinct_object, "layers");
             if (layers_array != NULL && json_array_get_count(layers_array) >= 1) {
@@ -243,7 +243,7 @@ int load_profit_from_json_file(char *filename, long max_precincts, int max_quali
                     	i++;
                     }
                 }
-                
+
             } else {
 				return -1;
             }
@@ -272,9 +272,9 @@ int convert_woi_coords_to_precinct_id_from_json_file(char *image_info_filename, 
         JSON_Array *layers_array;
         int id, c_x, c_y;
         unsigned int p;
-        
+
         for(p = 0; p < number_of_precincts; p++) {
-            
+
             precinct_object = json_array_get_object(array, p);
             id = (int) json_object_get_number(precinct_object, "id");
             c_x = (int) json_object_get_number(precinct_object, "coord_x");
@@ -297,9 +297,10 @@ int load_ordered_list_of_wois_file(char ordered_list_filename[], long *ne, long 
 
 	int id;
 	int coord_x, coord_y;
+	double countDifferences;
 	*ne = 0;
 	while(!feof(f)) {
-		fscanf(f, "%d %d\n", &coord_x, &coord_y);
+		fscanf(f, "%d %d %lf\n", &coord_x, &coord_y, &countDifferences);
 		id = convert_woi_coords_to_precinct_id_from_json_file(image_info_filename, coord_x, coord_y);
 		if (DEBUG) printf("coord_x: %d \t coord_y: %d \t id: %d\n", coord_x, coord_y, id);
 		if (id < 0) return -1;
