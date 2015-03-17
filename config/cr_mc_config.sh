@@ -24,6 +24,7 @@ DECORRELATE=$CR_MC_J2K_HOME/MCJ2K/bin/decorrelate
 CREATE_WOI_LIST=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/bin/create_woi_list
 CREATE_KNAPSACK_JSON_FILE=$CR_MC_J2K_HOME/knapsack/tools/j2c_to_knapsack_files/create_knapsack_json_file.sh
 KNAPSACK_JSON_FILES=$CR_MC_J2K_HOME/knapsack/files
+PRINT_ALL_WOI_LIST=$CR_MC_J2K_HOME/tools/bin/print_wois_list
 
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
 octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;" &> /dev/null
