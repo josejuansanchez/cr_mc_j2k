@@ -42,7 +42,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
 fi
 
 CONFIGFILE=$CR_MC_J2K_HOME/config/cr_mc_config.sh
-if [ ! -f $CONFIGFILE ]; then
+if [ ! -f "$CONFIGFILE" ]; then
 	echo "Error reading config file: $CONFIGFILE"
 	exit 1
 fi
@@ -68,8 +68,8 @@ BITRATE=$3
 even_num=$1
 odd_num=$2
 
-even=`printf %03d $even_num`
-odd=`printf %03d $odd_num`
+even=$(printf %03d $even_num)
+odd=$(printf %03d $odd_num)
 
 # even image
 cp ${IMAGES_DIRECTORY}/${even}.pgm .
@@ -110,7 +110,7 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 10 ]; do
+while [ $i -le 0 ]; do
 	echo -e "\t ************************************************* i: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
@@ -120,16 +120,16 @@ while [ $i -le 10 ]; do
 	# **********************************************************************
 	#
 	# Calculamos los vectores de movimiento
-	$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
-	CheckExitStatusCode
+	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $even_image -o $odd_image -a $A -d $D
+	#CheckExitStatusCode
 
 	#
 	# WITHOUT MC
 	# **********************************************************************
 	# ¡OJO!: UTILIZAMOS LA MISMA IMAGEN: $odd_image
 	#
-	#$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
-	#CheckExitStatusCode
+	$ME -p 2 -x $X -y $Y -b $B -s $S -e $odd_image -o $odd_image -a $A -d $D
+	CheckExitStatusCode
 	# ************************************************************************
 
 	# Sólo es necesario una imagen como entrada. La que indicamos con el parámetro -e
@@ -157,15 +157,15 @@ while [ $i -le 10 ]; do
 	CheckExitStatusCode
 
 	# Calculamos las diferencias a partir de los thumbnails (predicción y siguiente imagen)
-	$DIFFERENCES prediction_thumb.pgm $next_image_thumbnail $TMP_PRECINCTS_DIRECTORY/${next_index}.all.dat \
-	$TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt $W_PRECINT_SIZE_THUMBNAIL $H_PRECINT_SIZE_THUMBNAIL \
+	$DIFFERENCES prediction_thumb.pgm $next_image_thumbnail $TMP_PRECINCTS_DIRECTORY/${next_index}.some.dat \
+	$TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt $W_PRECINT_SIZE_THUMBNAIL $H_PRECINT_SIZE_THUMBNAIL \
 	$W_OFFSET $H_OFFSET > /dev/null
 	CheckExitStatusCode
 
 # *************************
 	# Calculamos qué método debemos utilizar para obtener las WOIs
 	rm knapsack_solution.txt
-	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt $BITRATE > knapsack_solution.txt
+	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt $BITRATE > knapsack_solution.txt
 	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
 	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
 
@@ -182,37 +182,40 @@ while [ $i -le 10 ]; do
 
 	# TODO: Esta sección está en fase de pruebas
 	# *************************
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#\$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 1
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 2
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 3
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 4
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 5
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
-	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 3 7
 
-	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 20
+
+	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
 	$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
 	# *************************
@@ -253,7 +256,7 @@ while [ $i -le 10 ]; do
 	# Comprimimos la imagen predicción de .pgm a .j2c
 	# Los parámetros de compresión deben coincidir con los parámetros de compresión iniciales
 	# Esta operación debe realizarse en el cliente y puede ser un poco lenta.
-	kdu_compress -i prediction_temp.pgm -o prediction_temp.j2c Cuse_sop=yes Corder=LRCP Clayers=$CLAYERS \
+	kdu_compress -i prediction_temp.pgm -o prediction_temp.j2c Cuse_sop=yes Corder=$CORDER Clayers=$CLAYERS \
 	Clevels=$CLEVELS Cprecincts=$CPRECINCTS Cblk=$CBLK Creversible=yes #"Cmodes=RESTART|ERTERM" Cuse_eph=yes
 	CheckExitStatusCode
 
@@ -275,11 +278,16 @@ while [ $i -le 10 ]; do
 		exit 1
 	fi
 
+
+	# Creamos un archivo con la lista de todas las WOIs que contiene la
+	# imagen en el mayor nivel de resolución
+	$PRINT_ALL_WOI_LIST $WIDTH_RECONS $HEIGHT_RECONS $W_PRECINT_SIZE $H_PRECINT_SIZE > /tmp/all.txt
+
 	# Convertimos el archivo .j2c a .cache
 	# Pedimos una lista con todos los precintos de la imagen.
 	# Hay que tener en cuenta que la división de los precintos para toda la imagen sea exacta.
 	# Precincts Selection Mode = 0 (Seleccionamos los precintos tal y como lo hace KAKADU)
-	$WOISTOCACHE prediction_temp.j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.all.txt \
+	$WOISTOCACHE prediction_temp.j2c /tmp/all.txt \
 	$WIDTH_RECONS $HEIGHT_RECONS $(($CLEVELS+1)) $CLAYERS 999999999 0 > /dev/null
 	CheckExitStatusCode
 
