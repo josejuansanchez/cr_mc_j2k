@@ -177,4 +177,4 @@ dd if=images_j2c/stockholm.j2c of=packets_stockholm/175.j2c skip=545254 count=59
 dd if=images_j2c/stockholm.j2c of=packets_stockholm/176.j2c skip=551213 count=5921 bs=1
 dd if=images_j2c/stockholm.j2c of=packets_stockholm/177.j2c skip=557134 count=5670 bs=1
 dd if=images_j2c/stockholm.j2c of=packets_stockholm/178.j2c skip=562804 count=5967 bs=1
-dd if=images_j2c/stockholm.j2c of=packets_stockholm/179.j2c skip=568771 count=5966 bs=1
+dd if=images_j2c/stockholm.j2c of=packets_stockholm/179.j2c skip=568771 count=5964 bs=1

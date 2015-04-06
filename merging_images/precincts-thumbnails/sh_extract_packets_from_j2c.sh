@@ -10,7 +10,7 @@ fi
 IMAGE_J2C=$1
 DIRECTORY_OUT=$2
 
-COUNTSOPS=/home/josejuan/cr_mc_j2k/tools/bin
+COUNTSOPS=/home/josejuan/cr_mc_j2k/tools/bin/countsops
 TEMP_FILE=out.txt
 
 $COUNTSOPS $IMAGE_J2C > $TEMP_FILE
