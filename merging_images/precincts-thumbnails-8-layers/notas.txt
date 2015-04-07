@@ -1,0 +1,43 @@
+8 Layers
+--------
+kdu_compress -i images_pgm/speedway.pgm -o images_j2c/speedway.j2c Cuse_sop=yes Corder=RLCP Clayers=8 Clevels=2 Cprecincts="{64,64},{32,32},{16,16}" Cblk="{16,16}" Creversible=yes #Cuse_eph=yes
+
+
+Pasos
+-----
+1) ./sh_extract_packets_from_j2c.sh images_j2c/speedway.j2c packets_speedway > sh_speedway.sh
+
+2) chmod +x sh_speedway.sh
+
+3) ./sh_speedway.sh
+
+
+Consultamos cuántos bytes ocupa la cabecera de cada imagen
+----------------------------------------------------------
+4) less sh_speedway.sh
+
+
+J2C Headers (8 Layers)
+----------------------
+5) (dd if=images_j2c/speedway.j2c of=speedway_header.j2c bs=320 count=1 2>&1) > /dev/null
+
+
+Distribución de precintos y paquetes para el caso de 8 capas (speedway)
+-----------------------------------------------------------------------
+
+
+Realizamos pruebas descomprimiendo precintos. Por ejemplo:
+----------------------------------------------------------
+./sh_mix_packets.sh 29
+cat speedway_header.j2c out.j2c > kk.j2c
+
+wine kdu_show kk.j2c
+
+kdu_expand -i kk.j2c -o reduce0.pgm
+display reduce0.pgm
+
+kdu_expand -i kk.j2c -o reduce1.pgm -reduce 1
+display reduce1.pgm
+
+kdu_expand -i kk.j2c -o reduce2.pgm -reduce 2
+display reduce2.pgm
