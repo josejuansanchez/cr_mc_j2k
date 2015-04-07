@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MIX=/home/josejuan/cr_mc_j2k/merging_images/precincts-thumbnails/packets_tree_stock
+MIX=/home/josejuan/cr_mc_j2k/merging_images/precincts-thumbnails/packets_speedway
 
 if [ $# -ne 1 ]; then
 	echo -e "\nUso: $0 <id last precinct>\n";

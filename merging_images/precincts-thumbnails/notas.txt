@@ -19,9 +19,9 @@ Pasos
 
 6) chmod +x sh_tree.sh
 
----
-*) ./sh_tree.sh
+7) ./sh_tree.sh
 
+---
 *) ./sh_extract_packets_from_j2c.sh images_j2c/speedway.j2c packets_speedway > sh_speedway.sh
 
 *) chmod +x sh_speedway.sh
@@ -336,3 +336,16 @@ mv 90.j2c packets_tree_stock/
 cat tree_header.j2c out.j2c > temp.j2c
 
 wine kdu_show temp.j2c
+
+---
+./sh_mix_packets.sh 29
+cat speedway_header.j2c out.j2c > kk.j2c
+
+kdu_expand -i kk.j2c -o reduce0.pgm
+display reduce0.pgm
+
+kdu_expand -i kk.j2c -o reduce1.pgm -reduce 1
+display reduce1.pgm
+
+kdu_expand -i kk.j2c -o reduce2.pgm -reduce 2
+display reduce2.pgm
