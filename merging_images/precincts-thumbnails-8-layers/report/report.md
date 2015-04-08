@@ -116,9 +116,9 @@ resolution    quality layer     packets       bytes
 resolution    quality layer     packets       bytes
 1                3                 329        10817
 ```
-![](239-packets/reduce0.png)
-![](239-packets/reduce1.png)
-![](239-packets/reduce2.png)
+![](329-packets/reduce0.png)
+![](329-packets/reduce1.png)
+![](329-packets/reduce2.png)
 
 ```
 resolution    quality layer     packets       bytes
