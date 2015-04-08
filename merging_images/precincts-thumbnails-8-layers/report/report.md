@@ -1,3 +1,7 @@
+## Precincts
+
+![](assets/precincts-image.jpg)
+
 ## Packets & Bytes
 
 ```
