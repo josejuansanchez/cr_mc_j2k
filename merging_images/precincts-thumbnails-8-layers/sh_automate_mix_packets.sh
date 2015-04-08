@@ -53,7 +53,7 @@ for((PACKETS = 29; PACKETS < 720; PACKETS=PACKETS+30)); do
   grep "PSNR\[dB\]" | awk '{print $3}'`
 
   BYTES=`ls -la out.j2c | awk '{print $5}'`
-  echo -e "$PACKETS \t $BYTES \t $PSNR_R0 \t $PSNR_R1 \t $PSNR_R2" >> $REPORTFILE
+  echo -e "$PACKETS \t $BYTES \t $PSNR_R2 \t $PSNR_R1 \t $PSNR_R0" >> $REPORTFILE
 
   DIRNAME=`printf %03d $PACKETS`
   mkdir report/$DIRNAME-packets
