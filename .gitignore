@@ -1,5 +1,7 @@
 # Images
-data/
+data/sequences
+data/thumbnails
+data/tiff
 
 # Kakadu
 src/Kakadu
