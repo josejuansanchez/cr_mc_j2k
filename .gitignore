@@ -1,8 +1,7 @@
 # Images
 data/sequences
 data/sequences_to_test
-data/thumbnails
-data/tiff
+data/j2c_and_thumbnails
 
 # Kakadu
 src/Kakadu
