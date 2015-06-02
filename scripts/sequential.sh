@@ -95,7 +95,7 @@ next_image_trunc_pgm=${next_index}.trunc.pgm
 # Esta imagen es necesaria porque se utiliza como referencia a la hora de
 # hacer el decode de la caché. Se utiliza para consultar cuáles son los
 # parámetros de configuración del codestream.
-REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE=${THUMBNAILS_DIRECTORY}/$even.j2c #000.j2c
+REFERENCE_IMAGE_TO_DECODE_FROM_CACHE=${THUMBNAILS_DIRECTORY}/$even.j2c #000.j2c
 
 # Archivo con el cálculo de todos los PSNRs
 PSNR_FILE=psnr.txt
@@ -333,7 +333,7 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	#PRECINCTS_TEMP=precincts_temp.pgm
 	#
 	# Descomprimimos la caché de la imagen donde sólo se tienen en cuenta los nuevos precintos solicitados
-	#$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	#$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_TO_DECODE_FROM_CACHE}
 	#CheckExitStatusCode
 	#
 	# TEST
@@ -342,7 +342,7 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 
 	# Descomprimimos la caché
 	$DECODEFROMCACHE prediction_plus_next_plus_empty.j2c.cache.ord $TMP_PREDICTION_IMAGES_DIRECTORY/${next_image_prediction_pgm} \
-	$WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	$WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_TO_DECODE_FROM_CACHE}
 	CheckExitStatusCode
 
 	PSNR_ME_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm --file_B=$TMP_PREDICTION_IMAGES_DIRECTORY/${next_image_prediction_pgm} 2> /dev/null | \
@@ -355,7 +355,7 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	PRECINCTS_TEMP=precincts_temp.pgm
 
 	# Descomprimimos la caché de la imagen donde sólo se tienen en cuenta los nuevos precintos solicitados
-	$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_FOR_DECODE_FROM_CACHE}
+	$DECODEFROMCACHE $next_image_j2c_cache $PRECINCTS_TEMP $WIDTH_RECONS $HEIGHT_RECONS ${REFERENCE_IMAGE_TO_DECODE_FROM_CACHE}
 	CheckExitStatusCode
 
 	PSNR_PRECI=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm  --file_B=$PRECINCTS_TEMP 2> /dev/null | \
