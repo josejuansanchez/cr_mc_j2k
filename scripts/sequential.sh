@@ -31,8 +31,8 @@ function CleanAllTempFiles()
 
 set -x
 
-if [ $# -ne 3 ]; then
-	echo -e "\nUso: $0 <IMAGEN N> <IMAGEN N+1> <BITRATE>\n"
+if [ $# -ne 4 ]; then
+	echo -e "\nUso: $0 <IMAGE N> <IMAGE N+1> <BITRATE> <TOTAL # of IMAGES>\n"
 	exit 1
 fi
 
@@ -60,6 +60,9 @@ TMP_TRUNC_IMAGES_DIRECTORY=_tmp_trunc_images
 TMP_BLOCKS=_tmp_blocks
 TMP_BLOCKS_PRECINCTS=_tmp_blocks_precincts
 TMP_PREDICTION_DATA_DIRECTORY=_tmp_prediction_data
+
+# Total number of images
+TOTAL_NUMBER_OF_IMAGES=$4
 
 # The estimated bitrate
 BITRATE=$3
@@ -110,8 +113,8 @@ rm ${BYTES_FILE}
 touch ${BYTES_FILE}
 
 i=0
-while [ $i -le 0 ]; do
-	echo -e "\t ************************************************* i: $i \n"
+while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
+	echo -e "\t ************************************************* Iteration: $i \n"
 
 	# Eliminamos los archivos temporales de ejecuciones anteriores
 	CleanMeTempFiles

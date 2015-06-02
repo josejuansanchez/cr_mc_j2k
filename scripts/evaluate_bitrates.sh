@@ -13,11 +13,12 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_03_12_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_mode_auto
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2015/2015_06_01_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_no_me_mode_auto
 
 # speedway
 IMAGE_N=0
 IMAGE_N1=1
+TOTAL_NUMBER_OF_IMAGES=10
 
 # stockholm
 #IMAGE_N=4
@@ -29,7 +30,7 @@ IMAGE_N1=1
 
 for((BITRATE=1000; BITRATE<=10000; BITRATE=BITRATE+1000))
 do
-    ./sequential.sh $IMAGE_N $IMAGE_N1 $BITRATE
+    ./sequential.sh $IMAGE_N $IMAGE_N1 $BITRATE $TOTAL_NUMBER_OF_IMAGES
     CheckExitStatusCode
     ./report_generate_graph.sh $BITRATE
     CheckExitStatusCode
