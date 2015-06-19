@@ -1,0 +1,26 @@
+Interactive Streaming of Sequences of High Resolution JPEG2000 Images
+
+This work presents the Continue data-flow control strategy,
+a JPIP-compliant solution for the interactive streaming of sequences
+of images that are transmitted over time-varying communication
+channels. In this context, the random fluctuation of the capacity of
+the transmission channel over the time forces the clients to
+prefetch a minimal amount of the code-stream of each image of the
+beginning of the transmitted sequence before the playback starts,
+and the server to decide, in real-time, which amount of the
+code-stream of each compressed image is going to be transmitted. The
+estimated channel capacity is performed by clients and the
+rate-control at the server is straightforward, resulting in a highly
+scalable image retrieval system. 
+
+---
+
+Client-driven Transmission of JPEG2000 Image Sequences using Motion Compensated Conditional Replenishment
+
+This is a work in progress in the context of remote browsing of JPEG2000 image
+sequences that takes advantage of the spatial scalability of JPEG2000 to
+determine which precincts of a next image should be transmitted and what
+precincts should be reused from a reconstructed image previously. Experimental
+results demonstrate that, with and without motion compensation and using a
+transmission exclusively controlled by the client, the reconstructions are
+consistently improved, both visually and from a rate-distortion point of view.
