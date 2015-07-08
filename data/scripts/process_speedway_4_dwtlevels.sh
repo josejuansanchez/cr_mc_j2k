@@ -14,7 +14,7 @@ fi
 
 INITIAL=$1
 FINAL=$2
-IMAGES_PGM_SOURCE="$CR_MC_J2K_HOME/data/sequences/speedway_384x320"
+IMAGES_PGM_SOURCE="$CR_MC_J2K_HOME/data/sequences/speedway_512x512"
 IMAGES_J2C_DESTINATION="$CR_MC_J2K_HOME/data/j2c_and_thumbnails"
 
 CLAYERS=8
