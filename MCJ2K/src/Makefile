@@ -4,7 +4,8 @@ CC = g++
 
 BIN = ../bin
 EXE =
-CFLAGS = -g
+CFLAGS = -g -O0 -v -Q
+#CFLAGS = -g -O0 -v -da -Q
 #CFLAGS  = -g -O3 -pipe
 GCC_FLAGS = -g -O3 -pipe
 CPP_FLAGS = -g -O3 -pipe
