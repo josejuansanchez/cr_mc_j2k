@@ -33,7 +33,7 @@ SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 # Configuration file with:
 # - compression parameters used in kdu_compress
 # - motion estimation parameters
-source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-4_precincts-128-64-32_blk-16.cfg
+source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-4_precincts-128-64_blk-16.cfg
 
 # Calculamos las dimensiones de los precintos del thumbnail
 W_PRECINT_SIZE_THUMBNAIL=`echo "$XTHUMB/($WIDTH_RECONS/$W_PRECINT_SIZE)" | bc`
