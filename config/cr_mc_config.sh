@@ -30,16 +30,10 @@ PRINT_ALL_WOI_LIST=$CR_MC_J2K_HOME/tools/bin/print_wois_list
 octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;" &> /dev/null
 SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 
-source $CR_MC_J2K_HOME/config/sequences/speedway5dwt.cfg
-#source $CR_MC_J2K_HOME/config/sequences/speedway.cfg
-#source $CR_MC_J2K_HOME/config/sequences/stockholm3dwt.cfg
-#source $CR_MC_J2K_HOME/config/sequences/stockholm3dwt-small-precincts.cfg
-#source $CR_MC_J2K_HOME/config/sequences/stockholm5dwt.cfg
-#source $CR_MC_J2K_HOME/config/sequences/foreman.cfg
-#source $CR_MC_J2K_HOME/config/sequences/stockholm.cfg
-#source $CR_MC_J2K_HOME/config/sequences/stockholm6dwt.cfg
-#source $CR_MC_J2K_HOME/config/sequences/tree.cfg
-#source $CR_MC_J2K_HOME/config/sequences/bigbuckbunny.cfg
+# Configuration file with:
+# - compression parameters used in kdu_compress
+# - motion estimation parameters
+source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-4_precincts-128-64-32_blk-16.cfg
 
 # Calculamos las dimensiones de los precintos del thumbnail
 W_PRECINT_SIZE_THUMBNAIL=`echo "$XTHUMB/($WIDTH_RECONS/$W_PRECINT_SIZE)" | bc`
