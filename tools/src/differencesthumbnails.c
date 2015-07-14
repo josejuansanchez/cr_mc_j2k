@@ -125,6 +125,8 @@ int main (int argc, char *argv[])
             }
             avg = suma/(WprecinctSize*HprecinctSize);
 
+            printf("\n\t\t**OffsetX: %ld \t OffsetY: %ld \t avg: %lf",precincts[ne].offsetx,precincts[ne].offsety,avg);
+
             // Solamente cuando el MSE sea mayor que 1 es cuando guardamos el precinto en la lista
             // e incrementamos el numero de elementos
             if (avg > 1)
