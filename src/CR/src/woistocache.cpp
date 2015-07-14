@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include "../../Util/Args.h"
 #include "jp2_area.h"
 
@@ -47,6 +48,13 @@ static bool write_image(char *fname, kdu_byte *buffer, int num_components, int h
 
   fclose(out);
   return true;
+}
+
+/* Check if the input file is empty */
+static bool is_empty_file(char *fname) 
+{
+	ifstream file(fname);
+	return file.peek() == std::ifstream::traits_type::eof();
 }
 
 static bool set_multiple_wois(char *fname, jp2_area *jarea, int w, int h, int r, int q)
@@ -137,6 +145,12 @@ int main(int argc, char **argv)
 
 	/* Creamos la lista de índices y id de paquetes */
 	jarea.create_index_and_id_list();
+
+	/* Check if the input file is empty */
+	if (is_empty_file(argv[2])) {
+		fprintf(stderr, "\nError: The input file is empty (%s)!!!\n\n",argv[2]);
+		return -1;
+	}
 
 	/* Marcamos las WOIs */
 	set_multiple_wois(argv[2], &jarea, WprecinctSize, HprecinctSize, r, l);
