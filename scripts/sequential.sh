@@ -1,9 +1,16 @@
 #!/bin/bash
 
+TAG="[sequential]"
+
+function log()
+{
+    echo -e "\e[32m$TAG \e[0m$1"
+}
+
 function CheckExitStatusCode()
 {
 	if [ $? -ne 0 ]; then
-		echo "Error"
+		log "Error"
 		exit
 	fi
 }
