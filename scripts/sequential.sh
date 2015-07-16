@@ -25,6 +25,14 @@ function CleanMeTempFiles()
  	rm prediction_temp.pgm
 }
 
+function CleanWoisToCacheTempFiles()
+{
+	rm *.woi
+	rm *.lrcp
+	rm *.cache
+	rm bytes.readed	
+}
+
 function CleanAllTempFiles()
 {
 	rm *.pgm
@@ -269,7 +277,6 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	$SORTCACHE $next_image_j2c_cache
 	CheckExitStatusCode
 
-
 	# TODO: Improve this step (Provisional solution)
 	# In this step we compress the prediction image, from .pgm to .j2c
 	# The compression parameters used in this step have to match with the parameters
@@ -490,6 +497,8 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	next_image_prediction_pgm=${next_index}.pgm
 	next_image_trunc_j2c=${next_index}.trunc.j2c
 	next_image_trunc_pgm=${next_index}.trunc.pgm
+
+	CleanWoisToCacheTempFiles
 
 	i=$(($i+1))
 
