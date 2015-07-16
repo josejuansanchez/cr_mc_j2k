@@ -148,8 +148,8 @@ int main(int argc, char **argv)
 
 	/* Check if the input file is empty */
 	if (is_empty_file(argv[2])) {
-		fprintf(stderr, "\nError: The input file is empty (%s)!!!\n\n",argv[2]);
-		return -1;
+		fprintf(stderr, "\nWarning: The input file is empty (%s)!!!\n\n",argv[2]);
+		return 0;
 	}
 
 	/* Marcamos las WOIs */
