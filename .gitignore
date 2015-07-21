@@ -50,3 +50,6 @@ knapsack/tools/create_all_kanpsack_files/temp_woi.txt
 knapsack/tools/create_all_kanpsack_files/wois.txt
 
 scripts/knapsack_solution.txt
+
+# Python bytecode files
+*.pyc
