@@ -3,13 +3,22 @@
 import sys
 import os
 import imp
-from subprocess import check_call
+
+import subprocess
+
+#from subprocess import check_call
 from subprocess import CalledProcessError
+
 from decorators import exc_handler
 
 @exc_handler
 def execute_command_in_bash(command):
-    check_call(bash_command, shell=True)
+    print "Executing: " + command
+    output = subprocess.call(bash_command, shell=True, stderr=subprocess.STDOUT)
+    print "Output: %d" % output
+    if output < 0:
+        print "Error"
+        sys.exit(-1)
 
 @exc_handler
 def remove_file(path):
@@ -119,5 +128,195 @@ if __name__ == '__main__':
     i = 0
     while i < TOTAL_NUMBER_OF_IMAGES:
         CleanMeTempFiles
-        print i
+        
+        print "\nIteration: %d\n" % i
+
+        if config.sequence.USE_MOTION_COMPENSATION:
+
+            # WITH MC
+            me = "%s -p 2 -x %d -y %d -b %d -s %d -e %s -o %s -a %d -d %d" % \
+                (config.tools.ME,
+                 config.sequence.X,
+                 config.sequence.Y,
+                 config.sequence.B,
+                 config.sequence.S, 
+                 even_image, 
+                 odd_image, 
+                 config.sequence.A, 
+                 config.sequence.D)
+
+        else:
+
+            # WITHOUT MC
+            # WARNING!: - In this case we use the 'odd_image' twice
+            #           - This is a trick to use the same code in both cases (with an without mc)
+            me = "%s -p 2 -x %d -y %d -b %d -s %d -e %s -o %s -a %d -d %d" % \
+                (config.tools.ME,
+                 config.sequence.X,
+                 config.sequence.Y,
+                 config.sequence.B,
+                 config.sequence.S, 
+                 odd_image, 
+                 odd_image, 
+                 config.sequence.A, 
+                 config.sequence.D)
+
+        # Calculate motion vectors
+        execute_command_in_bash(me)
+
+        # This program only needs one image as input (the image specified with the -e modifier).
+        # The output will be the prediction image named as 'prediction_temp.pgm'
+        # Note: This program requires that the input image is in the same working directory.
+        decorrelate = "%s -p 2 -x %d -y %d -b %d -s %d -e %s -o %s -i motion -v %d -a %d" % \
+            (config.tools.DECORRELATE,
+             config.sequence.X,
+             config.sequence.Y,
+             config.sequence.B,
+             config.sequence.S, 
+             odd_image, 
+             odd_image, 
+             config.sequence.V, 
+             config.sequence.A)
+
+        execute_command_in_bash(decorrelate)
+
+        # Remove the temporal image generated in the previous step
+        print "Removing: prediction_%s" % odd_image
+        remove_file("prediction_%s" % odd_image)
+
+        # Get the thumbnail from the prediction image   
+        execute_command_in_bash("cp prediction_temp.pgm prediction_thumb.pgm")
+        execute_command_in_bash("mogrify -resize %dx%d prediction_thumb.pgm" % 
+            (config.sequence.XTHUMB,
+            config.sequence.YTHUMB))
+
+        # TODO: Improve this step (Temporary solution)
+        # *************************
+        # In this step we need to get the thumbnail from the next image of the sequence.
+        # We are using a temporary solution, which consist in copy the thubmnail
+        # of the next image in our working directory. 
+        # This step try to simulate a client request to the server.
+        execute_command_in_bash("cp %s ." % next_image_thumbnail)
+
+        # Calculate the differences between the thubmnails (predicted and next image)
+        differences = "%s prediction_thumb.pgm %s %s/%s.some.dat %s/%s.some.txt %s %s %s %s" % \
+            (config.tools.DIFFERENCES, 
+             next_image_thumbnail, 
+             TMP_PRECINCTS_DIRECTORY,
+             next_index,
+             TMP_PRECINCTS_DIRECTORY,
+             next_index,
+             config.sequence.W_PRECINT_SIZE_THUMBNAIL,
+             config.sequence.H_PRECINT_SIZE_THUMBNAIL,
+             config.sequence.W_OFFSET,
+             config.sequence.H_OFFSET
+             )
+
+        execute_command_in_bash(differences)
+
+        # *************************
+        # In this step we try to know what is the best method to send the WOIs.
+        # We use the 'knapsack' tool to evaluate all the possibilities.
+        #remove_file("knapsack_solution.txt")        
+        #$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt $BITRATE > knapsack_solution.txt
+        #KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
+        #echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
+        #
+        #if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
+        #    KNAPSACK_SOLUTION_QL=`grep "\"ql\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
+        #    echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
+        #fi
+        # *************************
+
+        # TODO: This section of code is under construction
+        # *************************
+        #
+        # This step try to simulate the client request(s) to the server in order to get
+        # the WOIs (precincts) needed to carry out the reconstruction of the next image
+        # that will be displayed.
+        # The tool used for this purpose ('woistocache') have three modes of operation.
+        # - Precinct selection mode 0 = Selects the precincts in the same way as Kakadu does.
+        # - Precinct selection mode 1 = Only selects the precincts that match exactly with the WOI. 
+        # - Precinct selection mode 2 = We can specify the maximun number of quality layers that
+        #                               will be included in the precincts.  
+        #
+        # The 'woistocache' tool generates three output files:
+        #
+        # 1) xxx.j2c.cache
+        # This file contains the JPEG2000 codestream for the requested WOIs (precincts)self.
+        #
+        # The codestream is stored as packets and the structure for this packets is
+        # detailed below:
+        #
+        # --------------------------------------------------------------------
+        # | precinct id (4 bytes) | l (4 bytes)  | r (4 bytes) | c (4 bytes) |
+        # --------------------------------------------------------------------
+        # | py (4 bytes)          | px (4 bytes) | packet length (4 bytes)   |
+        # --------------------------------------------------------------------
+        # | packet                                                           |
+        # --------------------------------------------------------------------
+        #
+        # 2) xxx.j2c.lrcp
+        # This file contains a list with the LRCP values and size for all
+        # the WOIs (precincts) specified in the input list.
+        #
+        # 3) xxx.j2c.woi
+        # This file contains a list with the (x,y) coordinates for the WOIs (precincts)
+        # that have been included in the response taking into account the bitrate
+        # specified as input parameter.
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #\$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 1
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 2
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 3
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 4
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 5
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 3 7
+
+        #$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+        #$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE \
+        #$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
+        # *************************
+
+        precincts_selection_mode = 2
+        until_this_quality_layer = 7
+
+        woistocache = "%s %s %s/%s.some.txt %s %s %d %s %d %d %d" % \
+            (config.tools.WOISTOCACHE,
+             next_image_j2c,
+             TMP_PRECINCTS_DIRECTORY,
+             next_index,
+             config.sequence.W_PRECINT_SIZE,
+             config.sequence.H_PRECINT_SIZE,
+             config.sequence.CLEVELS + 1,
+             config.sequence.CLAYERS,
+             BITRATE,
+             precincts_selection_mode,
+             until_this_quality_layer
+             )
+
+        execute_command_in_bash(woistocache)
+
         i = i + 1
