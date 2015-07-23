@@ -21,6 +21,8 @@ CPRECINCTS="{128,128},{128,128},{128,128},{128,128},{128,128}"
 CBLK="{16,16}"
 CORDER="LRCP"
 
+USE_MOTION_COMPENSATION = False
+
 # Motion estimation parameters
 X=512
 Y=512
