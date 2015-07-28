@@ -3,27 +3,39 @@
 import sys
 import os
 import imp
-
 import subprocess
 
 #from subprocess import check_call
 from subprocess import CalledProcessError
-
-from decorators import exc_handler
+from decorators import *
 
 @exc_handler
 def execute_command_in_bash(command):
     print "Executing: " + command
-    output = subprocess.call(bash_command, shell=True, stderr=subprocess.STDOUT)
-    print "Output: %d" % output
-    if output < 0:
-        print "Error"
-        sys.exit(-1)
+    output = subprocess.call(command, shell=True, stderr=subprocess.STDOUT)
+    print "\nOutput: %d" % output
+    return output
+
+@exc_handler
+def create_empty_file(path):
+    open(path,'a').close()
 
 @exc_handler
 def remove_file(path):
     if os.path.isfile(path):
         os.remove(path)
+
+@exc_handler
+def read_int_value_from_file(path):
+    with open(path) as f:
+        value = f.readline()
+    return int(value)
+
+@exc_handler
+def write_line_into_file(path, line):
+    f = open(path,'a')
+    f.write(line)
+    f.close()
 
 def CleanMeTempFiles():
     remove_file("high")
@@ -107,7 +119,7 @@ if __name__ == '__main__':
     # Remove old file if exists
     remove_file(PSNR_FILE)
     # Create an emtpy file
-    open(PSNR_FILE,'a').close()
+    create_empty_file(PSNR_FILE)
 
     # File that contains the SSIM values obtained in the experiment
     SSIM_FILE = "ssim.txt"
@@ -115,7 +127,7 @@ if __name__ == '__main__':
     # Remove old file if exists
     remove_file(SSIM_FILE)
     # Create an emtpy file
-    open(SSIM_FILE,'a').close()
+    create_empty_file(SSIM_FILE)
 
     # Number of bytes transmitted for each image
     BYTES_FILE = "bytes.txt"
@@ -123,7 +135,7 @@ if __name__ == '__main__':
     # Remove old file if exists
     remove_file(BYTES_FILE)
     # Create an emtpy file
-    open(BYTES_FILE,'a').close()
+    create_empty_file(BYTES_FILE)
 
     i = 0
     while i < TOTAL_NUMBER_OF_IMAGES:
@@ -318,5 +330,51 @@ if __name__ == '__main__':
              )
 
         execute_command_in_bash(woistocache)
+
+        # Read the number of bytes readed from the codestream
+        BYTES_READED = read_int_value_from_file("bytes.readed")
+        print "BYTES_READED: %d" % BYTES_READED
+
+        # Update the number of bytes transmitted for the WOIs requested 
+        write_line_into_file(BYTES_FILE, "%s \t %d\n" % (next_index,BYTES_READED))
+
+        # Sort the cache
+        print(" ### Sorting the precincts of the next image ###")
+
+        sortcache = "%s %s" % \
+            (config.tools.SORTCACHE,
+             next_image_j2c_cache
+            )
+
+        execute_command_in_bash(sortcache)
+
+        # TODO: Improve this step (Temporary solution)
+        # In this step we compress the prediction image, from .pgm to .j2c
+        # The compression parameters used in this step have to match with the parameters
+        # used for the reference images.
+        # Note that this step is performed at the client side and could be slow.
+
+        kdu_compress = "kdu_compress" \
+            + " -i prediction_temp.pgm" \
+            + " -o prediction_temp.j2c" \
+            + " Cuse_sop=yes" \
+            + " Corder=" + config.sequence.CORDER \
+            + " Clayers=" + str(config.sequence.CLAYERS) \
+            + " Clevels=" + str(config.sequence.CLEVELS) \
+            + " Cprecincts=" + str(config.sequence.CPRECINCTS) \
+            + " Cblk=" + config.sequence.CBLK \
+            + " Creversible=yes" 
+
+        execute_command_in_bash(kdu_compress)
+
+        # Our image fusion process is packet based so that, is necessary that both
+        # images had been compressed using the same compression parameters and
+        # to have the same number of packets.
+        countsops = "%s prediction_temp.j2c | grep \"SOPs\" | awk '{print $3}'" % \
+            (config.tools.COUNTSOPS)
+
+        SOPS_IN_PREDICTION = execute_command_in_bash(countsops)
+        print "SOPS_IN_PREDICTION %d" % SOPS_IN_PREDICTION
+
 
         i = i + 1
