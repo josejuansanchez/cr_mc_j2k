@@ -5,16 +5,31 @@ import os
 import imp
 import subprocess
 
-#from subprocess import check_call
 from subprocess import CalledProcessError
 from decorators import *
 
 @exc_handler
-def execute_command_in_bash(command):
-    print "Executing: " + command
+def execute_command_in_a_subprocess(command):
+    print("Executing: " + command)
     output = subprocess.call(command, shell=True, stderr=subprocess.STDOUT)
-    print "\nOutput: %d" % output
-    return output
+    print("\nOutput: %d" % output)
+
+    if output < 0:
+        sys.exit(-1)
+
+@exc_handler
+def execute_piped_commands(command):
+    print("Executing piped commands: " + command)
+    return os.popen(command).read()
+
+@exc_handler
+def execute_command_in_a_subshell(command):
+    print("Executing in a subshell: " + command)
+    output = os.system(command)
+    print("\nOutput: %d" % output)
+
+    if output < 0:
+        sys.exit(-1)
 
 @exc_handler
 def create_empty_file(path):
@@ -46,18 +61,18 @@ def CleanMeTempFiles():
     remove_file("prediction_temp.pgm")
 
 def main():
-    print "main"
+    print("main")
 
 if __name__ == '__main__':
 
     # Checking command line arguments
     if len(sys.argv) != 5:
-        print "\nUsage: %s <IMAGE N> <IMAGE N+1> <BITRATE> <TOTAL # of IMAGES>\n" % sys.argv[0]	
+        print("\nUsage: %s <IMAGE N> <IMAGE N+1> <BITRATE> <TOTAL # of IMAGES>\n" % sys.argv[0])
         sys.exit(-1)
 
     # Checking the environment variable CR_MC_J2K_HOME
     if not os.environ["CR_MC_J2K_HOME"]:
-        print "Error. CR_MC_J2K_HOME is not defined"
+        print("Error. CR_MC_J2K_HOME is not defined")
         sys.exit(-1)
 
     CR_MC_J2K_HOME = os.environ["CR_MC_J2K_HOME"]
@@ -90,13 +105,13 @@ if __name__ == '__main__':
 
     # Even image
     even_image = even + ".pgm"
-    bash_command = "cp " + config.sequence.IMAGES_DIRECTORY + "/" + even_image + " ."
-    execute_command_in_bash(bash_command)
+    command = "cp " + config.sequence.IMAGES_DIRECTORY + "/" + even_image + " ."
+    execute_command_in_a_subprocess(command)
 
     # Odd image
     odd_image = odd + ".pgm"
-    bash_command = "cp " + config.sequence.IMAGES_DIRECTORY + "/" + odd_image + " ."
-    execute_command_in_bash(bash_command)
+    command = "cp " + config.sequence.IMAGES_DIRECTORY + "/" + odd_image + " ."
+    execute_command_in_a_subprocess(command)
 
     # Next image
     next_index = "%03d" % (odd_num + 1)
@@ -141,7 +156,7 @@ if __name__ == '__main__':
     while i < TOTAL_NUMBER_OF_IMAGES:
         CleanMeTempFiles
         
-        print "\nIteration: %d\n" % i
+        print("\nIteration: %d\n" % i)
 
         if config.sequence.USE_MOTION_COMPENSATION:
 
@@ -174,7 +189,7 @@ if __name__ == '__main__':
                  config.sequence.D)
 
         # Calculate motion vectors
-        execute_command_in_bash(me)
+        execute_command_in_a_subprocess(me)
 
         # This program only needs one image as input (the image specified with the -e modifier).
         # The output will be the prediction image named as 'prediction_temp.pgm'
@@ -190,15 +205,15 @@ if __name__ == '__main__':
              config.sequence.V, 
              config.sequence.A)
 
-        execute_command_in_bash(decorrelate)
+        execute_command_in_a_subprocess(decorrelate)
 
         # Remove the temporal image generated in the previous step
-        print "Removing: prediction_%s" % odd_image
+        print("Removing: prediction_%s" % odd_image)
         remove_file("prediction_%s" % odd_image)
 
         # Get the thumbnail from the prediction image   
-        execute_command_in_bash("cp prediction_temp.pgm prediction_thumb.pgm")
-        execute_command_in_bash("mogrify -resize %dx%d prediction_thumb.pgm" % 
+        execute_command_in_a_subprocess("cp prediction_temp.pgm prediction_thumb.pgm")
+        execute_command_in_a_subprocess("mogrify -resize %dx%d prediction_thumb.pgm" % 
             (config.sequence.XTHUMB,
             config.sequence.YTHUMB))
 
@@ -208,7 +223,7 @@ if __name__ == '__main__':
         # We are using a temporary solution, which consist in copy the thubmnail
         # of the next image in our working directory. 
         # This step try to simulate a client request to the server.
-        execute_command_in_bash("cp %s ." % next_image_thumbnail)
+        execute_command_in_a_subprocess("cp %s ." % next_image_thumbnail)
 
         # Calculate the differences between the thubmnails (predicted and next image)
         differences = "%s prediction_thumb.pgm %s %s/%s.some.dat %s/%s.some.txt %s %s %s %s" % \
@@ -224,7 +239,7 @@ if __name__ == '__main__':
              config.sequence.H_OFFSET
              )
 
-        execute_command_in_bash(differences)
+        execute_command_in_a_subprocess(differences)
 
         # *************************
         # In this step we try to know what is the best method to send the WOIs.
@@ -312,28 +327,30 @@ if __name__ == '__main__':
         #$KNAPSACK_SOLUTION_METHOD $KNAPSACK_SOLUTION_QL
         # *************************
 
+        j2c_image = next_image_j2c
+        woi_list = "%s/%s.some.txt" % (TMP_PRECINCTS_DIRECTORY,next_index)
+        bitrate = BITRATE
         precincts_selection_mode = 2
         until_this_quality_layer = 7
 
-        woistocache = "%s %s %s/%s.some.txt %s %s %d %s %d %d %d" % \
+        woistocache = "%s %s %s %s %s %d %s %d %d %d" % \
             (config.tools.WOISTOCACHE,
-             next_image_j2c,
-             TMP_PRECINCTS_DIRECTORY,
-             next_index,
+             j2c_image,
+             woi_list,
              config.sequence.W_PRECINT_SIZE,
              config.sequence.H_PRECINT_SIZE,
              config.sequence.CLEVELS + 1,
              config.sequence.CLAYERS,
-             BITRATE,
+             bitrate,
              precincts_selection_mode,
              until_this_quality_layer
              )
 
-        execute_command_in_bash(woistocache)
+        execute_command_in_a_subprocess(woistocache)
 
         # Read the number of bytes readed from the codestream
         BYTES_READED = read_int_value_from_file("bytes.readed")
-        print "BYTES_READED: %d" % BYTES_READED
+        print("BYTES_READED: %d" % BYTES_READED)
 
         # Update the number of bytes transmitted for the WOIs requested 
         write_line_into_file(BYTES_FILE, "%s \t %d\n" % (next_index,BYTES_READED))
@@ -346,7 +363,7 @@ if __name__ == '__main__':
              next_image_j2c_cache
             )
 
-        execute_command_in_bash(sortcache)
+        execute_command_in_a_subprocess(sortcache)
 
         # TODO: Improve this step (Temporary solution)
         # In this step we compress the prediction image, from .pgm to .j2c
@@ -365,16 +382,261 @@ if __name__ == '__main__':
             + " Cblk=" + config.sequence.CBLK \
             + " Creversible=yes" 
 
-        execute_command_in_bash(kdu_compress)
+        execute_command_in_a_subprocess(kdu_compress)
 
         # Our image fusion process is packet based so that, is necessary that both
         # images had been compressed using the same compression parameters and
         # to have the same number of packets.
         countsops = "%s prediction_temp.j2c | grep \"SOPs\" | awk '{print $3}'" % \
             (config.tools.COUNTSOPS)
+        SOPS_IN_PREDICTION = int(execute_piped_commands(countsops))
+        
+        countsops = "%s %s | grep \"SOPs\" | awk '{print $3}'" % \
+            (config.tools.COUNTSOPS,
+             next_image_j2c)
+        SOPS_IN_NEXTIMAGE = int(execute_piped_commands(countsops))
 
-        SOPS_IN_PREDICTION = execute_command_in_bash(countsops)
-        print "SOPS_IN_PREDICTION %d" % SOPS_IN_PREDICTION
+        print("SOPS_IN_PREDICTION %d" % SOPS_IN_PREDICTION)
+        print("SOPS_IN_NEXTIMAGE %d" % SOPS_IN_NEXTIMAGE)
 
+        if SOPS_IN_PREDICTION != SOPS_IN_NEXTIMAGE:
+            print(" ### Diffent number of SOPs ###")
+            sys.exit(-1)
+
+        # Create a file that contains a list with all the non-overlapped WOIS that 
+        # can be selected at the maximun resolution level of the image.
+        print_all_woi_list = "%s %d %d %d %d > /tmp/all.txt" %\
+            (config.tools.PRINT_ALL_WOI_LIST,
+             config.sequence.WIDTH_RECONS,
+             config.sequence.HEIGHT_RECONS,
+             config.sequence.W_PRECINT_SIZE,
+             config.sequence.H_PRECINT_SIZE
+            )
+
+        execute_command_in_a_subprocess(print_all_woi_list)
+
+        # Convert from .j2c to .cache, for the prediction image
+        # In order to extract all the precincts of the image we use the 'woistocache' tool
+        # to request all the non-overlapped WOIS of the image.
+        # To achieve this, we use the precincts selection mode 0, which selects the precincts 
+        # in the same way as Kakadu does.
+
+        j2c_image = "prediction_temp.j2c"
+        woi_list = "/tmp/all.txt"
+        bitrate = 999999999
+        precincts_selection_mode = 0
+
+        woistocache = "%s %s %s %s %s %d %s %d %d" % \
+            (config.tools.WOISTOCACHE,
+             j2c_image,
+             woi_list,
+             config.sequence.W_PRECINT_SIZE,
+             config.sequence.H_PRECINT_SIZE,
+             config.sequence.CLEVELS + 1,
+             config.sequence.CLAYERS,
+             bitrate,
+             precincts_selection_mode
+             )
+
+        execute_command_in_a_subprocess(woistocache)
+
+        # We extract the data that we need from the prediction image cache and store it
+        # in a temporary cache ('temp_aux.cache').
+
+        wois_cache = next_image_j2c_cache
+        background_cache = "prediction_temp.j2c.cache"
+        out_cache = "temp_aux.cache"
+
+        extractcache = "%s %s %s %s" % \
+            (config.tools.EXTRACTCACHE,
+             wois_cache,
+             background_cache,
+             out_cache
+            )
+
+        execute_command_in_a_subprocess(woistocache)
+
+        # Concat both cache files (prediction and next image)
+        execute_command_in_a_subshell("cat " + next_image_j2c_cache  + " >> temp_aux.cache")
+        os.rename("temp_aux.cache", "prediction_plus_next.j2c.cache")
+
+        # Sort the cache
+        print(" ### Sorting cache: prediction + next ###")
+        sortcache = "%s prediction_plus_next.j2c.cache" % config.tools.SORTCACHE
+        execute_command_in_a_subprocess(sortcache)
+
+        # Empty Packets + Prediction + Next
+        # In this step we create the empty packets needed to have a complete codestream.
+        print(" ### Empty Packets + Prediction + Next ###")
+        cookcache = "%s prediction_plus_next.j2c.cache.ord prediction_temp.j2c.cache" % \
+            (config.tools.COOKCACHE)
+        execute_command_in_a_subprocess(cookcache)
+        execute_command_in_a_subshell("cat emptypackets.j2c.cache >> prediction_plus_next.j2c.cache.ord")
+
+        # Sort the cache
+        print(" ### Sorting cache: Empty Packets + Prediction + Next ###")
+        os.rename("prediction_plus_next.j2c.cache.ord", "prediction_plus_next_plus_empty.j2c.cache")
+        sortcache = "%s prediction_plus_next_plus_empty.j2c.cache" % config.tools.SORTCACHE
+        execute_command_in_a_subprocess(sortcache)
+
+        # Decompress the cache
+        cache_file = "prediction_plus_next_plus_empty.j2c.cache.ord"
+        out_image = "%s/%s" % (TMP_PREDICTION_IMAGES_DIRECTORY, next_image_prediction_pgm)
+
+        decodefromcache = "%s %s %s %d %d %s" % \
+            (config.tools.DECODEFROMCACHE,
+             cache_file,
+             out_image,
+             config.sequence.WIDTH_RECONS,
+             config.sequence.HEIGHT_RECONS,
+             REFERENCE_IMAGE_TO_DECODE_FROM_CACHE
+            )
+
+        print(decodefromcache)
+        execute_command_in_a_subprocess(decodefromcache)
+
+        fileA = next_image_pgm
+        fileB = "%s/%s" % (TMP_PREDICTION_IMAGES_DIRECTORY, next_image_prediction_pgm)
+
+        snr = "%s --type=uchar --peak=255 --file_A=%s --file_B=%s 2> /dev/null | grep \"PSNR\[dB\]\" | awk '{print $3}'" % \
+            (config.tools.SNR, 
+             fileA, 
+             fileB
+            )
+
+        PSNR_ME_PRECI = float(execute_piped_commands(snr))
+        print(PSNR_ME_PRECI)
+
+        #----------------------------
+        # Study: Only for the new WOIs received from the next image
+        #----------------------------
+        PRECINCTS_TEMP = "precincts_temp.pgm"
+
+        # Decompress the cache that holds only the new precincts (WOIs)
+        decodefromcache = "%s %s %s %d %d %s" % \
+            (config.tools.DECODEFROMCACHE,
+             next_image_j2c_cache,
+             PRECINCTS_TEMP,
+             config.sequence.WIDTH_RECONS,
+             config.sequence.HEIGHT_RECONS,
+             REFERENCE_IMAGE_TO_DECODE_FROM_CACHE
+            )
+
+        print(decodefromcache)
+        execute_command_in_a_subprocess(decodefromcache)
+
+        fileA = next_image_pgm
+        fileB = PRECINCTS_TEMP
+
+        snr = "%s --type=uchar --peak=255 --file_A=%s --file_B=%s 2> /dev/null | grep \"PSNR\[dB\]\" | awk '{print $3}'" % \
+            (config.tools.SNR, 
+             fileA, 
+             fileB
+            )
+
+        PSNR_PRECI = float(execute_piped_commands(snr))
+        print(PSNR_PRECI)
+
+        #----------------------------
+        # Stydu: Using only MC
+        #----------------------------
+        fileA = next_image_pgm
+        fileB = "prediction_temp.pgm"
+
+        snr = "%s --type=uchar --peak=255 --file_A=%s --file_B=%s 2> /dev/null | grep \"PSNR\[dB\]\" | awk '{print $3}'" % \
+            (config.tools.SNR, 
+             fileA, 
+             fileB
+            )
+
+        PSNR_MC = float(execute_piped_commands(snr))
+        print(PSNR_MC)
+
+        #----------------------------
+        # Study: Simulate a server that truncates the codestream
+        #----------------------------
+        # TODO: Take into account the number of bytes of the thumbnail for the next image.
+        #       In the current solution this value is not taken into account.
+
+        # Header size for the .j2c files
+        getheadersize = "%s %s | grep Bytes | awk '{print $3}'" % \
+            (config.tools.GETHEADERSIZE,
+             next_image_j2c
+            )
+
+        HEADER_SIZE = int(execute_piped_commands(getheadersize))
+
+        dd = "(dd if=%s of=%s bs=%d count=1 2>&1) > /dev/null" % \
+            (next_image_j2c,
+             next_image_trunc_j2c,
+             BYTES_READED + HEADER_SIZE
+            )
+
+        print(dd)
+        execute_command_in_a_subshell(dd)
+
+        kdu_expand = "(kdu_expand -i %s -o %s 2>&1) > /dev/null" % \
+            (next_image_trunc_j2c, 
+             next_image_trunc_pgm
+            )
+
+        print(kdu_expand)
+        execute_command_in_a_subshell(kdu_expand)
+
+        fileA = next_image_pgm
+        fileB = next_image_trunc_pgm
+
+        snr = "%s --type=uchar --peak=255 --file_A=%s --file_B=%s 2> /dev/null | grep \"PSNR\[dB\]\" | awk '{print $3}'" % \
+            (config.tools.SNR, 
+             fileA, 
+             fileB
+            )
+
+        PSNR_TRUNC = float(execute_piped_commands(snr))
+        print(PSNR_TRUNC)
+
+        #----------------------------
+        # Summary table
+        #----------------------------
+        print("BYTES_READED: %d" % BYTES_READED)
+        print("me + precints \t precincts \t me \t trunc")
+        #print("%f \t %f \t %f \t %f" % (PSNR_ME_PRECI, PSNR_PRECI, PSNR_MC, PSNR_TRUNC))
+        #write_line_into_file(PSNR_FILE, "%f \t %f \t %f \t %f" % (PSNR_ME_PRECI, PSNR_PRECI, PSNR_MC, PSNR_TRUNC))
+        print("%f \t %f" % (PSNR_ME_PRECI, PSNR_TRUNC))
+        write_line_into_file(PSNR_FILE, "%f \t %f\n" % (PSNR_ME_PRECI, PSNR_TRUNC))
+
+        #----------------------------
+        # Calculate the SSIM (the Structural SIMilarity (SSIM) index)
+        #ssim = "%s %s %s/%s 2> /dev/null | awk '{print $3}'" % \
+        #    (config.tools.SSIM,
+        #     next_image_pgm,
+        #     TMP_PREDICTION_IMAGES_DIRECTORY, 
+        #     next_image_prediction_pgm
+        #    )
+        #
+        #SSIM_ME_PRECI = float(execute_piped_commands(ssim))
+        #print SSIM_ME_PRECI
+        #
+        #SSIM_TRUNC=`$SSIM $next_image_pgm $next_image_trunc_pgm 2> /dev/null | awk '{print $3}'`
+        #echo -e "$SSIM_ME_PRECI \t $SSIM_TRUNC \n"
+        #echo -e "$SSIM_ME_PRECI \t $SSIM_TRUNC" >> ${SSIM_FILE}
+        #----------------------------
+
+        # Draw blocks which match with the requested WOIs.
+        input_file = "%s/%s" % (TMP_PREDICTION_IMAGES_DIRECTORY, next_image_prediction_pgm)
+        precinct_list = "%s/%s.j2c.woi" % (config.sequence.THUMBNAILS_DIRECTORY, next_index)
+        output_file = "%s/%s.blocks.pgm" % (TMP_BLOCKS, next_index)
+
+        drawblocks = "%s %s %s %d %d %s" % \
+            (config.tools.DRAWBLOCKS,
+             input_file,
+             precinct_list,
+             config.sequence.W_PRECINT_SIZE,
+             config.sequence.H_PRECINT_SIZE,
+             output_file
+            )
+
+        print(drawblocks)
+        execute_command_in_a_subprocess(drawblocks)
 
         i = i + 1
