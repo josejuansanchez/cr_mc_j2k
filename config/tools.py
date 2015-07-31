@@ -32,5 +32,5 @@ PRINT_ALL_WOI_LIST        = CR_MC_J2K_HOME + "/tools/bin/print_wois_list"
 
 # TODO: Improve this section
 # Configuramos el path de Octave para que encuentre nuestros archivos .m
-#octave --eval "addpath('$CR_MC_J2K_HOME/tools/ssim/');savepath;" &> /dev/null
+#os.system("octave --eval \"addpath('%s/tools/ssim/');savepath;\" &> /dev/null" % CR_MC_J2K_HOME)
 #SSIM = CR_MC_J2K_HOME + "/tools/ssim/compute_ssim.sh"
