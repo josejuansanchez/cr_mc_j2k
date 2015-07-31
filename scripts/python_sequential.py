@@ -52,13 +52,19 @@ def write_line_into_file(path, line):
     f.write(line)
     f.close()
 
-def CleanMeTempFiles():
+def clean_me_temp_files():
     remove_file("high")
     remove_file("frame_types")
     remove_file("motion")
     remove_file("motion_out")
     remove_file("prediction_000.pgm")
     remove_file("prediction_temp.pgm")
+
+def clean_wois_to_cache_temp_files():
+    remove_file("rm *.woi")
+    remove_file("rm *.lrcp")
+    remove_file("rm *.cache")
+    remove_file("rm bytes.readed")
 
 def main():
     print("main")
@@ -154,7 +160,7 @@ if __name__ == '__main__':
 
     i = 0
     while i < TOTAL_NUMBER_OF_IMAGES:
-        CleanMeTempFiles
+        clean_me_temp_files
         
         print("\nIteration: %d\n" % i)
 
@@ -507,6 +513,8 @@ if __name__ == '__main__':
         PSNR_ME_PRECI = float(execute_piped_commands(snr))
         print(PSNR_ME_PRECI)
 
+        sys.exit(-1)
+
         #----------------------------
         # Study: Only for the new WOIs received from the next image
         #----------------------------
@@ -638,5 +646,49 @@ if __name__ == '__main__':
 
         print(drawblocks)
         execute_command_in_a_subprocess(drawblocks)
+
+        # Copy the used files in this iteration in an auxiliar directory in order to debug the results
+        execute_command_in_a_subshell("cp " + even_image + " " + TMP_PGM_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp " + odd_image + " " + TMP_PGM_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp prediction_thumb.pgm " + TMP_THUMB_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp " + next_image_thumbnail + " " +TMP_THUMB_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp " + next_image_trunc_j2c + " " + TMP_TRUNC_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp " + next_image_trunc_pgm + " " +TMP_TRUNC_IMAGES_DIRECTORY)
+        execute_command_in_a_subshell("cp prediction_plus_next.j2c.cache " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_plus_next.j2c.cache")
+        execute_command_in_a_subshell("cp prediction_plus_next_plus_empty.j2c.cache " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_plus_next_plus_empty.j2c.cache")
+        execute_command_in_a_subshell("cp prediction_plus_next_plus_empty.j2c.cache.ord " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_plus_next_plus_empty.j2c.cache.ord")
+        execute_command_in_a_subshell("cp prediction_temp.j2c " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_temp.j2c")
+        execute_command_in_a_subshell("cp prediction_temp.j2c.cache " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_temp.j2c.cache")
+        execute_command_in_a_subshell("cp prediction_temp.j2c.lrcp " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_temp.j2c.lrcp")
+        execute_command_in_a_subshell("cp prediction_temp.j2c.woi " + TMP_PREDICTION_DATA_DIRECTORY + "/" + next_index + "_prediction_temp.j2c.woi")
+
+        # Update the variables for the next iteration
+        even_num = even_num + 1
+        odd_num = odd_num + 1
+
+        even = "%03d" % even_num
+        odd = "%03d" % odd_num
+
+        # even image
+        # The 'odd_image' will be the 'even_imagen' in the next iteration
+        even_image = odd_image
+
+        # odd image
+        # The predicted image will be the 'odd_image' in the next iteration.
+        # We need to copy this image to the current working directory.
+        execute_command_in_a_subshell("cp " + TMP_PREDICTION_IMAGES_DIRECTORY + "/" + next_image_prediction_pgm + " " + odd + ".pgm")
+        odd_image = odd + ".pgm"
+
+        # next image
+        next_index = "%03d" % (odd_num + 1)
+        next_image_thumbnail = config.sequence.THUMBNAILS_DIRECTORY + "/" + next_index + ".thumb.pgm"
+        next_image_pgm = config.sequence.IMAGES_DIRECTORY + "/" + next_index + ".pgm"
+        next_image_j2c = config.sequence.THUMBNAILS_DIRECTORY + "/" + next_index + ".j2c"
+        next_image_j2c_cache = config.sequence.THUMBNAILS_DIRECTORY + "/" + next_index + ".j2c.cache"
+        next_image_prediction_pgm = next_index + ".pgm"
+        next_image_trunc_j2c = next_index + ".trunc.j2c"
+        next_image_trunc_pgm = next_index + ".trunc.pgm"
+
+        clean_wois_to_cache_temp_files
 
         i = i + 1
