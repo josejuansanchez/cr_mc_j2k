@@ -25,13 +25,19 @@ Example of how to compile [Kakadu][1] (version: v6_4_1-00305L) on Linux:
 $ cr_mc_j2k/src/Kakadu/v6_4_1-00305L/make/make -f Makefile-Linux-x86-64-gcc
 ```
 
-#### 2) Set the global variable **CR_MC_J2K_HOME**
+#### 2) Set the **LD_LIBRARY_PATH** variable
+
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/vagrant/src/Kakadu/v6_4_1-00305L/lib/Linux-x86-64-gcc
+```
+
+#### 3) Set the **CR_MC_J2K_HOME** global variable
 
 ```bash
 $ export CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
 ```
 
-#### 3) Compile all the tools of the project
+#### 4) Compile all the tools of the project
 
 You can compile all the tools of the project using the **Makefile** located in
 the directory `$CR_MC_J2K_HOME/make/`.
