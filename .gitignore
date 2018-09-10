@@ -53,3 +53,7 @@ scripts/knapsack_solution.txt
 
 # Python bytecode files
 *.pyc
+
+# Vagrant
+.vagrant
+*.log
