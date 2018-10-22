@@ -14,7 +14,7 @@ Conditional Replenishment and Motion Compensation based on JPEG2000.
 [KaKadu SDK][1] has to be located in the next directory:
 
 ```
-cr_mc_j2k/src/Kakadu
+/vagrant/src/Kakadu
 ```
 
 #### 1) Compile Kakadu
@@ -22,22 +22,28 @@ cr_mc_j2k/src/Kakadu
 Example of how to compile [Kakadu][1] (version: v6_4_1-00305L) on Linux:
 
 ```bash
-$ cr_mc_j2k/src/Kakadu/v6_4_1-00305L/make/make -f Makefile-Linux-x86-64-gcc
+$ /vagrant/src/Kakadu/v6_4_1-00305L/make/make -f Makefile-Linux-x86-64-gcc
 ```
 
 #### 2) Set the **LD_LIBRARY_PATH** variable
 
 ```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/vagrant/src/Kakadu/v6_4_1-00305L/lib/Linux-x86-64-gcc
+$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/vagrant/src/Kakadu/v6_4_1-00305L/lib/Linux-x86-64-gcc
 ```
 
-#### 3) Set the **CR_MC_J2K_HOME** global variable
+#### 3) Set the **PATH** variable
 
 ```bash
-$ export CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
+$ export PATH=$PATH:/vagrant/src/Kakadu/v6_4_1-00305L/bin/Linux-x86-64-gcc
 ```
 
-#### 4) Compile all the tools of the project
+#### 4) Set the **CR_MC_J2K_HOME** global variable
+
+```bash
+$ export CR_MC_J2K_HOME=/vagrant
+```
+
+#### 5) Compile all the tools of the project
 
 You can compile all the tools of the project using the **Makefile** located in
 the directory `$CR_MC_J2K_HOME/make/`.
@@ -80,13 +86,21 @@ Once you have created the file you have to update the
 `$CR_MC_J2K_HOME/config/cr_mc_config.sh` file to specify which configuration
 file have to be used.
 
+#### 2) Compress the seguence using to JPEG2000
+
+Example:
+
+```
+/vagrant/data/scripts/process_speedway_layers-8_levels-4_precincts-128_blk_16.sh
+```
+
 #### 2) Create the Kanpsack files (JSON)
 
 Example of how to create the Knapsack files for a sequence of images composed
 by 900 frames (from frame 1 until frame 900):
 
 ```bash
-$ $CR_MC_J2K_HOME/knapsack/tools/create_all_kanpsack_files$ ./create_all_knapsack_files.sh 1 900
+$ $CR_MC_J2K_HOME/knapsack/tools/create_all_kanpsack_files/create_all_knapsack_files.sh 1 900
 ```
 
 Note that you don't have to start in the frame 1, you can specify the number

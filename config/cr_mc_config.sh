@@ -2,7 +2,7 @@
 
 # Platform
 # LINUX
-export CR_MC_J2K_HOME=/home/josejuan/cr_mc_j2k
+export CR_MC_J2K_HOME=/vagrant
 # MAC
 #export CR_MC_J2K_HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
 

@@ -4,7 +4,7 @@ default:	all
 CC = g++
 
 # LINUX
-KAKADU_DIR = /home/josejuan/cr_mc_j2k/src/Kakadu/v6_4_1-00305L
+KAKADU_DIR = /vagrant/src/Kakadu/v6_4_1-00305L
 # MAC
 #KAKADU_DIR = /Users/josejuansanchez/UAL/git/cr_mc_j2k/src/Kakadu/v6_4_1-00305L
 
