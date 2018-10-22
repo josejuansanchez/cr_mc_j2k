@@ -74,6 +74,7 @@ function [mssim, ssim_map] = ssim(img1_filename, img2_filename, K, window, L)
 %   imshow(max(0, ssim_map).^4)  %Shows the SSIM index map
 %========================================================================
 
+pkg load image
 
 img1 = imread(img1_filename);
 img2 = imread(img2_filename);
