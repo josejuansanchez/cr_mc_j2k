@@ -182,15 +182,15 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	# *************************
 	# In this step we try to know what is the best method to send the WOIs.
 	# We use the 'knapsack' tool to evaluate all the possibilities.
-	rm knapsack_solution.txt
-	$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt $BITRATE > knapsack_solution.txt
-	KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
-	echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
-
-	if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
-		KNAPSACK_SOLUTION_QL=`grep "\"ql\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
-		echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
-	fi
+	#rm knapsack_solution.txt
+	#$KNAPSACK $KNAPSACK_JSON_FILES/${next_index}.json $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt $BITRATE > knapsack_solution.txt
+	#KNAPSACK_SOLUTION_METHOD=`grep "\"method\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1`
+	#echo "KNAPSACK_SOLUTION_METHOD: $KNAPSACK_SOLUTION_METHOD"
+	#
+	#if [ $KNAPSACK_SOLUTION_METHOD -eq 2 ]; then
+	#	KNAPSACK_SOLUTION_QL=`grep "\"ql\"" knapsack_solution.txt | awk '{print $2}' | cut -d "," -f1 | head -1`
+	#	echo "KNAPSACK_SOLUTION_QL: $KNAPSACK_SOLUTION_QL"
+	#fi
 	# *************************
 
 
@@ -231,8 +231,8 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	# that have been included in the response taking into account the bitrate
 	# specified as input parameter.
 
-	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
-	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
+	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 0
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 1
@@ -255,8 +255,11 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 6
 
-	$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
-	$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 7
+
+	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
+	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 2 8
 
 	#$WOISTOCACHE $next_image_j2c $TMP_PRECINCTS_DIRECTORY/${next_index}.some.txt \
 	#$W_PRECINT_SIZE $H_PRECINT_SIZE $(($CLEVELS+1)) $CLAYERS $BITRATE 3 7
@@ -506,3 +509,5 @@ done
 
 CleanMeTempFiles
 CleanAllTempFiles
+
+echo "The script sequential.sh has finished."
