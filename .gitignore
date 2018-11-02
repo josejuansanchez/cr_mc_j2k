@@ -57,3 +57,6 @@ scripts/knapsack_solution.txt
 # Vagrant
 .vagrant
 *.log
+
+# macOS
+.DS_Store
