@@ -38,7 +38,11 @@ done
 
 # TODO: Improve this step
 #
-mogrify -resize 160x96 $IMAGES_J2C_DESTINATION/*.pgm
+# Dimensiones del thumbnail
+XTHUMB=320
+YTHUMB=192
+#
+mogrify -resize ${XTHUMB}x${YTHUMB} $IMAGES_J2C_DESTINATION/*.pgm
 
 first_image=`printf %03d $INITIAL`
 i=1
