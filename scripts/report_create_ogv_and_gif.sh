@@ -126,9 +126,9 @@ done
 
 ## 5. Create a montage with all the above frames using this layout:
 #    -------------------------
-#    | Prediction |  Blocks  |
+#    | Original |  Blocks    |
 #    -------------------------
-#    | MJ2K       | Original |
+#    | MJ2K     | Prediction |
 #    -------------------------
 
 # I have had to change the image format because when I use .png the images
@@ -154,8 +154,8 @@ do
   FRAME_NUMBER=$(printf %03d $FRAME)
   OUT_FRAME_NUMBER=$(printf %03d $COUNTER)
 
-  montage $TMP_PREDICTION_DIR/$FRAME_NUMBER.png $TMP_BLOCKS_DIR/$FRAME_NUMBER.png \
-    $TMP_TRUNC_DIR/$FRAME_NUMBER.png $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png \
+  montage $TMP_ORIGINAL_DIR/$FRAME_NUMBER.png $TMP_BLOCKS_DIR/$FRAME_NUMBER.png \
+    $TMP_TRUNC_DIR/$FRAME_NUMBER.png $TMP_PREDICTION_DIR/$FRAME_NUMBER.png \
     -tile 2x2 -geometry +1+1 $TMP_ALL_DIR/img_$OUT_FRAME_NUMBER.jpg
 
   COUNTER=$((COUNTER+1))
