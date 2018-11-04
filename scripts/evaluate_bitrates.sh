@@ -21,7 +21,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
 fi
 
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_01_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_02_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a0_v2_mode_0
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_03_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a0_v2_mode_0
 
 # speedway
 #IMAGE_N=0
