@@ -3,8 +3,6 @@
 # Platform
 # LINUX
 export CR_MC_J2K_HOME=/vagrant
-# MAC
-#export CR_MC_J2K_HOME=/Users/josejuansanchez/UAL/git/cr_mc_j2k
 
 # Tools
 DIFFERENCES=$CR_MC_J2K_HOME/tools/bin/differencesthumbnails
@@ -33,8 +31,8 @@ SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 # Configuration file with:
 # - compression parameters used in kdu_compress
 # - motion estimation parameters
-#source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-64-32-16_blk-16.cfg
-source $CR_MC_J2K_HOME/config/sequences/stockholm_layers-8_levels-2_precincts-128-64-32_blk-32.cfg
+source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-64-32-16_blk-16.cfg
+#source $CR_MC_J2K_HOME/config/sequences/stockholm_layers-8_levels-2_precincts-128-64-32_blk-32.cfg
 
 # Calculamos las dimensiones de los precintos del thumbnail
 W_PRECINT_SIZE_THUMBNAIL=`echo "$XTHUMB/($WIDTH_RECONS/$W_PRECINT_SIZE)" | bc`
