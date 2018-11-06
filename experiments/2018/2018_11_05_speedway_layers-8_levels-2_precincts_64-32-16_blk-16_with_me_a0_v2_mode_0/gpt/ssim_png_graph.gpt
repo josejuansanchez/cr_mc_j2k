@@ -1,0 +1,21 @@
+#set terminal fig textspecial color
+set terminal png
+set output "ssim.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'SSIM'
+
+#set yrange [0:60]
+set key out right
+
+plot "paste_1000.txt" using 1:5 with lines title 'MCCR (1000 Bytes)' axes x1y1, \
+     "paste_2000.txt" using 1:5 with lines title 'MCCR (2000 Bytes)' axes x1y1, \
+     "paste_3000.txt" using 1:5 with lines title 'MCCR (3000 Bytes)' axes x1y1, \
+     "paste_4000.txt" using 1:5 with lines title 'MCCR (4000 Bytes)' axes x1y1, \
+     "paste_5000.txt" using 1:5 with lines title 'MCCR (5000 Bytes)' axes x1y1, \
+     "paste_1000.txt" using 1:6 with linespoints ls 1 title 'MJ2K (1000 Bytes)' axes x1y1, \
+     "paste_2000.txt" using 1:6 with linespoints ls 2 title 'MJ2K (2000 Bytes)' axes x1y1, \
+     "paste_3000.txt" using 1:6 with linespoints ls 3 title 'MJ2K (3000 Bytes)' axes x1y1, \
+     "paste_4000.txt" using 1:6 with linespoints ls 4 title 'MJ2K (4000 Bytes)' axes x1y1, \
+     "paste_5000.txt" using 1:6 with linespoints ls 5 title 'MJ2K (5000 Bytes)' axes x1y1

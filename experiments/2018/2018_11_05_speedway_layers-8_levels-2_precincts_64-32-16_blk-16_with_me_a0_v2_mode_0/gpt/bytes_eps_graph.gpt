@@ -1,0 +1,15 @@
+#set terminal fig textspecial color
+set terminal postscript eps color
+set output "bytes.eps"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'Bit-rate (bytes)'
+
+set key out right
+
+plot "paste_1000.txt" using 1:2 with lines title '1 K' axes x1y1, \
+     "paste_2000.txt" using 1:2 with lines title '2 K' axes x1y1, \
+     "paste_3000.txt" using 1:2 with lines title '3 K' axes x1y1, \
+     "paste_4000.txt" using 1:2 with lines title '4 K' axes x1y1, \
+     "paste_5000.txt" using 1:2 with lines title '5 K' axes x1y1
