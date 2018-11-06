@@ -1,0 +1,21 @@
+#set terminal fig textspecial color
+set terminal png
+set output "psnr.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'PSNR [dB]'
+
+#set yrange [0:60]
+set key out right
+
+plot "paste_11000.txt" using 1:3 with lines title 'MCCR (11000 Bytes)' axes x1y1, \
+     "paste_21000.txt" using 1:3 with lines title 'MCCR (21000 Bytes)' axes x1y1, \
+     "paste_31000.txt" using 1:3 with lines title 'MCCR (31000 Bytes)' axes x1y1, \
+     "paste_41000.txt" using 1:3 with lines title 'MCCR (41000 Bytes)' axes x1y1, \
+     "paste_51000.txt" using 1:3 with lines title 'MCCR (51000 Bytes)' axes x1y1, \
+     "paste_11000.txt" using 1:4 with linespoints ls 1 title 'MJ2K (11000 Bytes)' axes x1y1, \
+     "paste_21000.txt" using 1:4 with linespoints ls 2 title 'MJ2K (21000 Bytes)' axes x1y1, \
+     "paste_31000.txt" using 1:4 with linespoints ls 3 title 'MJ2K (31000 Bytes)' axes x1y1, \
+     "paste_41000.txt" using 1:4 with linespoints ls 4 title 'MJ2K (41000 Bytes)' axes x1y1, \
+     "paste_51000.txt" using 1:4 with linespoints ls 5 title 'MJ2K (51000 Bytes)' axes x1y1

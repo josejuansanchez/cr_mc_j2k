@@ -1,0 +1,15 @@
+#set terminal fig textspecial color
+set terminal png
+set output "bytes.png"
+
+set title ''
+set xlabel 'Frame Number'
+set ylabel 'Bit-rate (bytes)'
+
+set key out right
+
+plot "paste_11000.txt" using 1:2 with lines title '11 K' axes x1y1, \
+     "paste_21000.txt" using 1:2 with lines title '21 K' axes x1y1, \
+     "paste_31000.txt" using 1:2 with lines title '31 K' axes x1y1, \
+     "paste_41000.txt" using 1:2 with lines title '41 K' axes x1y1, \
+     "paste_51000.txt" using 1:2 with lines title '51 K' axes x1y1
