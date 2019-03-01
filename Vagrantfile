@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
      apt-get install octave-image
      apt-get install ffmpeg
 
+     mkdir -p /vagrant/src/Kakadu
      cp /vagrant/kakadu/v6_4_1-00305L.zip /vagrant/src/Kakadu
      cd /vagrant/src/Kakadu
      unzip -o v6_4_1-00305L.zip
