@@ -1,8 +1,13 @@
 #!/bin/bash
 set -x
 
-if [ ! -d $HOME/bin ]; then
-    mkdir $HOME/bin
+if [[ $CR_MC_J2K_HOME = "" ]]; then
+	echo "Error. CR_MC_J2K_HOME is not defined"
+	exit 1
+fi
+
+if [ ! -d $CR_MC_J2K_HOME/MCJ2K/bin ]; then
+    mkdir $CR_MC_J2K_HOME/MCJ2K/bin
 fi
 
 make -C src
