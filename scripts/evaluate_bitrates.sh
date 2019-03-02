@@ -20,7 +20,8 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2019/2019_03_01_speedway_layers-8_levels-2_precincts_16-16-16_blk-16_with_me_a0_v2_mode_0
+#EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_03_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a0_v2_mode_0
 
 # speedway
@@ -55,6 +56,9 @@ do
 
     mv all.ogv all_$BITRATE.ogv
     mv all.gif all_$BITRATE.gif
+
+    cp all_$BITRATE.ogv $EXPERIMENTS
+    cp all_$BITRATE.gif $EXPERIMENTS
 
     ./clean.sh
 done
