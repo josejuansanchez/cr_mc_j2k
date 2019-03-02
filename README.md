@@ -79,7 +79,7 @@ Clean old and temp files:
 $CR_MC_J2K_HOME/data/scripts./clean_pgm_j2c.sh
 ```
 
-#### 1) Compress the seguence to JPEG2000
+#### 1) Compress the sequence to JPEG2000
 
 Example:
 
@@ -96,11 +96,27 @@ scripts and store it in the directory:
 $CR_MC_J2K_HOME/config/sequences
 ```
 
+Example:
+
+```bash
+$CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-64-32-16_blk-16.sh
+```
+
+#### 3) Update the config file `config/cr_mc_config.sh`
+
 Once you have created the file you have to update the
 `$CR_MC_J2K_HOME/config/cr_mc_config.sh` file to specify which configuration
 file have to be used.
 
-#### 3) Create the Kanpsack files (JSON) (Only for knapsack mode)
+Example:
+
+```bash
+...
+source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-64-32-16_blk-16.cfg
+...
+```
+
+#### 4) Create the Kanpsack files (JSON) (Only for knapsack mode)
 
 Example of how to create the Knapsack files for a sequence of images composed
 by 900 frames (from frame 1 until frame 900):
@@ -112,21 +128,23 @@ $ $CR_MC_J2K_HOME/knapsack/tools/create_all_kanpsack_files/create_all_knapsack_f
 Note that you don't have to start in the frame 1, you can specify the number
 of the first frame where you can to start.
 
-#### 4) Create temporary directories
+#### 5) Create temporary directories
 
 ```bash
 $ $CR_MC_J2K_HOME/scripts$ ./create_temp_directories.sh
 ```
 
-#### 5) Run the scripts!
+#### 6) Run the scripts!
 
 Use the scripts located in the `$CR_MC_J2K_HOME/scripts` to perform a simulation. 
 
 You can use the following scripts:
 
 - `clean.sh`
+
+This script removes temporary files from previous simulations.
+
 - `sequencial.sh`
-- `evaluate_bitrates.sh` 
 
 Example:
 
@@ -134,10 +152,20 @@ Example:
 $ $CR_MC_J2K_HOME/scripts$ ./sequential.sh 1 900 5000
 ```
 
+- `evaluate_bitrates.sh` 
+
 Example:
 
 ```bash
 $ $CR_MC_J2K_HOME/scripts$ ./evaluate_bitrates.sh
+```
+
+The results of the simulation created with this script will be stored in a directory that should be indicated in the `EXPERIMENTS` variable.
+
+Example:
+
+```bash
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
 ```
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br />This work by <a xmlns:cc="http://creativecommons.org/ns#" href="http://josejuansanchez.org" property="cc:attributionName" rel="cc:attributionURL">José Juan Sánchez Hernández</a>, <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.hpca.ual.es/~jportiz/" property="cc:attributionName" rel="cc:attributionURL">Juan Pablo García Ortiz</a> and <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.ual.es/~vruiz" property="cc:attributionName" rel="cc:attributionURL">Vicente González Ruiz</a>
