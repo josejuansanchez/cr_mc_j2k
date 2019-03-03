@@ -20,14 +20,15 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2019/2019_03_01_speedway_layers-8_levels-2_precincts_16-16-16_blk-16_with_me_a0_v2_mode_0
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2019/2019_03_02_speedway_layers-8_levels-2_precincts_16-8-4_blk-4_with_me_a0_v2_mode_2_8
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_03_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a0_v2_mode_0
 
 # speedway
 IMAGE_N=0
 IMAGE_N1=1
-TOTAL_NUMBER_OF_IMAGES=50
+TOTAL_NUMBER_OF_IMAGES=10
+#TOTAL_NUMBER_OF_IMAGES=50
 
 # stockholm
 #IMAGE_N=3
