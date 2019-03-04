@@ -1,3 +1,28 @@
+# Información sobre las imágenes (16, 16, 16. cblk = 16)
+
+```
+kdu_compress -i 000.pgm -o 000.j2c Cuse_sop=yes Corder=LRCP Clayers=8 Clevels=2 Cprecincts="{16,16},{16,16},{16,16}" Cblk="{16,16}" Creversible=yes
+```
+
+```
+CLAYERS=8
+CLEVELS=2
+CPRECINCTS="{16,16},{16,16},{16,16}"
+CBLK="{16,16}"
+CORDER=LRCP
+```
+
+```
+Layer 1     Size:  7,030 bytes
+Layer 2     Size: 12,481 bytes
+Layer 3     Size: 18,363 bytes
+Layer 4     Size: 24,832 bytes
+Layer 5     Size: 32,214 bytes
+Layer 6     Size: 40,780 bytes
+Layer 7     Size: 51,096 bytes
+Layer 8     Size: 97,040 bytes
+```
+
 # Información sobre las imágenes (16, 8, 4. cblk = 4)
 
 ```
