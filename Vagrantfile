@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
      apt-get install -y octave
      apt-get install -y octave-image
      apt-get install -y ffmpeg
+     apt-get install -y gnuplot5
 
      mkdir -p /vagrant/src/Kakadu
      cp /vagrant/kakadu/v6_4_1-00305L.zip /vagrant/src/Kakadu
