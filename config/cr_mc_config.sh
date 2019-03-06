@@ -31,7 +31,7 @@ SSIM=$CR_MC_J2K_HOME/tools/ssim/compute_ssim.sh
 # Configuration file with:
 # - compression parameters used in kdu_compress
 # - motion estimation parameters
-source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-16-8-4_blk-4.cfg
+source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-16-16-16_blk-16.cfg
 #source $CR_MC_J2K_HOME/config/sequences/speedway_layers-8_levels-2_precincts-64-32-16_blk-16.cfg
 #source $CR_MC_J2K_HOME/config/sequences/stockholm_layers-8_levels-2_precincts-128-64-32_blk-32.cfg
 
