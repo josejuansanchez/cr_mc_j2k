@@ -48,7 +48,7 @@ V=2     # Overlapping. Para difuminar los bordes de los bloques.
 
 ## PSNR, SSIM and Transmitted bitrate per frame
 
-![](curves/todo.png)
+![](data/todo.png)
 
 ## Reconstructions
 
