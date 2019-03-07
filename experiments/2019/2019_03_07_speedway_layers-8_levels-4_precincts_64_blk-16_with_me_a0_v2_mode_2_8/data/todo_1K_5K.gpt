@@ -1,0 +1,54 @@
+#set terminal fig textspecial color
+set terminal postscript eps color 12
+set output "todo.eps"
+
+#set multiplot layout 3, 1 title "Speedway" font ",24"
+set multiplot layout 3, 1
+set lmargin 8
+
+set title ''
+set ylabel 'PSNR [dB]'
+set xtics 5
+set xrange [2:11]
+#set key out right
+set key above
+
+plot "paste_1000.txt" using 1:3 with lines ls 1 lw 3 title 'MCCR (1K)', \
+     "paste_1000.txt" using 1:4 with lines ls 1 dt 2 lw 3 title 'MJ2K (1K)', \
+     "paste_2000.txt" using 1:3 with lines ls 2 lw 3 title 'MCCR (2K)', \
+     "paste_2000.txt" using 1:4 with lines ls 2 dt 2 lw 3 title 'MJ2K (2K)', \
+     "paste_3000.txt" using 1:3 with lines ls 3 lw 3 title 'MCCR (3K)', \
+     "paste_3000.txt" using 1:4 with lines ls 3 dt 2 lw 3 title 'MJ2K (3K)', \
+     "paste_4000.txt" using 1:3 with lines ls 4 lw 3 title 'MCCR (4K)', \
+     "paste_4000.txt" using 1:4 with lines ls 4 dt 2 lw 3 title 'MJ2K (4K)', \
+     "paste_5000.txt" using 1:3 with lines ls 5 lw 3 title 'MCCR (5K)', \
+     "paste_5000.txt" using 1:4 with lines ls 5 dt 2 lw 3 title 'MJ2K (5K)'
+
+set ylabel 'SSIM'
+set xrange [2:11]
+set nokey
+
+plot "paste_1000.txt" using 1:5 with lines ls 1 lw 3 title 'MCCR (1K)', \
+     "paste_2000.txt" using 1:5 with lines ls 2 lw 3 title 'MCCR (2K)', \
+     "paste_3000.txt" using 1:5 with lines ls 3 lw 3 title 'MCCR (3K)', \
+     "paste_4000.txt" using 1:5 with lines ls 4 lw 3 title 'MCCR (4K)', \
+     "paste_5000.txt" using 1:5 with lines ls 5 lw 3 title 'MCCR (5K)', \
+     "paste_1000.txt" using 1:6 with lines ls 1 dt 2 lw 3 title 'MJ2K (1K)', \
+     "paste_2000.txt" using 1:6 with lines ls 2 dt 2 lw 3 title 'MJ2K (2K)', \
+     "paste_3000.txt" using 1:6 with lines ls 3 dt 2 lw 3 title 'MJ2K (3K)', \
+     "paste_4000.txt" using 1:6 with lines ls 4 dt 2 lw 3 title 'MJ2K (4K)', \
+     "paste_5000.txt" using 1:6 with lines ls 5 dt 2 lw 3 title 'MJ2K (5K)'
+
+set ylabel 'KB'
+set yrange [0:5000]
+set ytics ("0K" 0, "2.5K" 2500, "5K" 5000)
+set xlabel 'Frame Number'
+#set offset 0.2,0.0
+
+plot "paste_1000.txt" using 1:2 with lines ls 1 lw 3 title '', \
+     "paste_2000.txt" using 1:2 with lines ls 2 lw 3 title '', \
+     "paste_3000.txt" using 1:2 with lines ls 3 lw 3 title '', \
+     "paste_4000.txt" using 1:2 with lines ls 4 lw 3 title '', \
+     "paste_5000.txt" using 1:2 with lines ls 5 lw 3 title ''
+
+unset multiplot
