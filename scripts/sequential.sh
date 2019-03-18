@@ -408,11 +408,27 @@ while [ $i -lt $TOTAL_NUMBER_OF_IMAGES ]; do
 	# Header size for the .j2c files
 	HEADER_SIZE=`$GETHEADERSIZE $next_image_j2c | grep Bytes | awk '{print $3}'`
 
-	(dd if=$next_image_j2c of=$next_image_trunc_j2c bs=$(($BYTES_READED+$HEADER_SIZE)) count=1 2>&1) > /dev/null
-	(kdu_expand -i $next_image_trunc_j2c -o $next_image_trunc_pgm 2>&1) > /dev/null
-	PSNR_TRUNC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm --file_B=$next_image_trunc_pgm 2> /dev/null | \
-	grep "PSNR\[dB\]" | awk '{print $3}'`
-	CheckExitStatusCode
+	# TODO: 
+	# Temprary solution. 18/03/2019
+	if [ "$((BITRATE - 200))" -gt "$BYTES_READED"  ]; then
+		(dd if=$next_image_j2c of=$next_image_trunc_j2c bs=$(($BITRATE+$HEADER_SIZE)) count=1 2>&1) > /dev/null
+		(kdu_expand -i $next_image_trunc_j2c -o $next_image_trunc_pgm 2>&1) > /dev/null
+		PSNR_TRUNC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm --file_B=$next_image_trunc_pgm 2> /dev/null | \
+		grep "PSNR\[dB\]" | awk '{print $3}'`
+		CheckExitStatusCode
+	else
+		(dd if=$next_image_j2c of=$next_image_trunc_j2c bs=$(($BYTES_READED+$HEADER_SIZE)) count=1 2>&1) > /dev/null
+		(kdu_expand -i $next_image_trunc_j2c -o $next_image_trunc_pgm 2>&1) > /dev/null
+		PSNR_TRUNC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm --file_B=$next_image_trunc_pgm 2> /dev/null | \
+		grep "PSNR\[dB\]" | awk '{print $3}'`
+		CheckExitStatusCode
+	fi
+
+	#(dd if=$next_image_j2c of=$next_image_trunc_j2c bs=$(($BYTES_READED+$HEADER_SIZE)) count=1 2>&1) > /dev/null
+	#(kdu_expand -i $next_image_trunc_j2c -o $next_image_trunc_pgm 2>&1) > /dev/null
+	#PSNR_TRUNC=`$SNR --type=uchar --peak=255 --file_A=$next_image_pgm --file_B=$next_image_trunc_pgm 2> /dev/null | \
+	#grep "PSNR\[dB\]" | awk '{print $3}'`
+	#CheckExitStatusCode
 
 	#----------------------------
 	# Summary table
