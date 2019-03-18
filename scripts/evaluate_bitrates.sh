@@ -20,7 +20,7 @@ if [[ $CR_MC_J2K_HOME = "" ]]; then
     exit 1
 fi
 
-EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2019/2019_03_07_speedway_layers-8_levels-4_precincts_64_blk-16_with_me_a0_v2_mode_2_8
+EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2019/2019_03_08_speedway_layers-8_levels-4_precincts_64_blk-16_with_me_a0_v2_mode_2_8
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_05_speedway_layers-8_levels-2_precincts_64-32-16_blk-16_with_me_a0_v2_mode_0
 #EXPERIMENTS=$CR_MC_J2K_HOME/experiments/2018/2018_11_03_stockholm_layers-8_levels-2_precincts-128-64-32_blk-32_with_me_a0_v2_mode_0
 
