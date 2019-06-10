@@ -60,3 +60,6 @@ scripts/knapsack_solution.txt
 
 # macOS
 .DS_Store
+
+# Visual Studio Code
+.vscode/
